@@ -1,0 +1,19 @@
+<html>
+<head>
+<link rel='alternate' media='print' href=''></link>
+
+        <script type="text/javascript">
+
+        function setPrintPage(prnThis){
+
+        var prnDoc = document.getElementsByTagName('link');
+        prnDoc[0].setAttribute('href', prnThis);
+        window.print();
+        }
+
+        </script>
+</head>
+<body>
+<input type='button' value='Slip.txt' onclick="setPrintPage('Slip.txt')"> 
+</body>
+</html>

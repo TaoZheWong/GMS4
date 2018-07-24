@@ -1,0 +1,368 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="GMSWeb.Site" %>
+
+<!DOCTYPE html>
+<%@ Register Assembly="SharpPieces.Web.Controls.ExtendedDropDownList" Namespace="SharpPieces.Web.Controls"
+	TagPrefix="piece" %>
+	
+<html lang="en" data-ng-app="newsFeedApp">
+<head runat="server">   
+    <meta charset="utf-8" />
+    <title>Leeden GMS</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="theme-color" content="#007ee5">
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="../new_assets/plugins/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../new_assets/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../new_assets/plugins/DataTables/datatables.min.css" rel="stylesheet" />
+    <link href="../new_assets/plugins/bootstrap-timepicker/bootstrap-timepicker.css" rel="stylesheet" />
+     <link href="../new_assets/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="../new_assets/plugins/icon/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <link href="../jqueryui/DataTables-Bootstrap/Bootstrap-3.3.6/css/fileinput.min.css" media="screen" rel="stylesheet" />
+    <link href="../new_assets/css/animate.min.css" rel="stylesheet" />
+    <link href="../new_assets/css/style.min.css" rel="stylesheet" />
+    <link href="../new_assets/css/overwrite_app.css?v=1" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+
+    <link href="../new_assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="../new_assets/plugins/flag-icon-css-master/css/flag-icon.css" rel="stylesheet">
+</head>
+<body class="<%=getIsLargeFont%> <%=Request.Browser.Browser %> <%=getIsOptimizedTable%>">
+  
+<div id="page-container" class="page-header-fixed page-sidebar-fixed <%=getIsSidebarMinified %>">
+   
+    <form id="form1" runat="server" style="height:100%">	
+        <noscript>
+          You need to enable JavaScript to run this app.
+        </noscript>
+
+        <input type="hidden" id="globalHidCoyID" runat="server" value="" />	
+	    <input type="hidden" id="globalHidUserID" runat="server" value="" />
+        <input type="hidden" id="globalHidCurrency" runat="server" value="" />
+
+        <!-- BEGIN #header -->
+	    <div id="header" class="header navbar navbar-inverse navbar-fixed-top">
+		    <!-- BEGIN container-fluid -->
+		    <div class="container-fluid">
+			    <!-- BEGIN mobile sidebar expand / collapse button -->
+			    <div class="navbar-header">
+				    <a href="<%=Request.ApplicationPath %>/main.aspx" class="navbar-brand">
+				        <span class="CompanyLabel">GMS</span>
+				    </a>
+				    <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+				    </button>
+			    </div>
+			    <!-- END mobile sidebar expand / collapse button -->
+                
+                <div class="hidden-xs hidden-sm">
+                    <ul class="nav navbar-nav nav-tab" runat="server" id="linkTagDesktop"></ul>
+                </div>
+
+			    <!-- BEGIN header navigation right -->
+			    <div class="navbar-xs-justified">                    
+				    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown hidden-lg hidden-md ">
+						    <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle navbar-icon" aria-expanded="false">
+                                <i class="ti-layers-alt"></i>
+						    </a>
+                            <ul class="dropdown-menu dropdown-lg no-padding nav-tab" runat="server" id="linkTag"></ul>
+                        </li>
+                        <li class="dropdown" id="" data-ng-controller="QuickNewsFeedController as quickFeedController">
+							<a href="javascript:;" id="notification_btn" data-toggle="dropdown" class="dropdown-toggle navbar-icon" data-ng-class="quickFeedController.list.length > 0?'with-label':''">
+								<i class="ti-bell"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-lg no-padding">
+                                <li class="dropdown-header">News Feed</li>
+                                <li class="notification" data-ng-show="quickFeedController.list.length < 1">
+                                    <a>
+                                        <div class="notification-info">
+                                             <p class="notification-desc">Empty New Feeds</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification" data-ng-repeat="feed in quickFeedController.list" data-ng-click="quickFeedController.view(feed)">
+                                    <a>
+                                        <div class="notification-info">
+                                            <h4 class="notification-title">{{feed.Created_By}}</h4>
+                                            <p class="notification-desc">{{feed.Title}}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                 <li class="notification-footer text-center"><a href="<%= Request.ApplicationPath %>/News/Feeds.aspx">Go To Inbox</a></li>
+							</ul>
+						</li>
+                        <li>
+							<a href="javascript:;" data-control="company-sidebar" class="navbar-icon">
+								<i class="ti-home"></i>
+							</a>
+						</li>
+                        <li class="dropdown">
+							<a href="javascript:;" data-toggle="dropdown" class="navbar-icon" aria-expanded="false">
+								<i class="ti-settings"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-md no-padding" data-dropdown-close="false">
+								<li class="dropdown-header">Layout</li>
+								<li class="setting">
+									<div class="setting-icon bg-inverse"><i class="ti-smallcap"></i></div>
+									<div class="setting-info">
+										<div class="switcher">
+											<input type="checkbox" name="setting_layout_biggerFont" id="setting_layout_biggerFont">
+											<label for="setting_layout_biggerFont"></label>
+										</div>
+										Larger Font
+									</div>
+                                </li>
+                                <li class="setting">
+                                    <div class="setting-icon bg-inverse"><i class="ti-layout-grid2-thumb"></i></div>
+                                    <div class="setting-info">
+										<div class="switcher">
+											<input type="checkbox" name="setting_layout_optimize_table" id="setting_layout_optimize_table">
+											<label for="setting_layout_optimize_table"></label>
+										</div>
+										Optimized Table
+									</div>
+								</li>
+							</ul>
+						</li>
+					    <li class="dropdown">
+						    <a href="javascript:;" data-toggle="dropdown">
+							    <span class="navbar-user-img online pull-right">
+								    <img src="<%= Request.ApplicationPath %>/new_assets/img/user.jpeg" alt="" />
+							    </span>
+							    <asp:Label runat="server" ID="lblWelcome" CssClass="username-label hidden-xs"></asp:Label>
+						    </a>
+						    <ul class="dropdown-menu">
+							    <li><a id="changePassword" href="/GMS3/Admin/Accounts/ChangePasswordNoFrame.aspx" target="_blank" title="Change password">Change Password</a></li>
+							    <li class="divider"></li>
+							    <li><a id="logout" href="/GMS3/Logout.aspx" title="Sign Out">Sign Out</a></li>
+						    </ul>
+					    </li>
+				    </ul>
+			    </div>
+			    <!-- END header navigation right -->
+		    </div>
+		    <!-- END container-fluid -->
+	    </div>
+	    <!-- END #header -->
+		
+        <!-- BEGIN #sidebar -->
+	    <div id="sidebar"  class="sidebar">
+            <ul id="Sidebar" class="nav" runat="server"></ul>
+	    </div>
+	    <!-- END #sidebar -->
+
+	    <div id="main" class="content">
+            <h4 class="pull-right" style="color:#9999a5;margin-top:-5px;"><%=getSelectedCompanyName %></h4>
+            <div class="clearfix"></div>
+
+            <!-- BEGIN : Company SideBar -->
+            <div class="company-sidebar-wrapper">
+                <div data-scrollbar="true" data-height="100%">
+                    <div class="company-nav navbar navbar-default">
+                        <div class="container-fluid">
+                            <ul class="nav navbar-nav">
+                                 <li>
+							        <a href="javascript:;" data-control="company-sidebar" class="navbar-icon">
+								        <i class="ti-close"></i>
+							        </a>
+						        </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:44px;padding:10px">
+                        <h5>Select Company</h5>
+                        <div id="companyAccordion2" class="company-list panel-group">
+                            <asp:repeater id="RpCountryList" runat="server">
+                                <ItemTemplate>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a href='#collapseCountry_<%# DataBinder.Eval(Container.DataItem,"CountryID").ToString()%>' class="accordion-link <%# DataBinder.Eval(Container.DataItem,"CountryID").ToString() == getSelectedCountryId ? "" : "collapsed"%>" data-toggle='collapse' aria-expanded='false' data-parent='#companyAccordion2'>
+                                                        <asp:Label runat="server" id="countryFlag"></asp:Label>
+                                                        <%# DataBinder.Eval(Container.DataItem,"Name")%>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id='collapseCountry_<%# DataBinder.Eval(Container.DataItem,"CountryID")%>' class='panel-collapse collapse <%# DataBinder.Eval(Container.DataItem,"CountryID").ToString() == getSelectedCountryId ? "in" : ""%>' aria-expanded='false'>
+							                <ul class='list-group'>
+                                                <asp:repeater id="rppCompanyList" runat="server" OnItemCommand="rppCompanyList_ItemCommand">
+                                                    <ItemTemplate>
+                                                        <li class="list-group-item <%# DataBinder.Eval(Container.DataItem,"CoyID").ToString() == getSelectedCompanyId ? "selected" : ""%>">
+                                                            <asp:LinkButton ID="lnkUpdateCountry" runat="server" CommandName="UpdateCountry" CommandArgument='<%# DataBinder.Eval(Container.DataItem,"CoyID").ToString()%>' EnableViewState="true"
+                                                               CausesValidation="false">
+                                                                 <%# DataBinder.Eval(Container.DataItem,"Name") %>
+                                                            </asp:LinkButton>
+                                                        </li>
+                                                    </ItemTemplate>
+                                                </asp:repeater>
+                                             </ul>
+						                </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:repeater>
+                        </div>
+                        <br/>
+                        <piece:ExtendedDropDownList CssClass="themedDropdown" ID="ddlCompany" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" Visible="False">
+		                </piece:ExtendedDropDownList> 
+                    </div>
+                </div>
+            </div>
+            <!-- END : Company SideBar -->
+            <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server"></asp:ContentPlaceHolder>
+            <br />
+            <br />
+            <br />
+	    </div>
+        
+        <div id="footer" class="footer">
+			Contact <a href="mailto:siewsiew.ong@leedennox.com">System Administrator</a>
+		</div>
+
+        <!-- BEGIN btn-scroll-top -->
+		<a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="ti-arrow-up"></i></a>
+		<!-- END btn-scroll-top -->
+    </form>
+</div>
+    <script type="text/javascript">
+        var Path = "<%=Request.ApplicationPath%>";
+        var globalCoyID = document.getElementById("<%=globalHidCoyID.ClientID%>").value;
+        var globalUserID = document.getElementById("<%=globalHidUserID.ClientID%>").value;
+        var globalDefaultCurrency = document.getElementById("<%=globalHidCurrency.ClientID%>").value;
+        var sDOMAIN = "<%= Request.ApplicationPath %>";
+    </script>
+
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/angularjs/angular.min.js"></script> 
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/angularjs/angular-sanitize.min.js"></script> 
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/jquery/jquery-1.9.1.min.js"></script> 
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/jquery-ui/jquery-ui.min.js"></script> 
+    <script src="<%= Request.ApplicationPath %>/new_assets/plugins/summernote/summernote.js"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/jqueryui/DataTables-Bootstrap/pdfmake-0.1.18/build/pdfmake.js"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/jqueryui/DataTables-Bootstrap/Bootstrap-3.3.6/js/fileinput.min.js"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/jqueryui/DataTables-Bootstrap/Bootstrap-3.3.6/js/validator.js"></script>
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>  
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/cookie/js/js.cookie.js"></script>
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/scrollbar/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/chart/chart-js/Chart.min_2.7.js"></script>
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/chart/chart-js/chartjs-plugin-datalabels.js"></script>  
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/plugins/DataTables/datatables.min.js"></script>
+    <script type="text/javascript"  src="<%= Request.ApplicationPath %>/new_assets/js/apps.js"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/jqueryui/Common.js?v=1"></script>
+    <script type="text/javascript">
+        //quick fix
+        function ViewInvoice(TrnNo,TrnType,DBVersion)
+        {			
+						
+            var url = '/GMS3/Sales/Sales/ViewSalesOrderPopUp.aspx?TrnNo='+TrnNo+'&TrnType='+TrnType+'&DBVersion='+DBVersion;
+						
+            detailWindow = window.open(url,"","width=" + 650 + ",height=" + 600 +",resizable=yes,status=yes,menubar=no,scrollbars=yes");	
+            return false;
+        }
+
+        //getQueryString
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        $(document).ready(function() {
+
+            App.init();
+
+            $('.date').datepicker({ format: 'dd/mm/yyyy', autoclose: !0 });
+        /*
+            $(".timepicker").timepicker({   
+                showMeridian: !1
+            })
+          */
+            //custom handle for checkbox (for is not working)
+            $(".checkbox.custom-for-click > label ").click(function () {
+                var the_checkbox = $(this)[0].previousElementSibling;
+
+                if (the_checkbox)
+                    the_checkbox.click();
+                else
+                    console.log("checkbox element not found ", the_checkbox);
+            });
+
+            //focus parent input(datepicker)
+            $(".input-group.date_yyyy_mm_dd .input-group-addon").click(function () {
+                console.log($(this).parent().find("input")[0].focus())
+            });
+
+
+            //checkall
+            $("#checkedAll").change(function () {
+                if (this.checked) {
+                    $(".checkSingle").each(function () {
+                        this.checked = true;
+                    })
+                } else {
+                    $(".checkSingle").each(function () {
+                        this.checked = false;
+                    })
+                }
+            });
+
+            $(".checkSingle").click(function () {
+                if ($(this).is(":checked")) {
+                    var isAllChecked = 0;
+                    $(".checkSingle").each(function () {
+                        if (!this.checked)
+                            isAllChecked = 1;
+                    })
+                    if (isAllChecked == 0) { $("#checkedAll").prop("checked", true); }
+                } else {
+                    $("#checkedAll").prop("checked", false);
+                }
+            });
+
+
+        });
+
+
+        $(function () {
+            $(document).on('change', ':file', function () {
+                var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
+
+            $(document).ready(function () {
+                $(':file').on('fileselect', function (event, numFiles, label) {
+
+                    var input = $(this).parents('.input-group').find(':text'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                    if (input.length) {
+                        input.val(log);
+                    } else {
+                        //if (log) alert(log);
+                    }
+
+                });
+            });
+
+        });
+    </script>
+
+    <!-- Angular Module-->
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/app.js?now=<%=DateTime.Now.Millisecond %>"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/directive/datepicker.js?now=<%=DateTime.Now.Millisecond %>"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/factory/feed.js?now=<%=DateTime.Now.Millisecond %>"></script>
+    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/controller/quickFeed.js?now=<%=DateTime.Now.Millisecond %>"></script>
+    
+    <asp:ContentPlaceHolder ID="ScriptContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+</body>
+</html>

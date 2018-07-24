@@ -1,0 +1,2 @@
+UPDATE tbFinanceItem SET ItemName = '(BS)Less:Accumulated Depreciation/Impairment' WHERE ItemName = '(BS)Less:Accumulated Depreciation'
+UPDATE tbFinanceItem SET ItemName = 'Provision for Doubtful Debts' WHERE ItemName = 'Prov for Doubtful Debts'

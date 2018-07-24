@@ -1,0 +1,841 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68AF0E9C-557E-4E58-AEEA-9CD54D237DAC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GMSCore</RootNamespace>
+    <AssemblyName>GMSCore</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WilsonORMapper, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity\AccountAttachmentActivity.cs" />
+    <Compile Include="Activity\AccountCommActivity.cs" />
+    <Compile Include="Activity\AccountContactActivity.cs" />
+    <Compile Include="Activity\AccountInformationActivity.cs" />
+    <Compile Include="Activity\AccountProspectActivity.cs" />
+    <Compile Include="Activity\AccountPurchasesActivity.cs" />
+    <Compile Include="Activity\ActivityBase.cs" />
+    <Compile Include="Activity\ApprovalActivity.cs" />
+    <Compile Include="Activity\AuditActivity.cs" />
+    <Compile Include="Activity\BudgetActivity.cs" />
+    <Compile Include="Activity\BankActivity.cs" />
+    <Compile Include="Activity\BankReceiverPayerActivity.cs" />
+    <Compile Include="Activity\BulletinActivity.cs" />
+    <Compile Include="Activity\CashFlowProjActivity.cs" />
+    <Compile Include="Activity\FinanceInterCompanyDataActivity.cs" />
+    <Compile Include="Activity\DocumentActivity.cs" />
+    <Compile Include="Activity\FinanceDataActivity.cs" />
+    <Compile Include="Activity\FormActivity.cs" />
+    <Compile Include="Activity\IActivity.cs" />
+    <Compile Include="Activity\MRActivity.cs" />
+    <Compile Include="Activity\MRFormApprovalActivity.cs" />
+    <Compile Include="Activity\MRRoleActivity.cs" />
+    <Compile Include="Activity\QuotationActivity.cs" />
+    <Compile Include="Activity\SalesmanUploadActivity.cs" />
+    <Compile Include="Activity\SystemParameterActivity.cs" />
+    <Compile Include="Activity\UserSalesPersonActivity.cs" />
+    <Compile Include="Activity\ProductBudgetActivity.cs" />
+    <Compile Include="Activity\SalesPersonMappingActivity.cs" />
+    <Compile Include="Activity\SalesPersonRecordActivity.cs" />
+    <Compile Include="Activity\SalesPersonActivity.cs" />
+    <Compile Include="Activity\SalesPersonMasterActivity.cs" />
+    <Compile Include="Activity\ProcessedTrialBalanceActivity.cs" />
+    <Compile Include="Activity\OrganizationChartActivity.cs" />
+    <Compile Include="Activity\EmployeeActivity.cs" />
+    <Compile Include="Activity\EmployeeCourseActivity.cs" />
+    <Compile Include="Activity\CourseActivity.cs" />
+    <Compile Include="Activity\CourseOrganizerActivity.cs" />
+    <Compile Include="Activity\ForexActivity.cs" />
+    <Compile Include="Activity\GMSUserActivity.cs" />
+    <Compile Include="Activity\ItemActivity.cs" />
+    <Compile Include="Activity\ParameterActivity.cs" />
+    <Compile Include="Activity\ReportsActivity.cs" />
+    <Compile Include="Activity\SystemDataActivity.cs">
+    </Compile>
+    <Compile Include="DataAccess\ConnectionManager.cs" />
+    <Compile Include="DataAccess\EmployeeData.cs" />
+    <Compile Include="DataAccess\DocumentData.cs" />
+    <Compile Include="DataAccess\DebtorCommentData.cs" />
+    <Compile Include="DataAccess\EngineeringData.cs" />
+    <Compile Include="DataAccess\FinanceData.cs" />
+    <Compile Include="DataAccess\GMSGeneralData.cs" />
+    <Compile Include="DataAccess\ProductsData.cs" />
+    <Compile Include="DataAccess\QuotationData.cs" />
+    <Compile Include="DBManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entity\A21Account.cs" />
+    <Compile Include="Entity\A21Account.Generated.cs">
+      <DependentUpon>A21Account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountAttachment.cs" />
+    <Compile Include="Entity\AccountAttachment.Generated.cs">
+      <DependentUpon>AccountAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountCommRecord.cs" />
+    <Compile Include="Entity\AccountCommRecord.Generated.cs">
+      <DependentUpon>AccountCommRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountCommRecordComment.cs" />
+    <Compile Include="Entity\AccountCommRecordComment.Generated.cs">
+      <DependentUpon>AccountCommRecordComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountContacts.cs" />
+    <Compile Include="Entity\AccountContacts.Generated.cs">
+      <DependentUpon>AccountContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountGrade.cs" />
+    <Compile Include="Entity\AccountGrade.Generated.cs">
+      <DependentUpon>AccountGrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountClass.cs" />
+    <Compile Include="Entity\AccountClass.Generated.cs">
+      <DependentUpon>AccountClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountGroup.cs" />
+    <Compile Include="Entity\AccountGroup.Generated.cs">
+      <DependentUpon>AccountGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountIndustry.cs" />
+    <Compile Include="Entity\AccountIndustry.Generated.cs">
+      <DependentUpon>AccountIndustry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountInformation.cs" />
+    <Compile Include="Entity\AccountInformation.Generated.cs">
+      <DependentUpon>AccountInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountProspect.cs" />
+    <Compile Include="Entity\AccountProspect.Generated.cs">
+      <DependentUpon>AccountProspect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountPurchases.cs" />
+    <Compile Include="Entity\AccountPurchases.Generated.cs">
+      <DependentUpon>AccountPurchases.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Audit.cs" />
+    <Compile Include="Entity\Audit.Generated.cs">
+      <DependentUpon>Audit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AuditForReportAccess.cs" />
+    <Compile Include="Entity\AuditForReportAccess.Generated.cs">
+      <DependentUpon>AuditForReportAccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Bank.cs" />
+    <Compile Include="Entity\Bank.Generated.cs">
+      <DependentUpon>Bank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BankAccount.cs" />
+    <Compile Include="Entity\BankAccount.Generated.cs">
+      <DependentUpon>BankAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BankReceiverPayer.cs" />
+    <Compile Include="Entity\BankReceiverPayer.Generated.cs">
+      <DependentUpon>BankReceiverPayer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BankUtilisation.cs" />
+    <Compile Include="Entity\BankUtilisation.Generated.cs">
+      <DependentUpon>BankUtilisation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Budget.cs" />
+    <Compile Include="Entity\Budget.Generated.cs">
+      <DependentUpon>Budget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BudgetForCustomer.cs" />
+    <Compile Include="Entity\BudgetForCustomer.Generated.cs">
+      <DependentUpon>BudgetForCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BudgetForFinance.cs" />
+    <Compile Include="Entity\BudgetForFinance.Generated.cs">
+      <DependentUpon>BudgetForFinance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BudgetForProduct.cs" />
+    <Compile Include="Entity\BudgetForProduct.Generated.cs">
+      <DependentUpon>BudgetForProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Bulletin.cs" />
+    <Compile Include="Entity\Bulletin.Generated.cs">
+      <DependentUpon>Bulletin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CashFlowItem.cs" />
+    <Compile Include="Entity\CashFlowItem.Generated.cs">
+      <DependentUpon>CashFlowItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CashFlowProjection.cs" />
+    <Compile Include="Entity\CashFlowProjection.Generated.cs">
+      <DependentUpon>CashFlowProjection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CashFlowProjectionForWeek.cs" />
+    <Compile Include="Entity\CashFlowProjectionForWeek.Generated.cs">
+      <DependentUpon>CashFlowProjectionForWeek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CashFlowTemplate.cs" />
+    <Compile Include="Entity\CashFlowTemplate.Generated.cs">
+      <DependentUpon>CashFlowTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CEF.cs" />
+    <Compile Include="Entity\CEF.Generated.cs">
+      <DependentUpon>CEF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ChartOfAccountsMapping.cs" />
+    <Compile Include="Entity\ChartOfAccountsMapping.Generated.cs">
+      <DependentUpon>ChartOfAccountsMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Company.cs" />
+    <Compile Include="Entity\Company.Generated.cs">
+      <DependentUpon>Company.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CompanyDepartment.cs" />
+    <Compile Include="Entity\CompanyDepartment.Generated.cs">
+      <DependentUpon>CompanyDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CompanyManagementUser.cs" />
+    <Compile Include="Entity\CompanyManagementUser.Generated.cs">
+      <DependentUpon>CompanyManagementUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CompanyParameter.cs" />
+    <Compile Include="Entity\CompanyParameter.Generated.cs">
+      <DependentUpon>CompanyParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CompanyProject.cs" />
+    <Compile Include="Entity\CompanyProject.Generated.cs">
+      <DependentUpon>CompanyProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CompanySpecialData.cs" />
+    <Compile Include="Entity\CompanySpecialData.Generated.cs">
+      <DependentUpon>CompanySpecialData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CompanySpecialDataPurpose.cs" />
+    <Compile Include="Entity\CompanySpecialDataPurpose.Generated.cs">
+      <DependentUpon>CompanySpecialDataPurpose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Country.cs" />
+    <Compile Include="Entity\Country.Generated.cs">
+      <DependentUpon>Country.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Course.cs" />
+    <Compile Include="Entity\Course.Generated.cs">
+      <DependentUpon>Course.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CourseLanguage.cs" />
+    <Compile Include="Entity\CourseLanguage.Generated.cs">
+      <DependentUpon>CourseLanguage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CourseOrganizer.cs" />
+    <Compile Include="Entity\CourseOrganizer.Generated.cs">
+      <DependentUpon>CourseOrganizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CourseSession.cs" />
+    <Compile Include="Entity\CourseSession.Generated.cs">
+      <DependentUpon>CourseSession.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Currency.cs" />
+    <Compile Include="Entity\Currency.Generated.cs">
+      <DependentUpon>Currency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DebtorCommentary.cs" />
+    <Compile Include="Entity\DebtorCommentary.Generated.cs">
+      <DependentUpon>DebtorCommentary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Division.cs" />
+    <Compile Include="Entity\Division.Generated.cs">
+      <DependentUpon>Division.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DivisionUser.cs" />
+    <Compile Include="Entity\DivisionUser.Generated.cs">
+      <DependentUpon>DivisionUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Document.cs" />
+    <Compile Include="Entity\Document.Generated.cs">
+      <DependentUpon>Document.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DocumentForEmployee.cs" />
+    <Compile Include="Entity\DocumentForEmployee.Generated.cs">
+      <DependentUpon>DocumentForEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DocumentCategory.cs" />
+    <Compile Include="Entity\DocumentCategory.Generated.cs">
+      <DependentUpon>DocumentCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DocumentForCompany.cs" />
+    <Compile Include="Entity\DocumentForCompany.Generated.cs">
+      <DependentUpon>DocumentForCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\DocumentNumber.cs" />
+    <Compile Include="Entity\DocumentNumber.Generated.cs">
+      <DependentUpon>DocumentNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Employee.cs" />
+    <Compile Include="Entity\Employee.Generated.cs">
+      <DependentUpon>Employee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EmployeeCareerProgression.cs" />
+    <Compile Include="Entity\EmployeeCareerProgression.Generated.cs">
+      <DependentUpon>EmployeeCareerProgression.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EmployeeCourse.cs" />
+    <Compile Include="Entity\EmployeeCourse.Generated.cs">
+      <DependentUpon>EmployeeCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EmployeeEducationalQualification.cs" />
+    <Compile Include="Entity\EmployeeEducationalQualification.Generated.cs">
+      <DependentUpon>EmployeeEducationalQualification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EmployeeHistory.cs" />
+    <Compile Include="Entity\EmployeeHistory.Generated.cs">
+      <DependentUpon>EmployeeHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EntertainmentExpense.cs" />
+    <Compile Include="Entity\EntertainmentExpense.Generated.cs">
+      <DependentUpon>EntertainmentExpense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\EntertainmentExpenseType.cs" />
+    <Compile Include="Entity\EntertainmentExpenseType.Generated.cs">
+      <DependentUpon>EntertainmentExpenseType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FinanceAttachment.cs" />
+    <Compile Include="Entity\FinanceAttachment.Generated.cs">
+      <DependentUpon>FinanceAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FinanceAttachmentType.cs" />
+    <Compile Include="Entity\FinanceAttachmentType.Generated.cs">
+      <DependentUpon>FinanceAttachmentType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FinanceAuditData.cs" />
+    <Compile Include="Entity\FinanceAuditData.Generated.cs">
+      <DependentUpon>FinanceAuditData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FinanceData.cs" />
+    <Compile Include="Entity\FinanceData.Generated.cs">
+      <DependentUpon>FinanceData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FinanceInterCompanyData.cs" />
+    <Compile Include="Entity\FinanceInterCompanyData.Generated.cs">
+      <DependentUpon>FinanceInterCompanyData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FinanceItem.cs" />
+    <Compile Include="Entity\FinanceItem.Generated.cs">
+      <DependentUpon>FinanceItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ForeignExchangeRate.cs" />
+    <Compile Include="Entity\ForeignExchangeRate.Generated.cs">
+      <DependentUpon>ForeignExchangeRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Form.cs" />
+    <Compile Include="Entity\Form.Generated.cs">
+      <DependentUpon>Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FormApproval.cs" />
+    <Compile Include="Entity\FormApproval.Generated.cs">
+      <DependentUpon>FormApproval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FormConfig.cs" />
+    <Compile Include="Entity\FormConfig.Generated.cs">
+      <DependentUpon>FormConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FormParty.cs" />
+    <Compile Include="Entity\FormParty.Generated.cs">
+      <DependentUpon>FormParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\FormRandomID.cs" />
+    <Compile Include="Entity\FormRandomID.Generated.cs">
+      <DependentUpon>FormRandomID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GMSRole.cs" />
+    <Compile Include="Entity\GMSRole.Generated.cs">
+      <DependentUpon>GMSRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GMSUser.cs" />
+    <Compile Include="Entity\GMSUser.Generated.cs">
+      <DependentUpon>GMSUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\GroupManagementUser.cs" />
+    <Compile Include="Entity\GroupManagementUser.Generated.cs">
+      <DependentUpon>GroupManagementUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Item.cs" />
+    <Compile Include="Entity\Item.Generated.cs">
+      <DependentUpon>Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ItemPurpose.cs" />
+    <Compile Include="Entity\ItemPurpose.Generated.cs">
+      <DependentUpon>ItemPurpose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ItemStructure.cs" />
+    <Compile Include="Entity\ItemStructure.Generated.cs">
+      <DependentUpon>ItemStructure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\KeyCustomerAverageGP.cs" />
+    <Compile Include="Entity\KeyCustomerAverageGP.Generated.cs">
+      <DependentUpon>KeyCustomerAverageGP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ManagerSalesPerson.cs" />
+    <Compile Include="Entity\ManagerSalesPerson.Generated.cs">
+      <DependentUpon>ManagerSalesPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Member.cs" />
+    <Compile Include="Entity\Member.Generated.cs">
+      <DependentUpon>Member.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Module.cs" />
+    <Compile Include="Entity\Module.Generated.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ModuleCategory.cs" />
+    <Compile Include="Entity\ModuleCategory.Generated.cs">
+      <DependentUpon>ModuleCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ModuleReport.cs" />
+    <Compile Include="Entity\ModuleReport.Generated.cs">
+      <DependentUpon>ModuleReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ModuleReportCategory.cs" />
+    <Compile Include="Entity\ModuleReportCategory.Generated.cs">
+      <DependentUpon>ModuleReportCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MR.cs" />
+    <Compile Include="Entity\MR.Generated.cs">
+      <DependentUpon>MR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRAdditionalAttachment.cs" />
+    <Compile Include="Entity\MRAdditionalAttachment.Generated.cs">
+      <DependentUpon>MRAdditionalAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRApprovalStatus.cs" />
+    <Compile Include="Entity\MRApprovalStatus.Generated.cs">
+      <DependentUpon>MRApprovalStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRAttachment.cs" />
+    <Compile Include="Entity\MRAttachment.Generated.cs">
+      <DependentUpon>MRAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRDelivery.cs" />
+    <Compile Include="Entity\MRDelivery.Generated.cs">
+      <DependentUpon>MRDelivery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRDetail.cs" />
+    <Compile Include="Entity\MRDetail.Generated.cs">
+      <DependentUpon>MRDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRDetailDescription.cs" />
+    <Compile Include="Entity\MRDetailDescription.Generated.cs">
+      <DependentUpon>MRDetailDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRFormApproval.cs" />
+    <Compile Include="Entity\MRFormApproval.Generated.cs">
+      <DependentUpon>MRFormApproval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRGRNDetail.cs" />
+    <Compile Include="Entity\MRGRNDetail.Generated.cs">
+      <DependentUpon>MRGRNDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRItem.cs" />
+    <Compile Include="Entity\MRPurchaser.cs" />
+    <Compile Include="Entity\MRPurchaser.Generated.cs">
+      <DependentUpon>MRPurchaser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRRole.cs" />
+    <Compile Include="Entity\MRRole.Generated.cs">
+      <DependentUpon>MRRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRShipMode.cs" />
+    <Compile Include="Entity\MRShipMode.Generated.cs">
+      <DependentUpon>MRDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRSource.cs" />
+    <Compile Include="Entity\MRSource.Generated.cs">
+      <DependentUpon>MRSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRStatus.cs" />
+    <Compile Include="Entity\MRStatus.Generated.cs">
+      <DependentUpon>MRStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRSupplier.cs" />
+    <Compile Include="Entity\MRSupplier.Generated.cs">
+      <DependentUpon>MRSupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MRVendor.cs" />
+    <Compile Include="Entity\MRVendor.Generated.cs">
+      <DependentUpon>MRVendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MSTProduct.cs" />
+    <Compile Include="Entity\MSTProduct.Generated.cs">
+      <DependentUpon>MSTProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\NotificationParty.cs" />
+    <Compile Include="Entity\NotificationParty.Generated.cs">
+      <DependentUpon>NotificationParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\OrganizationChart.cs" />
+    <Compile Include="Entity\OrganizationChart.Generated.cs">
+      <DependentUpon>OrganizationChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\OrganizationChartLink.cs" />
+    <Compile Include="Entity\OrganizationChartLink.Generated.cs">
+      <DependentUpon>OrganizationChartLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Package.cs" />
+    <Compile Include="Entity\Package.Generated.cs">
+      <DependentUpon>Package.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PackageDetail.cs" />
+    <Compile Include="Entity\PackageDetail.Generated.cs">
+      <DependentUpon>PackageDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PackageProduct.cs" />
+    <Compile Include="Entity\PackageProduct.Generated.cs">
+      <DependentUpon>PackageProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\PersistBase.cs" />
+    <Compile Include="Entity\PriceList.cs" />
+    <Compile Include="Entity\PriceList.Generated.cs">
+      <DependentUpon>PriceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProcessedTrialBalance.cs" />
+    <Compile Include="Entity\ProcessedTrialBalance.Generated.cs">
+      <DependentUpon>ProcessedTrialBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Product.cs" />
+    <Compile Include="Entity\Product.Generated.cs">
+      <DependentUpon>Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProductBudget.cs" />
+    <Compile Include="Entity\ProductBudget.Generated.cs">
+      <DependentUpon>ProductBudget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProductGroup.cs" />
+    <Compile Include="Entity\ProductGroup.Generated.cs">
+      <DependentUpon>ProductGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProductGroupManager.cs" />
+    <Compile Include="Entity\ProductGroupManager.Generated.cs">
+      <DependentUpon>ProductGroupManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProductManagerMaster.cs" />
+    <Compile Include="Entity\ProductManagerMaster.Generated.cs">
+      <DependentUpon>ProductManagerMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ProductManagerProduct.cs" />
+    <Compile Include="Entity\ProductManagerProduct.Generated.cs">
+      <DependentUpon>ProductManagerProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Prospect.cs" />
+    <Compile Include="Entity\Prospect.Generated.cs">
+      <DependentUpon>Prospect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Quotation.cs" />
+    <Compile Include="Entity\QuotationAttachment.cs" />
+    <Compile Include="Entity\QuotationAttachment.Generated.cs">
+      <DependentUpon>QuotationAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationDetail.cs" />
+    <Compile Include="Entity\QuotationDetail.Generated.cs">
+      <DependentUpon>QuotationDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationDetailDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuotationDetailDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationDetailDescription.cs" />
+    <Compile Include="Entity\QuotationDetailDescription.Generated.cs">
+      <DependentUpon>QuotationDetailDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationHeader.cs" />
+    <Compile Include="Entity\QuotationHeader.Generated.cs">
+      <DependentUpon>QuotationHeader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationItem.cs" />
+    <Compile Include="Entity\QuotationPackage.cs" />
+    <Compile Include="Entity\QuotationPackage.Generated.cs">
+      <DependentUpon>QuotationPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationPackageDetail.cs" />
+    <Compile Include="Entity\QuotationPackageDetail.Generated.cs">
+      <DependentUpon>QuotationPackageDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationPackageProduct.cs" />
+    <Compile Include="Entity\QuotationPackageProduct.Generated.cs">
+      <DependentUpon>QuotationPackageProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationSpecialConditions.cs" />
+    <Compile Include="Entity\QuotationSpecialConditions.Generated.cs">
+      <DependentUpon>QuotationSpecialConditions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationStatus.cs" />
+    <Compile Include="Entity\QuotationStatus.Generated.cs">
+      <DependentUpon>QuotationStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\QuotationTermsNConditions.cs" />
+    <Compile Include="Entity\QuotationTermsNConditions.Generated.cs">
+      <DependentUpon>QuotationTermsNConditions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Recipe.cs" />
+    <Compile Include="Entity\Recipe.Generated.cs">
+      <DependentUpon>Recipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RecipeDetail.cs" />
+    <Compile Include="Entity\RecipeDetail.Generated.cs">
+      <DependentUpon>RecipeDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Report.cs" />
+    <Compile Include="Entity\Report.Generated.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ReportCategory.cs" />
+    <Compile Include="Entity\ReportCategory.Generated.cs">
+      <DependentUpon>ReportCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RetrieveBase.cs" />
+    <Compile Include="Entity\SalesPerson.cs" />
+    <Compile Include="Entity\SalesPerson.Generated.cs">
+      <DependentUpon>SalesPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SalesmanUpload.cs" />
+    <Compile Include="Entity\SalesmanUpload.Generated.cs">
+      <DependentUpon>SalesmanUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SalesPersonMapping.cs" />
+    <Compile Include="Entity\SalesPersonMapping.Generated.cs">
+      <DependentUpon>SalesPersonMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SalesPersonMaster.cs" />
+    <Compile Include="Entity\SalesPersonMaster.Generated.cs">
+      <DependentUpon>SalesPersonMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SalesPersonRecord.cs" />
+    <Compile Include="Entity\SalesPersonRecord.Generated.cs">
+      <DependentUpon>SalesPersonRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SalesPersonUser.cs" />
+    <Compile Include="Entity\SalesPersonUser.Generated.cs">
+      <DependentUpon>SalesPersonUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ScheduledTaskGRNDetail.cs" />
+    <Compile Include="Entity\ScheduledTaskGRNDetail.Generated.cs">
+      <DependentUpon>ScheduledTaskGRNDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ScheduledTaskProduct.cs" />
+    <Compile Include="Entity\ScheduledTaskProduct.Generated.cs">
+      <DependentUpon>ScheduledTaskProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\StockBalance.cs" />
+    <Compile Include="Entity\StockBalance.Generated.cs">
+      <DependentUpon>StockBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SystemParameter.cs" />
+    <Compile Include="Entity\SystemParameter.Generated.cs">
+      <DependentUpon>SystemParameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TaxType.cs" />
+    <Compile Include="Entity\TaxType.Generated.cs">
+      <DependentUpon>TaxType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TEF.cs" />
+    <Compile Include="Entity\TEF.Generated.cs">
+      <DependentUpon>TEF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AccountTerritory.cs" />
+    <Compile Include="Entity\AccountTerritory.Generated.cs">
+      <DependentUpon>AccountTerritory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TNF.cs" />
+    <Compile Include="Entity\TNF.Generated.cs">
+      <DependentUpon>TNF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TransactionApproval.cs" />
+    <Compile Include="Entity\TransactionApproval.Generated.cs">
+      <DependentUpon>TransactionApproval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\TransactionApprovalParty.cs" />
+    <Compile Include="Entity\TransactionApprovalParty.Generated.cs">
+      <DependentUpon>TransactionApprovalParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessCompany.cs" />
+    <Compile Include="Entity\UserAccessCompany.Generated.cs">
+      <DependentUpon>UserAccessCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessDocument.cs" />
+    <Compile Include="Entity\UserAccessDocument.Generated.cs">
+      <DependentUpon>UserAccessDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessDocumentOperation.cs" />
+    <Compile Include="Entity\UserAccessDocumentOperation.Generated.cs">
+      <DependentUpon>UserAccessDocumentOperation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessModule.cs" />
+    <Compile Include="Entity\UserAccessModule.Generated.cs">
+      <DependentUpon>UserAccessModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessModuleCategory.cs" />
+    <Compile Include="Entity\UserAccessModuleCategory.Generated.cs">
+      <DependentUpon>UserAccessModuleCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessModuleForCompany.cs" />
+    <Compile Include="Entity\UserAccessModuleForCompany.Generated.cs">
+      <DependentUpon>UserAccessModuleForCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessReport.cs" />
+    <Compile Include="Entity\UserAccessReport.Generated.cs">
+      <DependentUpon>UserAccessReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAlternateParty.cs" />
+    <Compile Include="Entity\UserAlternateParty.Generated.cs">
+      <DependentUpon>UserAlternateParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\UserAccessReportForCompany.cs" />
+    <Compile Include="Entity\UserAccessReportForCompany.Generated.cs">
+      <DependentUpon>UserAccessReportForCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VwCompanyListing.cs" />
+    <Compile Include="Entity\VwCompanyListing.Generated.cs">
+      <DependentUpon>VwCompanyListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VwEmployeeCourse.cs" />
+    <Compile Include="Entity\VwEmployeeCourse.Generated.cs">
+      <DependentUpon>VwEmployeeCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VwItemStructureListing.cs" />
+    <Compile Include="Entity\VwItemStructureListing.Generated.cs">
+      <DependentUpon>VwItemStructureListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VwModuleListing.cs" />
+    <Compile Include="Entity\VwModuleListing.Generated.cs">
+      <DependentUpon>VwModuleListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VwReportListing.cs" />
+    <Compile Include="Entity\VwReportListing.Generated.cs">
+      <DependentUpon>VwReportListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\VwReportListingForCompany.cs" />
+    <Compile Include="Entity\VwReportListingForCompany.Generated.cs">
+      <DependentUpon>VwReportListingForCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\NullSessionException.cs" />
+    <Compile Include="Exceptions\SecurityException.cs" />
+    <Compile Include="GMSBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GMSCoreBase.cs" />
+    <Compile Include="GMSUtil.cs" />
+    <Compile Include="LogSession.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SAP\SAPDocument.cs" />
+    <Compile Include="SAP\SAPOperation.cs" />
+    <Compile Include="SAP\SAPPurchaseOrder.cs" />
+    <Compile Include="SAP\SAPPurchaseOrder_Detail.cs" />
+    <Compile Include="SAP\SAPResponseResult.cs" />
+    <Compile Include="TransactionManager.cs" />
+    <Compile Include="TypedDataSets\Documents\dtsName.cs">
+      <DependentUpon>dtsName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TypedDataSets\Documents\dtsName.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dtsName.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="WorkFlow.cs" />
+    <Compile Include="WorkFlowRouting.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entity\QuotationDetailDataSet.xsc">
+      <DependentUpon>QuotationDetailDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Entity\QuotationDetailDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>QuotationDetailDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Entity\QuotationDetailDataSet.xss">
+      <DependentUpon>QuotationDetailDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GMSMapping.config" />
+    <None Include="TypedDataSets\Documents\dtsName.xsc">
+      <DependentUpon>dtsName.xsd</DependentUpon>
+    </None>
+    <None Include="TypedDataSets\Documents\dtsName.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dtsName.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="TypedDataSets\Documents\dtsName.xss">
+      <DependentUpon>dtsName.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GMSMapping.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1 @@
+UPDATE tbFinanceItem SET ItemName = '(PNL)A&G Legal/Prof Fees/Ins/Safety' WHERE ItemName = '(PNL)A&G Legal/Prof Fees/Insurance'

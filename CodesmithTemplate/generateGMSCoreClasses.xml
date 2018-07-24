@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith>
+	<propertySet>
+		<property name="MappingFile">D:\GMS\GMSCore\GMSMapping.config</property>
+		<property name="ImplementHelper">True</property>
+		<property name="ImplementNotification">False</property>
+		<property name="ProjectFile">D:\GMS\GMSCore\GMSCore.csproj</property>
+		<property name="OutputDirectory">D:\GMS\CodesmithTemplate\output</property>
+	</propertySet>
+</codeSmith>

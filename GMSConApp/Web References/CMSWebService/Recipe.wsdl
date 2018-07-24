@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetRecipe">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recipeNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecipeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecipeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountAddress">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAccountAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountAddressResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectCostEstimate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectCostEstimateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectCostEstimateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetRecipeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecipe" />
+  </wsdl:message>
+  <wsdl:message name="GetRecipeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecipeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountAddress" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectCostEstimateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectCostEstimate" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectCostEstimateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectCostEstimateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RecipeSoap">
+    <wsdl:operation name="GetRecipe">
+      <wsdl:input message="tns:GetRecipeSoapIn" />
+      <wsdl:output message="tns:GetRecipeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountAddress">
+      <wsdl:input message="tns:GetAccountAddressSoapIn" />
+      <wsdl:output message="tns:GetAccountAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectCostEstimate">
+      <wsdl:input message="tns:GetProjectCostEstimateSoapIn" />
+      <wsdl:output message="tns:GetProjectCostEstimateSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RecipeSoap" type="tns:RecipeSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetRecipe">
+      <soap:operation soapAction="http://tempuri.org/GetRecipe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountAddress">
+      <soap:operation soapAction="http://tempuri.org/GetAccountAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectCostEstimate">
+      <soap:operation soapAction="http://tempuri.org/GetProjectCostEstimate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RecipeSoap12" type="tns:RecipeSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetRecipe">
+      <soap12:operation soapAction="http://tempuri.org/GetRecipe" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountAddress">
+      <soap12:operation soapAction="http://tempuri.org/GetAccountAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectCostEstimate">
+      <soap12:operation soapAction="http://tempuri.org/GetProjectCostEstimate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Recipe">
+    <wsdl:port name="RecipeSoap" binding="tns:RecipeSoap">
+      <soap:address location="http://203.126.54.6/CMS.WebServices/Recipe.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RecipeSoap12" binding="tns:RecipeSoap12">
+      <soap12:address location="http://203.126.54.6/CMS.WebServices/Recipe.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

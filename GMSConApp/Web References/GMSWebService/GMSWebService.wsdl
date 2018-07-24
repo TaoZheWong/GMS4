@@ -1,0 +1,2659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroup" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductFullDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroup" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductFullDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductFullDetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductDetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductStockStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductStockStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductStockStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductStockStatusForPanel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductStockStatusForPanelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductStockStatusForPanelResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOnSODetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOnSODetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductOnSODetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOnBODetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOnBODetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductOnBODetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOnPODetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductOnPODetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductOnPODetailResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailByProductCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductDetailByProductCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductDetailByProductCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductCostByProductCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="prodCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductCostByProductCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetProductCostByProductCodeResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductStockMovement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductStockMovementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductStockMovementResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsProductCodeValid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="prodCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsProductCodeValidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsProductCodeValidResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertA21QuotationHeader">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="trnDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="exchangeRate" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="docNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gstType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="gst" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPerson" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="billAmt" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertA21QuotationHeaderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertA21QuotationHeaderResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertUpdateA21QuotationDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="trnNo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="srNo" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="product" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderQuantity" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="uOM" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="unitPrice" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="prodDesc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertUpdateA21QuotationDetailResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateA21QuotationHeader">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="a21TrnNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="trnDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="exchangeRate" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="docNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="add4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="gstType" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="gst" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPerson" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="billAmt" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateA21QuotationHeaderResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DeleteA21QuotationDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="trnNo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="srNo" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteA21QuotationDetailResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="A21QuotationUpdateStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="A21QuotationUpdateStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="A21QuotationUpdateStatusResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="A21QuotationUpdateStatusByA21TrnNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="a21TrnNo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="A21QuotationUpdateStatusByA21TrnNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="A21QuotationUpdateStatusByA21TrnNoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="A21CurrencyRateByCurrencyCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="currencyCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="A21CurrencyRateByCurrencyCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="A21CurrencyRateByCurrencyCodeResult" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="poNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="soNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productDetailDesc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSalesOrderResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderByTrnNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderByTrnNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSalesOrderByTrnNoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSalesOrderDetailsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderProductDesc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="srNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSalesOrderProductDescResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSalesOrderProductDescResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="donumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerPO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productDetailDesc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryOrderResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderByTrnNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderByTrnNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryOrderByTrnNoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryOrderDetailsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryProductDesc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="srNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryProductDescResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryProductDescResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoicelist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productGroupName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="invoiceNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productDetailDesc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoicelistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvoicelistResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceByTrnNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceByTrnNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvoiceByTrnNoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonsID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvoiceDetailsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceProductDesc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trnType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="srNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="dbVersion" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceProductDescResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvoiceProductDescResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankUtilisationFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankUtilisationFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankUtilisationFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankAccountFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOA10BalanceFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="bankCOA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCurrency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOA10BalanceFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankAccountCOA10BalanceFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOAUtilisedBalanceFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="bankCOA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCurrency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOAUtilisedBalanceFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankAccountCOAUtilisedBalanceFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPODetailFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="poNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPODetailFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPODetailFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGRNDetailFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="GRNNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGRNDetailFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGRNDetailFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGRNHeaderFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="GRNNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGRNHeaderFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGRNHeaderFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMRGRNDetailFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMRGRNDetailFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMRGRNDetailFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOHeaderFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="poNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOHeaderFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOHeaderFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductFromA21">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductFromA21Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductFromA21Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOA10BalanceFromA21HQ">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="bankCOA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCurrency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOA10BalanceFromA21HQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankAccountCOA10BalanceFromA21HQResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOAUtilisedBalanceFromA21HQ">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="bankCOA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strCurrency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountCOAUtilisedBalanceFromA21HQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankAccountCOAUtilisedBalanceFromA21HQResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountFromA21HQ">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankAccountFromA21HQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankAccountFromA21HQResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOFromA21ForWMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="poNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPOFromA21ForWMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPOFromA21ForWMSResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDOFromA21ForWMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="doNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDOFromA21ForWMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDOFromA21ForWMSResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSOFromA21ForWMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="soNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSOFromA21ForWMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSOFromA21ForWMSResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllProductResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllAccountResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductExtendedDescriptionByProductCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductExtendedDescriptionByProductCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductExtendedDescriptionByProductCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrialBalance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="year" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="month" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="FYE" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrialBalanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrialBalanceResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrialBalanceForPDS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="year" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="month" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="FYE" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrialBalanceForPDSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrialBalanceForPDSResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductFullDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductFullDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetProductFullDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductFullDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductDetail" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductStockStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductStockStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetProductStockStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductStockStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductStockStatusForPanelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductStockStatusForPanel" />
+  </wsdl:message>
+  <wsdl:message name="GetProductStockStatusForPanelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductStockStatusForPanelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOnSODetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductOnSODetail" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOnSODetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductOnSODetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOnBODetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductOnBODetail" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOnBODetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductOnBODetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOnPODetailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductOnPODetail" />
+  </wsdl:message>
+  <wsdl:message name="GetProductOnPODetailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductOnPODetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailByProductCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductDetailByProductCode" />
+  </wsdl:message>
+  <wsdl:message name="GetProductDetailByProductCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductDetailByProductCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductCostByProductCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductCostByProductCode" />
+  </wsdl:message>
+  <wsdl:message name="GetProductCostByProductCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductCostByProductCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductStockMovementSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductStockMovement" />
+  </wsdl:message>
+  <wsdl:message name="GetProductStockMovementSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductStockMovementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsProductCodeValidSoapIn">
+    <wsdl:part name="parameters" element="tns:IsProductCodeValid" />
+  </wsdl:message>
+  <wsdl:message name="IsProductCodeValidSoapOut">
+    <wsdl:part name="parameters" element="tns:IsProductCodeValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertA21QuotationHeaderSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertA21QuotationHeader" />
+  </wsdl:message>
+  <wsdl:message name="InsertA21QuotationHeaderSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertA21QuotationHeaderResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertUpdateA21QuotationDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertUpdateA21QuotationDetail" />
+  </wsdl:message>
+  <wsdl:message name="InsertUpdateA21QuotationDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertUpdateA21QuotationDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateA21QuotationHeaderSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateA21QuotationHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateA21QuotationHeaderSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateA21QuotationHeaderResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteA21QuotationDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteA21QuotationDetail" />
+  </wsdl:message>
+  <wsdl:message name="DeleteA21QuotationDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteA21QuotationDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="A21QuotationUpdateStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:A21QuotationUpdateStatus" />
+  </wsdl:message>
+  <wsdl:message name="A21QuotationUpdateStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:A21QuotationUpdateStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="A21QuotationUpdateStatusByA21TrnNoSoapIn">
+    <wsdl:part name="parameters" element="tns:A21QuotationUpdateStatusByA21TrnNo" />
+  </wsdl:message>
+  <wsdl:message name="A21QuotationUpdateStatusByA21TrnNoSoapOut">
+    <wsdl:part name="parameters" element="tns:A21QuotationUpdateStatusByA21TrnNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="A21CurrencyRateByCurrencyCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:A21CurrencyRateByCurrencyCode" />
+  </wsdl:message>
+  <wsdl:message name="A21CurrencyRateByCurrencyCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:A21CurrencyRateByCurrencyCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSalesOrder" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderByTrnNoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderByTrnNo" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderByTrnNoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderByTrnNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderProductDescSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderProductDesc" />
+  </wsdl:message>
+  <wsdl:message name="GetSalesOrderProductDescSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSalesOrderProductDescResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrder" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderByTrnNoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderByTrnNo" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderByTrnNoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderByTrnNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryProductDescSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryProductDesc" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryProductDescSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryProductDescResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoicelistSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvoicelist" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoicelistSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvoicelistResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceByTrnNoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvoiceByTrnNo" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceByTrnNoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvoiceByTrnNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvoiceDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvoiceDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceProductDescSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvoiceProductDesc" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceProductDescSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvoiceProductDescResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankUtilisationFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankUtilisationFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetBankUtilisationFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankUtilisationFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankAccountFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankAccountFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOA10BalanceFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOA10BalanceFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOA10BalanceFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOA10BalanceFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOAUtilisedBalanceFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOAUtilisedBalanceFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOAUtilisedBalanceFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOAUtilisedBalanceFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetPODetailFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetPODetailFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetPODetailFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetPODetailFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetGRNDetailFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetGRNDetailFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetGRNDetailFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetGRNDetailFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetGRNHeaderFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetGRNHeaderFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetGRNHeaderFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetGRNHeaderFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetMRGRNDetailFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetMRGRNDetailFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetMRGRNDetailFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetMRGRNDetailFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetPOHeaderFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOHeaderFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetPOHeaderFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOHeaderFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetProductFromA21SoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductFromA21" />
+  </wsdl:message>
+  <wsdl:message name="GetProductFromA21SoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductFromA21Response" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOA10BalanceFromA21HQSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOA10BalanceFromA21HQ" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOA10BalanceFromA21HQSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOA10BalanceFromA21HQResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOAUtilisedBalanceFromA21HQSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOAUtilisedBalanceFromA21HQ" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountCOAUtilisedBalanceFromA21HQSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankAccountCOAUtilisedBalanceFromA21HQResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountFromA21HQSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankAccountFromA21HQ" />
+  </wsdl:message>
+  <wsdl:message name="GetBankAccountFromA21HQSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankAccountFromA21HQResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPOFromA21ForWMSSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPOFromA21ForWMS" />
+  </wsdl:message>
+  <wsdl:message name="GetPOFromA21ForWMSSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPOFromA21ForWMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDOFromA21ForWMSSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDOFromA21ForWMS" />
+  </wsdl:message>
+  <wsdl:message name="GetDOFromA21ForWMSSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDOFromA21ForWMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSOFromA21ForWMSSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSOFromA21ForWMS" />
+  </wsdl:message>
+  <wsdl:message name="GetSOFromA21ForWMSSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSOFromA21ForWMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetAllProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllAccount" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductExtendedDescriptionByProductCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductExtendedDescriptionByProductCode" />
+  </wsdl:message>
+  <wsdl:message name="GetProductExtendedDescriptionByProductCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductExtendedDescriptionByProductCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTrialBalanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrialBalance" />
+  </wsdl:message>
+  <wsdl:message name="GetTrialBalanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrialBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTrialBalanceForPDSSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrialBalanceForPDS" />
+  </wsdl:message>
+  <wsdl:message name="GetTrialBalanceForPDSSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrialBalanceForPDSResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GMSWebServiceSoap">
+    <wsdl:operation name="GetProduct">
+      <wsdl:input message="tns:GetProductSoapIn" />
+      <wsdl:output message="tns:GetProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductFullDetail">
+      <wsdl:input message="tns:GetProductFullDetailSoapIn" />
+      <wsdl:output message="tns:GetProductFullDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetail">
+      <wsdl:input message="tns:GetProductDetailSoapIn" />
+      <wsdl:output message="tns:GetProductDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockStatus">
+      <wsdl:input message="tns:GetProductStockStatusSoapIn" />
+      <wsdl:output message="tns:GetProductStockStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockStatusForPanel">
+      <wsdl:input message="tns:GetProductStockStatusForPanelSoapIn" />
+      <wsdl:output message="tns:GetProductStockStatusForPanelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnSODetail">
+      <wsdl:input message="tns:GetProductOnSODetailSoapIn" />
+      <wsdl:output message="tns:GetProductOnSODetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnBODetail">
+      <wsdl:input message="tns:GetProductOnBODetailSoapIn" />
+      <wsdl:output message="tns:GetProductOnBODetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnPODetail">
+      <wsdl:input message="tns:GetProductOnPODetailSoapIn" />
+      <wsdl:output message="tns:GetProductOnPODetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailByProductCode">
+      <wsdl:input message="tns:GetProductDetailByProductCodeSoapIn" />
+      <wsdl:output message="tns:GetProductDetailByProductCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCostByProductCode">
+      <wsdl:input message="tns:GetProductCostByProductCodeSoapIn" />
+      <wsdl:output message="tns:GetProductCostByProductCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockMovement">
+      <wsdl:input message="tns:GetProductStockMovementSoapIn" />
+      <wsdl:output message="tns:GetProductStockMovementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsProductCodeValid">
+      <wsdl:input message="tns:IsProductCodeValidSoapIn" />
+      <wsdl:output message="tns:IsProductCodeValidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertA21QuotationHeader">
+      <wsdl:input message="tns:InsertA21QuotationHeaderSoapIn" />
+      <wsdl:output message="tns:InsertA21QuotationHeaderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateA21QuotationDetail">
+      <wsdl:input message="tns:InsertUpdateA21QuotationDetailSoapIn" />
+      <wsdl:output message="tns:InsertUpdateA21QuotationDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateA21QuotationHeader">
+      <wsdl:input message="tns:UpdateA21QuotationHeaderSoapIn" />
+      <wsdl:output message="tns:UpdateA21QuotationHeaderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteA21QuotationDetail">
+      <wsdl:input message="tns:DeleteA21QuotationDetailSoapIn" />
+      <wsdl:output message="tns:DeleteA21QuotationDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="A21QuotationUpdateStatus">
+      <wsdl:input message="tns:A21QuotationUpdateStatusSoapIn" />
+      <wsdl:output message="tns:A21QuotationUpdateStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="A21QuotationUpdateStatusByA21TrnNo">
+      <wsdl:input message="tns:A21QuotationUpdateStatusByA21TrnNoSoapIn" />
+      <wsdl:output message="tns:A21QuotationUpdateStatusByA21TrnNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="A21CurrencyRateByCurrencyCode">
+      <wsdl:input message="tns:A21CurrencyRateByCurrencyCodeSoapIn" />
+      <wsdl:output message="tns:A21CurrencyRateByCurrencyCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrder">
+      <wsdl:input message="tns:GetSalesOrderSoapIn" />
+      <wsdl:output message="tns:GetSalesOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderByTrnNo">
+      <wsdl:input message="tns:GetSalesOrderByTrnNoSoapIn" />
+      <wsdl:output message="tns:GetSalesOrderByTrnNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderDetails">
+      <wsdl:input message="tns:GetSalesOrderDetailsSoapIn" />
+      <wsdl:output message="tns:GetSalesOrderDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderProductDesc">
+      <wsdl:input message="tns:GetSalesOrderProductDescSoapIn" />
+      <wsdl:output message="tns:GetSalesOrderProductDescSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrder">
+      <wsdl:input message="tns:GetDeliveryOrderSoapIn" />
+      <wsdl:output message="tns:GetDeliveryOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByTrnNo">
+      <wsdl:input message="tns:GetDeliveryOrderByTrnNoSoapIn" />
+      <wsdl:output message="tns:GetDeliveryOrderByTrnNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderDetails">
+      <wsdl:input message="tns:GetDeliveryOrderDetailsSoapIn" />
+      <wsdl:output message="tns:GetDeliveryOrderDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryProductDesc">
+      <wsdl:input message="tns:GetDeliveryProductDescSoapIn" />
+      <wsdl:output message="tns:GetDeliveryProductDescSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoicelist">
+      <wsdl:input message="tns:GetInvoicelistSoapIn" />
+      <wsdl:output message="tns:GetInvoicelistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceByTrnNo">
+      <wsdl:input message="tns:GetInvoiceByTrnNoSoapIn" />
+      <wsdl:output message="tns:GetInvoiceByTrnNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceDetails">
+      <wsdl:input message="tns:GetInvoiceDetailsSoapIn" />
+      <wsdl:output message="tns:GetInvoiceDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceProductDesc">
+      <wsdl:input message="tns:GetInvoiceProductDescSoapIn" />
+      <wsdl:output message="tns:GetInvoiceProductDescSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankUtilisationFromA21">
+      <wsdl:input message="tns:GetBankUtilisationFromA21SoapIn" />
+      <wsdl:output message="tns:GetBankUtilisationFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountFromA21">
+      <wsdl:input message="tns:GetBankAccountFromA21SoapIn" />
+      <wsdl:output message="tns:GetBankAccountFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOA10BalanceFromA21">
+      <wsdl:input message="tns:GetBankAccountCOA10BalanceFromA21SoapIn" />
+      <wsdl:output message="tns:GetBankAccountCOA10BalanceFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOAUtilisedBalanceFromA21">
+      <wsdl:input message="tns:GetBankAccountCOAUtilisedBalanceFromA21SoapIn" />
+      <wsdl:output message="tns:GetBankAccountCOAUtilisedBalanceFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPODetailFromA21">
+      <wsdl:input message="tns:GetPODetailFromA21SoapIn" />
+      <wsdl:output message="tns:GetPODetailFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGRNDetailFromA21">
+      <wsdl:input message="tns:GetGRNDetailFromA21SoapIn" />
+      <wsdl:output message="tns:GetGRNDetailFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGRNHeaderFromA21">
+      <wsdl:input message="tns:GetGRNHeaderFromA21SoapIn" />
+      <wsdl:output message="tns:GetGRNHeaderFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMRGRNDetailFromA21">
+      <wsdl:input message="tns:GetMRGRNDetailFromA21SoapIn" />
+      <wsdl:output message="tns:GetMRGRNDetailFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOHeaderFromA21">
+      <wsdl:input message="tns:GetPOHeaderFromA21SoapIn" />
+      <wsdl:output message="tns:GetPOHeaderFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductFromA21">
+      <wsdl:input message="tns:GetProductFromA21SoapIn" />
+      <wsdl:output message="tns:GetProductFromA21SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOA10BalanceFromA21HQ">
+      <wsdl:input message="tns:GetBankAccountCOA10BalanceFromA21HQSoapIn" />
+      <wsdl:output message="tns:GetBankAccountCOA10BalanceFromA21HQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOAUtilisedBalanceFromA21HQ">
+      <wsdl:input message="tns:GetBankAccountCOAUtilisedBalanceFromA21HQSoapIn" />
+      <wsdl:output message="tns:GetBankAccountCOAUtilisedBalanceFromA21HQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountFromA21HQ">
+      <wsdl:input message="tns:GetBankAccountFromA21HQSoapIn" />
+      <wsdl:output message="tns:GetBankAccountFromA21HQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPOFromA21ForWMS">
+      <wsdl:input message="tns:GetPOFromA21ForWMSSoapIn" />
+      <wsdl:output message="tns:GetPOFromA21ForWMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDOFromA21ForWMS">
+      <wsdl:input message="tns:GetDOFromA21ForWMSSoapIn" />
+      <wsdl:output message="tns:GetDOFromA21ForWMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSOFromA21ForWMS">
+      <wsdl:input message="tns:GetSOFromA21ForWMSSoapIn" />
+      <wsdl:output message="tns:GetSOFromA21ForWMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProduct">
+      <wsdl:input message="tns:GetAllProductSoapIn" />
+      <wsdl:output message="tns:GetAllProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccount">
+      <wsdl:input message="tns:GetAllAccountSoapIn" />
+      <wsdl:output message="tns:GetAllAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductExtendedDescriptionByProductCode">
+      <wsdl:input message="tns:GetProductExtendedDescriptionByProductCodeSoapIn" />
+      <wsdl:output message="tns:GetProductExtendedDescriptionByProductCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrialBalance">
+      <wsdl:input message="tns:GetTrialBalanceSoapIn" />
+      <wsdl:output message="tns:GetTrialBalanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrialBalanceForPDS">
+      <wsdl:input message="tns:GetTrialBalanceForPDSSoapIn" />
+      <wsdl:output message="tns:GetTrialBalanceForPDSSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GMSWebServiceSoap" type="tns:GMSWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProduct">
+      <soap:operation soapAction="http://tempuri.org/GetProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductFullDetail">
+      <soap:operation soapAction="http://tempuri.org/GetProductFullDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetail">
+      <soap:operation soapAction="http://tempuri.org/GetProductDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockStatus">
+      <soap:operation soapAction="http://tempuri.org/GetProductStockStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockStatusForPanel">
+      <soap:operation soapAction="http://tempuri.org/GetProductStockStatusForPanel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnSODetail">
+      <soap:operation soapAction="http://tempuri.org/GetProductOnSODetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnBODetail">
+      <soap:operation soapAction="http://tempuri.org/GetProductOnBODetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnPODetail">
+      <soap:operation soapAction="http://tempuri.org/GetProductOnPODetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailByProductCode">
+      <soap:operation soapAction="http://tempuri.org/GetProductDetailByProductCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCostByProductCode">
+      <soap:operation soapAction="http://tempuri.org/GetProductCostByProductCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockMovement">
+      <soap:operation soapAction="http://tempuri.org/GetProductStockMovement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsProductCodeValid">
+      <soap:operation soapAction="http://tempuri.org/IsProductCodeValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertA21QuotationHeader">
+      <soap:operation soapAction="http://tempuri.org/InsertA21QuotationHeader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateA21QuotationDetail">
+      <soap:operation soapAction="http://tempuri.org/InsertUpdateA21QuotationDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateA21QuotationHeader">
+      <soap:operation soapAction="http://tempuri.org/UpdateA21QuotationHeader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteA21QuotationDetail">
+      <soap:operation soapAction="http://tempuri.org/DeleteA21QuotationDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="A21QuotationUpdateStatus">
+      <soap:operation soapAction="http://tempuri.org/A21QuotationUpdateStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="A21QuotationUpdateStatusByA21TrnNo">
+      <soap:operation soapAction="http://tempuri.org/A21QuotationUpdateStatusByA21TrnNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="A21CurrencyRateByCurrencyCode">
+      <soap:operation soapAction="http://tempuri.org/A21CurrencyRateByCurrencyCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrder">
+      <soap:operation soapAction="http://tempuri.org/GetSalesOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderByTrnNo">
+      <soap:operation soapAction="http://tempuri.org/GetSalesOrderByTrnNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderDetails">
+      <soap:operation soapAction="http://tempuri.org/GetSalesOrderDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderProductDesc">
+      <soap:operation soapAction="http://tempuri.org/GetSalesOrderProductDesc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrder">
+      <soap:operation soapAction="http://tempuri.org/GetDeliveryOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByTrnNo">
+      <soap:operation soapAction="http://tempuri.org/GetDeliveryOrderByTrnNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderDetails">
+      <soap:operation soapAction="http://tempuri.org/GetDeliveryOrderDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryProductDesc">
+      <soap:operation soapAction="http://tempuri.org/GetDeliveryProductDesc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoicelist">
+      <soap:operation soapAction="http://tempuri.org/GetInvoicelist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceByTrnNo">
+      <soap:operation soapAction="http://tempuri.org/GetInvoiceByTrnNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceDetails">
+      <soap:operation soapAction="http://tempuri.org/GetInvoiceDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceProductDesc">
+      <soap:operation soapAction="http://tempuri.org/GetInvoiceProductDesc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankUtilisationFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetBankUtilisationFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetBankAccountFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOA10BalanceFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetBankAccountCOA10BalanceFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOAUtilisedBalanceFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetBankAccountCOAUtilisedBalanceFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPODetailFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetPODetailFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGRNDetailFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetGRNDetailFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGRNHeaderFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetGRNHeaderFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMRGRNDetailFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetMRGRNDetailFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOHeaderFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetPOHeaderFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductFromA21">
+      <soap:operation soapAction="http://tempuri.org/GetProductFromA21" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOA10BalanceFromA21HQ">
+      <soap:operation soapAction="http://tempuri.org/GetBankAccountCOA10BalanceFromA21HQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOAUtilisedBalanceFromA21HQ">
+      <soap:operation soapAction="http://tempuri.org/GetBankAccountCOAUtilisedBalanceFromA21HQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountFromA21HQ">
+      <soap:operation soapAction="http://tempuri.org/GetBankAccountFromA21HQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOFromA21ForWMS">
+      <soap:operation soapAction="http://tempuri.org/GetPOFromA21ForWMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDOFromA21ForWMS">
+      <soap:operation soapAction="http://tempuri.org/GetDOFromA21ForWMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSOFromA21ForWMS">
+      <soap:operation soapAction="http://tempuri.org/GetSOFromA21ForWMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProduct">
+      <soap:operation soapAction="http://tempuri.org/GetAllProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccount">
+      <soap:operation soapAction="http://tempuri.org/GetAllAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductExtendedDescriptionByProductCode">
+      <soap:operation soapAction="http://tempuri.org/GetProductExtendedDescriptionByProductCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrialBalance">
+      <soap:operation soapAction="http://tempuri.org/GetTrialBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrialBalanceForPDS">
+      <soap:operation soapAction="http://tempuri.org/GetTrialBalanceForPDS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GMSWebServiceSoap12" type="tns:GMSWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductFullDetail">
+      <soap12:operation soapAction="http://tempuri.org/GetProductFullDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetail">
+      <soap12:operation soapAction="http://tempuri.org/GetProductDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockStatus">
+      <soap12:operation soapAction="http://tempuri.org/GetProductStockStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockStatusForPanel">
+      <soap12:operation soapAction="http://tempuri.org/GetProductStockStatusForPanel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnSODetail">
+      <soap12:operation soapAction="http://tempuri.org/GetProductOnSODetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnBODetail">
+      <soap12:operation soapAction="http://tempuri.org/GetProductOnBODetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductOnPODetail">
+      <soap12:operation soapAction="http://tempuri.org/GetProductOnPODetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductDetailByProductCode">
+      <soap12:operation soapAction="http://tempuri.org/GetProductDetailByProductCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCostByProductCode">
+      <soap12:operation soapAction="http://tempuri.org/GetProductCostByProductCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductStockMovement">
+      <soap12:operation soapAction="http://tempuri.org/GetProductStockMovement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsProductCodeValid">
+      <soap12:operation soapAction="http://tempuri.org/IsProductCodeValid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertA21QuotationHeader">
+      <soap12:operation soapAction="http://tempuri.org/InsertA21QuotationHeader" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpdateA21QuotationDetail">
+      <soap12:operation soapAction="http://tempuri.org/InsertUpdateA21QuotationDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateA21QuotationHeader">
+      <soap12:operation soapAction="http://tempuri.org/UpdateA21QuotationHeader" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteA21QuotationDetail">
+      <soap12:operation soapAction="http://tempuri.org/DeleteA21QuotationDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="A21QuotationUpdateStatus">
+      <soap12:operation soapAction="http://tempuri.org/A21QuotationUpdateStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="A21QuotationUpdateStatusByA21TrnNo">
+      <soap12:operation soapAction="http://tempuri.org/A21QuotationUpdateStatusByA21TrnNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="A21CurrencyRateByCurrencyCode">
+      <soap12:operation soapAction="http://tempuri.org/A21CurrencyRateByCurrencyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrder">
+      <soap12:operation soapAction="http://tempuri.org/GetSalesOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderByTrnNo">
+      <soap12:operation soapAction="http://tempuri.org/GetSalesOrderByTrnNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderDetails">
+      <soap12:operation soapAction="http://tempuri.org/GetSalesOrderDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSalesOrderProductDesc">
+      <soap12:operation soapAction="http://tempuri.org/GetSalesOrderProductDesc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrder">
+      <soap12:operation soapAction="http://tempuri.org/GetDeliveryOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByTrnNo">
+      <soap12:operation soapAction="http://tempuri.org/GetDeliveryOrderByTrnNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderDetails">
+      <soap12:operation soapAction="http://tempuri.org/GetDeliveryOrderDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryProductDesc">
+      <soap12:operation soapAction="http://tempuri.org/GetDeliveryProductDesc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoicelist">
+      <soap12:operation soapAction="http://tempuri.org/GetInvoicelist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceByTrnNo">
+      <soap12:operation soapAction="http://tempuri.org/GetInvoiceByTrnNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceDetails">
+      <soap12:operation soapAction="http://tempuri.org/GetInvoiceDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceProductDesc">
+      <soap12:operation soapAction="http://tempuri.org/GetInvoiceProductDesc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankUtilisationFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetBankUtilisationFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetBankAccountFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOA10BalanceFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetBankAccountCOA10BalanceFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOAUtilisedBalanceFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetBankAccountCOAUtilisedBalanceFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPODetailFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetPODetailFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGRNDetailFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetGRNDetailFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGRNHeaderFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetGRNHeaderFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMRGRNDetailFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetMRGRNDetailFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOHeaderFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetPOHeaderFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductFromA21">
+      <soap12:operation soapAction="http://tempuri.org/GetProductFromA21" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOA10BalanceFromA21HQ">
+      <soap12:operation soapAction="http://tempuri.org/GetBankAccountCOA10BalanceFromA21HQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountCOAUtilisedBalanceFromA21HQ">
+      <soap12:operation soapAction="http://tempuri.org/GetBankAccountCOAUtilisedBalanceFromA21HQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAccountFromA21HQ">
+      <soap12:operation soapAction="http://tempuri.org/GetBankAccountFromA21HQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPOFromA21ForWMS">
+      <soap12:operation soapAction="http://tempuri.org/GetPOFromA21ForWMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDOFromA21ForWMS">
+      <soap12:operation soapAction="http://tempuri.org/GetDOFromA21ForWMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSOFromA21ForWMS">
+      <soap12:operation soapAction="http://tempuri.org/GetSOFromA21ForWMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetAllProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccount">
+      <soap12:operation soapAction="http://tempuri.org/GetAllAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductExtendedDescriptionByProductCode">
+      <soap12:operation soapAction="http://tempuri.org/GetProductExtendedDescriptionByProductCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrialBalance">
+      <soap12:operation soapAction="http://tempuri.org/GetTrialBalance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrialBalanceForPDS">
+      <soap12:operation soapAction="http://tempuri.org/GetTrialBalanceForPDS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GMSWebService">
+    <wsdl:port name="GMSWebServiceSoap" binding="tns:GMSWebServiceSoap">
+      <soap:address location="https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GMSWebServiceSoap12" binding="tns:GMSWebServiceSoap12">
+      <soap12:address location="https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

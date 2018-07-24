@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<codeSmith>
+	<propertySet>
+		<property name="MappingFile">D:\GMS\CodesmithTemplate\GMSMapping.config</property>
+		<property name="IncludeViews">False</property>
+		<property name="IgnoreList">
+			<stringList>
+				<string>sysdiagrams</string>
+				<string>aspnet_Applications</string>
+				<string>aspnet_Membership</string>
+				<string>aspnet_Paths</string>
+				<string>aspnet_PersonalizationAllUsers</string>
+				<string>aspnet_PersonalizationPerUser</string>
+				<string>aspnet_Profile</string>
+				<string>aspnet_Roles</string>
+				<string>aspnet_SchemaVersions</string>
+				<string>aspnet_Users</string>
+				<string>aspnet_UsersInRoles</string>
+				<string>aspnet_WebEvent_Events</string>
+				<string />
+			</stringList>
+		</property>
+		<property name="CleanExpression">
+			<stringList>
+				<string>^\w+_</string>
+			</stringList>
+		</property>
+		<property name="ClassNamespace">GMSCore.Entity</property>
+		<property name="NullDefaults">True</property>
+		<property name="SingleTense">False</property>
+		<property name="ShortenName">True</property>
+		<property name="SourceDatabase">
+			<connectionString>Data Source=(local);Initial Catalog=GMS;user id=sa;pwd=;</connectionString>
+			<providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+		</property>
+	</propertySet>
+</codeSmith>

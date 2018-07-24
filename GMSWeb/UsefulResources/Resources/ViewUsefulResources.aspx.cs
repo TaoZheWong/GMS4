@@ -1,0 +1,439 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+using GMSCore;
+using GMSCore.Activity;
+using GMSCore.Entity;
+using GMSWeb.CustomCtrl;
+using System.IO;
+
+namespace GMSWeb.UsefulResources.Resources
+{
+    public partial class ViewUsefulResources : GMSBasePage
+    {
+        public bool CanDelete = false;
+
+        protected string folderPath = @"D:\GMSDocuments\Resources\"; 
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            if (session == null)
+            {
+                Response.Redirect(base.SessionTimeOutPage("UsefulResources"));
+                return;
+            }
+            
+            if (!Page.IsPostBack)
+            {
+                if (Request.Params["PageHeader"] != null)
+                    this.lblPageHeader.Text = Request.Params["PageHeader"].ToString();
+                if (Request.Params["PageTitle"] != null)
+                    this.Title = Request.Params["PageTitle"].ToString();
+                if (Request.Params["ModuleCategoryID"] != null)
+                    this.hidModuleCategoryID.Value = Request.Params["ModuleCategoryID"].ToString();
+                if (Request.Params["ModuleCategoryName"] != null)
+                    this.hidModuleCategoryName.Value = Request.Params["ModuleCategoryName"].ToString();
+                LoadDDLs();
+            }
+                       
+            PopulateRepeater();
+            UserAccessDocumentOperation uAccess = new GMSUserActivity().RetrieveUserAccessDocumentOperationByUserIdModuleCategoryId(session.UserId,4);
+            if (uAccess == null)
+                Response.Redirect(base.UnauthorizedPage(this.hidModuleCategoryName.Value));
+
+            Master.setCurrentLink(this.hidModuleCategoryName.Value);
+
+
+            if (uAccess == null || uAccess.Operation != "E")
+            {
+                tbUpload.Visible = false;
+                CanDelete = false; 
+            }
+            else
+            {
+                tbUpload.Visible = true;
+                CanDelete = true; 
+            }
+
+            string javaScript =
+            @"<script type=""text/javascript"">
+		    function toggleAccessRow(n)
+		    {
+			    if( document.getElementById(""rppToggle_"" + n) )
+			    {
+				    var current = document.getElementById(""rppToggle_"" + n).style.display;
+				    document.getElementById(""rppToggle_"" + n).style.display = (current == null || current == ""none"")?"""":""none"";
+				    document[""imgAccessBox_"" + n].src = (current == null || current == ""none"")? sDOMAIN+""/App_Themes/Default/images/checkCloseIcon.gif"" : sDOMAIN+""/App_Themes/Default/images/checkOpenIcon.gif"";
+			    }
+		    }
+		    </script>";
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
+        }
+
+        protected void LoadDDLs()
+        {
+            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(4);
+            if (lstCategory != null && lstCategory.Count > 0)
+            {
+                this.ddlDocumentCategory.DataSource = lstCategory;
+                this.ddlDocumentCategory.DataBind();
+            }
+            PopulateDocument();
+        }
+
+        #region PopulateDocument
+        protected void PopulateDocument()
+        {
+            //IList<Document> lstDocument = new SystemDataActivity().RetrieveAllDocumentByDocumentCategoryID(short.Parse(this.ddlDocumentCategory.SelectedValue));
+            //if (lstDocument != null && lstDocument.Count > 0)
+            //{
+            //this.ddlDocument.DataSource = lstDocument;
+            //this.ddlDocument.DataBind();
+            //}
+
+            DocumentDataDALC dalc = new DocumentDataDALC();
+            DataSet ds = new DataSet();
+            dalc.GetActiveDocuments(short.Parse(this.ddlDocumentCategory.SelectedValue), ref ds);
+            this.ddlDocument.DataSource = ds.Tables[0]; 
+            this.ddlDocument.DataBind();
+                        
+            ddlDocument.Items.Insert(0, new ListItem("[Select Existing Document]", "0")); 
+
+            //populate Sequence
+            DataTable dtt1 = new DataTable();
+            dtt1.Columns.Add("SeqID", typeof(string));
+
+            for (int i = 1; i <= ds.Tables[0].Rows.Count + 1; i++)
+            {
+                DataRow dr1 = dtt1.NewRow();
+                dr1["SeqID"] = i; 
+                dtt1.Rows.Add(dr1);
+            }
+
+            this.ddlSequence.DataSource = dtt1;
+            this.ddlSequence.DataBind();
+            this.RefreshPageTitle(); 
+        }
+        #endregion
+
+        #region RefreshPageTitle
+        protected void RefreshPageTitle()
+        {
+            this.Title = Request.Params["PageTitle"].ToString(); 
+        }
+        #endregion
+        
+        #region PopulateRepeater
+        private void PopulateRepeater()
+        {
+            LogSession session = base.GetSessionInfo();
+
+            UserAccessDocumentOperation uAccess = new GMSUserActivity().RetrieveUserAccessDocumentOperationByUserIdModuleCategoryId(session.UserId, Convert.ToInt16(this.hidModuleCategoryID.Value));
+            if (uAccess == null)
+                Response.Redirect(base.UnauthorizedPage(this.hidModuleCategoryName.Value));
+
+            if (uAccess != null && uAccess.Operation == "E")
+                CanDelete = true;
+            else
+                CanDelete = false;
+
+            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(4);
+
+            if (lstCategory != null && lstCategory.Count > 0)
+            {
+                rppCategoryList.DataSource = lstCategory;
+                rppCategoryList.DataBind();
+
+                int i = 0;
+                foreach (DocumentCategory rCategory in lstCategory)
+                {
+                    //IList<Document> lstDocument = null;
+                    //lstDocument = new SystemDataActivity().RetrieveAllDocumentBySeqID(rCategory.DocumentCategoryID);
+                    DocumentDataDALC dalc = new DocumentDataDALC();
+                    DataSet ds = new DataSet();
+                    dalc.GetActiveDocuments(rCategory.DocumentCategoryID, ref ds);
+
+                    // Bind Data to sub repeater
+                    RepeaterItem item = this.rppCategoryList.Items[i];
+                    Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
+
+                    if (rppReportList != null)
+                    {
+                        rppReportList.DataSource = ds.Tables[0]; 
+                        rppReportList.DataBind();
+                    }
+
+                    /*
+                    lstDocument = ds.Tables[0].
+
+                    if (lstDocument != null && lstDocument.Count > 0)
+                    {
+                        for (int j = lstDocument.Count - 1; j >= 0; j--)
+                        {
+                            // Bind Data to sub repeater
+                            RepeaterItem item = this.rppCategoryList.Items[i];
+                            Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
+
+                            if (rppReportList != null)
+                            {
+                                rppReportList.DataSource = lstDocument;
+                                rppReportList.DataBind();
+                            }
+                        }
+                    }*/
+                    i++;
+                     
+                }
+            }
+        }
+        #endregion
+
+        #region rppReportList_ItemDataBound
+        protected void rppReportList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                HtmlInputHidden hidNumOfDocs = (HtmlInputHidden)e.Item.FindControl("hidNumOfDocs");
+                LinkButton lnkViewHistory = (LinkButton)e.Item.FindControl("lnkViewHistory");
+                if (int.Parse(hidNumOfDocs.Value) > 1)
+                    lnkViewHistory.Visible = true;
+                else
+                    lnkViewHistory.Visible = false;
+            }
+        }
+        #endregion
+
+        #region rppReportList_ItemCommand
+        protected void rppReportList_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            if (e.CommandName == "Delete")
+            {
+                short documentId = short.Parse(e.CommandArgument.ToString());
+                Document doc = Document.RetrieveByKey(documentId);
+                //string filePath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Resources\\" + doc.FileName;
+                string filePath = folderPath + doc.FileName;
+                doc.Delete();
+                doc.Resync();
+
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    JScriptAlertMsg(ex.Message); 
+                }
+
+                JScriptAlertMsg("Document deleted.");
+                PopulateRepeater();
+                PopulateDocument(); 
+            } else if (e.CommandName == "ViewHistory") 
+            {
+                HtmlInputHidden hidDocumentID = (HtmlInputHidden)e.Item.FindControl("hidDocumentID");
+                ClientScript.RegisterStartupScript(typeof(string), "",
+                    string.Format("jsOpenReport('UsefulResources/Resources/ViewResourcesHistory.aspx?DOCUMENTID={0}');",
+                                  hidDocumentID.Value),true);
+                RefreshPageTitle();
+            }
+            else if (e.CommandName == "Load")
+            {
+                string ext = Path.GetExtension(e.CommandArgument.ToString());
+                string ContentType = "";
+
+                if (ext == ".asf")
+                    ContentType = "video/x-ms-asf";
+                else if (ext == ".avi")
+                    ContentType = "video/avi";
+                else if (ext == ".doc")
+                    ContentType = "application/msword";
+                else if (ext == ".zip")
+                    ContentType = "application/zip";
+                else if (ext == ".xls")
+                    ContentType = "application/vnd.ms-excel";
+                else if (ext == ".gif")
+                    ContentType = "image/gif";
+                else if (ext == ".jpg" || ext == "jpeg")
+                    ContentType = "image/jpeg";
+                else if (ext == ".wav")
+                    ContentType = "audio/wav";
+                else if (ext == ".mp3")
+                    ContentType = "audio/mpeg3";
+                else if (ext == ".mpg" || ext == "mpeg")
+                    ContentType = "video/mpeg";
+                else if (ext == ".mp3")
+                    ContentType = "audio/mpeg3";
+                else if (ext == ".rtf")
+                    ContentType = "application/rtf";
+                else if (ext == ".htm" || ext == "html")
+                    ContentType = "text/html";
+                else if (ext == ".asp")
+                    ContentType = "text/asp";
+                else
+                    ContentType = "application/octet-stream";
+
+                Response.ContentType = ContentType.ToString();
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
+                try
+                {
+                    Response.TransmitFile(@"D:/GMSDocuments/Resources/" + e.CommandArgument.ToString());
+                } catch(Exception ex)
+                {
+                    JScriptAlertMsg(ex.Message); 
+                }
+                Response.End();
+            }
+        }
+        #endregion
+
+        #region btnUpload_Click
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            UserAccessDocumentOperation uAccess = new GMSUserActivity().RetrieveUserAccessDocumentOperationByUserIdModuleCategoryId(session.UserId,4);
+            if (uAccess == null || uAccess.Operation != "E")
+                Response.Redirect(base.UnauthorizedPage(this.hidModuleCategoryName.Value));
+
+            if (!(ddlDocument.SelectedValue == "0" && (txtDocumentName.Text == "" || (!FileUpload1.HasFile))) &&
+                 (!(!FileUpload1.HasFile && rblOverwriteDocument.SelectedValue == "0")))
+            {
+                string fileName = "";
+                string docNo = ""; 
+
+                if (FileUpload1.HasFile)
+                {
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    try
+                    {
+                        DocumentNumber documentNumber = DocumentNumber.RetrieveByKey(61, (short)DateTime.Now.Year);
+                        if (documentNumber != null)
+                        {
+                            docNo = documentNumber.DocumentNo;
+                            string nextDocumentNo = ((short)(short.Parse(documentNumber.DocumentNo) + 1)).ToString();
+                            for (int j = nextDocumentNo.Length; j < documentNumber.DocumentNo.Length; j++)
+                            {
+                                nextDocumentNo = "0" + nextDocumentNo;
+                            }
+                            documentNumber.DocumentNo = nextDocumentNo;
+                            documentNumber.Save();
+                        }
+                        fileName = docNo + Path.GetExtension(this.FileUpload1.FileName);
+                        FileUpload1.SaveAs(folderPath + "\\" + fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        JScriptAlertMsg(ex.Message);
+                    }
+                }
+
+                if (ddlDocument.SelectedValue != "0" && rblOverwriteDocument.SelectedValue == "1")
+                {   //update existing document
+                    Document doc = Document.RetrieveByKey(short.Parse(ddlDocument.SelectedValue));
+                    if (doc != null)
+                    {
+                        if (txtDocumentName.Text.ToString() != "")
+                            doc.DocumentName = txtDocumentName.Text.ToString().Trim().ToUpper();
+                        if (FileUpload1.HasFile)
+                        {
+                            string previousFilePath = folderPath + "\\" + doc.FileName; 
+                            //delete existing document 
+                            try
+                            {
+                                if (File.Exists(previousFilePath))
+                                {
+                                    File.Delete(previousFilePath);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                JScriptAlertMsg(ex.Message);
+                            }
+                            //update new filename
+                            doc.FileName = fileName;
+                        }
+                        doc.SeqID = short.Parse(ddlSequence.SelectedValue);
+                        doc.DateUploaded = DateTime.Now; 
+                        doc.Save();
+                        doc.Resync();
+                    }
+                }
+                else
+                {   //new document 
+                    //check if the document existed before
+                    string documentName; 
+                    if (this.txtDocumentName.Text.ToString() == "")
+                        documentName = ddlDocument.SelectedItem.Text; 
+                    else
+                        documentName = this.txtDocumentName.Text.Trim().ToUpper();
+                                    
+                    Document sameDoc = new DocumentActivity().RetrieveDocumentByDocumentNameFileName(documentName, fileName);
+                    if ((rblOverwriteDocument.SelectedValue == "1" && sameDoc == null) || 
+                         rblOverwriteDocument.SelectedValue == "0")
+                    {
+                        Document doc = new Document();
+                        doc.DocumentCategoryID = short.Parse(this.ddlDocumentCategory.SelectedValue);
+                        doc.DocumentName = documentName;
+                        doc.FileName = fileName;
+                        doc.SeqID = short.Parse(ddlSequence.SelectedValue);
+                        doc.DateUploaded = DateTime.Now;
+                        doc.Save();
+                        doc.Resync();
+                    }
+                }
+
+                JScriptAlertMsg("Document is uploaded or updated.");
+                PopulateRepeater();
+                PopulateDocument(); 
+                lblMsg.Text = "";
+                txtDocumentName.Text = "";
+                this.Title = Request.Params["PageTitle"].ToString(); 
+            }
+            else
+            {
+                lblMsg.Text = "You must key in the Document Name or specify a file.";
+            }
+        }
+        #endregion
+
+        #region ddlDocumentCategory_SelectedIndexChanged
+        protected void ddlDocumentCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateDocument();
+            this.Title = Request.Params["PageTitle"].ToString(); 
+        }
+        #endregion
+        
+        #region ddlDocument_SelectedIndexChanged
+        protected void ddlDocument_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlDocument.SelectedValue == "0") return; 
+            Document doc = new DocumentActivity().RetrieveDocumentByDocumentID(short.Parse(ddlDocument.SelectedValue));
+            if (doc.SeqID == 0)
+                ddlSequence.SelectedValue = "1"; 
+            else 
+                ddlSequence.SelectedValue = doc.SeqID.ToString();
+
+            this.Title = Request.Params["PageTitle"].ToString(); 
+        }
+        #endregion
+    }
+}

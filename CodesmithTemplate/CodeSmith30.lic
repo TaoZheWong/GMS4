@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Licenses>
+	<License signature="yi9/ETe2Vk94Dfd5424rZVx7eZaucZRal9Lh52de/jT8JDf1EZVWKgLaSnoEOAft290mm/yeImzND6zPdK+OVhn8l0AU1JLERr9+5obYLoisul90Ozd3kxwTVhBQJP2VXEmhgOEq8cFTyHVw5rxocU8N6+wYlk467Yj/W+PZ6gI=" version="2.0" assemblyName="CodeSmith">
+		<Component>CodeSmith.Engine.CodeSmithLicense</Component>
+		<Expires>2104-07-02T00:00:00</Expires>
+		<SerialNumber>CS30P-</SerialNumber>
+		<IssuerUrl>http://www.codesmithtools.com/</IssuerUrl>
+		<Limits>
+			<Limit type="Version" maximum="3.65535.65535.65535" minimum="3.0.0.0" />
+			<Limit type="Activation" url="http://licensing.codesmithtools.com/activationserver.asmx" tolerance="4" profileHash="" canActivateByKey="true" graceDuration="30" />
+		</Limits>
+		<Values>
+			<Value key="__XL_PRO" value="TRUE" />
+		</Values>
+		<Meta>
+			<Values>
+				<Value key="XL_SERIALNUMBER" value="CS30P-IMY4R-2HLMY-XD2YU-YUGTT-QHHSA" />
+				<Value key="XL_ACTIVATIONUNLOCKEY" value="J6WQCO3FH22BDH2WAO6DJK78XOPRFTEZCJX8ELMJH0WJ7349FP4KWGR6B7JU5LH1" />
+				<Value key="XL_ACTIVATIONUNLOCKHASH" value="1.1-38DC922-EAD188E9-C8A21CDF-1505-9961CF21-822B1182-1505-4334460D-1505-1861C510-F7A635FE-1505-7AD2BB2" />
+				<Value key="XL_ORGANIZATION" value="Team Lz0" />
+				<Value key="XL_USER" value="Team Lz0 Team Lz0" />
+			</Values>
+		</Meta>
+		<UnlockBySerial acceptedSizes="4">true</UnlockBySerial>
+	</License>
+</Licenses>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith>
+	<propertySet>
+		<property name="ProjectFile">D:\Work\eLogixV3\eLogixCore\eLogixCore.csproj</property>
+		<property name="MappingFile">D:\Work\eLogixV3\eLogixCore\eLogixMapping.config</property>
+		<property name="OutputDirectory">D:\Work\eLogixV3\eLogixCore\Entity</property>
+		<property name="ImplementHelper">True</property>
+		<property name="ImplementNotification">False</property>
+	</propertySet>
+</codeSmith>

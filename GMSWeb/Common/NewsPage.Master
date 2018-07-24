@@ -1,0 +1,70 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NewsPage.Master.cs" Inherits="GMSWeb.NewsPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Assembly="SharpPieces.Web.Controls.ExtendedDropDownList" Namespace="SharpPieces.Web.Controls"
+    TagPrefix="piece" %>
+    
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=7"/>
+    <title>News Master Page</title>
+</head>
+<body>
+<form id="form1" runat="server">	
+<div id="wrap"><!-- wrap starts here -->
+	<div id="header">
+	
+               <table cellpadding="0px" cellspacing="5px" width="100%" border="0">
+               <tr>
+               <td style="width: 30%">
+                    <h1 id="logo">Leeden<span class="gray">GMS</span></h1> 
+		            <h2 id="slogan">...the Leeden's Group Management System</h2>
+               </td>
+               <td align="right">
+                   <h2 id="username">Welcome&nbsp;<asp:Label runat="server" ID="lblWelcome"></asp:Label>!&nbsp;&nbsp;|&nbsp;&nbsp;
+                   <a id="changePassword" href="/GMS3/Admin/Accounts/ChangePasswordNoFrame.aspx" target="_blank" title="Change password">Change Your Password Here</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                   <a id="changePassword" href="/GMS3/Logout.aspx" title="Sign Out">Sign Out</a>
+                   </h2>
+               </td>
+               </tr>
+               <tr>
+               <td></td>
+               <td align="right">
+                        <asp:Label CssClass="toplabel" ID="lblCompany" runat="server" Text="Company :"></asp:Label>
+                        <piece:ExtendedDropDownList CssClass="list" ID="ddlCompany" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCompany_SelectedIndexChanged" >
+                        </piece:ExtendedDropDownList> 
+               </td></tr>
+               </table>  
+   
+	</div>
+	
+    <div id="menu">
+	    <ul runat="server" id="linkTag"></ul>
+	</div>		
+	
+    
+    </div>
+    
+    <div id="main">
+         <asp:ContentPlaceHolder ID="ContentPlaceHolderMain" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+   
+</div><!-- wrap ends here -->	
+	
+<!-- footer starts here -->	
+	<div id="footer">
+		<div id="footer-content">
+		
+		<div id="footer-left">
+			&copy; 2011 Leeden Limited |
+			Contact <a href="mailto:siewsiew.ong@leedenlimited.com">System Administrator</a> |
+			<a href="http://www.bluewebtemplates.com/" title="Website Templates">website templates</a> by <a href="http://www.styleshout.com/">styleshout</a>
+
+		</div>
+		</div>	
+	</div>
+<!-- footer ends here -->	
+</form>
+</body>
+</html>
