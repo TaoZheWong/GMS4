@@ -170,8 +170,24 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();
             } else {
-                if (!angular.equals(type, 'reject')) {
-                    claim.saveDetails();
+                if (!angular.equals(type, 'Reject')) {
+                    if (angular.equals(type, 'Submit')) {
+                        ClaimService.updateClaimInfo(claim.claimInfo).then(function (resp) {
+                            if (resp.data.Status == 1) {
+                                claim.claimInfo = resp.data.Params.data[0];
+                            }
+                            
+                        });
+
+                        ClaimService.addClaimDetail(claim.claimInfo.ClaimID, claim.companyID, JSON.stringify(claim.detail), timeoutCanceler).then(function (resp) {
+                            if (resp.data.Status == 0) {
+                                claim.detail = [];
+                                //claim.getClaimDetails(claim.claimInfo.ClaimID);
+                            }
+                        });
+
+                        claim.getClaimInfo();
+                    }
                     data.rejectremark = '';
                 }
 

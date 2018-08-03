@@ -340,6 +340,7 @@
                 <td class="text-right">{{detail.amountSGD | number : 2}}</td>
                 <td class="btn-col" style="white-space: nowrap">                    
                     <a href="javascript:void(0)" class="btn btn-warning btn-xs" data-ng-click="claim.saveDetails()" data-ng-if="detail.id == null" data-ng-disabled="claim_detail_form.$invalid"><i class="ti-plus"></i></a>
+                    <a href="javascript:void(0)" class="btn btn-default btn-xs" data-ng-click="claim.saveDetails()" data-ng-if="detail.id != null" data-ng-disabled="claim_detail_form.$invalid"><i class="ti-save"></i></a>
 					<a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.uploadReceipt(detail)" data-ng-if="detail.id != null"><i class="ti-files"></i></a>
                     <a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.deleteDetail(detail,$index)" ><i class="ti-trash"></i></a>
                 </td>

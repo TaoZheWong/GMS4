@@ -403,7 +403,7 @@ namespace GMSConApp
         }
 
         static void CloseMR(short CoyID)
-        { 
+        {
             DataTable dtMR = oDAL.GMS_Get_MRByCoyIDStatusID(CoyID, "P");
             int i = 0;
             foreach (DataRow drMR in dtMR.Rows)
@@ -480,15 +480,15 @@ namespace GMSConApp
                 Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product data...");
                 ds = ws.GetProduct();
                 //Insert Product data into GMS
-                Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Product data into GMS...");               
+                Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Product data into GMS...");
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    oDAL.GMS_Insert_Product(CoyID, 
+                    oDAL.GMS_Insert_Product(CoyID,
                         dr["productcode"].ToString(),
                         dr["productname"].ToString(),
                         dr["ProductGroupCode"].ToString(),
                         dr["uom"].ToString()
-                        );                   
+                        );
                 }
                 Console.WriteLine(DateTime.Now.ToString() + " -- End Product data insertion for " + CoyID.ToString());
                 ds.Dispose();
@@ -509,13 +509,13 @@ namespace GMSConApp
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     oDAL.GMS_Insert_ProductGroup(CoyID,
-                        dr["ProductGroupCode"].ToString(),                       
+                        dr["ProductGroupCode"].ToString(),
                         dr["ProductGroupName"].ToString()
                         );
                 }
                 Console.WriteLine(DateTime.Now.ToString() + " -- End Product Group data insertion for " + CoyID.ToString());
                 ds.Dispose();
-                                
+
                 // Delete Account
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Account data in GMS...");
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAccount");
@@ -524,7 +524,7 @@ namespace GMSConApp
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSales");
                 // Delete Sales Detail
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Sales Detail data in GMS...");
-                oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSalesDetail");  
+                oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSalesDetail");
                 // Delete Receipt
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Receipt data in GMS...");
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteReceipt");
@@ -533,15 +533,15 @@ namespace GMSConApp
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteGRN");
                 // Delete Stock Movement
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Product Movement data in GMS...");
-                oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteStockMovement");                
-                
+                oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteStockMovement");
+
                 //Retrieve Last Month GRN
                 Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving GRN data...");
                 ds = ws.GetGRN();
                 //Insert GRN data into GMS
                 Console.WriteLine(DateTime.Now.ToString() + " -- Inserting GRN data into GMS...");
                 foreach (DataRow dr in ds.Tables[0].Rows)
-                {                                   
+                {
                     oDAL.GMS_Insert_GRN(CoyID,
                      dr["trnno"].ToString(),
                      GMSUtil.ToDate(dr["trndate"].ToString()),
@@ -557,12 +557,12 @@ namespace GMSConApp
                      GMSUtil.ToFloat(dr["cost"].ToString()),
                      dr["currency"].ToString(),
                      GMSUtil.ToFloat(dr["exchangerate"].ToString())
-                    );  
+                    );
                 }
                 Console.WriteLine(DateTime.Now.ToString() + " -- End GRN data insertion");
                 ds.Dispose();
-                
-                
+
+
                 //Retrieve StockMovement
                 Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Stock Movement data...");
                 ds = ws.GetStockMovement();
@@ -594,14 +594,14 @@ namespace GMSConApp
                 }
                 Console.WriteLine(DateTime.Now.ToString() + " -- End Stock Movement data insertion");
                 ds.Dispose();
-              
+
 
                 string tmpURL = ws.Url;
-                
+
                 for (int i = 1; i < 11; i++)
                 {
                     ws.Url = tmpURL.Replace("3", i.ToString());
-                    
+
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     ds = ws.GetSalesPerson(i.ToString());
@@ -612,12 +612,12 @@ namespace GMSConApp
                         oDAL.GMS_Insert_SalesPerson(CoyID,
                         dr["salespersonid"].ToString(),
                         dr["salespersonname"].ToString(),
-                        ""                      
+                        ""
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person data insertion for " + i.ToString());
                     ds.Dispose();
-                    
+
                     //Retrieve Account
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Account data...");
                     ds = ws.GetAccount(i.ToString());
@@ -655,14 +655,14 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Account data insertion for " + i.ToString());
                     ds.Dispose();
-                    
+
                     //Retrieve Sales I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales I data...");
                     ds = ws.GetSales1(i.ToString());
                     //Insert Sales I data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales I data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
-                    {                     
+                    {
 
                         oDAL.GMS_Insert_Sales(CoyID,
                         dr["trntype"].ToString(),
@@ -670,7 +670,7 @@ namespace GMSConApp
                         GMSUtil.ToDate(dr["trndate"].ToString()),
                         dr["accountcode"].ToString(),
                         dr["accountname"].ToString(),
-                        dr["docno"].ToString(),                       
+                        dr["docno"].ToString(),
                         dr["pono"].ToString(),
                         GMSUtil.ToFloat(dr["amount"].ToString()),
                         dr["currency"].ToString(),
@@ -682,7 +682,7 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion for " + i.ToString());
                     ds.Dispose();
-                    
+
                     //Retrieve Sales II
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
                     ds = ws.GetSales2(i.ToString());
@@ -708,14 +708,14 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales II data insertion for " + i.ToString());
                     ds.Dispose();
-                    
+
                     //Retrieve Sales Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Detail data...");
                     ds = ws.GetSalesDetail(i.ToString());
                     //Insert Sales Detail data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Detail data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
-                    {                                                                   
+                    {
                         oDAL.GMS_Insert_SalesDetail(CoyID,
                         dr["trntype"].ToString(),
                         dr["trnno"].ToString(),
@@ -743,9 +743,9 @@ namespace GMSConApp
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion for " + i.ToString());
-                    ds.Dispose();              
-                   
-                   
+                    ds.Dispose();
+
+
                     //Retrieve Receipt I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Receipt I data...");
                     ds = ws.GetReceipt1(i.ToString());
@@ -753,32 +753,7 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt I data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                          oDAL.GMS_Insert_Receipt(CoyID,
-                       dr["trntype"].ToString(),
-                       dr["trnno"].ToString(),
-                       GMSUtil.ToDate(dr["TrnDate"].ToString()),
-                       dr["accountcode"].ToString(),
-                       dr["accountname"].ToString(),
-                       dr["salestrntype"].ToString(),
-                       dr["salestrnno"].ToString(),
-                       dr["docno"].ToString(),
-                       dr["allcdocno"].ToString(),
-                       GMSUtil.ToFloat(dr["amount"].ToString()),
-                       dr["currency"].ToString(),
-                       GMSUtil.ToFloat(dr["exchangerate"].ToString())                       
-                       );
-                    }
-                    Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt I data insertion for " + i.ToString());
-                    ds.Dispose();
-                    
-                   //Retrieve Receipt II
-                   Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Receipt II data...");
-                   ds = ws.GetReceipt2(i.ToString());
-                   //Insert Receipt II data into GMS
-                   Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt II data into GMS...");
-                   foreach (DataRow dr in ds.Tables[0].Rows)
-                   {
-                       oDAL.GMS_Insert_Receipt(CoyID,
+                        oDAL.GMS_Insert_Receipt(CoyID,
                      dr["trntype"].ToString(),
                      dr["trnno"].ToString(),
                      GMSUtil.ToDate(dr["TrnDate"].ToString()),
@@ -792,10 +767,35 @@ namespace GMSConApp
                      dr["currency"].ToString(),
                      GMSUtil.ToFloat(dr["exchangerate"].ToString())
                      );
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt I data insertion for " + i.ToString());
+                    ds.Dispose();
 
-                   }
-                   Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt II data insertion for " + i.ToString());
-                   ds.Dispose();
+                    //Retrieve Receipt II
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Receipt II data...");
+                    ds = ws.GetReceipt2(i.ToString());
+                    //Insert Receipt II data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt II data into GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        oDAL.GMS_Insert_Receipt(CoyID,
+                      dr["trntype"].ToString(),
+                      dr["trnno"].ToString(),
+                      GMSUtil.ToDate(dr["TrnDate"].ToString()),
+                      dr["accountcode"].ToString(),
+                      dr["accountname"].ToString(),
+                      dr["salestrntype"].ToString(),
+                      dr["salestrnno"].ToString(),
+                      dr["docno"].ToString(),
+                      dr["allcdocno"].ToString(),
+                      GMSUtil.ToFloat(dr["amount"].ToString()),
+                      dr["currency"].ToString(),
+                      GMSUtil.ToFloat(dr["exchangerate"].ToString())
+                      );
+
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt II data insertion for " + i.ToString());
+                    ds.Dispose();
 
                     //Retrieve Receipt III
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Receipt III data...");
@@ -823,14 +823,14 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt III data insertion for " + i.ToString());
                     ds.Dispose();
                 }
-            
+
                 // Delete Duplicate Account
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Duplicate Account data in GMS...");
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteDuplicateAccount");
 
                 // Update Sales Trn Type CCAmount
                 Console.WriteLine(DateTime.Now.ToString() + " -- Update Sales Trn Type CC Amount in GMS...");
-                oDAL.GMS_ImportUpdateDataByAction(CoyID, "UpdateSalesTrnTypeCCAmount");    
+                oDAL.GMS_ImportUpdateDataByAction(CoyID, "UpdateSalesTrnTypeCCAmount");
             }
         }
 
@@ -889,7 +889,7 @@ namespace GMSConApp
                     VersionNo = 0;
                 else
                     VersionNo = 1;
-                
+
                 ProductNotes = dr["ProductNotes"].ToString();
 
                 oDAL.GMS_Insert_Product2(CoyID,
@@ -941,7 +941,7 @@ namespace GMSConApp
             Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Duplicate Product data in GMS...");
             oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteDuplicateProduct");
 
-            
+
             /*
             bool execute = true;
             
@@ -1033,13 +1033,13 @@ namespace GMSConApp
 
         static void Task_LMSImport(short CoyID)
         {
-            
+
             string from = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
             string to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
 
             DataTable dtCompany = oDAL.GMS_Get_CompanyByCoyID(CoyID);
             if (dtCompany.Rows.Count > 0)
-            {               
+            {
                 if (!string.IsNullOrEmpty(dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim()) && !string.IsNullOrEmpty(dtCompany.Rows[0]["WSDLMSWebServiceAddress"].ToString().Trim()))
                 {
                     Task_LMSImportData(CoyID, dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), true);
@@ -1047,9 +1047,9 @@ namespace GMSConApp
                 }
                 else
                 {
-                    Task_LMSImportData(CoyID, dtCompany.Rows[0]["CMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), false);                    
-                }                    
-            }   
+                    Task_LMSImportData(CoyID, dtCompany.Rows[0]["CMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), false);
+                }
+            }
         }
 
         static void Task_LMSImportData(short CoyID, string url, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB, bool executeFX)
@@ -1078,11 +1078,11 @@ namespace GMSConApp
                 sop.SAPDB = SAPDB;
 
                 if (executeFX)
-                {                                        
+                {
                     // Delete Exchange Rate              
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Exchange Rate data in GMS...");
                     oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteExchangeRate");
-                    
+
                     string LastMonthLastDay = DateTime.Today.AddDays(0 - DateTime.Today.Day).ToString("yyyy-MM-dd");
                     Console.WriteLine("Last Month Last Day : " + LastMonthLastDay);
                     //Retrieve Exchange Rate
@@ -1095,14 +1095,13 @@ namespace GMSConApp
                     //Insert Exchange Rate data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Exchange Rate data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
-                    {                                              
+                    {
                         oDAL.GMS_Insert_ForeignExchange(
                            dr["CurrencyCode"].ToString(),
                            GMSUtil.ToDecimal(dr["BuyRate"].ToString()),
                            GMSUtil.ToDecimal(dr["SellRate"].ToString()),
                            GMSUtil.ToDecimal(dr["MonthEndRate"].ToString())
                          );
-                        
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Exchange Rate data insertion");
                     Console.WriteLine(DateTime.Now.ToString() + " -- Update Exchange Rate.");
@@ -1113,7 +1112,7 @@ namespace GMSConApp
 
                 if (execute)
                 {
-                  
+
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
@@ -1133,18 +1132,18 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
                 }
-                
+
                 if (execute)
                 {
-                   
+
                     //Retrieve Product data
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product data...");
                     //ds = ws.GetProduct();
-                    
+
                     query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ()";
-                                        
+
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                    "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnSOQty", "OnPOQty", "OnBOQty", "OnHandQty", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "Field18", "Field19", "Field20",
+                    "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnSOQty", "OnPOQty", "OnBOQty", "OnHandQty", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     bool IsGasDivision = false;
@@ -1241,7 +1240,7 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Duplicate Product data in GMS...");
                     oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteDuplicateProduct");
                 }
-                
+
                 if (execute)
                 {
 
@@ -1254,7 +1253,7 @@ namespace GMSConApp
                     //Insert Product UOM data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Product UOM data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
-                    {                       
+                    {
                         oDAL.GMS_Insert_ProductUOM(CoyID,
                             dr["ProdCode"].ToString(),
                             dr["UOM"].ToString(),
@@ -1262,16 +1261,16 @@ namespace GMSConApp
                             GMSUtil.ToFloat(dr["BaseQty"].ToString()),
                             dr["BaseUOM"].ToString(),
                             GMSUtil.ToFloat(dr["ConvertedQty"].ToString()),
-                            dr["ConvertedUOM"].ToString()                          
+                            dr["ConvertedUOM"].ToString()
                             );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Product UOM data insertion for " + CoyID.ToString());
                     ds.Dispose();
                 }
-                
+
                 if (execute)
                 {
-                   
+
                     //Retrieve Product Group data
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product Group data...");
                     //ds = ws.GetProductGroup();
@@ -1326,7 +1325,7 @@ namespace GMSConApp
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "AccountCode", "AccountType", "AccountName", "DefaultCurrency", "SalesPersonID", "TaxType", "CreditTerm", "CreditLimit", "Outstanding", "Address1", "Address2", "Address3", "Address4", "PostalCode", "ContactPerson", "OfficePhone", "MobilePhone", "Fax", "Email", "Industry",
                     "Country", "CreatedDate", "AccountGroupName", "AccountClass", "GradeCode", "Field26", "Field27", "Field28", "Field29", "Field30");
-                      
+
                     //Insert Account data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Account data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
@@ -1376,7 +1375,7 @@ namespace GMSConApp
 
                     //Retrieve Last Month GRN
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving GRN data...");
-                    query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '"+ from +"' , '"+ to +"')";
+                    query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '" + from + "' , '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '' , '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnNo", "TrnDate", "DetailNo", "PONo", "PODate", "ProductCode", "ProductDescription", "ProductGroupCode", "ProductGroupName", "UOM", "Quantity", "UnitPrice", "LandedCostUnitPrice", "Cost", "Currency", "WH", "ExchangeRate", "Field18", "Field19", "Field20",
@@ -1418,18 +1417,19 @@ namespace GMSConApp
 
                     //Retrieve StockMovement
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Stock Movement data...");
-                    query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '"+ from +"', '"+ to +"')";
+                    query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "ReceivedQty", "IssuedQty", "BalanceQty", "Cost", "CostWT", "Currency", "ExchangeRate", "Narration", "DocNo", "Warehouse",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
                     tempProductName = "";
+                    string tempNarration = "";
                     //Insert StockMovement data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Stock Movement data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         tempProductName = dr["ProductName"].ToString().Replace("'", "''");
-
+                        tempNarration = dr["Narration"].ToString().Replace("'", "''");
                         oDAL.GMS_Insert_StockMovement(CoyID,
                          dr["TrnType"].ToString(),
                          GMSUtil.ToInt(dr["TrnNo"].ToString()),
@@ -1448,14 +1448,14 @@ namespace GMSConApp
                          GMSUtil.ToDouble(dr["CostWT"].ToString()),
                          dr["Currency"].ToString(),
                          GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                         dr["Narration"].ToString()
+                        tempNarration
                         );
 
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Stock Movement data insertion");
                     ds.Dispose();
                 }
-                
+
                 if (execute)
                 {
                     //Delete Sales Detail
@@ -1464,7 +1464,7 @@ namespace GMSConApp
 
                     //Retrieve Sales Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '"+ from +"', '" + to  + "')";
+                    query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "SalesTrnType", "SalesTrnNo", "SalesTrnDate", "SrNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitCost", "UnitAmount", "Cost", "Amount", "GPAmount", "Currency", "ExchangeRate", "TaxRate", "LMSDONo",
@@ -1477,7 +1477,7 @@ namespace GMSConApp
                     {
                         tempProductName = dr["ProductName"].ToString().Replace("'", "''");
 
-                                              
+
 
                         oDAL.GMS_Insert_SalesDetail(CoyID,
                         dr["SalesTrnType"].ToString(),
@@ -1511,8 +1511,8 @@ namespace GMSConApp
                     // Update Sales Trn Type CCAmount
                     Console.WriteLine(DateTime.Now.ToString() + " -- Update Sales Trn Type CC Amount in GMS...");
                     oDAL.GMS_ImportUpdateDataByAction(CoyID, "UpdateSalesTrnTypeCCAmount");
-                }                
-                
+                }
+
                 if (execute)
                 {
                     //Delete Sales
@@ -1521,7 +1521,7 @@ namespace GMSConApp
 
                     //Retrieve Sales I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales I data...");
-                    query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from +"', '"+ to +"')";
+                    query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "TrnSalesPersonID", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
@@ -1530,10 +1530,10 @@ namespace GMSConApp
                     string lmsDoc = "";
                     //Insert Sales I data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales I data into GMS...");
-                    
+
                     foreach (DataRow dr in ds.Tables[0].Rows)
-                    {                        
-                        lmsDoc = dr["LMSDocNo"].ToString().Replace("'", "''");    
+                    {
+                        lmsDoc = dr["LMSDocNo"].ToString().Replace("'", "''");
                         oDAL.GMS_Insert_Sales(CoyID,
                         dr["TrnType"].ToString(),
                         dr["TrnNo"].ToString(),
@@ -1545,14 +1545,14 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["Amount"].ToString()),
                         dr["Currency"].ToString(),
                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                        GMSUtil.ToDouble(dr["TaxRate"].ToString())/100,
+                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                         dr["CustomerSalesPersonID"].ToString(),
                         dr["TrnSalesPersonID"].ToString()
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
                     ds.Dispose();
-                   
+
                 }
 
                 if (execute)
@@ -1677,7 +1677,7 @@ namespace GMSConApp
 
                     //Retrieve Purchase Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','" + from + "', '" + to + "')";  
+                    query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TransactionID", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitAmount", "Amount", "Currency", "ExchangeRate", "TaxRate", "Field16", "Field17", "Field18", "Field19", "Field20",
@@ -1690,22 +1690,22 @@ namespace GMSConApp
                     {
                         tempProductName = dr["ProductName"].ToString().Replace("'", "''");
 
-                       oDAL.GMS_Insert_PurchaseDetail(CoyID,                      
-                       GMSUtil.ToDate(dr["TrnDate"].ToString()),
-                       dr["RefNo"].ToString(),
-                       dr["AccountCode"].ToString(),
-                       dr["AccountName"].ToString(),
-                       dr["ProductCode"].ToString(),
-                       tempProductName,
-                       dr["ProductGroupCode"].ToString(),
-                       dr["ProductGroupName"].ToString(),
-                       GMSUtil.ToDouble(dr["Quantity"].ToString()),                       
-                       GMSUtil.ToDouble(dr["UnitAmount"].ToString()),                      
-                       GMSUtil.ToDouble(dr["Amount"].ToString()),                      
-                       dr["Currency"].ToString(),
-                       GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                       GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100                      
-                       );
+                        oDAL.GMS_Insert_PurchaseDetail(CoyID,
+                        GMSUtil.ToDate(dr["TrnDate"].ToString()),
+                        dr["RefNo"].ToString(),
+                        dr["AccountCode"].ToString(),
+                        dr["AccountName"].ToString(),
+                        dr["ProductCode"].ToString(),
+                        tempProductName,
+                        dr["ProductGroupCode"].ToString(),
+                        dr["ProductGroupName"].ToString(),
+                        GMSUtil.ToDouble(dr["Quantity"].ToString()),
+                        GMSUtil.ToDouble(dr["UnitAmount"].ToString()),
+                        GMSUtil.ToDouble(dr["Amount"].ToString()),
+                        dr["Currency"].ToString(),
+                        GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
+                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100
+                        );
                     }
 
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Purchase Detail data insertion.");
@@ -1720,7 +1720,7 @@ namespace GMSConApp
 
                     //Retrieve Purchase Order
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '" + from + "', '" + to + "')";  
+                    query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnNo", "TrnDate", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UOM", "UnitAmount", "Discount", "AmountBeforeDiscount", "AmountAfterDiscount", "Currency", "ExchangeRate", "TaxRate", "DocNo", "Field19", "Field20",
@@ -1735,7 +1735,7 @@ namespace GMSConApp
 
                         oDAL.GMS_Insert_PurchaseOrder(CoyID,
                         GMSUtil.ToInt(dr["TrnNo"].ToString()),
-                        GMSUtil.ToDate(dr["TrnDate"].ToString()),                       
+                        GMSUtil.ToDate(dr["TrnDate"].ToString()),
                         dr["AccountCode"].ToString(),
                         dr["AccountName"].ToString(),
                         dr["ProductCode"].ToString(),
@@ -1751,13 +1751,13 @@ namespace GMSConApp
                         dr["Currency"].ToString(),
                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                         GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
-                        dr["DocNo"].ToString()                       
+                        dr["DocNo"].ToString()
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Purchase Order data insertion.");
                     ds.Dispose();
-                }   
-                     
+                }
+
             }
         }
     }

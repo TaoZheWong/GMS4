@@ -3781,7 +3781,7 @@ namespace GMSCore
 
             Int32 result = 0;
             DateTime NewModifiedDate;
-            NewModifiedDate = DateTime.ParseExact(ModifiedDate, "dd/MM/yyyy H:mm:ss tt", CultureInfo.InvariantCulture);
+            NewModifiedDate = DateTime.ParseExact(ModifiedDate, "d/MM/yyyy H:mm:ss tt", CultureInfo.InvariantCulture);
 
             IDbConnection conn = cm.GetConnection();
             try

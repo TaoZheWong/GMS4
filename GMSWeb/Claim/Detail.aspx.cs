@@ -311,7 +311,7 @@ namespace GMSWeb.Claim
                     Phone1, Phone2, Phone3
                 );
 
-                m.Message = "Update Successfully";
+                m.Message = "Claim info update successfully.";
             }
             catch (Exception e)
             {
@@ -436,7 +436,7 @@ namespace GMSWeb.Claim
                     
                 }
 
-                m.Message = "Save Successfully";
+                m.Message = "Claim details saved successfully.";
             }
             catch (Exception e)
             {
