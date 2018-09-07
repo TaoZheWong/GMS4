@@ -166,10 +166,16 @@
 
             return action;
         },
-        SubmitClaim: function (id,userid,type,rejectremark) {
+        SubmitClaim: function (id,userid,type,rejectremark,apppayvou) {
             var action = $http({
                 url: Path + '/Claim/Detail.aspx/SubmitClaim',
-                data: { ClaimID: id , Type : type , UserID: userid , RejectRemark: rejectremark},
+                data: {
+                    ClaimID: id,
+                    Type: type,
+                    UserID: userid,
+                    RejectRemark: rejectremark,
+                    ApprovePaymentVoucher : apppayvou
+                },
                 dataType: 'JSON',
                 contentType: 'application/json; characterset=utf-8',
                 method: 'POST'

@@ -3444,7 +3444,7 @@ namespace GMSCore
         }
 
         public void InsertNewClaimDetail(short companyID, short ClaimID, string type, string date, string remark, string currencyCode,
-            float currencyRate, float amount, string chargeto)
+            float currencyRate, float amount, string chargeto, float GST, string receiptNum)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3459,9 +3459,11 @@ namespace GMSCore
                 command.Parameters.Add("@claimDate", SqlDbType.NVarChar).Value = date;
                 command.Parameters.Add("@remark", SqlDbType.NVarChar).Value = remark == null ? "" : remark;
                 command.Parameters.Add("@currencyCode", SqlDbType.NVarChar).Value = currencyCode;
-                command.Parameters.Add("@currencyRate", SqlDbType.Float).Value = currencyRate;
-                command.Parameters.Add("@amount", SqlDbType.Float).Value = amount;
+                command.Parameters.Add("@currencyRate", SqlDbType.Decimal).Value = currencyRate;
+                command.Parameters.Add("@amount", SqlDbType.Decimal).Value = amount;
                 command.Parameters.Add("@chargeto", SqlDbType.NVarChar).Value = chargeto;
+                command.Parameters.Add("@gst", SqlDbType.Decimal).Value = GST;
+                command.Parameters.Add("@receiptNum", SqlDbType.NVarChar).Value = receiptNum;
 
                 rdr = command.ExecuteReader();
             }
@@ -3480,7 +3482,9 @@ namespace GMSCore
             return;
         }
 
-        public void UpdateClaimDetail(int ClaimDetailID, string type, string date, string remark, string currencyCode, float currencyRate, float amount, string chargeto)
+        public void UpdateClaimDetail(int ClaimDetailID, string type, string date, 
+            string remark, string currencyCode, float currencyRate, float amount, string chargeto,
+            float GST, string receiptNum)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3494,9 +3498,11 @@ namespace GMSCore
                 command.Parameters.Add("@claimDate", SqlDbType.NVarChar).Value = date;
                 command.Parameters.Add("@remark", SqlDbType.NVarChar).Value = remark;
                 command.Parameters.Add("@currencyCode", SqlDbType.NVarChar).Value = currencyCode;
-                command.Parameters.Add("@currencyRate", SqlDbType.Float).Value = currencyRate;
-                command.Parameters.Add("@amount", SqlDbType.Float).Value = amount;
+                command.Parameters.Add("@currencyRate", SqlDbType.Decimal).Value = currencyRate;
+                command.Parameters.Add("@amount", SqlDbType.Decimal).Value = amount;
                 command.Parameters.Add("@chargeto", SqlDbType.NVarChar).Value = chargeto;
+                command.Parameters.Add("@gst", SqlDbType.Decimal).Value = GST;
+                command.Parameters.Add("@receiptNum", SqlDbType.NVarChar).Value = receiptNum;
 
                 rdr = command.ExecuteReader();
             }
@@ -3543,7 +3549,7 @@ namespace GMSCore
         }
 
 
-        public void UpdateClaimStatus(int ClaimID, int UserID, short Status, string RejectRemark)
+        public void UpdateClaimStatus(int ClaimID, int UserID, short Status, string RejectRemark, string ApprovePaymentVoucher)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3556,6 +3562,7 @@ namespace GMSCore
                 command.Parameters.Add("@Status", SqlDbType.Int).Value = Status;
                 command.Parameters.Add("@AppOrRejby", SqlDbType.Int).Value = UserID;
                 command.Parameters.Add("@RejRemark", SqlDbType.NVarChar).Value = RejectRemark;
+                command.Parameters.Add("@AppPayVou", SqlDbType.NVarChar).Value = ApprovePaymentVoucher;
 
                 rdr = command.ExecuteReader();
             }

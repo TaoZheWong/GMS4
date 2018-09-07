@@ -1476,9 +1476,7 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         tempProductName = dr["ProductName"].ToString().Replace("'", "''");
-
-
-
+                        
                         oDAL.GMS_Insert_SalesDetail(CoyID,
                         dr["SalesTrnType"].ToString(),
                         dr["SalesTrnNo"].ToString(),
@@ -1595,7 +1593,10 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt I data insertion.");
                     ds.Dispose();
 
-                    //Retrieve Sales II
+                    /*
+                     * Retrieve Sales II - Unreconciled based on trn no
+                     * Parameter : doc no from, doc no to, date from, date to
+                    */
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
                     query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '', '')";
@@ -1633,7 +1634,6 @@ namespace GMSConApp
 
                         if (dr["ReconNum"].ToString() != "")
                         {
-
                             double TotalAppliedAmount = 0;
                             if (dr["TrnType"].ToString() == "JE")
                                 TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString()) * -1;
@@ -1658,7 +1658,74 @@ namespace GMSConApp
                             );
                         }
                     }
-                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
+
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt II data insertion.");
+                    ds.Dispose();
+                    /*
+                     * Retrieve Sales III   : Partially or fully reconciled based on recon date
+                     * Parameter            : doc no from, doc no to, date from, date to
+                     * Added                : 2018-08-14 Annie
+                    */
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
+                    query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '" + from + "', '" + to + "')";
+                    //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '', '')";
+                    ds = sop.GET_SAP_QueryData(CoyID, query,
+                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    //Insert Sales III data into GMS (Overpayment)
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales III (Overpayment) data into GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        double TotalPaymentAmount = 0;
+                        if (dr["TrnType"].ToString() == "JE")
+                            TotalPaymentAmount = GMSUtil.ToDouble(dr["TotalPaymentAmount"].ToString());
+                        else
+                            TotalPaymentAmount = GMSUtil.ToDouble(dr["TotalPaymentAmount"].ToString()) * -1;
+
+                        oDAL.GMS_Insert_Sales(CoyID,
+                            dr["TrnType"].ToString(),
+                            dr["TrnNo"].ToString(),
+                            GMSUtil.ToDate(dr["TrnDate"].ToString()),
+                            dr["AccountCode"].ToString(),
+                            dr["AccountName"].ToString(),
+                            "",
+                            dr["PONo"].ToString(),
+                           TotalPaymentAmount,
+                            dr["Currency"].ToString(),
+                            GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
+                            GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
+                            dr["CustomerSalesPersonID"].ToString(),
+                            ""
+                        );
+
+                        if (dr["ReconNum"].ToString() != "")
+                        {
+                            double TotalAppliedAmount = 0;
+                            if (dr["TrnType"].ToString() == "JE")
+                                TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString()) * -1;
+                            else
+                                TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString());
+
+                            //Insert Receipt III data into GMS (Overpayment)                      
+                            Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt III data into GMS...");
+                            oDAL.GMS_Insert_Receipt(CoyID,
+                                    dr["TrnType"].ToString(),
+                                    dr["TrnNo"].ToString(),
+                                    GMSUtil.ToDate(dr["ReconDate"].ToString()),
+                                    dr["AccountCode"].ToString(),
+                                    dr["AccountName"].ToString(),
+                                    dr["TrnType"].ToString(),
+                                    dr["TrnNo"].ToString(),
+                                    "",
+                                    dr["ReconNum"].ToString(),
+                                    TotalAppliedAmount,
+                                    dr["Currency"].ToString(),
+                                    GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
+                            );
+                        }
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales II data insertion.");
                     ds.Dispose();
                 }
 

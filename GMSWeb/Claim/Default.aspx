@@ -85,6 +85,7 @@
         </div>
         <div data-ng-if="claim.allowApproveReject" class="panel-footer clearfix">
             <a href="#" class="btn btn-success pull-right m-r-10" data-ng-if="claim.allowApproveReject" onclick="javascript:searchResult('1')">Approve Claim</a>
+            <a href="#" class="btn btn-default pull-right m-r-10" data-ng-if="claim.allowApproveReject" onclick="javascript:searchResult('2')">View Approved Claim</a>
         </div>
     </div>
 
@@ -140,6 +141,7 @@
         }
 
         //condition = 1 will get pending claims from all user, condition = 0 is default
+        //condition = 2 will get approved claims from all user
         var searchResult = function (condition) {
             $("#claims-list-section").removeClass("hidden");
 
@@ -167,7 +169,6 @@
                     return result.Params.data;
                 }
             }
-            console.log(ajaxConfig.data);
             
             var columns = [
                 { "data": null, "title": "No." },
@@ -233,9 +234,6 @@
         });
 
         function printClaim() {
-            // just for UAT purpose, haven't live run yet
-            //jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?ISCLAIM=YES');
-
             // the true solutions :)
             var datefrom = $("#claim-date-from").val();
             var dateto = $("#claim-date-to").val()

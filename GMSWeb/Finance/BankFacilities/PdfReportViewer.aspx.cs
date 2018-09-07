@@ -258,9 +258,9 @@ namespace GMSWeb.Finance.BankFacilities
                         crReportDocument.SetParameterValue("UserID", loginUserOrAlternateParty);
 
                     if (crReportDocument.ParameterFields["@DateFrom"] != null)
-                        crReportDocument.SetParameterValue("@DateFrom", dateFrom);
+                        crReportDocument.SetParameterValue("@DateFrom", GMSUtil.ToDate(dateFrom));
                     if (crReportDocument.ParameterFields["@DateTo"] != null)
-                        crReportDocument.SetParameterValue("@DateTo", dateTo);
+                        crReportDocument.SetParameterValue("@DateTo", GMSUtil.ToDate(dateTo));
 
                     cyReportViewer.ReportSource = crReportDocument;
                 }
