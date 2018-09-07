@@ -102,12 +102,12 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.getClaimDetails = function (ClaimID) {
         claim.detail = [];
         ClaimService.getDetail(ClaimID, claim.companyID, timeoutCanceler).then(function (detailResp) {
-
             angular.forEach(detailResp.data.Params.data, function (data) {
                 var newObj = angular.copy(claim.detailModel);
                 newObj = data;
                 newObj.amount = parseFloat(data.amount);
                 newObj.amountSGD = parseFloat(data.amountSGD);
+                newObj.GST = parseFloat(data.GST);
                 claim.detail.push(newObj);
             })
         });
@@ -172,26 +172,46 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
             } else {
                 if (!angular.equals(type, 'Reject')) {
                     if (angular.equals(type, 'Submit')) {
+                        //help user to update claim info and detail info upon submitting the form
                         ClaimService.updateClaimInfo(claim.claimInfo).then(function (resp) {
                             if (resp.data.Status == 1) {
                                 claim.claimInfo = resp.data.Params.data[0];
                             }
-                            
                         });
 
                         ClaimService.addClaimDetail(claim.claimInfo.ClaimID, claim.companyID, JSON.stringify(claim.detail), timeoutCanceler).then(function (resp) {
                             if (resp.data.Status == 0) {
                                 claim.detail = [];
-                                //claim.getClaimDetails(claim.claimInfo.ClaimID);
                             }
                         });
-
-                        claim.getClaimInfo();
                     }
                     data.rejectremark = '';
                 }
 
-                ClaimService.SubmitClaim(data.ClaimID, globalUserID, type, data.rejectremark).then(function (resp) {
+                if (!angular.equals(type, 'Approve')) {
+                    data.paymentvoucher = '';
+                }
+
+                if (!data.paymentvoucher) {
+                    data.paymentvoucher = '';
+                }
+
+                //if (angular.equals(type, 'Revise')) {
+                //    console.log(claim.detail);
+                //    claim.detail.GST = '0';
+
+                //    angular.forEach(claim.detail, function (value, key) {
+                        
+                //    });
+                    
+                //    ClaimService.addClaimDetail(claim.claimInfo.ClaimID, claim.companyID, JSON.stringify(claim.detail), timeoutCanceler).then(function (resp) {
+                //        if (resp.data.Status == 0) {
+                //            claim.detail = [];
+                //        }
+                //    });
+                //}
+
+                ClaimService.SubmitClaim(data.ClaimID, globalUserID, type, data.rejectremark, data.paymentvoucher).then(function (resp) {
                     alert(resp.data.Message);
                     claim.getClaimInfo();
                 });
@@ -235,7 +255,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.addDetail = function () {
         var newObj = angular.copy(claim.detailModel);
         newObj.date = '';
-        newObj.currencyRate = 0
+        newObj.currencyRate = 0;
         claim.detail.push(newObj);
     }
 
@@ -243,14 +263,12 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
         if (data.id != null ) {
             if (confirm("Confirm delete saved claim detail ?")) {
                 ClaimService.DeleteClaimDetail(data.id).then(function (resp) {
-                    
                     if (resp.Status > 0)
                         alert(resp.Message);
                     else {
                         claim.detail = _.filter(claim.detail, function (x) { return x.id !== data.id; });
                     }
                 });
-                
             }
         }else{
             claim.detail.splice(index, 1);  
@@ -267,7 +285,6 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
         if ($scope.claim_detail_form.$invalid) {
             return
         }
-        
         ClaimService.addClaimDetail(claim.claimInfo.ClaimID, claim.companyID, JSON.stringify(claim.detail), timeoutCanceler).then(function (resp) {
             if (resp.data.Status == 0) {
                 claim.detail = [];
@@ -300,6 +317,10 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
         $("#rejectModal").modal('show');
     }
 
+    claim.approveClaim = function () {
+        $("#approveModal").modal('show');
+    }
+
     claim.resetSelectedAttachment = function () {
         claim.selectedAttachmentID = 0;
         claim.attachmentSrc = '';
@@ -326,7 +347,6 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
                             claim.attachmentList = resp.data.Params.data;
                             claim.resetSelectedAttachment();
                         }
-
                     });
                     // refresh claim details list
                     claim.detail = [];
@@ -349,7 +369,6 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
                         claim.attachmentList = resp.data.Params.data;
                         claim.resetSelectedAttachment();
                     }
-
                 });
 
                 // refresh claim details list
@@ -375,7 +394,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.getEntertainmentType();
 
     var calculateAmountInSGD = function (data) {
-        data.amountSGD = data.amount * data.currencyRate;
+        data.amountSGD = data.amount * data.currencyRate - data.GST;
     }
 
 
@@ -402,10 +421,13 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
             });
 
             //calculate total
-            claim.total = calculateTotal(claim.detail, 'amount');
+            //claim.total = calculateTotal(claim.detail, 'amount');
 
             //calculate totalSGD
             claim.totalSGD = calculateTotal(claim.detail, 'amountSGD');
+
+            //calculate totalGST
+            claim.totalGST = calculateTotal(claim.detail, 'GST');
         }
     }, true);
 

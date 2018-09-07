@@ -311,7 +311,7 @@ namespace GMSWeb.Claim
                     Phone1, Phone2, Phone3
                 );
 
-                m.Message = "Claim info update successfully.";
+                m.Message = "Update Successfully";
             }
             catch (Exception e)
             {
@@ -339,6 +339,8 @@ namespace GMSWeb.Claim
             public float amount { get; set; }
             public float amountSGD { get; set; }
             public string chargeto { get; set; }
+            public float GST { get; set; }
+            public string receiptNum { get; set; }
         }
 
 
@@ -349,13 +351,14 @@ namespace GMSWeb.Claim
 
             try
             {
-                 var claimDetail = new ClaimDetail();
+                var claimDetail = new ClaimDetail();
 
-                 claimDetail.currencyRate = 0;
-                 claimDetail.amount = 0;
-                 claimDetail.amountSGD = 0;
-                 
-                 m.Params = new Dictionary<string, object> { { "data",  JsonConvert.SerializeObject(claimDetail)} };
+                claimDetail.currencyRate = 0;
+                claimDetail.amount = 0;
+                claimDetail.amountSGD = 0;
+                claimDetail.GST = 0;
+
+                m.Params = new Dictionary<string, object> { { "data",  JsonConvert.SerializeObject(claimDetail)} };
                 
             }
             catch (Exception e)
@@ -366,9 +369,6 @@ namespace GMSWeb.Claim
             }
 
             return m;
-           
-
-         
         }
 
         [WebMethod]
@@ -388,7 +388,6 @@ namespace GMSWeb.Claim
                 m.Message = e.Message;
 
             }
-
             return m;
         }
 
@@ -427,16 +426,16 @@ namespace GMSWeb.Claim
                     if (detailObj.id != null)
                     {
                         //Update
-                        new GMSGeneralDALC().UpdateClaimDetail(int.Parse(detailObj.id), detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto);
+                        new GMSGeneralDALC().UpdateClaimDetail(int.Parse(detailObj.id), detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum);
                     }
                     else {
                         //insert
-                        new GMSGeneralDALC().InsertNewClaimDetail(companyID, claimID, detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto);
+                        new GMSGeneralDALC().InsertNewClaimDetail(companyID, claimID, detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum);
                     }
                     
                 }
 
-                m.Message = "Claim details saved successfully.";
+                m.Message = "Save Successfully";
             }
             catch (Exception e)
             {
@@ -449,7 +448,8 @@ namespace GMSWeb.Claim
         }
 
         [WebMethod]
-        public static ResponseModel SubmitClaim(int ClaimID, string Type, int UserID, string RejectRemark)
+        public static ResponseModel SubmitClaim(int ClaimID, string Type, int UserID, 
+            string RejectRemark, string ApprovePaymentVoucher)
         {
             var m = new ResponseModel();
             short status = 0;
@@ -462,10 +462,10 @@ namespace GMSWeb.Claim
                     status = 2;
                 else if (Type == "Reject")
                     status = 3;
-                else if (Type == "Resubmit")
+                else if (Type == "Revise")
                     status = 4;
 
-                new GMSGeneralDALC().UpdateClaimStatus(ClaimID, UserID, status, RejectRemark);
+                new GMSGeneralDALC().UpdateClaimStatus(ClaimID, UserID, status, RejectRemark, ApprovePaymentVoucher);
 
                 m.Message = Type + " Successfully";
             }

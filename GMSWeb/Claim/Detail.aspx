@@ -82,6 +82,25 @@
             </div>
         </div>
 
+        <!-- Approve Modal used to key in the payment voucher-->
+        <div id="approveModal" class="modal fade" role="dialog" data-backdrop="static" >
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                         <h4 class="modal-title">Payment Voucher Number</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <textarea class="form-control" id="approve_paymentvoucher" data-ng-model="claim.claimInfo.paymentvoucher"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" data-ng-click="claim.submitClaim(claim.claimInfo,'Approve')">Confirm Approve</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="panel panel-primary panel-loading">
         <div class="panel-heading">
@@ -148,29 +167,33 @@
                         <label class="control-label">No of Customers</label>
                         <input type="text" class="form-control" autocomplete="off" id="Text5" data-ng-model="claim.claimInfo.NumPplEntertained" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Status=='2'">
+                        <label class="control-label">Payment Voucher</label>
+                        <input type="text" class="form-control" autocomplete="off" id="Text6" data-ng-model="claim.claimInfo.PaymentVoucher"  disabled/>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">DIM 1 (DIVISION)</label>
-                        <select class="form-control" name="dim1" data-ng-model="claim.claimInfo.dim1" data-ng-disabled="claim.claimInfo.Status != '0' && !claim.allowApproveReject">
+                        <select class="form-control" name="dim1" data-ng-model="claim.claimInfo.dim1" data-ng-disabled="(claim.claimInfo.Status != '0' && claim.access) || (claim.claimInfo.Status > '1' && !claim.allowApproveReject)">
                           <option data-ng-repeat="dim1 in claim.dim1List" value="{{dim1.ProjectID}}">{{dim1.ProjectName}}</option>
                         </select>
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">DIM 2 (DEPARTMENT)</label>
-                        <select class="form-control" name="dim2" data-ng-model="claim.claimInfo.dim2" data-ng-disabled="claim.claimInfo.Status != '0' && !claim.allowApproveReject">
+                        <select class="form-control" name="dim2" data-ng-model="claim.claimInfo.dim2" data-ng-disabled="(claim.claimInfo.Status != '0' && claim.access) || (claim.claimInfo.Status > '1' && !claim.allowApproveReject)">
                             <option data-ng-repeat="dim2 in claim.dim2List" value="{{dim2.DepartmentID}}">{{dim2.DepartmentName}}</option>
                         </select>
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">DIM 3 (SECTION)</label>
-                        <select class="form-control" name="dim3" data-ng-model="claim.claimInfo.dim3" data-ng-disabled="claim.claimInfo.Status != '0' && !claim.allowApproveReject">
+                        <select class="form-control" name="dim3" data-ng-model="claim.claimInfo.dim3" data-ng-disabled="(claim.claimInfo.Status != '0' && claim.access) || (claim.claimInfo.Status > '1' && !claim.allowApproveReject)">
                             <option data-ng-repeat="dim3 in claim.dim3List" value="{{dim3.SectionID}}">{{dim3.SectionName}}</option>
                         </select>
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">DIM 4 (UNIT)</label>
-                        <select class="form-control" name="dim4" data-ng-model="claim.claimInfo.dim4" data-ng-disabled="claim.claimInfo.Status != '0' && !claim.allowApproveReject">
+                        <select class="form-control" name="dim4" data-ng-model="claim.claimInfo.dim4" data-ng-disabled="(claim.claimInfo.Status != '0' && claim.access) || (claim.claimInfo.Status > '1' && !claim.allowApproveReject)">
                           <option data-ng-repeat="dim4 in claim.dim4List" value="{{dim4.UnitID}}">{{dim4.UnitName}}</option>
                         </select>
                     </div>
@@ -178,25 +201,25 @@
                
                 <div class="row">
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                        <label class="control-label">Customer Company Name 1</label>
+                        <label class="control-label">Customer Company Name</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Cust1"  data-ng-disabled="claim.claimInfo.Status != '0'"
                             custom-auto-complete data-src="claim.customerListSrc" data-keyword-length="3" 
                             data-search-object="{'CompanyID':claim.companyID,'Name':claim.claimInfo.Cust1}" />
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                        <label class="control-label">Name Of Person 1</label>
-                        <input type="text" class="form-control" data-ng-model="claim.claimInfo.Person1" data-ng-disabled="claim.claimInfo.Status != '0'" />
+                        <label class="control-label">Name Of Person</label>
+                        <input type="text" class="form-control" data-ng-model="claim.claimInfo.Person1" data-ng-disabled="claim.claimInfo.Status != '0'" placeholder="Mr. Wong/Mr. Lim/..."/>
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                        <label class="control-label">Designation 1</label>
+                        <label class="control-label">Designation</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Desig1" data-ng-disabled="claim.claimInfo.Status != '0'" />
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                        <label class="control-label">Phone 1</label>
+                        <label class="control-label">Phone</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Phone1" maxlength="20" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
                 </div>
-                <div class="row">
+                <%--<div class="row">
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">Customer Company Name 2</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Cust2" data-ng-disabled="claim.claimInfo.Status != '0'" 
@@ -235,26 +258,29 @@
                         <label class="control-label">Phone 3</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Phone3" maxlength="20" data-ng-disabled="claim.claimInfo.Status != '0'" />
                     </div>
-                </div>
+                </div>--%>
             </div>
         </div>
-        <div class="panel-footer clearfix">
-            <a href="javascript:void(0)" class="btn btn-default pull-right m-r-10" data-ng-click="claim_detail_form.$invalid || claim.detail.length == 0 || claims.detailsSaved == false || claim.submitClaim(claim.claimInfo,'Submit')" data-ng-disabled="claim_detail_form.$invalid || claim.detail.length == 0" data-ng-if="claim.claimInfo.Status == '0' && claim.access == true">Submit For Approval</a>
-            <a href="javascript:void(0)" class="btn btn-primary pull-right m-r-10" data-ng-click="claim.updateClaimInfo()" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">Update Dimension</a>
-            <a href="javascript:void(0)" class="btn btn-primary pull-right m-r-10" data-ng-click="claim_detail_form.$invalid || claim.updateClaimInfo()" data-ng-disabled="claim_detail_form.$invalid" data-ng-if="claim.claimInfo.Status == 0 && claim.access == true">Update Claim</a>
-            <a href="javascript:void(0)" class="btn btn-primary pull-right m-r-10" data-ng-click="claim.submitClaim(claim.claimInfo,'Resubmit')" data-ng-if="(claim.claimInfo.Status == 3 || claim.claimInfo.Status == 1) && claim.access == true">Resubmit</a>
-            <a href="javascript:void(0)" class="btn btn-danger pull-left m-r-10" data-ng-click="claim.deleteClaim(claim.claimInfo)" data-ng-if="claim.claimInfo.Status == 0 && claim.access == true">Delete Claim</a>
-        </div>
+            <div class="panel-footer clearfix" data-ng-if="claim.access == true">
+                <a href="javascript:void(0)" class="btn btn-default pull-right m-r-10" data-ng-click="claim_detail_form.$invalid || claim.detail.length == 0 || claims.detailsSaved == false || claim.submitClaim(claim.claimInfo,'Submit')" data-ng-disabled="claim_detail_form.$invalid || claim.detail.length == 0" data-ng-if="claim.claimInfo.Status == '0' && claim.access == true">Submit For Approval</a>
+                <a href="javascript:void(0)" class="btn btn-primary pull-right m-r-10" data-ng-click="claim_detail_form.$invalid || claim.updateClaimInfo()" data-ng-disabled="claim_detail_form.$invalid" data-ng-if="claim.claimInfo.Status == 0 && claim.access == true">Update Claim</a>
+                <a href="javascript:void(0)" class="btn btn-primary pull-right m-r-10" data-ng-click="claim.submitClaim(claim.claimInfo,'Revise')" data-ng-if="(claim.claimInfo.Status == 3 || claim.claimInfo.Status == 1) && claim.access == true">Revise Claim</a>
+                <a href="javascript:void(0)" class="btn btn-danger pull-left m-r-10" data-ng-click="claim.deleteClaim(claim.claimInfo)" data-ng-if="claim.claimInfo.Status == 0 && claim.access == true">Delete Claim</a>
+            </div>
             <div class="panel-footer clearfix" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">
-            <a href="javascript:void(0)" class="btn btn-success pull-right m-r-10" data-ng-click="claim.submitClaim(claim.claimInfo,'Approve')" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">Approve</a>
-            <a href="javascript:void(0)" class="btn btn-danger pull-right m-r-10" data-ng-click="claim.rejectClaim()" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">Reject</a>
-        </div>
+                <a href="javascript:void(0)" class="btn btn-success pull-right m-r-10" data-ng-click="claim.approveClaim()" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">Approve</a>
+                <a href="javascript:void(0)" class="btn btn-danger pull-right m-r-10" data-ng-click="claim.rejectClaim()" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">Reject</a>
+                <a href="javascript:void(0)" class="btn btn-primary pull-right m-r-10" data-ng-click="claim.updateClaimInfo()" data-ng-if="claim.claimInfo.Status == 1 && claim.allowApproveReject">Update Dimension</a>
+            </div>
     </div>
 
     
 
     <div class="btn-group pull-right" role="group" aria-label="...">
-        <a href="javascript:void(0)" class="btn btn-default pull-right m-r-10" data-ng-click="claim.addDetail()" data-ng-if="claim.claimInfo.Status == '0'">
+        <a href="javascript:void(0)" class="btn btn-default pull-right m-r-10" data-ng-click="claim.saveDetails()" data-ng-if="claim.claimInfo.Status >= 1 && claim.allowApproveReject">
+                Save GST Detail
+        </a>
+        <a href="javascript:void(0)" class="btn btn-default pull-right m-r-10" data-ng-click="claim.addDetail()" data-ng-if="claim.claimInfo.Status == '0' && claim.access">
                 Add Detail
         </a>
     </div>
@@ -271,6 +297,9 @@
                 <th class="text-center" style="width:50px;">Receipt</th>
                 <th>Date                        
                     <i class="ti-calendar pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Datepicker" data-ng-if="claim.claimInfo.Status == '0'"></i>
+                </th>
+                <th>Receipt Number                        
+                    <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Text Input" data-ng-if="claim.claimInfo.Status == '0'"></i>
                 </th>
                 <th>Type
                     <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Text Input" data-ng-if="claim.claimInfo.Status == '0'"></i>
@@ -290,6 +319,9 @@
                 <th style="width:100px;">Amount
                     <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Integer" data-ng-if="claim.claimInfo.Status == '0'"></i>
                 </th>
+                <th style="width:70px;" data-ng-if="claim.allowApproveReject || claim.claimInfo.Status > 1">GST ({{claim.defaultCurrency}})
+                    <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Integer" data-ng-if="claim.claimInfo.Status == '0'"></i>
+                </th>
                 <th style="width:100px;">Amount ({{claim.defaultCurrency}})</th>
                 <th style="width:100px;"></th>
             </tr>
@@ -302,12 +334,14 @@
                     <a href="javascript:void(0)" class="btn btn-xs btn-default" disabled data-ng-if="detail.Count == '0'"><i class="ti-close"></i></a>
                 </td>
                 <td>{{detail.date}}</td>
+                <td>{{detail.ReceiptNum}}</td>
                 <td>{{detail.type}}</td>
                 <td>{{detail.remark}}</td>
                 <td>{{detail.chargeto}}</td>
                 <td>{{detail.currencyCode}}</td>
                 <td>{{detail.currencyRate | number : 4}}</td>
                 <td class="text-right">{{detail.amount | number : 2}}</td>
+                <td class="p-0" data-ng-if="claim.allowApproveReject || claim.claimInfo.Status > 1"><input type="number" data-input-field="GST" data-ng-model="detail.GST" class="form-control table-input text-right" data-ng-disabled="!claim.allowApproveReject || claim.claimInfo.Status < 1" /></td>
                 <td class="text-right">{{detail.amountSGD | number : 2}}</td>
                 <td class="btn-col">
                     <a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.uploadReceipt(detail)"><i class="ti-files"></i></a>
@@ -315,15 +349,14 @@
             </tr>
         </tbody>
         <tbody data-ng-if="claim.claimInfo.Status == '0'" >
-            <tr data-ng-repeat="detail in claim.detail | orderBy : 'id' track by $index "
-                <%--data-ng-class="{'alert-danger' : detail.id == null}"--%>
-                >
+            <tr data-ng-repeat="detail in claim.detail | orderBy : 'id' track by $index ">
                 <td class="p-l-10">{{$index + 1}}</td>
                 <td class="btn-col text-center">
                     <a href="javascript:void(0)" class="btn btn-xs btn-default" disabled data-ng-if="detail.Count && detail.Count != '0'"><i class="ti-check"></i></a>
                     <a href="javascript:void(0)" class="btn btn-xs btn-default" disabled data-ng-if="detail.Count == '0'"><i class="ti-close"></i></a>
                 </td>
                 <td class="p-0"><input type="text" data-input-field="date" data-ng-model="detail.date" datepicker class="form-control table-input" readonly required/></td>
+                <td class="p-0"><input type="text" data-input-field="receiptnumber" data-ng-model="detail.ReceiptNum" class="form-control table-input text-right" /></td>
                 <td class="p-0">
                     <select class="form-control table-input" name="typeList" data-ng-model="detail.type" required custom-auto-complete">
                           <option data-ng-repeat="enttype in claim.typeList" value="{{enttype.EntertainmentType}}">{{enttype.EntertainmentType}}</option>
@@ -337,19 +370,25 @@
                 </td>
                 <td class="p-0"><input type="text" data-input-field="currencyRate" data-ng-model="detail.currencyRate" class="form-control table-input text-right" required /></td>
                 <td class="p-0"><input type="number" data-input-field="amount" data-ng-model="detail.amount" class="form-control table-input text-right" required /></td>
+                <td class="text-right" data-ng-model="detail.GST" data-ng-if="claim.allowApproveReject || claim.claimInfo.Status > 1">{{detail.GST | number : 2}}</td> 
                 <td class="text-right">{{detail.amountSGD | number : 2}}</td>
-                <td class="btn-col" style="white-space: nowrap">                    
-                    <a href="javascript:void(0)" class="btn btn-warning btn-xs" data-ng-click="claim.saveDetails()" data-ng-if="detail.id == null" data-ng-disabled="claim_detail_form.$invalid"><i class="ti-plus"></i></a>
-                    <a href="javascript:void(0)" class="btn btn-default btn-xs" data-ng-click="claim.saveDetails()" data-ng-if="detail.id != null" data-ng-disabled="claim_detail_form.$invalid"><i class="ti-save"></i></a>
-					<a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.uploadReceipt(detail)" data-ng-if="detail.id != null"><i class="ti-files"></i></a>
-                    <a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.deleteDetail(detail,$index)" ><i class="ti-trash"></i></a>
+                <td class="btn-col" style="white-space: nowrap" > 
+                    <div data-ng-if="claim.access">
+                        <a href="javascript:void(0)" class="btn btn-default btn-xs" data-ng-click="claim.saveDetails()" data-ng-if="detail.id != null" data-ng-disabled="claim_detail_form.$invalid"><i class="ti-save"></i></a>           
+                        <a href="javascript:void(0)" class="btn btn-warning btn-xs" data-ng-click="claim.saveDetails()" data-ng-if="detail.id == null" data-ng-disabled="claim_detail_form.$invalid"><i class="ti-plus"></i></a>
+					    <a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-class="{'btn-danger btn-outline-secondary mr-2' : detail.Count == '0'}" data-ng-click="claim.uploadReceipt(detail)" data-ng-if="detail.id != null" data-toggle="tooltip" title="Please upload your receipt."><i class="ti-files"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.deleteDetail(detail,$index)" ><i class="ti-trash"></i></a>
+                    </div>
+                    <div data-ng-if="claim.allowApproveReject && !claim.access">
+                        <a href="javascript:void(0)" class="btn btn-xs btn-default" data-ng-click="claim.uploadReceipt(detail)"><i class="ti-files"></i></a>
+                    </div>        
                 </td>
             </tr>
         </tbody>
         <tfoot>
             <tr >
-                <td colspan="8" class="text-right"><b>Total</b></td>
-                <td class="text-right">{{claim.total | number : 2}}</td>
+                <td colspan="10" class="text-right"><b>Total</b></td>
+                <td class="text-right" data-ng-if="claim.allowApproveReject || claim.claimInfo.Status > 1">{{claim.totalGST | number : 2}}</td>
                 <td class="text-right">{{claim.totalSGD | number : 2}}</td>
                 <td></td>
             </tr>

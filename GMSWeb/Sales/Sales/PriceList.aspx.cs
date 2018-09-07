@@ -25,6 +25,7 @@ namespace GMSWeb.Sales.Sales
     public partial class PriceList : GMSBasePage
     {
         private HSSFWorkbook hssfworkbook;
+        protected short loginUserOrAlternateParty = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             Master.setCurrentLink("Products");
@@ -34,9 +35,22 @@ namespace GMSWeb.Sales.Sales
                 Response.Redirect(base.SessionTimeOutPage("Products"));
                 return;
             }
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+
+            DataSet lstAlterParty = new DataSet();
+            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Price List", ref lstAlterParty);
+            if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
+            {
+                for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
+                {
+                    loginUserOrAlternateParty = GMSUtil.ToShort(lstAlterParty.Tables[0].Rows[i]["OnBehalfUserNumID"].ToString());
+                }
+            }
+            else
+                loginUserOrAlternateParty = session.UserId;
+
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(loginUserOrAlternateParty,
                                                                             107);
-            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, loginUserOrAlternateParty,
                                                                             107);
             if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
                 Response.Redirect(base.UnauthorizedPage("Products"));
@@ -73,7 +87,7 @@ namespace GMSWeb.Sales.Sales
             DataSet dsProductPrice = new DataSet();
             try
             {
-                new GMSGeneralDALC().GetProductPriceByUser(session.CompanyId, session.UserId, ref dsProductPrice);
+                new GMSGeneralDALC().GetProductPriceByUser(session.CompanyId, loginUserOrAlternateParty, ref dsProductPrice);
                 if ((dsProductPrice != null))
                 {
                     int i = 1;
