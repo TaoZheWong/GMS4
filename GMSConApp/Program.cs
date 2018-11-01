@@ -92,6 +92,17 @@ namespace GMSConApp
                                 Task_LMSImportProduct(CoyID);
                             }
                             break;
+                        case "LMSImportSalesPerson":
+                            CoyID = Convert.ToInt16(args[1]);
+                            if (args[1] == null)
+                            {
+                                Console.WriteLine("CoyID is null"); // Check for null array
+                            }
+                            else
+                            {
+                                Task_LMSImportSalesPerson(CoyID);
+                            }
+                            break;
                         default:
                             Console.WriteLine("End with no task excuted");
                             break;
@@ -1052,6 +1063,68 @@ namespace GMSConApp
             }
         }
 
+        static void Task_LMSImportSalesPerson(short CoyID)
+        {
+
+            string from = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
+            string to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
+
+            DataTable dtCompany = oDAL.GMS_Get_CompanyByCoyID(CoyID);
+            if (dtCompany.Rows.Count > 0)
+            {
+                if (!string.IsNullOrEmpty(dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim()) && !string.IsNullOrEmpty(dtCompany.Rows[0]["WSDLMSWebServiceAddress"].ToString().Trim()))
+                {
+                    Task_LMSImportDataSalesPerson(CoyID, dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), true);
+                    //Task_LMSImportData(CoyID, dtCompany.Rows[0]["WSDLMSWebServiceAddress"].ToString().Trim(), false, from, to);
+                }
+                else
+                {
+                    Task_LMSImportDataSalesPerson(CoyID, dtCompany.Rows[0]["CMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), false);
+                }
+            }
+        }
+
+        static void Task_LMSImportDataSalesPerson(short CoyID, string url, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB, bool executeFX)
+        {           
+
+            Console.WriteLine(DateTime.Now.ToString() + " -- Start Task : LHMImport");
+            Console.WriteLine(DateTime.Now.ToString() + " -- CoyID = " + CoyID);
+            
+            DataTable dtCompany = oDAL.GMS_Get_CompanyByCoyID(CoyID);
+            if (dtCompany.Rows.Count > 0)
+            {               
+                DataSet ds = new DataSet();
+                string query = "";
+
+                SAPOperation sop = new SAPOperation();
+                sop.BaseAddress = SAPURI;
+                sop.SAPKey = SAPKEY;
+                sop.SAPDB = SAPDB;                
+
+                if (execute)
+                {
+                    //Retrieve Sales Person
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
+                    query = "SELECT * FROM OSLP";
+                    ds = sop.GET_SAP_QueryData(CoyID, query,
+                        "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    //Insert Sales Person data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        if (dr["field15"].ToString() == "S")
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString());
+                        else if (dr["field15"].ToString() == "B")
+                            oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
+                    ds.Dispose();
+                }
+            }
+        }
+
         static void Task_LMSImportData(short CoyID, string url, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB, bool executeFX)
         {
             Console.WriteLine(DateTime.Now.ToString() + " -- Start Task : Close MR");
@@ -1132,7 +1205,7 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
                 }
-
+                
                 if (execute)
                 {
 
@@ -1823,7 +1896,7 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Purchase Order data insertion.");
                     ds.Dispose();
-                }
+                }                
 
             }
         }

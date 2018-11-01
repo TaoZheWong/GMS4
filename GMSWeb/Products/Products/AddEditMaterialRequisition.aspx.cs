@@ -529,6 +529,7 @@ namespace GMSWeb.Products.Products
             string dimensionL1 = "";
             string warehouse = "";
             string purchaserid = "";
+            string othersRemarks = "";
 
             List<string> uniqueProductGroup = new List<string>();
 
@@ -613,6 +614,8 @@ namespace GMSWeb.Products.Products
                     warehouse = idict[key].ToString();
                 else if (key.ToString() == "purchaserid")
                     purchaserid = idict[key].ToString();
+                else if (key.ToString() == "othersRemarks")
+                    othersRemarks = idict[key].ToString();
             }
 
             int totalUniqueCount = 1;
@@ -667,6 +670,7 @@ namespace GMSWeb.Products.Products
                     mr.BudgetCode = BudgetCode;
                     mr.StatusID = statusid;
                     mr.GLCode = glcode;
+                    mr.OthersRemarks = othersRemarks;
                     mr.IntendedUsage = intendedusage;
                     mr.VendorRemarks = vendorremarks;
                     mr.PurchasingRemarks = purchasingremarks;
@@ -767,6 +771,7 @@ namespace GMSWeb.Products.Products
                 mr.RequestorRemarks = requestorremarks;
                 mr.OrderReason = orderreason;
                 mr.MRDate = GMSUtil.ToDate(mrdate);
+                mr.OthersRemarks = othersRemarks;
                 if (isconsole == "Yes")
                 {
                     mr.IsConsole = true;

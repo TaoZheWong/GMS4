@@ -84,6 +84,15 @@
                     </label>
                 </div>
 
+                <div class="form-group col-lg-6 col-sm-6">
+                    <label class="col-sm-6 control-label text-left">
+                        SO Status
+                    </label>
+                    <label class="col-sm-6 control-label text-left">
+                        <asp:Label runat="server" ID="lblSOStatus"></asp:Label>
+                    </label>
+                </div>
+
 
             </div>
         </div>

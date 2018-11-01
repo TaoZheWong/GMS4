@@ -653,6 +653,21 @@ namespace GMSCore.Entity
             }
         }
 
+        private string _othersRemarks = "";
+        ///<summary>Database mapping to column tbMR.OthersRemarks</summary>
+        public string OthersRemarks
+        {
+            get { return _othersRemarks; }
+            set
+            {
+                if (_othersRemarks != value)
+                {
+                    _othersRemarks = value;
+                    OnPropertyChanged("OthersRemarks");
+                }
+            }
+        }
+
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -755,6 +770,7 @@ namespace GMSCore.Entity
                     case "_dimensionL1": return _dimensionL1;
                     case "_warehouse": return _warehouse;
                     case "_mRScheme": return _mRScheme;
+                    case "_othersRemarks": return _othersRemarks;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
                 }
@@ -809,6 +825,7 @@ namespace GMSCore.Entity
                     case "_dimensionL1": _dimensionL1 = (string)value; break;
                     case "_warehouse": _warehouse = (string)value; break;
                     case "_mRScheme": _mRScheme = (string)value; break;
+                    case "_othersRemarks": _othersRemarks = (string)value; break;
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
                 }
             }
@@ -865,6 +882,7 @@ namespace GMSCore.Entity
             stb.AppendFormat("_dimensionL1={0}\n,", _dimensionL1.ToString());
             stb.AppendFormat("_warehouse={0}\n,", _warehouse.ToString());
             stb.AppendFormat("_mRScheme={0}\n,", _mRScheme.ToString());
+            stb.AppendFormat("_othersRemarks={0}\n,", _othersRemarks.ToString());
             return stb.ToString();
         }
         #endregion
