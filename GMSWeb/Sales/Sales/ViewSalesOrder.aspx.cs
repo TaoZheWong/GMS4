@@ -147,6 +147,7 @@ namespace GMSWeb.Sales.Sales
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
+                this.lblSOStatus.Text = ds.Tables[0].Rows[0]["SOStatusName"].ToString();
                 this.lblTrnNo.Text = ds.Tables[0].Rows[0]["TrnNo"].ToString();
                 this.lblAccountCode.Text = ds.Tables[0].Rows[0]["AccountCode"].ToString();
                 this.lblAccountName.Text = ds.Tables[0].Rows[0]["AccountName"].ToString();

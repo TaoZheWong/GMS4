@@ -108,7 +108,7 @@
                                 <div class="checkbox-inline">
                                     <input type="checkbox" name="Workshop" id="Workshop" value="Workshop" disabled>
                                     <label for="Workshop">
-                                        Workshop / Others
+                                        Workshop
                                     </label>
                                 </div>
                                     </div>
@@ -137,7 +137,7 @@
                                 </div>
                                     </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
-                                 <div class="checkbox-inline">
+                                    <div class="checkbox-inline">
                                     <span class="additional-info-wrap">
                                         <input type="checkbox" name="Asset" id="Asset" value="Asset" disabled>
                                         <label for="Asset">
@@ -147,8 +147,21 @@
                                             <input type="text" id="GLCode" name="GLCode" placeholder="GL Code" class="form-control" disabled>
                                         </div>
                                     </span>
-                                </div>
                                     </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                    <span class="additional-info-wrap">
+                                        <input type="checkbox" name="Others" id="Others" value="Others" disabled>
+                                        <label for="Others">
+                                           Others
+                                        </label>
+                                        <div class="additional-info hide">
+                                            <input type="text" id="OthersRemarks" name="OthersRemarks" placeholder="Others" class="form-control" disabled>
+                                        </div>
+                                    </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -812,7 +812,7 @@ function showButton(CEID, Revision){
                             }
                             
                             if(data[0].AccessAddEditCE == "1"){
-                                $("#btnAddToRevision").css("display", '');
+                                $("#btnAddToRevision").css("display", 'none');
                                 $("#btnSubmitCEDraft").css("display", 'none');
                                 $("#btnPrintCE").css("display", 'none');
                             }
@@ -824,6 +824,7 @@ function showButton(CEID, Revision){
 
                             if (AccessAdmin == "1") {
                                 $("#btnPrintCE").css("display", '');
+                                $("#btnAddToRevision").css("display", '');
                             }
                         }
                     });

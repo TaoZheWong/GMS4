@@ -1132,6 +1132,8 @@ $(document).ready(function() {
                 intendedusage.push('Staff Welfare'); 
             if($("#Asset").prop('checked') == true)
                 intendedusage.push('Asset');
+            if ($("#Others").prop('checked') == true)
+                intendedusage.push('Others');
                 
             return intendedusage.toString();
         }
@@ -1289,8 +1291,7 @@ $(document).ready(function() {
                     }
                 }); 
             }              
-        }
-        
+        }        
        
         
         
@@ -1318,7 +1319,7 @@ $(document).ready(function() {
             {
                 objHeader['isconsole'] = "No";
                 objHeader['consoleDate'] = "";
-            }    
+            }
             
             if($("#ismov").prop('checked') == true) 
             {                
@@ -1356,6 +1357,7 @@ $(document).ready(function() {
             objHeader['ExchangeRate'] = $('#exchange-rate').val();            
             objHeader['DimensionL1'] = $("input[id*=hidDimensionL1]").val();
             objHeader['Warehouse'] = $("input[id*=hidWarehouse]").val();
+            objHeader['othersRemarks'] = $('#OthersRemarks').val();
             localStorage.setItem( 'DataTables_'+tablename, JSON.stringify(objHeader));
         }   
                  
@@ -2098,7 +2100,7 @@ $(document).ready(function() {
                     $('#approver3-name').val(item.ph3name);
                     $('#approver3-id').val(item.ph3userid);                    
                     $('#GLCode').val(item.glcode);
-                    
+                    $('#OthersRemarks').val(item.OthersRemarks);                    
                     $('#Discount').val(item.Discount);  
                     $('#TaxRate').val(item.TaxRate); 
                     $('#TaxTypeID').val(item.TaxTypeID); 
@@ -2134,7 +2136,12 @@ $(document).ready(function() {
                             $("#" + array[i]).closest('.checkbox-inline, .checkbox').toggleClass('checked');   
                             $("#" + array[i]).prop('checked', true);                        
                             $("#" + array[i]).closest('.additional-info-wrap').find('.additional-info').removeClass('hide').find('input,select').removeAttr('disabled');  
-                       }    
+                       }
+                       else if (array[i] == "Others") {
+                           $("#" + array[i]).closest('.checkbox-inline, .checkbox').toggleClass('checked');
+                           $("#" + array[i]).prop('checked', true);
+                           $("#" + array[i]).closest('.additional-info-wrap').find('.additional-info').removeClass('hide').find('input,select').removeAttr('disabled');
+                       }
                        else
                        {
                             $("#" + array[i]).closest('.checkbox-inline, .checkbox').toggleClass('checked');  
