@@ -3825,5 +3825,20 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        /// <summary>
+        /// GetListOfMRRequiresProductManagerApprovalByUserNumId
+        /// </summary>
+        public void GetListOfRejectedMRByUserNumId(short companyId, short userNumId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppListOfRejectedMRByUserIdSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userNumId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
     }
 }

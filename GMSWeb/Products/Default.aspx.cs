@@ -90,6 +90,16 @@ namespace GMSWeb.Products
             return GMSUtil.ToJson(dsTemp, 0);
         }
 
+        [WebMethod]
+        public static List<Dictionary<string, string>> GetListOfRejectedMRByUserNumId(short CompanyID, short UserID)
+        {
+            DataSet dsTemp = new DataSet();
+            new GMSGeneralDALC().GetListOfRejectedMRByUserNumId(CompanyID, UserID, ref dsTemp);
+            return GMSUtil.ToJson(dsTemp, 0);
+        }
+
+        
+
         /*
 
         private void LoadData()
@@ -224,6 +234,6 @@ namespace GMSWeb.Products
         }
 
         */
-        
+
     }
 }

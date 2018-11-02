@@ -53,6 +53,20 @@
     </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn" data-toggle="panel-expand"><i class="glyphicon glyphicon-resize-full"></i></a>
+        </div>
+        <h4 class="panel-title">
+            List of Rejected MRs 
+        </h4>
+    </div>
+    <div class="panel-body">
+        <table id="tblRejectedMR" class="table table-striped table-bordered dataTable no-footer" width="100%"></table>
+    </div>
+</div>
+    
                                 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
@@ -187,6 +201,39 @@
                 { "data": "Purchaser", "title": "Purchaser" },
             ];
             generateTable(tblWithoutEtdElem, tblWithoutEtdAjaxConfig, tblWithoutEtdColumns, tblWithoutEtdColumnsOrder);
+
+            //List of rejected MRs 
+            var rejectedMRElem = $('#tblRejectedMR');
+            var rejectedMRAjaxConfig = {
+                "dataType": "json",
+                "contentType": "application/json; charset=utf-8",
+                "type": "POST",
+                "error": function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus);
+                },
+                "url": "Default.aspx/GetListOfRejectedMRByUserNumId",
+                "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
+                "dataSrc": function (json) {
+                    return json;
+                }
+            };
+            var rejectedMRColumnssOrder = [[2, "desc"]];
+            var rejectedMRColumns = [
+                { "data": null, "title": "No." },
+                {
+                    "data": "mrno",
+                    "title": "MR No.",
+                    "render": function (data, type, row) {
+                        return "<a name='Edit' href=\"../Products/Products/AddEditMaterialRequisition.aspx?CurrentLink=Sales&CoyID=" + CoyID + "&MRNo=" + data + "\" >" + data + "</a>";
+                    }
+                },
+                { "data": "mrdate", "title": "MR Date" },
+                { "data": "requestor", "title": "Requestor" },
+                { "data": "pmname", "title": "Product Manager" },               
+                { "data": "diff", "title": "Days" },
+            ];
+            generateTable(rejectedMRElem, rejectedMRAjaxConfig, rejectedMRColumns, rejectedMRColumnssOrder);
+
 
 
 
