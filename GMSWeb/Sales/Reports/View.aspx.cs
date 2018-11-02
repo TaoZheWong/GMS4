@@ -28,31 +28,42 @@ namespace GMSWeb.Sales.Reports
 {
     public partial class View : GMSBasePage
     {
+        protected short loginUserOrAlternateParty = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             string currentLink = "Sales";
-            
+            LogSession session = base.GetSessionInfo();
 
             if (Request.Params["CurrentLink"] != null)
             {
                 currentLink = Request.Params["CurrentLink"].ToString().Trim();
                 
             }
+            Master.setCurrentLink(currentLink);
 
-            Master.setCurrentLink(currentLink); 
+            DataSet lstAlterParty = new DataSet();
+            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Product Report", ref lstAlterParty);
+            if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
+            {
+                for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
+                {
 
-            LogSession session = base.GetSessionInfo();
+                    loginUserOrAlternateParty = GMSUtil.ToShort(lstAlterParty.Tables[0].Rows[i]["OnBehalfUserNumID"].ToString());
+                }
+            }
+            else
+                loginUserOrAlternateParty = session.UserId;
+
+            
             if (session == null)
             {
                 Response.Redirect(base.SessionTimeOutPage("Sales"));
                 return;
             }
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(loginUserOrAlternateParty,
                                                                             60);
 
-            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, loginUserOrAlternateParty,
                                                                             60);
 
             if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
@@ -114,7 +125,7 @@ namespace GMSWeb.Sales.Reports
                 foreach (ReportCategory rCategory in lstCategory)
                 {
                     IList<VwReportListingForCompany> lstCompanyReport = null;
-                    lstCompanyReport = new ReportsActivity().RetrieveCompanyReportByCategoryIdUserAccessId(session.CompanyId, rCategory.ReportCategoryID, session.UserId);
+                    lstCompanyReport = new ReportsActivity().RetrieveCompanyReportByCategoryIdUserAccessId(session.CompanyId, rCategory.ReportCategoryID, loginUserOrAlternateParty);
                     if (lstCompanyReport != null && lstCompanyReport.Count > 0)
                     {
                         // Bind Data to sub repeater
@@ -130,7 +141,7 @@ namespace GMSWeb.Sales.Reports
                     else
                     {
                         IList<VwReportListing> lstReport = null;
-                        lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, session.UserId);
+                        lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, loginUserOrAlternateParty);
                         if (lstReport != null && lstReport.Count > 0)
                         {
                             // Bind Data to sub repeater
@@ -154,10 +165,10 @@ namespace GMSWeb.Sales.Reports
         {
             LogSession session = base.GetSessionInfo();
 
-            UserAccessReport uAccess = new GMSUserActivity().RetrieveUserAccessReportByUserIdReportId(session.UserId,
+            UserAccessReport uAccess = new GMSUserActivity().RetrieveUserAccessReportByUserIdReportId(loginUserOrAlternateParty,
                                                                             GMSUtil.ToShort(e.CommandArgument.ToString()));
 
-            IList<UserAccessReportForCompany> uAccessReportForCompanyList = new GMSUserActivity().RetrieveUserAccessReportForCompanyByUserIdReportId(session.CompanyId, session.UserId, GMSUtil.ToShort(e.CommandArgument.ToString()));
+            IList<UserAccessReportForCompany> uAccessReportForCompanyList = new GMSUserActivity().RetrieveUserAccessReportForCompanyByUserIdReportId(session.CompanyId, loginUserOrAlternateParty, GMSUtil.ToShort(e.CommandArgument.ToString()));
 
             if (uAccess == null && (uAccessReportForCompanyList != null && uAccessReportForCompanyList.Count == 0))
                 Response.Redirect(base.UnauthorizedPage("Sales"));
