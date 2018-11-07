@@ -127,7 +127,9 @@
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">Claim Purpose</label>
-                        <input type="text" class="form-control" autocomplete="off" maxlength="100" data-ng-model="claim.claimInfo.Description" data-ng-disabled="claim.claimInfo.Status != '0'" />
+                        <select class="form-control" name="claim_desc" id="claim_desc" data-ng-model="claim.claimInfo.Description" data-ng-disabled="claim.claimInfo.Status != '0'">
+                          <option data-ng-repeat="claimpurpose in claim.typeList | filter: {EntertainmentType: 'Purpose'}" value="{{claimpurpose.EntertainmentOptions}}">{{claimpurpose.EntertainmentOptions}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -304,9 +306,6 @@
                 <th>Type
                     <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Text Input" data-ng-if="claim.claimInfo.Status == '0'"></i>
                 </th>
-                <th>Remark
-                    <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Text Input" data-ng-if="claim.claimInfo.Status == '0'"></i>
-                </th>
                 <th style="width:150px;">Charge to
                     <i class="ti-text pull-right hidden-xs hidden-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="Text Input" data-ng-if="claim.claimInfo.Status == '0'"></i>
                 </th>
@@ -336,7 +335,6 @@
                 <td>{{detail.date}}</td>
                 <td>{{detail.ReceiptNum}}</td>
                 <td>{{detail.type}}</td>
-                <td>{{detail.remark}}</td>
                 <td>{{detail.chargeto}}</td>
                 <td>{{detail.currencyCode}}</td>
                 <td>{{detail.currencyRate | number : 4}}</td>
@@ -359,10 +357,10 @@
                 <td class="p-0"><input type="text" data-input-field="receiptnumber" data-ng-model="detail.ReceiptNum" class="form-control table-input text-right" /></td>
                 <td class="p-0">
                     <select class="form-control table-input" name="typeList" data-ng-model="detail.type" required custom-auto-complete">
-                          <option data-ng-repeat="enttype in claim.typeList" value="{{enttype.EntertainmentType}}">{{enttype.EntertainmentType}}</option>
+                          <option data-ng-repeat="receipttype in claim.typeList | filter: {EntertainmentType: 'ReceiptType'}" value="{{receipttype.EntertainmentOptions}}">{{receipttype.EntertainmentOptions}}</option>
+
                     </select>
                 </td>
-                <td class="p-0"><input type="text" data-input-field="remark" data-ng-model="detail.remark" class="form-control table-input text-right" required /></td>
                 <td class="p-0"><input type="text" data-input-field="chargeto" data-ng-model="detail.chargeto" class="form-control table-input text-right" required /></td>
                 <td class="p-0"><input type="text" data-input-field="currencyCode" class="form-control table-input"
                     custom-auto-complete data-hidden-value="detail.currencyRate"  data-src="claim.currencyListSrc"
@@ -387,7 +385,7 @@
         </tbody>
         <tfoot>
             <tr >
-                <td colspan="10" class="text-right"><b>Total</b></td>
+                <td colspan="9" class="text-right"><b>Total</b></td>
                 <td class="text-right" data-ng-if="claim.allowApproveReject || claim.claimInfo.Status > 1">{{claim.totalGST | number : 2}}</td>
                 <td class="text-right">{{claim.totalSGD | number : 2}}</td>
                 <td></td>

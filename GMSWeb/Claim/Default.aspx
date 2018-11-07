@@ -8,6 +8,7 @@
 
     <a name="TemplateInfo"></a>
 
+    <div data-ng-controller="ClaimDefaultController as claim" data-ng-cloak="">
     <%--Create new claim model--%>
     <div id="claimForm" class="modal fade" role="dialog" data-backdrop="static" >
         <div class="modal-dialog" >
@@ -25,7 +26,9 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="claim_desc">Claim Purpose</label>
-                        <input type="text" class="form-control" id="claim_desc" autocomplete="off" />
+                        <select class="form-control" name="claim_desc" id="claim_desc">
+                          <option data-ng-repeat="claimpurpose in claim.typeList | filter: {EntertainmentType: 'Purpose'}" value="{{claimpurpose.EntertainmentOptions}}">{{claimpurpose.EntertainmentOptions}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -36,7 +39,7 @@
         </div>
     </div>
 
-    <div data-ng-controller="ClaimDefaultController as claim" data-ng-cloak="">
+    
     <h1 class="page-header">Claim 
         <br />
         <small>Submit your claim here</small>

@@ -3743,7 +3743,7 @@ namespace GMSCore
             return;
         }
 
-        public void GetClaimEntertainmentType(ref DataSet ds)
+        public void GetClaimEntertainmentReceiptType(ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand(@"Select * from tbEntertainmentType", (SqlConnection)conn);
