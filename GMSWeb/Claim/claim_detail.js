@@ -9,7 +9,7 @@ globalUserID = located at sitemaster , user id from session
 globalDefaultCurrency = located at sitemaster , defaultCurrency from session
 */
 
-app.controller('ClaimDetailController', function (ClaimService, UtilityService, $location, $scope, $q, $window) {
+app.controller('ClaimDetailController', function (ClaimService, UtilityService, $location, $scope, $q, $window, $filter) {
 
     var claim = this;
     var timeoutCanceler = $q.defer();
@@ -171,7 +171,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
                 $window.location.reload();
             } else {
                 if (!angular.equals(type, 'Reject')) {
-                    if (angular.equals(type, 'Submit')) {
+                    if (angular.equals(type, 'Submit') || angular.equals(type, 'Approve')) {
                         //help user to update claim info and detail info upon submitting the form
                         ClaimService.updateClaimInfo(claim.claimInfo).then(function (resp) {
                             if (resp.data.Status == 1) {
@@ -458,6 +458,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 app.controller('ClaimDefaultController', function (ClaimService, UtilityService, $scope, $location) {
     var claim = this;
     claim.allowApproveReject = false;
+    claim.typeList = [];
 
     claim.getapproverights = function () {
         ClaimService.getApproveRejectAccess(globalUserID).then(function (resp) {
@@ -467,5 +468,13 @@ app.controller('ClaimDefaultController', function (ClaimService, UtilityService,
                 claim.allowApproveReject = false;
         });
     }
+
+    claim.getEntertainmentType = function () {
+        ClaimService.getEntertainmentType().then(function (resp) {
+            claim.typeList = resp.data.Params.data;
+        });
+    }
+
     claim.getapproverights();
+    claim.getEntertainmentType();
 });

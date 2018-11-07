@@ -399,7 +399,7 @@ namespace GMSWeb.Claim
             try
             {
                 DataSet dsTemp = new DataSet();
-                new GMSGeneralDALC().GetClaimEntertainmentType(ref dsTemp);
+                new GMSGeneralDALC().GetClaimEntertainmentReceiptType(ref dsTemp);
                 m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
             }
             catch (Exception e)
