@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -24,12 +24,16 @@ using GMSCore.Activity;
 using GMSCore.Entity;
 using GMSWeb.CustomCtrl;
 
-namespace GMSWeb.Finance.Reports {
-    public partial class FinanceProductReport : GMSBasePage {
-        protected void Page_Load(object sender, EventArgs e) {
+namespace GMSWeb.Finance.Reports
+{
+    public partial class FinancePurchaseCreditor : GMSBasePage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
             Master.setCurrentLink("CompanyFinance");
             LogSession session = base.GetSessionInfo();
-            if (session == null) {
+            if (session == null)
+            {
                 Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
                 return;
             }
@@ -58,13 +62,15 @@ namespace GMSWeb.Finance.Reports {
         }
 
         #region PopulateRepeater
-        private void PopulateRepeater() {
+        private void PopulateRepeater()
+        {
             LogSession session = base.GetSessionInfo();
             IList<ReportCategory> lstCategory = new List<ReportCategory>();
 
-            ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Products");
-            if (cat1 != null) {
-                cat1.Name = "Products Reports";
+            ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Purchase & Creditor");
+            if (cat1 != null)
+            {
+                cat1.Name = "Purchase & Creditor";
                 lstCategory.Add(cat1);
             }
             /*Commented by OSS on 2012-06-29
@@ -75,20 +81,24 @@ namespace GMSWeb.Finance.Reports {
                 lstCategory.Add(cat2);
             }
             */
-            if (lstCategory != null && lstCategory.Count > 0) {
+            if (lstCategory != null && lstCategory.Count > 0)
+            {
                 rppCategoryList.DataSource = lstCategory;
                 rppCategoryList.DataBind();
 
                 int i = 0;
-                foreach (ReportCategory rCategory in lstCategory) {
+                foreach (ReportCategory rCategory in lstCategory)
+                {
                     IList<VwReportListing> lstReport = null;
                     lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, session.UserId);
-                    if (lstReport != null && lstReport.Count > 0) {
+                    if (lstReport != null && lstReport.Count > 0)
+                    {
                         // Bind Data to sub repeater
                         RepeaterItem item = this.rppCategoryList.Items[i];
                         Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
 
-                        if (rppReportList != null) {
+                        if (rppReportList != null)
+                        {
                             rppReportList.DataSource = lstReport;
                             rppReportList.DataBind();
                         }
@@ -99,7 +109,8 @@ namespace GMSWeb.Finance.Reports {
         }
         #endregion
 
-        protected void rppReportList_ItemCommand(object source, RepeaterCommandEventArgs e) {
+        protected void rppReportList_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
             LogSession session = base.GetSessionInfo();
 
             //UserAccessReport uAccess = new GMSUserActivity().RetrieveUserAccessReportByUserIdReportId(session.UserId,
