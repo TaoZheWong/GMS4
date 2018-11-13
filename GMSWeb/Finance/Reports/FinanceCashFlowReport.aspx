@@ -6,55 +6,51 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 <uctrl:Header ID="MySiteHeader" runat="server" EnableViewState="true" />
 <a name="TemplateInfo"></a>
-<h1>Reports &gt; Cash Flow</h1>
-        <p>Click a report to view.</p>
-          <table class="tTable1" style="width: 620px;margin-left: 8px">
-		    <tr valign="top">
-			    <td style="width: 620px;">
-    			<asp:Repeater id="rppCategoryList" Runat="server">
-					<HeaderTemplate>
-						<table width="620px" cellpadding="5" cellspacing="5" border="0">
-					</HeaderTemplate>
-					<ItemTemplate>
-						<tr class="tHeader">
-							<td style="padding:4px;">
-								<a href="javascript:toggleAccessRow(<%# Container.ItemIndex %>);" title="Display/Hide Access Functions">
-									<img src="<%= Request.ApplicationPath %>/App_Themes/Default/images/checkCloseIcon.gif" alt="Expand/Hide" 
-									    name="imgAccessBox_<%# Container.ItemIndex%>" /></a><%# DataBinder.Eval(Container.DataItem,"Name")%>
-							</td>
-						</tr>
-						<tr id="rppToggle_<%# Container.ItemIndex %>">
-							<td>
-								<asp:repeater id="rppReportList" runat="server" OnItemCommand="rppReportList_ItemCommand">
-									<headertemplate>
-										<table cellpadding="2" cellspacing="1" border="0" width="100%">
-									</headertemplate>
-									<itemtemplate>
-										<tr id="rppRow" runat="server">
-											<td style="padding-left:30px;">
-													<%# Container.ItemIndex + 1 %>. &nbsp;
-													<asp:LinkButton ID="lnkPrintReport" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ReportId")%>' EnableViewState="false"
-												    CausesValidation="false"><span><%# Eval("Description")%></span></asp:LinkButton>
-											</td>
-										</tr>
-									</itemtemplate>
-									<footertemplate>
-								        </table>
-							        </footertemplate>
-						        </asp:repeater>
-					        </td>
-				        </tr>
-				    </ItemTemplate>
-			
-				    <FooterTemplate>
-					    </table>
-				    </FooterTemplate>
-				</asp:Repeater>
+
+<ul class="breadcrumb pull-right">
+    <li><a href="#">Cash Flow/Loan</a></li>
+    <li class="active">Reports</li>
+</ul>
+<h1 class="page-header">Reports <small>Click a report to view.</small></h1>
+      
+<asp:Repeater id="rppCategoryList" Runat="server">
+	<ItemTemplate>
+			<div class="panel-group">
+                <div class="panel panel-default panel-bordered">
+                    <div class="panel-heading" id="heading">
+                        <h4 class="panel-title">
+                            <a href="#collapseReport_<%# Container.ItemIndex %>" class="accordion-link collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false">
+                                <%# DataBinder.Eval(Container.DataItem,"Name")%>
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div id="collapseReport_<%# Container.ItemIndex %>" class="panel-collapse collapse in" aria-expanded="false">
+                    <ul class="list-group">
+				        <asp:repeater id="rppReportList" runat="server" OnItemCommand="rppReportList_ItemCommand">
+					        <itemtemplate>
+						        <li class="list-group-item" runat="server">
+									<%# Container.ItemIndex + 1 %>. &nbsp;
+									<asp:LinkButton ID="lnkPrintReport" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem,"ReportId")%>' EnableViewState="false"
+									CausesValidation="false"><span><%# Eval("Description")%></span></asp:LinkButton>
+						        </li>
+					        </itemtemplate>
+				        </asp:repeater>
+				    </ul>
+                </div>
+            </div>
+	</ItemTemplate>
+</asp:Repeater>
 			    
-			    <br />
-			    </td>
-			    <td style="width: 30%;">
-			    </td>
-		    </tr>
-	    </table>
+			 
 </asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cash-flow-menu").addClass("active expand");
+            $(".sub-cashflow").addClass("active");
+        });
+    </script>
+</asp:Content>
+

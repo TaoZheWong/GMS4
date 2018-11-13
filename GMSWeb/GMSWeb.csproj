@@ -50,6 +50,11 @@
     <Content Include="CustomCtrl\CalendarControl.ascx" />
     <Content Include="CustomCtrl\MessagePanelControl.ascx" />
     <Content Include="Finance\CashFlow\TermSheet.aspx" />
+    <Content Include="Finance\Reports\FinanceDebtorsReport.aspx" />
+    <Content Include="Finance\Reports\FinanceFixedAssets.aspx" />
+    <Content Include="Finance\Reports\FinanceGroupReport.aspx" />
+    <Content Include="Finance\Reports\FinanceManufactureAccount.aspx" />
+    <Content Include="Finance\Reports\FinancePurchaseCreditor.aspx" />
     <Content Include="News\Feeds.js" />
     <Content Include="News\GMS3.png" />
     <Content Include="HR\Training\Course.aspx" />
@@ -1446,6 +1451,41 @@
     </Compile>
     <Compile Include="Finance\Reports\AccountingTaxReports.aspx.designer.cs">
       <DependentUpon>AccountingTaxReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceDebtorsReport.aspx.cs">
+      <DependentUpon>FinanceDebtorsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceDebtorsReport.aspx.designer.cs">
+      <DependentUpon>FinanceDebtorsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceFixedAssets.aspx.cs">
+      <DependentUpon>FinanceFixedAssets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceFixedAssets.aspx.designer.cs">
+      <DependentUpon>FinanceFixedAssets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceGroupReport.aspx.cs">
+      <DependentUpon>FinanceGroupReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceGroupReport.aspx.designer.cs">
+      <DependentUpon>FinanceGroupReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceManufactureAccount.aspx.cs">
+      <DependentUpon>FinanceManufactureAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceManufactureAccount.aspx.designer.cs">
+      <DependentUpon>FinanceManufactureAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\FinancePurchaseCreditor.aspx.cs">
+      <DependentUpon>FinancePurchaseCreditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\FinancePurchaseCreditor.aspx.designer.cs">
+      <DependentUpon>FinancePurchaseCreditor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Finance\Reports\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>

@@ -67,10 +67,10 @@ namespace GMSWeb.Finance.Reports
             LogSession session = base.GetSessionInfo();
             IList<ReportCategory> lstCategory = new List<ReportCategory>();
 
-            ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Sales");
+            ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Something");
             if (cat1 != null)
             {
-                cat1.Name = "Sales & Debtors Reports";
+                cat1.Name = "Sales & Debtors";
                 lstCategory.Add(cat1);
             }
             /*Commented by OSS on 2012-06-29

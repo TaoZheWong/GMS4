@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
@@ -26,7 +26,7 @@ using GMSWeb.CustomCtrl;
 
 namespace GMSWeb.Finance.Reports
 {
-    public partial class Reports : GMSBasePage
+    public partial class FinanceManufactureAccount : GMSBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -84,19 +84,12 @@ namespace GMSWeb.Finance.Reports
 
 
             //this one affect the dropdown bar for those reports
-            ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance");
-            if (cat1 != null)
-            {
-                cat1.Name = "Finance Reports";
-                lstCategory.Add(cat1);
-            }
-
-            ReportCategory cat2 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Archive");
-            if (cat2!= null)
-            {
-                cat2.Name = "Archive";
-                lstCategory.Add(cat2);
-            }
+            //ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance");
+            //if (cat1 != null)
+            //{
+            //    cat1.Name = "Finance Reports";
+            //    lstCategory.Add(cat1);
+            //}
 
             //ReportCategory cat2 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Something");
             //if (cat2 != null)
@@ -142,6 +135,12 @@ namespace GMSWeb.Finance.Reports
             //    cat8.Name = "Audit Report";
             //    lstCategory.Add(cat8);
             //}
+            ReportCategory cat9 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Manufacture");
+            if (cat9 != null)
+            {
+                cat9.Name = "Production Reports";
+                lstCategory.Add(cat9);
+            }
 
             //this one is display the report based on the category of the report
             //need to copy this one also, to display those reports

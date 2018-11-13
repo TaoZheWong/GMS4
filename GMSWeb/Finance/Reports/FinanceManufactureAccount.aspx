@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Common/Site.Master" AutoEventWireup="true" CodeBehind="FinanceSalesReport.aspx.cs" Inherits="GMSWeb.Finance.Reports.FinanceSalesReport" Title="Finance - Sales Reports Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Common/Site.Master" AutoEventWireup="true" CodeBehind="FinanceManufactureAccount.aspx.cs" Inherits="GMSWeb.Finance.Reports.FinanceManufactureAccount" %>
 <%@ MasterType VirtualPath="~/Common/Site.Master"%> 
 <%@ Register TagPrefix="uctrl" TagName="MsgPanel" Src="~/CustomCtrl/MessagePanelControl.ascx" %>
 <%@ Register TagPrefix="uctrl" TagName="Calendar" Src="~/CustomCtrl/CalendarControl.ascx" %>
@@ -8,7 +8,7 @@
 <a name="TemplateInfo"></a>
 
 <ul class="breadcrumb pull-right">
-    <li class="active">Sales Reports</li>
+    <li class="active">Production Reports</li>
 </ul>
 <h1 class="page-header">Reports <small>Click a report to view.</small></h1>
       
@@ -47,8 +47,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".sales-menu").addClass("active expand");
-            $(".sub-sales").addClass("active");
+            $(".manufacture-menu").addClass("active expand");
+            $(".sub-manufacture").addClass("active");
         });
     </script>
 </asp:Content>

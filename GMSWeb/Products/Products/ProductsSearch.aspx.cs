@@ -201,8 +201,8 @@ namespace GMSWeb.Products.Products
                 if (session.StatusType.ToString() == "H")
                 {
                     CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
-                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")                    
-                        sc1.Url = session.CMSWebServiceAddress.Trim();                    
+                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.CMSWebServiceAddress.Trim();
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
 
@@ -221,12 +221,12 @@ namespace GMSWeb.Products.Products
                     if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
                         sc1.Url = session.CMSWebServiceAddress.Trim();
                     else
-                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";                    
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "")
                         ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroup, productForeignName);
                     else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "")
                         ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroup, txtWarehouse.Text.Trim(), productForeignName);
-                    
+
                     if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
                         sc1.Url = session.GASLMSWebServiceAddress.Trim();
                     else
@@ -245,7 +245,15 @@ namespace GMSWeb.Products.Products
                     else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.WSDLMSWebServiceAddress.Trim() != "")
                         ds1 = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroup, txtWarehouse.Text.Trim(), productForeignName);
                 }
-
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('" + productCode + "', '" + productCode + "', '', '', '', '')";
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "TrnType", "TrnNo", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "ReceivedQty", "IssuedQty", "BalanceQty", "Cost", "CostWT", "Currency", "ExchangeRate", "Narration", "DocNo", "Warehouse",
+                    "TransNum", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    
+                }
                 if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
                 {                                        
                     for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
