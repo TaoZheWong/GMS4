@@ -1739,8 +1739,8 @@ namespace GMSConApp
                          * Added                : 2018-08-14 Annie
                         */
                         Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
-                        //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '" + from + "', '" + to + "')";
-                        query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '', '')";
+                        query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '" + from + "', '" + to + "')";
+                        //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '', '')";
                         ds = sop.GET_SAP_QueryData(CoyID, query,
                         "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "Field18", "Field19", "Field20",
                         "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
