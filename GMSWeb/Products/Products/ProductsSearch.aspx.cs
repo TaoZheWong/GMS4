@@ -201,8 +201,8 @@ namespace GMSWeb.Products.Products
                 if (session.StatusType.ToString() == "H")
                 {
                     CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
-                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")                    
-                        sc1.Url = session.CMSWebServiceAddress.Trim();                    
+                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.CMSWebServiceAddress.Trim();
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
 
@@ -221,12 +221,12 @@ namespace GMSWeb.Products.Products
                     if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
                         sc1.Url = session.CMSWebServiceAddress.Trim();
                     else
-                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";                    
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "")
                         ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroup, productForeignName);
                     else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "")
                         ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroup, txtWarehouse.Text.Trim(), productForeignName);
-                    
+
                     if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
                         sc1.Url = session.GASLMSWebServiceAddress.Trim();
                     else
@@ -245,7 +245,14 @@ namespace GMSWeb.Products.Products
                     else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.WSDLMSWebServiceAddress.Trim() != "")
                         ds1 = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroup, txtWarehouse.Text.Trim(), productForeignName);
                 }
-
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%","") + "', '" + productName.Replace("%", "") + "', '"+ productGroupCode.Replace("%", "") + "', '"+ productGroup.Replace("%", "") + "', '"+ productForeignName.Replace("%", "") + "', '"+ txtWarehouse.Text.Trim() + "')";                                        
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");                      
+                }
                 if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
                 {                                        
                     for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
@@ -415,6 +422,14 @@ namespace GMSWeb.Products.Products
                     isGasDivision = Convert.ToBoolean(ds2.Tables[0].Rows[0]["IsGasDivision"].ToString());
                     isWeldingDivision = Convert.ToBoolean(ds2.Tables[0].Rows[0]["IsWeldingDivision"].ToString());
                 }
+            }
+            else if (coy.StatusType.ToString() == "S")
+            {
+                string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + prodCode + "', '', '', '', '', '2099-12-31', 'Y')";
+                SAPOperation sop = new SAPOperation(coy.SAPURI.ToString(), coy.SAPKEY.ToString(), coy.SAPDB.ToString());
+                ds = sop.GET_SAP_QueryData(coy.CoyID, query,
+                "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
             }
 
             DivisionUser du = DivisionUser.RetrieveByKey(coyId, UserId);

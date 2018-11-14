@@ -174,6 +174,21 @@ namespace GMSCore.Entity
             }
         }
 
+        private bool _isCOA2016 = false;
+        ///<summary>Database mapping to column tbReport.IsCOA2016</summary>
+        public bool IsCOA2016
+        {
+            get { return _isCOA2016; }
+            set
+            {
+                if (_isCOA2016 != value)
+                {
+                    _isCOA2016 = value;
+                    OnPropertyChanged("IsCOA2016");
+                }
+            }
+        }
+
         private ObjectHolder<ReportCategory> _tbReportCategoryObject;
 		///<summary>Instance of a ReportCategory object</summary>
 		public ReportCategory ReportCategoryObject
@@ -242,8 +257,9 @@ namespace GMSCore.Entity
 					case "_isActive": return _isActive;
                     case "_isExternalReport": return _isExternalReport;
                     case "_tbReportCategoryObject": return _tbReportCategoryObject;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_isCOA2016": return _isCOA2016;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -262,6 +278,7 @@ namespace GMSCore.Entity
 					case "_modifiedDate": _modifiedDate = (DateTime)value; break;
 					case "_isActive": _isActive = (Nullable<bool>)value; break;
                     case "_isExternalReport": _isExternalReport = (Nullable<bool>)value; break;
+                    case "_isCOA2016": _isCOA2016 = (bool)value; break;
                     case "_tbReportCategoryObject": _tbReportCategoryObject = (ObjectHolder<ReportCategory>)value; break;
 				
 					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
@@ -287,6 +304,7 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_modifiedBy={0}\n,", _modifiedBy.ToString() );
 			stb.AppendFormat("_modifiedDate={0}\n,", _modifiedDate.ToString() );
 			stb.AppendFormat("_isActive={0}\n,", _isActive.ToString() );
+            stb.AppendFormat("_isCOA2016={0}\n,", _isCOA2016.ToString());
             stb.AppendFormat("_isExternalReport={0}\n,", _isExternalReport.ToString());
 
             return stb.ToString();

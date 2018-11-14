@@ -8,8 +8,7 @@
 <a name="TemplateInfo"></a>
 
 <ul class="breadcrumb pull-right">
-    <li><a href="#">Reports</a></li>
-    <li class="active">Reports</li>
+    <li class="active">Finance Reports</li>
 </ul>
 <h1 class="page-header">Reports <small>Click a report to view.</small></h1>
       

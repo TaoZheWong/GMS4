@@ -249,6 +249,14 @@ function ViewMultipleUOM()
                     ds = sc1.GetProductDetail(productCode);                    
 
                 }
+                else if(session.StatusType.ToString() == "S")
+                {
+                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode + "', '', '', '', '', '')";
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                }
 			}
 			catch (Exception ex)
 			{
@@ -389,6 +397,16 @@ function ViewMultipleUOM()
                                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                                     ds2 = sc1.GetProductWarehouse(productCode);
                                 }
+                                else if (session.StatusType.ToString() == "S")
+                                {
+                                    string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + productCode + "', '', '', '', '', '2099-12-31', 'Y')";
+                                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                                    ds2 = sop.GET_SAP_QueryData(session.CompanyId, query,
+                                    "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                                    
+                                }
                             }
 							catch (Exception ex)
 							{
@@ -528,7 +546,14 @@ function ViewMultipleUOM()
                                     this.lblBO.Text = ds4.Tables[0].Rows[0]["OnBOQuantity"].ToString();                                    
                                     this.lblPO.Text = ds4.Tables[0].Rows[0]["OnPOQuantity"].ToString();
                                 }
-                            }                            
+                            }
+                            else if (session.StatusType.ToString() == "S")
+                            {
+                                this.lblSO.Text = ds.Tables[0].Rows[0]["OnOrderQuantity"].ToString();
+                                this.lblBO.Text = ds.Tables[0].Rows[0]["OnBOQuantity"].ToString();
+                                this.lblPO.Text = ds.Tables[0].Rows[0]["OnPOQuantity"].ToString();
+                            }
+
                             #endregion
 
                             //Stock Movement
@@ -562,7 +587,7 @@ function ViewMultipleUOM()
                                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                                     ds3_lms = sc1.GetProductStockMovement(productCode, LMSParallelRunEndDate.ToString("yyyy-MM-dd"));
                                 }
-                                else if (session.StatusType.ToString() == "L")
+                                else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                 {
                                     string query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('" + productCode + "', '" + productCode + "', '', '', '', '')";
                                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
@@ -653,6 +678,16 @@ function ViewMultipleUOM()
                                 else
                                     sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                                 ds2 = sc1.GetProductWarehouse(productCode);
+                            }
+                            else if (session.StatusType.ToString() == "S")
+                            {
+                                string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + productCode + "', '', '', '', '', '2099-12-31', 'Y')";
+                                SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                                ds2 = sop.GET_SAP_QueryData(session.CompanyId, query,
+                                "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                                "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                               
                             }
                         }
 						catch (Exception ex)
@@ -796,8 +831,14 @@ function ViewMultipleUOM()
                                 this.lblPO.Text = ds4.Tables[0].Rows[0]["OnPOQuantity"].ToString();
                             }
                         }
+                        else if (session.StatusType.ToString() == "S")
+                        {
+                            this.lblSO.Text = ds.Tables[0].Rows[0]["OnOrderQuantity"].ToString();
+                            this.lblBO.Text = ds.Tables[0].Rows[0]["OnBOQuantity"].ToString();
+                            this.lblPO.Text = ds.Tables[0].Rows[0]["OnPOQuantity"].ToString();
+                        }
 
-                                                
+
                         #endregion
 
                         //Stock Movement
@@ -831,7 +872,7 @@ function ViewMultipleUOM()
                                     sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                                 ds3_lms = sc1.GetProductStockMovement(productCode, LMSParallelRunEndDate.ToString("yyyy-MM-dd"));
                             }
-                            else if (session.StatusType.ToString() == "L")
+                            else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                             {
                                 string query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('" + productCode + "', '" + productCode + "', '', '', '', '')";
                                 SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
@@ -1015,7 +1056,7 @@ function ViewMultipleUOM()
             {
                 this.lblWeightedCost.Text = double.Parse(ds.Tables[0].Rows[0]["WeightedCost"].ToString(), System.Globalization.NumberStyles.Any).ToString("#0.0000");
             }
-            else if (session.StatusType.ToString() == "L")
+            else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
             {
                 DataSet dsProductCost = new DataSet();
                 SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
@@ -1065,6 +1106,16 @@ function ViewMultipleUOM()
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     ds2 = sc1.GetProductWarehouse(productCode);
+                }
+                else if (session.StatusType.ToString() == "S")
+                {                   
+                    string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + productCode + "', '', '', '', '', '2099-12-31', 'Y')";
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds2 = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    
                 }
             }
             catch (Exception ex)
@@ -1210,6 +1261,12 @@ function ViewMultipleUOM()
                 }
 
             }
+            else if (session.StatusType.ToString() == "S")
+            {
+                this.lblSO.Text = ds.Tables[0].Rows[0]["OnOrderQuantity"].ToString();
+                this.lblBO.Text = ds.Tables[0].Rows[0]["OnBOQuantity"].ToString();
+                this.lblPO.Text = ds.Tables[0].Rows[0]["OnPOQuantity"].ToString();
+            }
 
             #endregion
 
@@ -1243,7 +1300,7 @@ function ViewMultipleUOM()
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     ds3_lms = sc1.GetProductStockMovement(productCode, LMSParallelRunEndDate.ToString("yyyy-MM-dd"));
                 }
-                else if (session.StatusType.ToString() == "L")
+                else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                 {
                     string query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('" + productCode + "', '" + productCode + "', '', '', '', '')";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
