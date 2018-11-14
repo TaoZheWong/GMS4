@@ -247,6 +247,7 @@ namespace GMSWeb.Products.Products
                 }
                 else if (session.StatusType.ToString() == "S")
                 {
+                
                     string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroup.Replace("%", "") + "', '" + productForeignName.Replace("%", "") + "', '" + txtWarehouse.Text.Trim() + "')";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                     ds = sop.GET_SAP_QueryData(session.CompanyId, query,
