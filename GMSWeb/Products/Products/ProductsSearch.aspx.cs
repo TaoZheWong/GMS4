@@ -247,11 +247,12 @@ namespace GMSWeb.Products.Products
                 }
                 else if (session.StatusType.ToString() == "S")
                 {
-                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%","") + "', '" + productName.Replace("%", "") + "', '"+ productGroupCode.Replace("%", "") + "', '"+ productGroup.Replace("%", "") + "', '"+ productForeignName.Replace("%", "") + "', '"+ txtWarehouse.Text.Trim() + "')";                                        
+                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroup.Replace("%", "") + "', '" + productForeignName.Replace("%", "") + "', '" + txtWarehouse.Text.Trim() + "')";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                     ds = sop.GET_SAP_QueryData(session.CompanyId, query,
                     "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
-                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");                      
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
                 }
                 if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
                 {                                        
