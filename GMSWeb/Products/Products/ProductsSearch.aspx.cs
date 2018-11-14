@@ -252,7 +252,7 @@ namespace GMSWeb.Products.Products
                     ds = sop.GET_SAP_QueryData(session.CompanyId, query,
                     "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-                }
+                 }
                 if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
                 {                                        
                     for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
