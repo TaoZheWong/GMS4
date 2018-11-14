@@ -228,7 +228,7 @@ function changeCurrency(ddl1)
                         sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                     ds = sc.GetBankUtilisationFromA21(session.CompanyId, tDateFrom, tDateTo);
                 }
-                else if (session.StatusType.ToString() == "L")
+                else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                 {
                     string from = tDateFrom.ToString("yyyy-MM-dd");
                     string to = tDateTo.ToString("yyyy-MM-dd");
@@ -238,6 +238,7 @@ function changeCurrency(ddl1)
                     "trntype", "cname", "mode", "trnno", "trndate", "bankcoa", "ChequeDate", "currency", "Amount", "acctcode", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
                 }
+
             string strCurrency = "";
             double debitamount = 0;
             double creditamount = 0;           
@@ -307,7 +308,7 @@ function changeCurrency(ddl1)
                                                     existingBankUtilisation.Amount = creditamount * -1;
                                             }
                                         }
-                                        else if (session.StatusType.ToString() == "L")
+                                        else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                         {
                                             double tmpAmt = 0;
                                             if (Double.TryParse(ds.Tables[0].Rows[j]["Amount"].ToString(), out tmpAmt))   
@@ -404,7 +405,7 @@ function changeCurrency(ddl1)
                                                     bu.Amount = creditamount * -1;
                                             }
                                         }
-                                        else if (session.StatusType.ToString() == "L")
+                                        else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                         {
                                             double tmpAmt = 0;
                                             if (Double.TryParse(ds.Tables[0].Rows[j]["Amount"].ToString(), out tmpAmt))                                               

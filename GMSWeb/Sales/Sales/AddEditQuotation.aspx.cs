@@ -5005,6 +5005,14 @@ namespace GMSWeb.Sales.Sales
                     isWeldingDivision = Convert.ToBoolean(ds2.Tables[0].Rows[0]["IsWeldingDivision"].ToString());
                 }
             }
+            else if (coy.StatusType.ToString() == "S")
+            {
+                string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + prodCode + "', '', '', '', '', '2099-12-31', 'Y')";
+                SAPOperation sop = new SAPOperation(coy.SAPURI.ToString(), coy.SAPKEY.ToString(), coy.SAPDB.ToString());
+                ds = sop.GET_SAP_QueryData(coy.CoyID, query,
+                "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+            }
 
             DivisionUser du = DivisionUser.RetrieveByKey(coyId, UserId);
             if (du != null)
@@ -5065,7 +5073,7 @@ namespace GMSWeb.Sales.Sales
 					b.Append("</tr>");
 				}
 
-				if (ds2 != null && ds.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+				if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
 				{
 					b.Append("<tr>");
 					b.Append("<td><i>On SO</i></td>");

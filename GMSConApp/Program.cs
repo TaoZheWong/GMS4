@@ -901,7 +901,7 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product data...");
                     //ds = ws.GetProduct();
 
-                    query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ()";
+                    query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('','','','','','')";
 
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnSOQty", "OnPOQty", "OnBOQty", "OnHandQty", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "Field19", "Field20",
@@ -1201,7 +1201,7 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product data...");
                     //ds = ws.GetProduct();
 
-                    query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ()";
+                    query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('','','','','','')";
 
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnSOQty", "OnPOQty", "OnBOQty", "OnHandQty", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "Field19", "Field20",
@@ -1445,8 +1445,8 @@ namespace GMSConApp
 
                     //Retrieve Last Month GRN
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving GRN data...");
-                    query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '" + from + "' , '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '' , '')";
+                    //query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '" + from + "' , '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '' , '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnNo", "TrnDate", "DetailNo", "PONo", "PODate", "ProductCode", "ProductDescription", "ProductGroupCode", "ProductGroupName", "UOM", "Quantity", "UnitPrice", "LandedCostUnitPrice", "Cost", "Currency", "WH", "ExchangeRate", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1487,8 +1487,8 @@ namespace GMSConApp
 
                     //Retrieve StockMovement
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Stock Movement data...");
-                    query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '', '')";
+                    //query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "ReceivedQty", "IssuedQty", "BalanceQty", "Cost", "CostWT", "Currency", "ExchangeRate", "Narration", "DocNo", "Warehouse",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1534,8 +1534,8 @@ namespace GMSConApp
 
                     //Retrieve Sales Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '', '')";
+                    //query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "SalesTrnType", "SalesTrnNo", "SalesTrnDate", "SrNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitCost", "UnitAmount", "Cost", "Amount", "GPAmount", "Currency", "ExchangeRate", "TaxRate", "LMSDONo",
                     "Warehouse", "CustomerSalesPersonID", "TrnSalesPersonID", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1589,8 +1589,8 @@ namespace GMSConApp
 
                     //Retrieve Sales I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales I data...");
-                    query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '', '')";
+                    //query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "TrnSalesPersonID", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1632,8 +1632,8 @@ namespace GMSConApp
 
                     //Retrieve Receipt I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Receipt I data...");
-                    query = "CALL \"AF_API_GET_SAP_RECEIPT\" ('', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_RECEIPT\" ('', '', '', '')";
+                    //query = "CALL \"AF_API_GET_SAP_RECEIPT\" ('', '', '" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_RECEIPT\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "SalesTrnType", "SalesTrnNo", "LMSDocNo", "AllocateDocNo", "Amount", "Currency", "ExchangeRate", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1668,8 +1668,8 @@ namespace GMSConApp
                      * Parameter : doc no from, doc no to, date from, date to
                     */
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
-                    query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '', '')";
+                    //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1817,8 +1817,8 @@ namespace GMSConApp
 
                     //Retrieve Purchase Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','', '')";
+                    //query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_PURCHASEDETAILINFO\" ('', '','', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TransactionID", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitAmount", "Amount", "Currency", "ExchangeRate", "TaxRate", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
@@ -1860,8 +1860,8 @@ namespace GMSConApp
 
                     //Retrieve Purchase Order
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '', '')";
+                    //query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '" + from + "', '" + to + "')";
+                    query = "CALL \"AF_API_GET_SAP_PO_DETAIL\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnNo", "TrnDate", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UOM", "UnitAmount", "Discount", "AmountBeforeDiscount", "AmountAfterDiscount", "Currency", "ExchangeRate", "TaxRate", "DocNo", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");

@@ -295,8 +295,8 @@
 								</asp:TemplateColumn>
 								<asp:TemplateColumn HeaderText="Quantity" HeaderStyle-Wrap="false">
 									<ItemTemplate>
-										<asp:Label ID="lblProductName" runat="server">
-														<%# Eval("Quantity")%>
+										<asp:Label ID="lblQuantity" runat="server">
+                                            <%#  String.Format("{0:0.####}", Convert.ToDecimal(Eval("Quantity"))) %>   
 										</asp:Label>
 									</ItemTemplate>
 								</asp:TemplateColumn>

@@ -298,7 +298,7 @@ namespace GMSWeb.Products.Products
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     ds1 = sc1.GetProductStockMovementByWarehouse(productCode, LMSParallelRunEndDate.ToString("yyyy-MM-dd"), warehouse);
                 }
-                else if (session.StatusType.ToString() == "L")
+                else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                 {
                     warehouse = warehouse.Replace("%", "");
                     string query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('" + productCode + "', '" + productCode + "', '"+ warehouse + "', '"+ warehouse + "', '', '')";
@@ -335,7 +335,7 @@ namespace GMSWeb.Products.Products
                             ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
 
                     DataView dv = ds.Tables[0].DefaultView;
-                    if (session.StatusType.ToString() == "L")
+                    if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                         dv.Sort = "TrnDate desc, TransNum desc, DocNo desc";
                     else
                         dv.Sort = "DBVersion, TrnDate desc";                    
