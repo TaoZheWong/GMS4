@@ -129,7 +129,7 @@
                             <asp:TemplateColumn HeaderText="Invoice No" SortExpression="DONo" HeaderStyle-Wrap="false">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDONo" runat="server" Width="70px">
-                                                                        <%# Eval("DONo")%>
+                                        <%# Eval("DONo")%>
                                     </asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateColumn>

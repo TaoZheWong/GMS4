@@ -130,16 +130,9 @@
                     </asp:TemplateColumn>
                     <asp:TemplateColumn HeaderText="Ref No" SortExpression="TrnNo" HeaderStyle-Wrap="false">
                         <ItemTemplate>
-                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "ViewDeliveryOrder.aspx?TrnNo="+Eval("TrnNo")+"&TrnType="+Eval("TrnType")+"&DBVersion="+Eval("DBVersion")+"&StatusType="+Eval("StatusType")%>'><%# Eval("TrnNo")%></asp:HyperLink>
+                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "ViewDeliveryOrder.aspx?TrnNo="+Eval("TrnNo")+"&TrnType="+Eval("TrnType")+"&DBVersion="+Eval("DBVersion")+"&StatusType="+Eval("StatusType")%>'><%# Eval("TrnNo")%> <%# Eval("DONo").ToString() == "" ? "" : " / "%> <%# Eval("DONo")%></asp:HyperLink>
                         </ItemTemplate>
-                    </asp:TemplateColumn>
-                    <asp:TemplateColumn HeaderText="DO No" SortExpression="DONo" HeaderStyle-Wrap="false">
-                        <ItemTemplate>
-                            <asp:Label ID="lblDONo" runat="server" Width="70px">
-                                                                        <%# Eval("DONo")%>
-                            </asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateColumn>
+                    </asp:TemplateColumn>                    
                     <asp:TemplateColumn HeaderText="Customer Code" SortExpression="AccountCode" HeaderStyle-Wrap="false">
                         <ItemTemplate>
                             <asp:Label ID="lblProductName" runat="server">

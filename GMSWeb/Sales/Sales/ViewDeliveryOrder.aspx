@@ -40,12 +40,13 @@
                 </div>
                 <div class="form-group col-lg-6 col-sm-6">
                     <label class="col-sm-6 control-label text-left">
-                      DO No
+                      DO No / Ref No
                     </label>
                      <label class="col-sm-6 control-label text-left">
                         <asp:Label runat="server" ID="lblDONo"></asp:Label>
                     </label>
                 </div>
+                <!--
                 <div class="form-group col-lg-6 col-sm-6">
                     <label class="col-sm-6 control-label text-left">
                       Ref No
@@ -54,6 +55,7 @@
                         <asp:Label runat="server" ID="lblTrnNo"></asp:Label>
                     </label>
                 </div>
+                -->
                 <div class="form-group col-lg-6 col-sm-6">
                     <label class="col-sm-6 control-label text-left">
                       Customer Code

@@ -105,7 +105,7 @@ namespace GMSWeb.Sales.Sales
 
             try
             {
-                if (statusType == "A21")
+                if (session.StatusType.ToString() == "A")
                 {
                     GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
                     if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
@@ -116,7 +116,7 @@ namespace GMSWeb.Sales.Sales
                         sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                     ds = sc.GetInvoiceByTrnNo(session.CompanyId, trnNo, trnType, salesmanID, dbVersion);
                 }
-                else if (statusType != "A21")
+                else if (session.StatusType.ToString() == "L")
                 {
                     DateTime LMSParallelRunEndDate = GMSUtil.ToDate(session.LMSParallelRunEndDate);
                     CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
@@ -130,6 +130,20 @@ namespace GMSWeb.Sales.Sales
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     ds = sc1.GetInvoiceByTrnNo(trnNo, trnType, salesmanID, dbVersion);
+                }
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "";
+                    if (trnType == "CN")
+                        query  = "CALL \"AF_API_GET_SAP_GMS_CN_HEADER\" ('', '', '', '', '', '', '', '', '', '" + trnNo + "','')";
+                    else
+                        query = "CALL \"AF_API_GET_SAP_GMS_IN_HEADER\" ('', '', '', '', '', '', '', '', '', '" + trnNo + "','')";
+
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "TrnNo", "DocNo", "trntype", "trndate", "AccountName", "AccountCode", "Custponumber", "salespersonname", "salesperson", "narration", "DeliveryAddress1", "Currency", "RefNo1", "RefNo2", "RefNo3", "gst", "Discount", "SubTotal", "billamt", "mobile",
+                    "OfficePhone", "fax", "email", "contact", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");                  
+
                 }
             }
             catch (Exception ex)
@@ -145,11 +159,14 @@ namespace GMSWeb.Sales.Sales
                 //this.lblStatus.Text = ds.Tables[0].Rows[0]["status"].ToString();
                 this.lblTrnDate.Text = string.Format("{0:dd/MM/yyyy}", ds.Tables[0].Rows[0]["TrnDate"]);
                 this.lblSalesPerson.Text = ds.Tables[0].Rows[0]["salespersonname"].ToString();
-                this.lblDONo.Text = ds.Tables[0].Rows[0]["docno"].ToString();
+                this.lblDONo.Text = ds.Tables[0].Rows[0]["docno"].ToString();                
                 this.txtAddress1.Text = ds.Tables[0].Rows[0]["DeliveryAddress1"].ToString();
-                this.txtAddress2.Text = ds.Tables[0].Rows[0]["DeliveryAddress2"].ToString();
-                this.txtAddress3.Text = ds.Tables[0].Rows[0]["DeliveryAddress3"].ToString();
-                this.txtAddress4.Text = ds.Tables[0].Rows[0]["DeliveryAddress4"].ToString();
+                if (session.StatusType.ToString() != "S")
+                {
+                    this.txtAddress2.Text = ds.Tables[0].Rows[0]["DeliveryAddress2"].ToString();
+                    this.txtAddress3.Text = ds.Tables[0].Rows[0]["DeliveryAddress3"].ToString();
+                    this.txtAddress4.Text = ds.Tables[0].Rows[0]["DeliveryAddress4"].ToString();
+                }
                 this.txtNarration.Text = ds.Tables[0].Rows[0]["Narration"].ToString();
                 //this.txtDONo.Text = ds.Tables[0].Rows[0]["DONo"].ToString();
                 this.txtMobilePhone.Text = ds.Tables[0].Rows[0]["mobile"].ToString();
@@ -161,12 +178,20 @@ namespace GMSWeb.Sales.Sales
                 this.lblCurrency.Text = ds.Tables[0].Rows[0]["Currency"].ToString();
                 this.lblCurrency2.Text = ds.Tables[0].Rows[0]["Currency"].ToString();
                 this.lblCurrency3.Text = ds.Tables[0].Rows[0]["Currency"].ToString();
-                this.lblGrandTotal.Text = string.Format("{0:0.00}", ds.Tables[0].Rows[0]["billamt"]);
+                if (session.StatusType.ToString() == "S")
+                    this.lblGrandTotal.Text = string.Format("{0:0.00}", Convert.ToDouble(ds.Tables[0].Rows[0]["billamt"]));
+                else
+                    this.lblGrandTotal.Text = string.Format("{0:0.00}", ds.Tables[0].Rows[0]["billamt"]);
+
                 this.hidDocNo.Value = ds.Tables[0].Rows[0]["DocNo"].ToString();
 
 
-                double gst = (double)ds.Tables[0].Rows[0]["gst"];
-                double billamt = (double)ds.Tables[0].Rows[0]["billamt"];
+                //double gst = (double)ds.Tables[0].Rows[0]["gst"];
+                double gst = Convert.ToDouble(ds.Tables[0].Rows[0]["gst"]);
+                if (session.StatusType.ToString() == "S")
+                    gst = gst / 100;
+
+                double billamt = Convert.ToDouble(ds.Tables[0].Rows[0]["billamt"]);
 
                 double subtotal = billamt / (gst + 1);
 
@@ -184,7 +209,7 @@ namespace GMSWeb.Sales.Sales
 
             try
             {
-                if (statusType == "A21")
+                if (session.StatusType.ToString() == "A")
                 {
                     GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
                     if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
@@ -195,7 +220,7 @@ namespace GMSWeb.Sales.Sales
                         sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                     dsTemp = sc.GetInvoiceDetails(session.CompanyId, trnNo, trnType, salesmanID, dbVersion);
                 }
-                else if (statusType != "A21")
+                else if (session.StatusType.ToString() == "L")
                 {
 
                     CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
@@ -209,6 +234,23 @@ namespace GMSWeb.Sales.Sales
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     dsTemp = sc1.GetInvoiceDetails(trnNo, trnType, salesmanID, dbVersion);
+                }
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "";
+                    if (trnType == "CN")
+                        query = "CALL \"AF_API_GET_SAP_GMS_CN_DETAIL\" ('" + trnNo + "')";
+                    else
+                        query = "CALL \"AF_API_GET_SAP_GMS_IN_DETAIL\" ('" + trnNo + "')";
+
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    dsTemp = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "ProductCode", "ProductDescription", "Currency", "uom", "TrnNo", "UnitPrice", "Discount", "TrnDate", "Quantity", "AccountCode", "AccountName", "SrNo", "DONo", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");   
+                    
+                    System.Data.DataColumn newColumn = new System.Data.DataColumn("DOType", typeof(string));
+                    newColumn.DefaultValue = trnType;
+                    dsTemp.Tables[0].Columns.Add(newColumn);  
                 }
             }
             catch (Exception ex)

@@ -473,5 +473,37 @@ namespace GMSCore.Activity
             return BudgetForFinance.RetrieveFirst(stb.ToString());
         }
         #endregion
+
+        public ResultType CreateBudgetSalesTeam(ref BudgetSalesTeam budgetSalesTeamToCreate, LogSession session)
+        {
+            if (budgetSalesTeamToCreate == null)
+                return ResultType.NullMainData;
+
+            if (session == null)
+                throw new NullSessionException();
+          
+            if (!budgetSalesTeamToCreate.IsValid())
+                return ResultType.MainDataNotValid;
+
+            budgetSalesTeamToCreate.Save();
+
+            return ResultType.Ok;
+        }
+
+        #region RetrieveMRByMRNo
+        public BudgetSalesTeam RetrieveBudgetSalesTeamByName(short companyID, string teamName)
+        {
+
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("BudgetSalesTeam.CoyID"),
+                               helper.CleanValue(companyID));
+            stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("BudgetSalesTeam.TeamName"),
+                                helper.CleanValue(teamName));
+
+            return BudgetSalesTeam.RetrieveFirst(stb.ToString());
+        }
+        #endregion
     }
 }

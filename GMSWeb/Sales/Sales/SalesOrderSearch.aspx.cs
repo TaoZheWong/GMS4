@@ -194,7 +194,22 @@ namespace GMSWeb.Sales.Sales
                         ds_lms = sc1.GetSalesOrder(accountCode, accountName, poNumber, dateFrom.ToString("yyyy-MM-dd"), dateTo.ToString("yyyy-MM-dd"), salesmanID, productCode, productName, productGroupCode, productGroupName, soNumber, productDetailDesc, LMSParallelRunEndDate.ToString("yyyy-MM-dd"));
 
                 }
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "CALL \"AF_API_GET_SAP_GMS_SO_HEADER\" ('" + accountCode.Replace("%", "") + "', '" + accountName.Replace("%", "") + "', '" + poNumber.Replace("%", "") + "', '" + dateFrom.ToString("yyyy-MM-dd") + "', '" + dateTo.ToString("yyyy-MM-dd") + "', '" + salesmanID.Replace("'", "") + "', '" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroupName.Replace("%", "") + "', '" + soNumber.Replace("%", "") + "', '" + productDetailDesc.Replace("%", "") + "')";
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "TrnNo", "TrnDate", "status", "crtuser", "custponumber", "AccountName", "AccountCode", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
+                    System.Data.DataColumn newColumn = new System.Data.DataColumn("DBVersion", typeof(int));
+                    newColumn.DefaultValue = 0;
+                    ds.Tables[0].Columns.Add(newColumn);
+
+                    System.Data.DataColumn newColumn1 = new System.Data.DataColumn("StatusType", typeof(string));
+                    newColumn1.DefaultValue = "S";
+                    ds.Tables[0].Columns.Add(newColumn1);
+                }
 
                 if (ds_lms != null && ds_lms.Tables.Count > 0 && ds_lms.Tables[0].Rows.Count > 0)
                 {
