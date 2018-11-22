@@ -209,6 +209,14 @@
     <Compile Include="Entity\BudgetForProduct.Generated.cs">
       <DependentUpon>BudgetForProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\BudgetSalesMember.cs" />
+    <Compile Include="Entity\BudgetSalesMember.Generated.cs">
+      <DependentUpon>BudgetSalesMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BudgetSalesTeam.cs" />
+    <Compile Include="Entity\BudgetSalesTeam.Generated.cs">
+      <DependentUpon>BudgetSalesTeam.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Bulletin.cs" />
     <Compile Include="Entity\Bulletin.Generated.cs">
       <DependentUpon>Bulletin.cs</DependentUpon>

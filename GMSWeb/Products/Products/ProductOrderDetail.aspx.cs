@@ -121,6 +121,16 @@ namespace GMSWeb.Products.Products
                         ds1 = sc1.GetProductOnSODetail(productCode);
 
                     }
+                    else if (session.StatusType.ToString() == "S")
+                    { 
+                        string query = "SELECT T1.\"DocNum\",T1.\"DocDate\",T0.\"Quantity\",T0.\"DelivrdQty\",T1.\"CardName\",T0.\"OpenCreQty\",T1.\"Comments\",T0.\"ItemCode\" FROM RDR1 T0 INNER JOIN ORDR T1 ON T0.\"DocEntry\" = T1.\"DocEntry\" WHERE T0.\"LineStatus\" =\'O\' AND T0.\"ItemCode\" = '"+ productCode + "'";
+
+                        SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                        ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                        "TrnNo", "TrnDate", "OrderQuantity", "DelQuantity", "AccountName", "Qty", "Narration", "ProductCode", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                       
+                    }
 
                     if (session.StatusType.ToString() == "L" && ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
                     {
@@ -296,7 +306,7 @@ namespace GMSWeb.Products.Products
 
                         
                     }
-                    else if (session.StatusType.ToString() == "L")
+                    else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                     {
                         string query = "CALL \"AF_API_GET_SAP_PO_ON_PO_TRANSACTION\" ('','','','','" + productCode + "','" + productCode + "')";
                         SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());

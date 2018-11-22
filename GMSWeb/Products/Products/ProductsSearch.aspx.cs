@@ -76,6 +76,36 @@ namespace GMSWeb.Products.Products
         {
             this.dgData.CurrentPageIndex = 0;
             LoadData();
+            /*
+            LogSession session = base.GetSessionInfo();
+            
+            GMSCore.Entity.BudgetSalesTeam bs = new GMSCore.Entity.BudgetSalesTeam();
+            bs.CoyID = session.CompanyId;
+            bs.TeamName = "Gas";
+            bs.IsActive = true;
+
+            ResultType result = new BudgetActivity().CreateBudgetSalesTeam(ref bs, session);
+
+            switch (result)
+            {
+                case ResultType.Ok:
+                    //LoadData();
+                    break;
+                default:
+                    lblSearchSummary.Text = "Processing error of type : " + result.ToString();                        
+                    return;
+            }
+          
+            
+            
+            GMSCore.Entity.BudgetSalesTeam bse = new BudgetActivity().RetrieveBudgetSalesTeamByName(session.CompanyId, "Safety");
+            bse.IsActive = false;
+            bse.Save();
+            
+            GMSCore.Entity.BudgetSalesTeam bsd = new BudgetActivity().RetrieveBudgetSalesTeamByName(session.CompanyId, "Gas");
+            bsd.Delete();
+            */           
+
         }
         #endregion
 
@@ -246,13 +276,13 @@ namespace GMSWeb.Products.Products
                         ds1 = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroup, txtWarehouse.Text.Trim(), productForeignName);
                 }
                 else if (session.StatusType.ToString() == "S")
-                {               
-                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroup.Replace("%", "") + "', '" + productForeignName.Replace("%", "") + "', '" + txtWarehouse.Text.Trim() + "')";
+                {
+                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%","") + "', '" + productName.Replace("%", "") + "', '"+ productGroupCode.Replace("%", "") + "', '"+ productGroup.Replace("%", "") + "', '"+ productForeignName.Replace("%", "") + "', '"+ txtWarehouse.Text.Trim() + "')";                                        
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                     ds = sop.GET_SAP_QueryData(session.CompanyId, query,
                     "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
-                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-                 }
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");                      
+                }
                 if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
                 {                                        
                     for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)

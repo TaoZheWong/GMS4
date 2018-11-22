@@ -40,8 +40,7 @@ namespace GMSWeb.Sales.Sales
 
             if (!Page.IsPostBack)
             {
-                //preload
-
+                //preload                
                 ViewState["SortField"] = "TrnNo";
                 ViewState["SortDirection"] = "ASC";
             }
@@ -179,6 +178,26 @@ namespace GMSWeb.Sales.Sales
                     if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
                         ds_lms = sc1.GetDeliveryOrder(accountCode, accountName, dateFrom.ToString("yyyy-MM-dd"), dateTo.ToString("yyyy-MM-dd"), salesmanID, productCode, productName, productGroupCode, productGroupName, donumber, custPONo, productDetailDesc, LMSParallelRunEndDate.ToString("yyyy-MM-dd"));
 
+                }
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "CALL \"AF_API_GET_SAP_GMS_DO_HEADER\" ('" + accountCode.Replace("%", "") + "', '" + accountName.Replace("%", "") + "', '" + dateFrom.ToString("yyyy-MM-dd") + "', '" + dateTo.ToString("yyyy-MM-dd") + "', '" + salesmanID.Replace("'", "") + "', '" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroupName.Replace("%", "") + "', '" + donumber.Replace("%", "") + "', '"+ custPONo.Replace("%", "") + "','" + productDetailDesc.Replace("%", "") + "')";
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "TrnNo", "trntype", "trndate", "AccountName", "AccountCode", "Custponumber", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30"); 
+
+                    System.Data.DataColumn newColumn = new System.Data.DataColumn("DBVersion", typeof(int));
+                    newColumn.DefaultValue = 0;
+                    ds.Tables[0].Columns.Add(newColumn);
+
+                    System.Data.DataColumn newColumn1 = new System.Data.DataColumn("StatusType", typeof(string));
+                    newColumn1.DefaultValue = "S";
+                    ds.Tables[0].Columns.Add(newColumn1);
+
+                    System.Data.DataColumn newColumn2 = new System.Data.DataColumn("DONo", typeof(string));
+                    newColumn2.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn2);
                 }
 
                 if (ds_lms != null && ds_lms.Tables.Count > 0 && ds_lms.Tables[0].Rows.Count > 0)

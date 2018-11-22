@@ -540,7 +540,7 @@ function ViewMultipleUOM()
                                     }
                                 }
 
-                                if (ds4 != null && ds4_lms.Tables.Count > 0 && ds4.Tables[0].Rows.Count > 0)
+                                if (ds4 != null && ds4.Tables.Count > 0 && ds4.Tables[0].Rows.Count > 0)
                                 {
                                     this.lblSO.Text = ds4.Tables[0].Rows[0]["OnOrderQuantity"].ToString();
                                     this.lblBO.Text = ds4.Tables[0].Rows[0]["OnBOQuantity"].ToString();                                    
@@ -824,7 +824,7 @@ function ViewMultipleUOM()
                                 }
                             }
 
-                            if (ds4_lms != null && ds4_lms.Tables.Count > 0 && ds4_lms.Tables[0].Rows.Count > 0)
+                            if (ds4 != null && ds4.Tables.Count > 0 && ds4.Tables[0].Rows.Count > 0)
                             {
                                 this.lblSO.Text = ds4.Tables[0].Rows[0]["OnOrderQuantity"].ToString();
                                 this.lblBO.Text = ds4.Tables[0].Rows[0]["OnBOQuantity"].ToString();
@@ -1066,7 +1066,7 @@ function ViewMultipleUOM()
                     this.lblWeightedCost.Text = double.Parse(dsProductCost.Tables[0].Rows[0]["WeightedCost"].ToString(), System.Globalization.NumberStyles.Any).ToString("#0.0000");
                 }
             }
-           
+
             //Stock Status
             #region Stock Status
             DataSet ds2 = new DataSet();
@@ -1108,14 +1108,14 @@ function ViewMultipleUOM()
                     ds2 = sc1.GetProductWarehouse(productCode);
                 }
                 else if (session.StatusType.ToString() == "S")
-                {                   
+                {
                     string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + productCode + "', '', '', '', '', '2099-12-31', 'Y')";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                     ds2 = sop.GET_SAP_QueryData(session.CompanyId, query,
                     "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
-                    
+
                 }
             }
             catch (Exception ex)
@@ -1253,7 +1253,7 @@ function ViewMultipleUOM()
                     }
                 }
 
-                if (ds4_lms != null && ds4_lms.Tables.Count > 0 && ds4_lms.Tables[0].Rows.Count > 0)
+                if (ds4 != null && ds4.Tables.Count > 0 && ds4.Tables[0].Rows.Count > 0)                      
                 {
                     this.lblSO.Text = ds4.Tables[0].Rows[0]["OnOrderQuantity"].ToString();
                     this.lblBO.Text = ds4.Tables[0].Rows[0]["OnBOQuantity"].ToString();

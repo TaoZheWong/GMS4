@@ -688,7 +688,7 @@ namespace GMSWeb.Reports.Report
                 ddlType.CssClass = "form-control";
                 ddlType.Items.Clear();
                 ddlType.Items.Add(new ListItem("ALL", "All"));
-                ddlType.Items.Add(new ListItem("DIRECT CUSTOMERS", "External"));
+                ddlType.Items.Add(new ListItem("EXTERNAL CUSTOMERS", "External"));
                 ddlType.Items.Add(new ListItem("INTERCO CUSTOMERS", "Internal"));
                 if (session.CompanyId.ToString() == "14")
                 {
