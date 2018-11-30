@@ -153,7 +153,10 @@ namespace GMSWeb.Finance.Upload
 
                         if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                         {
-                            string query = "CALL \"AF_API_GET_SAP_TRIALBALANCE_DIMENSION\" (" + year + "," + month + ")";
+                            string bcType = "Y";
+                            if (session.FYE.ToString() == month.ToString())
+                                bcType = "N";
+                            string query = "CALL \"AF_API_GET_SAP_TRIALBALANCE_DIMENSION\" (" + year + "," + month + ", '" + bcType + "')";
                             SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                             
                             ds = sop.GET_SAP_QueryData(session.CompanyId, query,
