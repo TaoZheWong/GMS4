@@ -117,6 +117,19 @@ namespace GMSWeb.Sales.Sales
                     else
                         sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                     ds = sc.GetDeliveryOrderByTrnNo(session.CompanyId, trnNo, trnType, salesmanID, dbVersion);
+
+
+                    System.Data.DataColumn newColumn = new System.Data.DataColumn("RefNo1", typeof(string));
+                    newColumn.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn);
+
+                    System.Data.DataColumn newColumn1 = new System.Data.DataColumn("RefNo2", typeof(string));
+                    newColumn1.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn1);
+
+                    System.Data.DataColumn newColumn2 = new System.Data.DataColumn("RefNo3", typeof(string));
+                    newColumn2.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn2);
                 }
                 else if (session.StatusType.ToString() == "L")
                 {
@@ -132,6 +145,18 @@ namespace GMSWeb.Sales.Sales
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
                     ds = sc1.GetDeliveryOrderByTrnNo(trnNo, trnType, salesmanID, dbVersion);
+
+                    System.Data.DataColumn newColumn = new System.Data.DataColumn("RefNo1", typeof(string));
+                    newColumn.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn);
+
+                    System.Data.DataColumn newColumn1 = new System.Data.DataColumn("RefNo2", typeof(string));
+                    newColumn1.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn1);
+
+                    System.Data.DataColumn newColumn2 = new System.Data.DataColumn("RefNo3", typeof(string));
+                    newColumn2.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn2);
                 }
                 else if (session.StatusType.ToString() == "S")
                 {

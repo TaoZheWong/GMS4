@@ -119,6 +119,10 @@ namespace GMSWeb.Sales.Sales
                     else
                         sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                     ds = sc.GetSalesOrderByTrnNo(session.CompanyId, trnNo, salesmanID, dbVersion);
+
+                    System.Data.DataColumn newColumn = new System.Data.DataColumn("SOStatusName", typeof(string));
+                    newColumn.DefaultValue = "";
+                    ds.Tables[0].Columns.Add(newColumn);
                 }
                 else if (session.StatusType.ToString() == "L")
                 {
