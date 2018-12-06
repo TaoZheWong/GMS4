@@ -242,6 +242,7 @@ namespace GMSWeb
                     "<li class='sub-sales'><a href=\"" + appPath + "/Sales/Reports/View.aspx\">Sales</a></li>" +
                     "<li class='sub-debtors'><a href=\"" + appPath + "/Debtors/Reports/View.aspx\">Debtors</a></li>" +
                     "<li class='sub-financials'><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx?CurrentLink=Sales\">Financials</a></li>" +
+                    "<li class='sub-financials'><a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx?CurrentLink=Sales\">Budget</a></li>" +
                     "</ul>" +
                     "</li>" +
                     "<li class='has-sub sale-menu'>" +
@@ -549,23 +550,7 @@ namespace GMSWeb
                 //"</ul>" +
                 "</li>" +
 
-                 "<li class='has-sub manufacture-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceManufactureAccount.aspx\">" +
-                "<i class='ti-server'></i>" +
-                "<span>Production Reports</span>" +
-                "</a>" +
-                //"<ul class=\"sub-menu\">" +
-                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                //"</ul>" +
-                "</li>" +
-
-                 "<li class='has-sub sales-menu'>" +
+                "<li class='has-sub sales-menu'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">" +
                 "<i class='ti-pulse'></i>" +
                 "<span>Sales Reports</span>" +
@@ -581,10 +566,10 @@ namespace GMSWeb
                 //"</ul>" +
                 "</li>" +
 
-                 "<li class='has-sub purchase-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinancePurchaseCreditor.aspx\">" +
-                "<i class='ti-bar-chart'></i>" +
-                "<span>Purchase & Creditors</span>" +
+                 "<li class='has-sub manufacture-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceManufactureAccount.aspx\">" +
+                "<i class='ti-server'></i>" +
+                "<span>Production Reports</span>" +
                 "</a>" +
                 //"<ul class=\"sub-menu\">" +
                 //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
@@ -596,14 +581,46 @@ namespace GMSWeb
                 //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
                 //"</ul>" +
                 "</li>" +
-
+                
+                "<li class='has-sub audited-menu sub-audit'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">" +
+                "<i class='ti-stamp'></i>" +
+                "<span>Audited Reports</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                "</li>" +
+                
                  "<li class='has-sub inventory-menu'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">" +
                 "<i class='ti-archive'></i>" +
-                "<span>Inventory</span>" +
+                "<span>Inventory Reports</span>" +
                 "</a>" +
                 //"<ul class=\"sub-menu\">" +
                 //"<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                "</li>" +
+                
+                 "<li class='has-sub fixed-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceFixedAssets.aspx\">" +
+                "<i class='ti-wallet'></i>" +
+                "<span>Fixed Assets Reports</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
@@ -616,7 +633,7 @@ namespace GMSWeb
                  "<li class='has-sub debtors-menu'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/FinanceDebtorsReport.aspx\">" +
                 "<i class='ti-agenda'></i>" +
-                "<span>Debtors</span>" +
+                "<span>Debtors Reports</span>" +
                 "</a>" +
                 //"<ul class=\"sub-menu\">" +
                 //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
@@ -629,10 +646,10 @@ namespace GMSWeb
                 //"</ul>" +
                 "</li>" +
 
-                 "<li class='has-sub fixed-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceFixedAssets.aspx\">" +
-                "<i class='ti-wallet'></i>" +
-                "<span>Fixed Assets</span>" +
+                 "<li class='has-sub purchase-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinancePurchaseCreditor.aspx\">" +
+                "<i class='ti-bar-chart'></i>" +
+                "<span>Purchase & Creditors Reports</span>" +
                 "</a>" +
                 //"<ul class=\"sub-menu\">" +
                 //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
@@ -671,20 +688,18 @@ namespace GMSWeb
                 "</ul>" +
                 "</li>" +
 
-                 "<li class='has-sub audited-menu sub-audit'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">" +
-                "<i class='ti-stamp'></i>" +
-                "<span>Audited Reports</span>" +
+                "<li class='has-sub accounting-menu'>" +
+                "<a href='javascript:;'>" +
+                "<i class='ti-text'></i>" +
+                "<span>Accounting/Tax</span>" +
                 "</a>" +
-                //"<ul class=\"sub-menu\">" +
-                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                //"</ul>" +
+                "<ul class=\"sub-menu\">" +
+                    "<li class='sub-upload-audit'><a href=\"" + appPath + "/Finance/Upload/UploadAudit.aspx\">Audit Upload</a></li>" +
+                    //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">Audit Reports</a></li>" +
+                    "<li class='sub-company-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewCompanyResources.aspx?PageHeader=Accounting/Tax%20>%20Audited%20FS&PageTitle=Finance%20-%20Resources&ModuleCategoryID=20&ModuleCategoryName=CompanyFinance\">Audited FS</a></li>" +
+                    "<li class='sub-intercompany'><a href=\"" + appPath + "/Finance/InterCompany/InterCompany.aspx\">Inter-Company</a></li>" +
+                    //"<li class='sub-accounting-report'><a href=\"" + appPath + "/Finance/Reports/AccountingTaxReports.aspx\">Reports</a></li>" +
+                "</ul>" +
                 "</li>" +
 
                 "<li class='has-sub administration-menu'>" +

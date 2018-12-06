@@ -702,6 +702,58 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+
+            if (crReportDocument.ParameterFields["@Zcode"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Z Code :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlZcode = new DropDownList();
+                ddlZcode.ID = "ddlZcode";
+                ddlZcode.CssClass = "form-control";
+                ddlZcode.Items.Clear();
+                ddlZcode.Items.Add(new ListItem("EXCLUDE", "EXCLUDE"));
+                ddlZcode.Items.Add(new ListItem("INCLUDE", "INCLUDE"));
+
+
+                pnlParameter.Controls.Add(ddlZcode);
+                if (ViewState["ddlZcode"] == null)
+                    ViewState["ddlZcode"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+
+            }
+
+            if (crReportDocument.ParameterFields["@RentalType"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Rental :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlRentalType = new DropDownList();
+                ddlRentalType.ID = "ddlRentalType";
+                ddlRentalType.CssClass = "form-control";
+                ddlRentalType.Items.Clear();
+                ddlRentalType.Items.Add(new ListItem("EXCLUDE RENTAL", "EXCLUDE RENTAL"));
+                ddlRentalType.Items.Add(new ListItem("INCLUDE RENTAL", "INCLUDE RENTAL"));
+
+
+                pnlParameter.Controls.Add(ddlRentalType);
+                if (ViewState["ddlRentalType"] == null)
+                    ViewState["ddlRentalType"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+
+            }
+
+
             if (crReportDocument.ParameterFields["@SalesPersonType"] != null || crReportDocument.ParameterFields["SalesPersonType"] != null)
             {
 
@@ -1525,13 +1577,16 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlMonth"] = ((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Type"] != null || crReportDocument.ParameterFields["Type"] != null)
                 ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();
+            if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
+                ViewState["ddlZcode"] = ((DropDownList)pnlParameter.FindControl("ddlZcode")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@SalesPersonType"] != null || crReportDocument.ParameterFields["SalesPersonType"] != null)
                 ViewState["ddlSalesPersonType"] = ((DropDownList)pnlParameter.FindControl("ddlSalesPersonType")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@SalesType"] != null || crReportDocument.ParameterFields["SalesType"] != null)
                 ViewState["ddlSalesType"] = ((DropDownList)pnlParameter.FindControl("ddlSalesType")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Rental"] != null)
                 ViewState["ddlRental"] = ((DropDownList)pnlParameter.FindControl("ddlRental")).SelectedValue.ToString();
-
+            if (crReportDocument.ParameterFields["@RentalType"] != null)
+                ViewState["ddlRentalType"] = ((DropDownList)pnlParameter.FindControl("ddlRentalType")).SelectedValue.ToString();
 
 
             if (crReportDocument.ParameterFields["@SelectedCurrency"] != null && session.DefaultCurrency != "SGD")
@@ -1806,6 +1861,8 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@Type", ViewState["ddlType"].ToString());
                     if (crReportDocument.ParameterFields["Type"] != null && ViewState["ddlType"] != null)
                         crReportDocument.SetParameterValue("Type", ViewState["ddlType"].ToString());
+                    if (crReportDocument.ParameterFields["@Zcode"] != null && ViewState["ddlZcode"] != null)
+                        crReportDocument.SetParameterValue("@Zcode", ViewState["ddlZcode"].ToString());
 
                     if (crReportDocument.ParameterFields["@SalesPersonType"] != null && ViewState["ddlSalesPersonType"] != null)
                         crReportDocument.SetParameterValue("@SalesPersonType", ViewState["ddlSalesPersonType"].ToString());
@@ -1816,7 +1873,8 @@ namespace GMSWeb.Reports.Report
 
                     if (crReportDocument.ParameterFields["@Rental"] != null && ViewState["ddlRental"] != null)
                         crReportDocument.SetParameterValue("@Rental", ViewState["ddlRental"].ToString());
-
+                    if (crReportDocument.ParameterFields["@RentalType"] != null && ViewState["ddlRentalType"] != null)
+                        crReportDocument.SetParameterValue("@RentalType", ViewState["ddlRentalType"].ToString());
 
                     if (crReportDocument.ParameterFields["@SelectedCurrency"] != null && ViewState["ddlCurrency"] != null)
                         crReportDocument.SetParameterValue("@SelectedCurrency", GMSUtil.ToInt(ViewState["ddlCurrency"].ToString()));
