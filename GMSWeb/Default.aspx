@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#007ee5">
     <link href="new_assets/css/animate.min.css" rel="stylesheet" />
     <link href="new_assets/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" href="images/favicon.png" />
     <style>
         body {
             font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;

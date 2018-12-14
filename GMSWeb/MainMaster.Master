@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-	<title>Leeden Group Management System</title>
+	<title>Leeden Group Management System</title>    
 	<uctrl:Header ID="MySiteHeader" runat="server" EnableViewState="true" />
 </head>
 <body>
