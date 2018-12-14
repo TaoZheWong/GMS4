@@ -550,22 +550,6 @@ namespace GMSWeb
                 //"</ul>" +
                 "</li>" +
 
-                "<li class='has-sub sales-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">" +
-                "<i class='ti-pulse'></i>" +
-                "<span>Sales Reports</span>" +
-                "</a>" +
-                //"<ul class=\"sub-menu\">" +
-                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                //"</ul>" +
-                "</li>" +
-
                  "<li class='has-sub manufacture-menu'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/FinanceManufactureAccount.aspx\">" +
                 "<i class='ti-server'></i>" +
@@ -581,7 +565,114 @@ namespace GMSWeb
                 //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
                 //"</ul>" +
                 "</li>" +
-                
+
+                "<li class='has-sub sales-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">" +
+                "<i class='ti-pulse'></i>" +
+                "<span>Sales Reports</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                  "</li>" +
+
+                    "<li class='has-sub purchase-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinancePurchaseCreditor.aspx\">" +
+                "<i class='ti-bar-chart'></i>" +
+                "<span>Purchase & Creditors</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                "</li>" +
+
+                 "<li class='has-sub inventory-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">" +
+                "<i class='ti-archive'></i>" +
+                "<span>Inventory</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //"<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                "</li>" +
+
+                  "<li class='has-sub debtors-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceDebtorsReport.aspx\">" +
+                "<i class='ti-agenda'></i>" +
+                "<span>Debtors</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                "</li>" +
+
+                 "<li class='has-sub fixed-menu'>" +
+                "<a href=\"" + appPath + "/Finance/Reports/FinanceFixedAssets.aspx\">" +
+                "<i class='ti-wallet'></i>" +
+                "<span>Fixed Assets</span>" +
+                "</a>" +
+                //"<ul class=\"sub-menu\">" +
+                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
+                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //"</ul>" +
+                "</li>" +
+
+                 "<li class='has-sub cash-flow-menu'>" +
+                "<a href='javascript:;'>" +
+                "<i class='ti-credit-card'></i>" +
+                "<span>Cash Flow & Banking</span>" +
+                "</a>" +
+                "<ul class=\"sub-menu\">" +
+                    "<li class='sub-cash-flow'><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                    "<li class='sub-forex-rate'><a href=\"" + appPath + "/Finance/Forex/ForexRate.aspx\">Month End Rate</a></li>" +
+                    "<li class='sub-bank-info'><a href=\"" + appPath + "/Finance/BankFacilities/BankInfo.aspx\">Bank Facility</a></li>" +
+                    "<li class='sub-bank-utilisation'><a href=\"" + appPath + "/Finance/BankFacilities/BankUtilisation.aspx\">Bank Utilisation</a></li>" +
+                    "<li class='sub-term-sheet'><a href=\"" + appPath + "/Finance/CashFlow/TermSheet.aspx?ModuleID=CompanyFinance\">Term Sheet</a></li>" +
+                    "<li class='sub-cashflow'><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Reports</a></li>" +
+                "</ul>" +
+                "</li>" +
+
+
+                "<li class='has-sub budget-menu'>" +
+                "<a href='javascript:;'>" +
+                "<i class='ti-shield'></i>" +
+                "<span>Budget</span>" +
+                "</a>" +
+                "<ul class=\"sub-menu\">" +
+                    "<li class='sub-upload-budget'><a href=\"" + appPath + "/Finance/Upload/UploadBudget.aspx\">Upload</a></li>" +
+                    "<li class='sub-budget-report'><a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx\">Reports</a></li>" +
+                "</ul>" +
+                "</li>" +
+
                 "<li class='has-sub audited-menu sub-audit'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">" +
                 "<i class='ti-stamp'></i>" +
@@ -597,110 +688,21 @@ namespace GMSWeb
                 //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
                 //"</ul>" +
                 "</li>" +
-                
-                 "<li class='has-sub inventory-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">" +
-                "<i class='ti-archive'></i>" +
-                "<span>Inventory Reports</span>" +
-                "</a>" +
+
+
+                //"<li class='has-sub accounting-menu'>" +
+                //"<a href='javascript:;'>" +
+                //"<i class='ti-text'></i>" +
+                //"<span>Accounting/Tax</span>" +
+                //"</a>" +
                 //"<ul class=\"sub-menu\">" +
-                //"<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
+                //    "<li class='sub-upload-audit'><a href=\"" + appPath + "/Finance/Upload/UploadAudit.aspx\">Audit Upload</a></li>" +
+                //    //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">Audit Reports</a></li>" +
+                //    "<li class='sub-company-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewCompanyResources.aspx?PageHeader=Accounting/Tax%20>%20Audited%20FS&PageTitle=Finance%20-%20Resources&ModuleCategoryID=20&ModuleCategoryName=CompanyFinance\">Audited FS</a></li>" +
+                //    "<li class='sub-intercompany'><a href=\"" + appPath + "/Finance/InterCompany/InterCompany.aspx\">Inter-Company</a></li>" +
+                ////"<li class='sub-accounting-report'><a href=\"" + appPath + "/Finance/Reports/AccountingTaxReports.aspx\">Reports</a></li>" +
                 //"</ul>" +
-                "</li>" +
-                
-                 "<li class='has-sub fixed-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceFixedAssets.aspx\">" +
-                "<i class='ti-wallet'></i>" +
-                "<span>Fixed Assets Reports</span>" +
-                "</a>" +
-                //"<ul class=\"sub-menu\">" +
-                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                //"</ul>" +
-                "</li>" +
-
-                 "<li class='has-sub debtors-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceDebtorsReport.aspx\">" +
-                "<i class='ti-agenda'></i>" +
-                "<span>Debtors Reports</span>" +
-                "</a>" +
-                //"<ul class=\"sub-menu\">" +
-                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                //"</ul>" +
-                "</li>" +
-
-                 "<li class='has-sub purchase-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinancePurchaseCreditor.aspx\">" +
-                "<i class='ti-bar-chart'></i>" +
-                "<span>Purchase & Creditors Reports</span>" +
-                "</a>" +
-                //"<ul class=\"sub-menu\">" +
-                //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">Sales & Debtors</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceProductReport.aspx\">Products</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCapexReport.aspx\">Capex</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
-                //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                //"</ul>" +
-                "</li>" +
-
-                "<li class='has-sub cash-flow-menu'>" +
-                "<a href='javascript:;'>" +
-                "<i class='ti-credit-card'></i>" +
-                "<span>Cash Flow & Banking</span>" +
-                "</a>" +
-                "<ul class=\"sub-menu\">" +
-                    "<li class='sub-cash-flow'><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
-                    "<li class='sub-forex-rate'><a href=\"" + appPath + "/Finance/Forex/ForexRate.aspx\">Month End Rate</a></li>" +
-                    "<li class='sub-bank-info'><a href=\"" + appPath + "/Finance/BankFacilities/BankInfo.aspx\">Bank Facility</a></li>" +
-                    "<li class='sub-bank-utilisation'><a href=\"" + appPath + "/Finance/BankFacilities/BankUtilisation.aspx\">Bank Utilisation</a></li>" +
-                    "<li class='sub-term-sheet'><a href=\"" + appPath + "/Finance/CashFlow/TermSheet.aspx?ModuleID=CompanyFinance\">Term Sheet</a></li>" +
-                    "<li class='sub-cashflow'><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Reports</a></li>" +
-                "</ul>" +
-                "</li>" +
-
-                "<li class='has-sub budget-menu'>" +
-                "<a href='javascript:;'>" +
-                "<i class='ti-shield'></i>" +
-                "<span>Budget</span>" +
-                "</a>" +
-                "<ul class=\"sub-menu\">" +
-                    "<li class='sub-upload-budget'><a href=\"" + appPath + "/Finance/Upload/UploadBudget.aspx\">Upload</a></li>" +
-                    "<li class='sub-budget-report'><a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx\">Reports</a></li>" +
-                "</ul>" +
-                "</li>" +
-
-                "<li class='has-sub accounting-menu'>" +
-                "<a href='javascript:;'>" +
-                "<i class='ti-text'></i>" +
-                "<span>Accounting/Tax</span>" +
-                "</a>" +
-                "<ul class=\"sub-menu\">" +
-                    "<li class='sub-upload-audit'><a href=\"" + appPath + "/Finance/Upload/UploadAudit.aspx\">Audit Upload</a></li>" +
-                    //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">Audit Reports</a></li>" +
-                    "<li class='sub-company-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewCompanyResources.aspx?PageHeader=Accounting/Tax%20>%20Audited%20FS&PageTitle=Finance%20-%20Resources&ModuleCategoryID=20&ModuleCategoryName=CompanyFinance\">Audited FS</a></li>" +
-                    "<li class='sub-intercompany'><a href=\"" + appPath + "/Finance/InterCompany/InterCompany.aspx\">Inter-Company</a></li>" +
-                    //"<li class='sub-accounting-report'><a href=\"" + appPath + "/Finance/Reports/AccountingTaxReports.aspx\">Reports</a></li>" +
-                "</ul>" +
-                "</li>" +
+                //"</li>" +
 
                 "<li class='has-sub administration-menu'>" +
                 "<a href='javascript:;'>" +
