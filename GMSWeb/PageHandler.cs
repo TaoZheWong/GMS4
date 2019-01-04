@@ -242,7 +242,7 @@ namespace GMSWeb
                     "<li class='sub-sales'><a href=\"" + appPath + "/Sales/Reports/View.aspx\">Sales</a></li>" +
                     "<li class='sub-debtors'><a href=\"" + appPath + "/Debtors/Reports/View.aspx\">Debtors</a></li>" +
                     "<li class='sub-financials'><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx?CurrentLink=Sales\">Financials</a></li>" +
-                    "<li class='sub-financials'><a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx?CurrentLink=Sales\">Budget</a></li>" +
+                    "<li class='sub-budget'><a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx?CurrentLink=Sales\">Budget</a></li>" +
                     "</ul>" +
                     "</li>" +
                     "<li class='has-sub sale-menu'>" +
@@ -727,10 +727,20 @@ namespace GMSWeb
                 "<span>Resources</span>" +
                 "</a>" +
                 "<ul class=\"sub-menu\">" +
-                    "<li class='sub-resource-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Resources&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance\">Resources</a></li>";
-                //if (lstModuleCategory.Contains(4))
-                sideMenu += "<li class='sub-resource-useful-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewUsefulResources.aspx?PageHeader=Resources &gt; Resources&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance\">Useful Resources</a></li>";
+                //    "<li class='sub-resource-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Resources&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance\">Resources</a></li>";
+                ////if (lstModuleCategory.Contains(4))
+                //sideMenu += "<li class='sub-resource-useful-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewUsefulResources.aspx?PageHeader=Resources &gt; Resources&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance\">Useful Resources</a></li>";
 
+                //sideMenu += "</ul>" +
+                    "<li class='sub-resource-accounting-regulations'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Accounting Regulations&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=31\">Accounting Regulations</a></li>";
+                //if (lstModuleCategory.Contains(4))
+                sideMenu +=
+                    "<li class='sub-resource-company-information'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Company Information&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=32\">Company Information</a></li>" +
+                    "<li class='sub-resource-listing-of-codes'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Listing of Codes&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=14\">Listing of Codes</a></li>" +
+                    "<li class='sub-resource-forms'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Forms&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=15\">Forms</a></li>" +
+                    "<li class='sub-resource-finance-seminar'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Finance Seminar&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=35,29\">Finance Seminar</a></li>" +
+                    "<li class='sub-resource-guides'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Guides&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=33,28\">Guides</a></li>" +
+                    "<li class='sub-resource-currency-exchange-rate'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Foreign Currency Exchange Rate&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=34\">FX Rate</a></li>";
                 sideMenu += "</ul>" +
                 "</li>";
 

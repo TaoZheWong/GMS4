@@ -22,7 +22,7 @@
     
     <input id="hidModuleCategoryID" runat="server" type="hidden" />
     <input id="hidModuleCategoryName" runat="server" type="hidden" />
-
+    <input id="hidDocumentCateogryID" runat="server" type="hidden" />
     
     <asp:Repeater ID="rppCategoryList" runat="server">
         <ItemTemplate>
@@ -173,17 +173,53 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
-        $(document).ready(function () {
 
-            if (getParameterByName("ModuleCategoryID") != "18") {
-                if (getParameterByName("ModuleCategoryID") == "8") {
-                    $(".administration-menu").addClass("active expand");
-                    $(".sub-forms").addClass("active");
+            $(document).ready(function () {
+
+            //if (getParameterByName("ModuleCategoryID") != "18") {
+            //    if (getParameterByName("ModuleCategoryID") == "8") {
+            //        $(".administration-menu").addClass("active expand");
+            //        $(".sub-forms").addClass("active");
                     
-                } else {
-                    $(".resources-menu").addClass("active expand");
-                    $(".sub-resource-resource").addClass("active");
-                }
+            //    } else {
+            //        $(".resources-menu").addClass("active expand");
+            //        $(".sub-resource-accounting-regulations").addClass("active");
+            //    }
+
+                if (getParameterByName("ModuleCategoryID") == "10") {
+                    if (getParameterByName("DocumentCategoryID") == "31") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-accounting-regulations").addClass("active");
+                    
+                    } else if (getParameterByName("DocumentCategoryID") == "32") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-company-information").addClass("active");
+
+                    } else if (getParameterByName("DocumentCategoryID") == "14") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-listing-of-codes").addClass("active");
+                    }
+
+                    else if (getParameterByName("DocumentCategoryID") == "15") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-forms").addClass("active");
+                    }
+                    else if (getParameterByName("DocumentCategoryID") == "35,29") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-finance-seminar").addClass("active");
+                    }
+                    else if (getParameterByName("DocumentCategoryID") == "33,28") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-guides").addClass("active");
+                    }
+                    else if (getParameterByName("DocumentCategoryID") == "34") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-currency-exchange-rate").addClass("active");
+                    }
+                    else {
+                        
+                    }
+              
 
                 
             } else {

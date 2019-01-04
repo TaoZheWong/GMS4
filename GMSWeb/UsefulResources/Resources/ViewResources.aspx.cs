@@ -22,7 +22,8 @@ namespace GMSWeb.UsefulResources.Resources
     {
         public bool CanDelete = false;
 
-        protected string folderPath = @"D:\GMSDocuments\Resources\"; 
+        protected string folderPath = @"D:\GMSDocuments\Resources\";
+        protected bool available = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,7 +33,7 @@ namespace GMSWeb.UsefulResources.Resources
                 Response.Redirect(base.SessionTimeOutPage("UsefulResources"));
                 return;
             }
-            
+
             if (!Page.IsPostBack)
             {
                 if (Request.Params["PageHeader"] != null)
@@ -43,9 +44,11 @@ namespace GMSWeb.UsefulResources.Resources
                     this.hidModuleCategoryID.Value = Request.Params["ModuleCategoryID"].ToString();
                 if (Request.Params["ModuleCategoryName"] != null)
                     this.hidModuleCategoryName.Value = Request.Params["ModuleCategoryName"].ToString();
+                if (Request.Params["DocumentCategoryID"] != null)
+                    this.hidDocumentCateogryID.Value = Request.Params["DocumentCategoryID"].ToString(); //store the value in a hidden field instead of using this.documentCategoryID
                 LoadDDLs();
             }
-                       
+
             PopulateRepeater();
             UserAccessDocumentOperation uAccess = new GMSUserActivity().RetrieveUserAccessDocumentOperationByUserIdModuleCategoryId(session.UserId,
                                                                             short.Parse(this.hidModuleCategoryID.Value));
@@ -54,15 +57,15 @@ namespace GMSWeb.UsefulResources.Resources
 
             Master.setCurrentLink(this.hidModuleCategoryName.Value);
 
-            if (uAccess == null || uAccess.Operation != "E")
+            if (uAccess == null || uAccess.Operation != "E" || !this.available) //added this.available to cater modulecategoryid and documentcategoryid
             {
                 tbUpload.Visible = false;
-                CanDelete = false; 
+                CanDelete = false;
             }
             else
             {
                 tbUpload.Visible = true;
-                CanDelete = true; 
+                CanDelete = true;
             }
 
             string javaScript =
@@ -83,13 +86,14 @@ namespace GMSWeb.UsefulResources.Resources
 
         protected void LoadDDLs()
         {
-            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(short.Parse(this.hidModuleCategoryID.Value));
+            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
             if (lstCategory != null && lstCategory.Count > 0)
             {
                 this.ddlDocumentCategory.DataSource = lstCategory;
                 this.ddlDocumentCategory.DataBind();
+                this.available = true; //show the tbupload
+                PopulateDocument(); //changed this logic to populate the document listing when there is documentcategory available
             }
-            PopulateDocument();
         }
 
         #region PopulateDocument
@@ -105,10 +109,10 @@ namespace GMSWeb.UsefulResources.Resources
             DocumentDataDALC dalc = new DocumentDataDALC();
             DataSet ds = new DataSet();
             dalc.GetActiveDocuments(short.Parse(this.ddlDocumentCategory.SelectedValue), ref ds);
-            this.ddlDocument.DataSource = ds.Tables[0]; 
+            this.ddlDocument.DataSource = ds.Tables[0];
             this.ddlDocument.DataBind();
-                        
-            ddlDocument.Items.Insert(0, new ListItem("[Select Existing Document]", "0")); 
+
+            ddlDocument.Items.Insert(0, new ListItem("[Select Existing Document]", "0"));
 
             //populate Sequence
             DataTable dtt1 = new DataTable();
@@ -117,23 +121,23 @@ namespace GMSWeb.UsefulResources.Resources
             for (int i = 1; i <= ds.Tables[0].Rows.Count + 1; i++)
             {
                 DataRow dr1 = dtt1.NewRow();
-                dr1["SeqID"] = i; 
+                dr1["SeqID"] = i;
                 dtt1.Rows.Add(dr1);
             }
 
             this.ddlSequence.DataSource = dtt1;
             this.ddlSequence.DataBind();
-            this.RefreshPageTitle(); 
+            this.RefreshPageTitle();
         }
         #endregion
 
         #region RefreshPageTitle
         protected void RefreshPageTitle()
         {
-            this.Title = Request.Params["PageTitle"].ToString(); 
+            this.Title = Request.Params["PageTitle"].ToString();
         }
         #endregion
-        
+
         #region PopulateRepeater
         private void PopulateRepeater()
         {
@@ -149,12 +153,13 @@ namespace GMSWeb.UsefulResources.Resources
             else
                 CanDelete = false;
 
-            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(short.Parse(this.hidModuleCategoryID.Value));
+            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
 
             if (lstCategory != null && lstCategory.Count > 0)
             {
                 rppCategoryList.DataSource = lstCategory;
                 rppCategoryList.DataBind();
+                this.available = true; //show the tbupload
 
                 int i = 0;
                 foreach (DocumentCategory rCategory in lstCategory)
@@ -171,7 +176,7 @@ namespace GMSWeb.UsefulResources.Resources
 
                     if (rppReportList != null)
                     {
-                        rppReportList.DataSource = ds.Tables[0]; 
+                        rppReportList.DataSource = ds.Tables[0];
                         rppReportList.DataBind();
                     }
 
@@ -194,7 +199,7 @@ namespace GMSWeb.UsefulResources.Resources
                         }
                     }*/
                     i++;
-                     
+
                 }
             }
         }
@@ -238,18 +243,19 @@ namespace GMSWeb.UsefulResources.Resources
                 }
                 catch (Exception ex)
                 {
-                    JScriptAlertMsg(ex.Message); 
+                    JScriptAlertMsg(ex.Message);
                 }
 
                 JScriptAlertMsg("Document deleted.");
                 PopulateRepeater();
-                PopulateDocument(); 
-            } else if (e.CommandName == "ViewHistory") 
+                PopulateDocument();
+            }
+            else if (e.CommandName == "ViewHistory")
             {
                 HtmlInputHidden hidDocumentID = (HtmlInputHidden)e.Item.FindControl("hidDocumentID");
                 ClientScript.RegisterStartupScript(typeof(string), "",
                     string.Format("jsOpenReport('UsefulResources/Resources/ViewResourcesHistory.aspx?DOCUMENTID={0}');",
-                                  hidDocumentID.Value),true);
+                                  hidDocumentID.Value), true);
                 RefreshPageTitle();
             }
             else if (e.CommandName == "Load")
@@ -293,9 +299,10 @@ namespace GMSWeb.UsefulResources.Resources
                 try
                 {
                     Response.TransmitFile(@"D:/GMSDocuments/Resources/" + e.CommandArgument.ToString());
-                } catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
-                    JScriptAlertMsg(ex.Message); 
+                    JScriptAlertMsg(ex.Message);
                 }
                 Response.End();
             }
@@ -316,7 +323,7 @@ namespace GMSWeb.UsefulResources.Resources
                  (!(!FileUpload1.HasFile && rblOverwriteDocument.SelectedValue == "0")))
             {
                 string fileName = "";
-                string docNo = ""; 
+                string docNo = "";
 
                 if (FileUpload1.HasFile)
                 {
@@ -356,7 +363,7 @@ namespace GMSWeb.UsefulResources.Resources
                             doc.DocumentName = txtDocumentName.Text.ToString().Trim().ToUpper();
                         if (FileUpload1.HasFile)
                         {
-                            string previousFilePath = folderPath + "\\" + doc.FileName; 
+                            string previousFilePath = folderPath + "\\" + doc.FileName;
                             //delete existing document 
                             try
                             {
@@ -373,7 +380,7 @@ namespace GMSWeb.UsefulResources.Resources
                             doc.FileName = fileName;
                         }
                         doc.SeqID = short.Parse(ddlSequence.SelectedValue);
-                        doc.DateUploaded = DateTime.Now; 
+                        doc.DateUploaded = DateTime.Now;
                         doc.Save();
                         doc.Resync();
                     }
@@ -381,14 +388,14 @@ namespace GMSWeb.UsefulResources.Resources
                 else
                 {   //new document 
                     //check if the document existed before
-                    string documentName; 
+                    string documentName;
                     if (this.txtDocumentName.Text.ToString() == "")
-                        documentName = ddlDocument.SelectedItem.Text; 
+                        documentName = ddlDocument.SelectedItem.Text;
                     else
                         documentName = this.txtDocumentName.Text.Trim().ToUpper();
-                                    
+
                     Document sameDoc = new DocumentActivity().RetrieveDocumentByDocumentNameFileName(documentName, fileName);
-                    if ((rblOverwriteDocument.SelectedValue == "1" && sameDoc == null) || 
+                    if ((rblOverwriteDocument.SelectedValue == "1" && sameDoc == null) ||
                          rblOverwriteDocument.SelectedValue == "0")
                     {
                         Document doc = new Document();
@@ -404,10 +411,10 @@ namespace GMSWeb.UsefulResources.Resources
 
                 JScriptAlertMsg("Document is uploaded or updated.");
                 PopulateRepeater();
-                PopulateDocument(); 
+                PopulateDocument();
                 lblMsg.Text = "";
                 txtDocumentName.Text = "";
-                this.Title = Request.Params["PageTitle"].ToString(); 
+                this.Title = Request.Params["PageTitle"].ToString();
             }
             else
             {
@@ -420,21 +427,21 @@ namespace GMSWeb.UsefulResources.Resources
         protected void ddlDocumentCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateDocument();
-            this.Title = Request.Params["PageTitle"].ToString(); 
+            this.Title = Request.Params["PageTitle"].ToString();
         }
         #endregion
-        
+
         #region ddlDocument_SelectedIndexChanged
         protected void ddlDocument_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlDocument.SelectedValue == "0") return; 
+            if (ddlDocument.SelectedValue == "0") return;
             Document doc = new DocumentActivity().RetrieveDocumentByDocumentID(short.Parse(ddlDocument.SelectedValue));
             if (doc.SeqID == 0)
-                ddlSequence.SelectedValue = "1"; 
-            else 
+                ddlSequence.SelectedValue = "1";
+            else
                 ddlSequence.SelectedValue = doc.SeqID.ToString();
 
-            this.Title = Request.Params["PageTitle"].ToString(); 
+            this.Title = Request.Params["PageTitle"].ToString();
         }
         #endregion
     }
