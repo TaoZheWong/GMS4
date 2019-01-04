@@ -77,17 +77,7 @@ $(document).ready(function() {
 
         $("#CreatePO").on("click dblclick", function () {
             var MRNo = getMRNo();            
-            CheckData(function (data) {
-                var InvalidVendor = data[0].InvalidVendor;              
-                if (InvalidVendor == "1") {
-                    SetModalMessage("Invalid vendor code.", "");
-                }               
-                else {
-                    CreatePO();
-                }
-            });
-
-            
+            CreatePO();            
         });
         
         $( "#SubmitForApproval" ).on( "click dblclick", function() {

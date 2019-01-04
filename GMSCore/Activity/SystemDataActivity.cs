@@ -77,7 +77,7 @@ namespace GMSCore.Activity
 
             return MRStatus.RetrieveQuery("", string.Format(" {0} ASC ", helper.GetFieldName("MRStatus.StatusName")));
 
-           //return MRStatus.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("MRStatus.StatusName")));
+            //return MRStatus.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("MRStatus.StatusName")));
         }
 
         public IList<Country> RetrieveAllCountryListSortWithoutGroup()
@@ -86,7 +86,7 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} != {1} ", helper.GetFieldName("Country.CountryID"),
                                 helper.CleanValue(9));
-            
+
             return Country.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("Country.SeqID")));
         }
 
@@ -377,17 +377,17 @@ namespace GMSCore.Activity
         #endregion
 
         public IList<Company> RetrieveAllCompanyListWithMR()
-        {           
+        {
 
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = 1 ", helper.GetFieldName("Company.IsActive"));
-            stb.AppendFormat(" AND {0} is not null ", helper.GetFieldName("Company.MRScheme"));           
+            stb.AppendFormat(" AND {0} is not null ", helper.GetFieldName("Company.MRScheme"));
 
             return Company.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ",
                                                     helper.GetFieldName("Company.Name")));
         }
-        
+
         #region RetrieveCompanyListSortByCountryIdDivIdCoyName - commented
         //public IList<Company> RetrieveCompanyListSortByCountryIdDivIdCoyName(LogSession session)
         //{
@@ -443,7 +443,7 @@ namespace GMSCore.Activity
         {
             if (coyId <= 0)
                 return null;
-           
+
             return Company.RetrieveByKey(coyId);
         }
         #endregion
@@ -479,7 +479,7 @@ namespace GMSCore.Activity
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Company.Code"), helper.CleanValue(Code));
-            
+
             return Company.RetrieveQuery(stb.ToString());
         }
         #endregion
@@ -1441,8 +1441,8 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             //stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Employee.IsInactive"), helper.CleanValue(0));
             stb.AppendFormat(" ({0} is null OR {0} <> {1}) ", helper.GetFieldName("Employee.IsInactive"),
-                               helper.CleanValue(true));           
-            
+                               helper.CleanValue(true));
+
             return Employee.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("Employee.EmployeeNo")));
         }
         #endregion
@@ -1544,7 +1544,7 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Employee.CoyID"),
                                 helper.CleanValue(coyId));
-            return Employee.RetrieveQuery(stb.ToString(),"");
+            return Employee.RetrieveQuery(stb.ToString(), "");
         }
         #endregion
 
@@ -1556,13 +1556,13 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Employee.CoyID"),
                                 helper.CleanValue(coyId));
-            stb.AppendFormat(" AND (IsInActive IS NULL OR IsInactive = 0)"); 
+            stb.AppendFormat(" AND (IsInActive IS NULL OR IsInactive = 0)");
 
             //stb.AppendFormat(" AND {0} LIKE {1} ", helper.GetFieldName("Employee.EmailAddress"),
-              //                  helper.CleanValue(userName));
-            stb.AppendFormat(" AND SuperiorID IN (SELECT EmployeeID FROM tbEmployee WHERE {0} = {1}", helper.GetFieldName("Employee.CoyID"), helper.CleanValue(coyId)); 
+            //                  helper.CleanValue(userName));
+            stb.AppendFormat(" AND SuperiorID IN (SELECT EmployeeID FROM tbEmployee WHERE {0} = {1}", helper.GetFieldName("Employee.CoyID"), helper.CleanValue(coyId));
             stb.AppendFormat(" AND {0} LIKE {1})", helper.GetFieldName("Employee.EmailAddress"), helper.CleanValue(userName));
-            stb.AppendFormat(" ORDER BY {0}", helper.GetFieldName("Employee.Name")); 
+            stb.AppendFormat(" ORDER BY {0}", helper.GetFieldName("Employee.Name"));
             return Employee.RetrieveQuery(stb.ToString(), "");
         }
         #endregion
@@ -1574,7 +1574,7 @@ namespace GMSCore.Activity
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("NotificationParty.Purpose"),
-                                helper.CleanValue(purpose));   
+                                helper.CleanValue(purpose));
             stb.AppendFormat(" and {0} is null ", helper.GetFieldName("NotificationParty.CoyID"));
 
 
@@ -1582,7 +1582,7 @@ namespace GMSCore.Activity
         }
         #endregion
 
-        
+
         #region RetrieveNotificationPartyListByPurposeByCoyID
 
         public IList<NotificationParty> RetrieveNotificationPartyListByPurposeByCoyID(string purpose, short companyID)
@@ -1597,7 +1597,7 @@ namespace GMSCore.Activity
             return NotificationParty.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC", helper.GetFieldName("NotificationParty.EmployeeID")));
         }
         #endregion
-        
+
 
         #region RetrieveAllCourseLanguageList
         public IList<CourseLanguage> RetrieveAllCourseLanguageListSortByLanguageName()
@@ -1672,16 +1672,16 @@ namespace GMSCore.Activity
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("BankUtilisation.CoyID"),
-                                helper.CleanValue(companyID));            
+                                helper.CleanValue(companyID));
             stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("BankUtilisation.Name"),
-                                helper.CleanValue(name));     
-            
+                                helper.CleanValue(name));
+
             stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("BankUtilisation.Mode"),
                                 helper.CleanValue(mode));
-            
+
             stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("BankUtilisation.TransactionNo"),
                                 helper.CleanValue(transactionNO));
-            
+
             if (bankCOAID != -1)
                 stb.AppendFormat(" and {0} = {1} ", helper.GetFieldName("BankUtilisation.BankCOAID"),
                                     helper.CleanValue(bankCOAID));
@@ -1698,7 +1698,7 @@ namespace GMSCore.Activity
             }
             stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("BankUtilisation.Type"), helper.CleanValue(type));
             stb.AppendFormat(" and {0} is null ", helper.GetFieldName("BankUtilisation.IsOld"));
-            
+
             return BankUtilisation.RetrieveQuery(stb.ToString(), string.Format(" {0} DESC, {1} DESC", helper.GetFieldName("BankUtilisation.TransactionDate"), helper.GetFieldName("BankUtilisation.TransactionNo")));
         }
         #endregion
@@ -1715,7 +1715,7 @@ namespace GMSCore.Activity
         }
         #endregion
 
-               
+
 
         // Addd By Kim 23July2012
         #region RetrieveAllBankAccountListByMajorBankExclusiveCurrentBank
@@ -1729,12 +1729,12 @@ namespace GMSCore.Activity
                                 helper.CleanValue(isMajorBank));
             stb.AppendFormat(" AND {0} != {1} ", helper.GetFieldName("BankAccount.COAID"),
                                 helper.CleanValue(coaID));
-            
+
             return BankAccount.RetrieveQuery(stb.ToString());
         }
         #endregion
 
-          
+
 
         #region RetrieveAllCustomerAccountsListByPrefixByCompanyIDSortByAccountName
         public IList<A21Account> RetrieveAllCustomerAccountsListByPrefixByCompanyIDSortByAccountName(string prefix, short companyID)
@@ -1779,7 +1779,7 @@ namespace GMSCore.Activity
         #endregion
 
 
-                
+
 
         #region RetrieveAllBankReceiverPayerListByPrefixByCompanyIDSortByName
         public IList<BankReceiverPayer> RetrieveAllBankReceiverPayerListByPrefixByCompanyIDSortByName(string prefix, short companyID)
@@ -1843,7 +1843,7 @@ namespace GMSCore.Activity
 
         //SalesPersonRecord
         #region RetrieveAllSalesPersonRecordListByCompanyIDSortByYearMonthSalesPersonMasterName
-        public IList<SalesPersonRecord> RetrieveAllSalesPersonRecordListByCompanyIDSortByYearMonthSalesPersonMasterID(short companyID,short year, short month, string GroupType)
+        public IList<SalesPersonRecord> RetrieveAllSalesPersonRecordListByCompanyIDSortByYearMonthSalesPersonMasterID(short companyID, short year, short month, string GroupType)
         {
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
@@ -1856,7 +1856,7 @@ namespace GMSCore.Activity
             if (month != 0)
                 stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("SalesPersonRecord.TbMonth"),
                                 helper.CleanValue(month));
-            if (GroupType!="All")
+            if (GroupType != "All")
                 stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("SalesPersonRecord.GroupType"),
                                 helper.CleanValue(GroupType));
 
@@ -1939,7 +1939,7 @@ namespace GMSCore.Activity
         }
         #endregion
 
-        
+
         #region RetrieveAllUserSalesPersonByUserNumIDCoyID
         public IList<SalesPersonUser> RetrieveAllSalesPersonUserByUserNumIDCoyID(short userNumId, short companyId)
         {
@@ -2132,6 +2132,39 @@ namespace GMSCore.Activity
         }
         #endregion
 
+        #region RetrieveAllDocumentCategoryByModuleCategoryID
+        public IList<DocumentCategory> RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short moduleCategoryID, string documentCategoryID)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("DocumentCategory.ModuleCategoryID"),
+                                helper.CleanValue(moduleCategoryID));
+
+            //String documentcategory = documentCategoryID;
+            string[] documents = documentCategoryID.Split(',');
+
+            for (int i = 0; i < documents.Length; i++)
+            {
+                if (i == 0)
+                {
+                    stb.AppendFormat(" AND ( {0} = {1} ", helper.GetFieldName("DocumentCategory.DocumentCategoryID"),
+                               helper.CleanValue(documents[i]));
+                }
+                else
+                {
+                    stb.AppendFormat(" OR {0} = {1} ", helper.GetFieldName("DocumentCategory.DocumentCategoryID"),
+                               helper.CleanValue(documents[i]));
+                }
+
+            }
+
+            stb.AppendFormat(")");
+
+            return DocumentCategory.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("DocumentCategory.SeqID")));
+        }
+        #endregion
+
         #region RetrieveAllDocumentByDocumentCategoryID
         public IList<Document> RetrieveAllDocumentByDocumentCategoryID(short documentCategoryID)
         {
@@ -2204,9 +2237,9 @@ namespace GMSCore.Activity
             stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("Product.ProductCode"),
                                 helper.CleanValue(prodCode));
             //stb.AppendFormat(" or {0} like {1}) ", helper.GetFieldName("Product.ProductName"),
-              //                  helper.CleanValue(prodCode));
+            //                  helper.CleanValue(prodCode));
 
-                
+
             return Product.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("Product.ProductCode")));
         }
         #endregion
@@ -2453,7 +2486,7 @@ namespace GMSCore.Activity
             if (!cashFlowProjection.IsValid())
                 return ResultType.MainDataNotValid;
 
-            cashFlowProjection.Save();           
+            cashFlowProjection.Save();
 
             return ResultType.Ok;
         }
@@ -2492,11 +2525,11 @@ namespace GMSCore.Activity
         #region RetrieveProductGroupByCoyID
         public IList<ProductGroup> RetrieveProductGroupByCoyID(short companyId)
         {
-            
+
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("ProductGroup.CoyID"),
-                                helper.CleanValue(companyId));          
+                                helper.CleanValue(companyId));
 
             return ProductGroup.RetrieveQuery(stb.ToString());
         }
@@ -2514,14 +2547,14 @@ namespace GMSCore.Activity
         }
         #endregion
 
-        
+
         #region RetrieveAllFinanceAttachmentTypeSortByID
         public IList<FinanceAttachmentType> RetrieveAllFinanceAttachmentTypeSortByID()
         {
             QueryHelper helper = base.GetHelper();
 
             return FinanceAttachmentType.RetrieveQuery("", string.Format(" {0} ASC ", helper.GetFieldName("FinanceAttachmentType.Id")));
-          
+
         }
         #endregion
 
@@ -2532,7 +2565,7 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("FinanceAttachmentType.AccountName"),
                                 helper.CleanValue(accountname));
-            
+
             return FinanceAttachment.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("FinanceAttachmentType.Id")));
 
         }
@@ -2540,7 +2573,7 @@ namespace GMSCore.Activity
 
         #region RetrieveAllScheduledTaskProductByCompany
         public IList<ScheduledTaskProduct> RetrieveAllScheduledTaskProductByCompany(short companyId)
-        { 
+        {
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("ScheduledTaskProduct.CoyID"),
@@ -2584,7 +2617,7 @@ namespace GMSCore.Activity
         }
         #endregion
 
-        
+
         #region RetrieveAllMRDetailDescriptionListByCompanyCodeMRNoDetailNo
         public IList<MRDetailDescription> RetrieveAllMRDetailDescriptionListByCompanyCodeMRNoDetailNo(short companyId,
                                                                                                 string mRNo, int detailNo)
@@ -2596,7 +2629,7 @@ namespace GMSCore.Activity
             stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("MRDetailDescription.MRNo"),
                                 helper.CleanValue(mRNo));
             stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("MRDetailDescription.DetailNo"),
-                                helper.CleanValue(detailNo));           
+                                helper.CleanValue(detailNo));
 
             return MRDetailDescription.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("MRDetailDescription.SeqID")));
         }
@@ -2608,7 +2641,7 @@ namespace GMSCore.Activity
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} AND {2} = {3}", helper.GetFieldName("CompanyProject.ProjectName"),
-                                helper.CleanValue(ProjectName), helper.GetFieldName("CompanyProject.CoyID"),helper.CleanValue(CompanyID));
+                                helper.CleanValue(ProjectName), helper.GetFieldName("CompanyProject.CoyID"), helper.CleanValue(CompanyID));
 
             return CompanyProject.RetrieveFirst(stb.ToString());
         }
@@ -2620,8 +2653,8 @@ namespace GMSCore.Activity
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} AND {2} = {3} ", helper.GetFieldName("CompanyDepartment.DepartmentName"),
-                                helper.CleanValue(DepartmentName), 
-                                helper.GetFieldName("CompanyDepartment.CoyID"), 
+                                helper.CleanValue(DepartmentName),
+                                helper.GetFieldName("CompanyDepartment.CoyID"),
                                 helper.CleanValue(CompanyID));
 
             return CompanyDepartment.RetrieveFirst(stb.ToString());
@@ -2629,7 +2662,7 @@ namespace GMSCore.Activity
         #endregion
 
         #region GetSectionIDByNameAndCountry
-        public int GetSectionIDByNameAndCountry(string sectionName , short CompanyID)
+        public int GetSectionIDByNameAndCountry(string sectionName, short CompanyID)
         {
             DBManager db = DBManager.GetInstance();
             QueryHelper helper = base.GetHelper();
