@@ -3992,7 +3992,14 @@ namespace GMSWeb.Sales.Sales
 				documentNumber.CommCommentNo = "0001";
 				documentNumber.PurchaseNo = "0001";
 				documentNumber.MRNo = "00001";
-			}
+                documentNumber.DocumentNo = "00001";
+                documentNumber.DocumentNoForEmployee = "000001";
+                documentNumber.ProjectNo = "000001";
+                documentNumber.CEID = "0001";
+                documentNumber.CEDetailID = "00001";
+                documentNumber.ItemID = "1";
+                documentNumber.ClaimNo = "00001";
+            }
 			nxtQuotationNo = DateTime.Now.ToString("yy") + "-" + documentNumber.QuotationNo;
 
 			string nxtStr = ((short)(short.Parse(documentNumber.QuotationNo) + 1)).ToString();
@@ -4200,9 +4207,15 @@ namespace GMSWeb.Sales.Sales
 					documentNumber.CommNo = "0001";
 					documentNumber.CommCommentNo = "0001";
 					documentNumber.PurchaseNo = "0001";
-					documentNumber.MRNo = "00001";                    
-
-				}
+					documentNumber.MRNo = "00001";
+                    documentNumber.DocumentNo = "00001";
+                    documentNumber.DocumentNoForEmployee = "000001";
+                    documentNumber.ProjectNo = "000001";
+                    documentNumber.CEID = "0001";
+                    documentNumber.CEDetailID = "00001";
+                    documentNumber.ItemID = "1";
+                    documentNumber.ClaimNo = "00001";
+                }
 				qh.QuotationNo = DateTime.Now.ToString("yy") + "-" + documentNumber.QuotationNo;
 				qh.RevisionNo = 0;
 				//CRM

@@ -878,8 +878,15 @@ namespace GMSWeb.Debtors.Debtors
 						documentNumber.CommNo = "0001";
 						documentNumber.CommCommentNo = "0001";
 						documentNumber.PurchaseNo = "0001";
-
-					}
+                        documentNumber.MRNo = "00001";
+                        documentNumber.DocumentNo = "00001";
+                        documentNumber.DocumentNoForEmployee = "000001";
+                        documentNumber.ProjectNo = "000001";
+                        documentNumber.CEID = "0001";
+                        documentNumber.CEDetailID = "00001";
+                        documentNumber.ItemID = "1";
+                        documentNumber.ClaimNo = "00001";
+                    }
 
 					FileUpload1.SaveAs(folderPath + "/" + (DateTime.Now.Year).ToString() + "-" + session.CompanyId + "-" + documentNumber.AttachmentNo + Path.GetExtension(this.FileUpload1.FileName));
 
@@ -965,8 +972,16 @@ namespace GMSWeb.Debtors.Debtors
 						documentNumber.CommNo = "0001";
 						documentNumber.CommCommentNo = "0001";
 						documentNumber.PurchaseNo = "0001";
+                        documentNumber.MRNo = "00001";
+                        documentNumber.DocumentNo = "00001";
+                        documentNumber.DocumentNoForEmployee = "000001";
+                        documentNumber.ProjectNo = "000001";
+                        documentNumber.CEID = "0001";
+                        documentNumber.CEDetailID = "00001";
+                        documentNumber.ItemID = "1";
+                        documentNumber.ClaimNo = "00001";
 
-					}
+                    }
 
 					FileUpload1.SaveAs(folderPath + "/" + (DateTime.Now.Year).ToString() + "-" + session.CompanyId + "-" + documentNumber.AttachmentNo + Path.GetExtension(this.FileUpload1.FileName));
 
@@ -2092,8 +2107,16 @@ namespace GMSWeb.Debtors.Debtors
 						documentNumber.CommNo = "0001";
 						documentNumber.CommCommentNo = "0001";
 						documentNumber.PurchaseNo = "0001";
+                        documentNumber.MRNo = "00001";
+                        documentNumber.DocumentNo = "00001";
+                        documentNumber.DocumentNoForEmployee = "000001";
+                        documentNumber.ProjectNo = "000001";
+                        documentNumber.CEID = "0001";
+                        documentNumber.CEDetailID = "00001";
+                        documentNumber.ItemID = "1";
+                        documentNumber.ClaimNo = "00001";
 
-					}
+                    }
 
 					accountContacts.CoyID = session.CompanyId;
 					accountContacts.ContactID = documentNumber.ContactNo;
@@ -2450,8 +2473,16 @@ namespace GMSWeb.Debtors.Debtors
 						documentNumber.CommNo = "0001";
 						documentNumber.CommCommentNo = "0001";
 						documentNumber.PurchaseNo = "0001";
+                        documentNumber.MRNo = "00001";
+                        documentNumber.DocumentNo = "00001";
+                        documentNumber.DocumentNoForEmployee = "000001";
+                        documentNumber.ProjectNo = "000001";
+                        documentNumber.CEID = "0001";
+                        documentNumber.CEDetailID = "00001";
+                        documentNumber.ItemID = "1";
+                        documentNumber.ClaimNo = "00001";
 
-					}
+                    }
 
 					accountPurchase.CoyID = session.CompanyId;
 					accountPurchase.AccountCode = this.hidAccountCode.Value.Trim();
@@ -2989,8 +3020,16 @@ namespace GMSWeb.Debtors.Debtors
 						documentNumber.CommNo = "0001";
 						documentNumber.CommCommentNo = "0001";
 						documentNumber.PurchaseNo = "0001";
+                        documentNumber.MRNo = "00001";
+                        documentNumber.DocumentNo = "00001";
+                        documentNumber.DocumentNoForEmployee = "000001";
+                        documentNumber.ProjectNo = "000001";
+                        documentNumber.CEID = "0001";
+                        documentNumber.CEDetailID = "00001";
+                        documentNumber.ItemID = "1";
+                        documentNumber.ClaimNo = "00001";
 
-					}
+                    }
 
 					GMSCore.Entity.AccountCommRecord accountCommRecord = new GMSCore.Entity.AccountCommRecord();
 

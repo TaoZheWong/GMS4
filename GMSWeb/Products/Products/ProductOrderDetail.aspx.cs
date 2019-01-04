@@ -104,21 +104,25 @@ namespace GMSWeb.Products.Products
                             sc1.Url = session.CMSWebServiceAddress.Trim();
                         else
                             sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        
-                        ds = sc1.GetProductOnSODetail(productCode);
+
+                        if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                            ds = sc1.GetProductOnSODetail(productCode);
 
                         if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
                             sc1.Url = session.GASLMSWebServiceAddress.Trim();
                         else
                             sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        
-                        ds = sc1.GetProductOnSODetail(productCode);
+
+                        if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
+                            ds = sc1.GetProductOnSODetail(productCode);
 
                         if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
                             sc1.Url = session.WSDLMSWebServiceAddress.Trim();
                         else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";                        
-                        ds1 = sc1.GetProductOnSODetail(productCode);
+                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+
+                        if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
+                            ds1 = sc1.GetProductOnSODetail(productCode);
 
                     }
                     else if (session.StatusType.ToString() == "S")
@@ -191,20 +195,24 @@ namespace GMSWeb.Products.Products
                         else
                             sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
 
-                        ds = sc1.GetProductOnBODetail(productCode);
+                        if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                            ds = sc1.GetProductOnBODetail(productCode);
 
                         if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
                             sc1.Url = session.GASLMSWebServiceAddress.Trim();
                         else
                             sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
 
-                        ds = sc1.GetProductOnBODetail(productCode);
+                        if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
+                            ds = sc1.GetProductOnBODetail(productCode);
 
                         if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
                             sc1.Url = session.WSDLMSWebServiceAddress.Trim();
                         else
                             sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        ds1 = sc1.GetProductOnBODetail(productCode);
+
+                        if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
+                            ds1 = sc1.GetProductOnBODetail(productCode);
 
                     }
 

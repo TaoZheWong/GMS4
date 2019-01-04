@@ -1457,7 +1457,6 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         tempProductName = dr["ProductDescription"].ToString().Replace("'", "''");
-
                         oDAL.GMS_Insert_GRN(CoyID,
                          dr["TrnNo"].ToString(),
                          GMSUtil.ToDate(dr["TrnDate"].ToString()),
@@ -1469,8 +1468,8 @@ namespace GMSConApp
                          dr["ProductGroupName"].ToString(),
                          GMSUtil.ToDouble(dr["Quantity"].ToString()),
                          GMSUtil.ToDouble(dr["UnitPrice"].ToString()),
-                         GMSUtil.ToDouble(dr["LandedCostUnitPrice"].ToString()),
-                         GMSUtil.ToDouble(dr["Cost"].ToString()),
+                         GMSUtil.ToDouble(dr["LandedCostUnitPrice"].ToString()) == 0? GMSUtil.ToDouble(dr["LandedCostUnitPrice"].ToString()):GMSUtil.ToDouble(GMSUtil.ToDecimal(dr["LandedCostUnitPrice"].ToString()) / GMSUtil.ToDecimal(dr["ExchangeRate"].ToString())),
+                         GMSUtil.ToDouble(dr["Cost"].ToString()) == 0? GMSUtil.ToDouble(dr["Cost"].ToString()): GMSUtil.ToDouble(GMSUtil.ToDecimal(dr["Cost"].ToString()) / GMSUtil.ToDecimal(dr["ExchangeRate"].ToString())),
                          dr["Currency"].ToString(),
                          GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
                         );

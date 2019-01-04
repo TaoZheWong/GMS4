@@ -84,6 +84,20 @@ namespace GMSWeb.Sales.Sales
             row.CreateCell(13).SetCellValue("RPercent");
             row.CreateCell(14).SetCellValue("Remarks");
 
+            //Additional
+            row.CreateCell(15).SetCellValue("Stock");
+            row.CreateCell(16).SetCellValue("Last 4Q");
+            row.CreateCell(17).SetCellValue("Last 3Q");
+            row.CreateCell(18).SetCellValue("Last 2Q");
+            row.CreateCell(19).SetCellValue("Last Q");
+            row.CreateCell(20).SetCellValue("Last 6 months latest PO Prices");
+            //row.CreateCell(21).SetCellValue("DPerNew");
+            //row.CreateCell(22).SetCellValue("UPerNew");
+            //row.CreateCell(23).SetCellValue("RPerNew");
+
+
+
+
             DataSet dsProductPrice = new DataSet();
             try
             {
@@ -105,12 +119,27 @@ namespace GMSWeb.Sales.Sales
                         row.CreateCell(6).SetCellValue(dr["WeightedCost"].ToString() == "" ? 0 : Double.Parse(dr["WeightedCost"].ToString()));
                         row.CreateCell(7).SetCellValue(dr["Country"].ToString());
                         row.CreateCell(8).SetCellValue(dr["DealerPrice"].ToString() == "" ? 0 : Double.Parse(dr["DealerPrice"].ToString()));
-                        row.CreateCell(9).SetCellFormula("IFERROR(((I"+ si + " - G" + si + ") / I" + si +  "),0)");
+                        //row.CreateCell(9).SetCellValue(dr["DPercent"].ToString() == "" ? 0 : Double.Parse(dr["DPercent"].ToString()));
+                        row.CreateCell(9).SetCellValue(dr["DPernew"].ToString() == "" ? 0 : Double.Parse(dr["DPerNew"].ToString()));
                         row.CreateCell(10).SetCellValue(dr["UserPrice"].ToString() == "" ? 0 : Double.Parse(dr["UserPrice"].ToString()));
-                        row.CreateCell(11).SetCellFormula("IFERROR(((K" + si + " - G" + si + ")/ K" + si + "),0)");
+                        //row.CreateCell(11).SetCellValue(dr["UPercent"].ToString() == "" ? 0 : Double.Parse(dr["UPercent"].ToString()));
+                        row.CreateCell(11).SetCellValue(dr["UPerNew"].ToString() == "" ? 0 : Double.Parse(dr["UPerNew"].ToString()));
                         row.CreateCell(12).SetCellValue(dr["RetailPrice"].ToString() == "" ? 0 : Double.Parse(dr["RetailPrice"].ToString()));
-                        row.CreateCell(13).SetCellFormula("IFERROR(((M" + si + " - G" + si + ") / M" + si + "),0)");
-                        row.CreateCell(14).SetCellValue(dr["Remarks"].ToString());
+                        //row.CreateCell(13).SetCellValue(dr["RPercent"].ToString() == "" ? 0 : Double.Parse(dr["RPercent"].ToString()));
+                        row.CreateCell(13).SetCellValue(dr["RPerNew"].ToString() == "" ? 0 : Double.Parse(dr["RPerNew"].ToString()));
+                        row.CreateCell(14).SetCellValue(dr["Remarks"].ToString());                  
+
+                        //Additional
+                        row.CreateCell(15).SetCellValue(dr["BalanceQuantity"].ToString());
+                        row.CreateCell(16).SetCellValue(dr["L4Q"].ToString());
+                        row.CreateCell(17).SetCellValue(dr["L3Q"].ToString());
+                        row.CreateCell(18).SetCellValue(dr["L2Q"].ToString());
+                        row.CreateCell(19).SetCellValue(dr["LQ"].ToString());
+                        row.CreateCell(20).SetCellValue(dr["Currency"].ToString()+ dr["UnitAmount"].ToString());
+                        //row.CreateCell(21).SetCellValue(dr["DPernew"].ToString() == "" ? 0 : Double.Parse(dr["DPerNew"].ToString()));
+                        //row.CreateCell(22).SetCellValue(dr["UPerNew"].ToString() == "" ? 0 : Double.Parse(dr["UPerNew"].ToString()));
+                        //row.CreateCell(23).SetCellValue(dr["RPerNew"].ToString() == "" ? 0 : Double.Parse(dr["RPerNew"].ToString()));
+
                         i++;
                     }
                 }

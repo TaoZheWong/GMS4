@@ -34,12 +34,13 @@ namespace GMSWeb.Products.Products
                     string coyid  = context.Request.Form["coyid_" + (index*3 + 2)]; 
                     HttpPostedFile file = files[i];
                     string folderPath = System.Web.Configuration.WebConfigurationManager.AppSettings["MR_DOWNLOAD_PATH"].ToString() + coyid;
-                    string randomIDFileName = DateTime.Now.Ticks.ToString() + file.FileName.ToString();
+                    string extension = System.IO.Path.GetExtension(file.FileName);
+                    string randomIDFileName = DateTime.Now.Ticks.ToString() + extension;
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
                     }
-                    string extension = System.IO.Path.GetExtension(file.FileName);
+                    
 
                     if (randomIDFileName.Length > 100)
                     {

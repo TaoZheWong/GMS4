@@ -733,7 +733,66 @@ namespace GMSWeb.Reports.Report {
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
 
                     controlCount = controlCount + 1;
+                }
 
+                if (crReportDocument.ParameterFields["@COARangeStart"] != null) {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">COA Range Start :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    TextBox txtCOARangeStart = new TextBox();
+                    txtCOARangeStart.ID = "txtCOARangeStart";
+                    txtCOARangeStart.CssClass = "form-control";
+                    txtCOARangeStart.Attributes["placeholder"] = "e.g. 0000";
+                    pnlParameter.Controls.Add(txtCOARangeStart);
+                    if (ViewState["txtCOARangeStart"] == null)
+                        ViewState["txtCOARangeStart"] = "0000";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+                if (crReportDocument.ParameterFields["@COARangeEnd"] != null) {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">COA Range End :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    TextBox txtCOARangeEnd = new TextBox();
+                    txtCOARangeEnd.ID = "txtCOARangeEnd";
+                    txtCOARangeEnd.CssClass = "form-control";
+                    txtCOARangeEnd.Attributes["placeholder"] = "e.g. 9999";
+                    pnlParameter.Controls.Add(txtCOARangeEnd);
+                    if (ViewState["txtCOARangeEnd"] == null)
+                        ViewState["txtCOARangeEnd"] = "9999";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+                if (crReportDocument.ParameterFields["@CompanyCode"] != null) {
+                    GMSGeneralDALC dacl3 = new GMSGeneralDALC();
+                    DataSet dsCompanyCode = new DataSet();
+                    dacl3.GetCompanyName(ref dsCompanyCode);
+
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Company Code :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlCompanyCode = new DropDownList();
+                    ddlCompanyCode.ID = "ddlCompanyCode";
+                    ddlCompanyCode.CssClass = "form-control";
+                    ddlCompanyCode.Items.Clear();
+
+                    for (int j = 0; j < dsCompanyCode.Tables[0].Rows.Count; j++) {
+                        ddlCompanyCode.Items.Add(new ListItem(dsCompanyCode.Tables[0].Rows[j]["CompanyCode"].ToString(), dsCompanyCode.Tables[0].Rows[j]["CoyID"].ToString()));
+                    }
+                    
+                    pnlParameter.Controls.Add(ddlCompanyCode);
+                    if (ViewState["ddlCompanyCode"] == null)
+                        ViewState["ddlCompanyCode"] = "0";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
                 }
             }
             else {
@@ -1813,6 +1872,15 @@ namespace GMSWeb.Reports.Report {
                     ViewState["txtAccountCode"] = ((TextBox)pnlParameter.FindControl("txtAccountCode")).Text.ToString();
                 if (crReportDocument.ParameterFields["SalesPersonName"] != null || crReportDocument.ParameterFields["Sales Person Name"] != null || crReportDocument.ParameterFields["Salesperson"] != null)
                     ViewState["txtSalesPersonName"] = ((TextBox)pnlParameter.FindControl("txtSalesPersonName")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["@COARangeStart"] != null)
+                    ViewState["txtCOARangeStart"] = string.IsNullOrEmpty(((TextBox)pnlParameter.FindControl("txtCOARangeStart")).Text) ? "0000" : ((TextBox)pnlParameter.FindControl("txtCOARangeStart")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["@COARangeEnd"] != null)
+                    ViewState["txtCOARangeEnd"] = string.IsNullOrEmpty(((TextBox)pnlParameter.FindControl("txtCOARangeEnd")).Text) ? "9999" : ((TextBox)pnlParameter.FindControl("txtCOARangeEnd")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["@CompanyCode"] != null)
+                    ViewState["ddlCompanyCode"] = ((DropDownList)pnlParameter.FindControl("ddlCompanyCode")).SelectedValue.ToString();
             }
             else {
                 if (crReportDocument.ParameterFields["@Year"] != null)
@@ -2101,6 +2169,14 @@ namespace GMSWeb.Reports.Report {
                         crReportDocument.SetParameterValue("CoyID", session.CompanyId);
                     if (crReportDocument.ParameterFields["@UserNumID"] != null)
                         crReportDocument.SetParameterValue("@UserNumID", loginUserOrAlternateParty);
+                    
+                    if (crReportDocument.ParameterFields["@COARangeStart"] != null && ViewState["txtCOARangeStart"] != null)
+                        crReportDocument.SetParameterValue("@COARangeStart", ViewState["txtCOARangeStart"].ToString());
+                    if (crReportDocument.ParameterFields["@COARangeEnd"] != null && ViewState["txtCOARangeEnd"] != null)
+                        crReportDocument.SetParameterValue("@COARangeEnd", ViewState["txtCOARangeEnd"].ToString());
+
+                    if (crReportDocument.ParameterFields["@CompanyCode"] != null)
+                        crReportDocument.SetParameterValue("@CompanyCode", ViewState["ddlCompanyCode"].ToString());
                 }
                 else {
                     if (crReportDocument.ParameterFields["@Year"] != null && ViewState["ddlYear"] != null)
