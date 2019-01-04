@@ -328,6 +328,66 @@ namespace GMSCore.Entity
             }
         }
 
+        private string _projectNo;
+        ///<summary>Database mapping to column tbDocumentNumber.ProjectNo</summary>
+        public string ProjectNo
+        {
+            get { return _projectNo; }
+            set
+            {
+                if (_projectNo != value)
+                {
+                    _projectNo = value;
+                    OnPropertyChanged("ProjectNo");
+                }
+            }
+        }
+
+        private string _ceid;
+        ///<summary>Database mapping to column tbDocumentNumber.CEID</summary>
+        public string CEID
+        {
+            get { return _ceid; }
+            set
+            {
+                if (_ceid != value)
+                {
+                    _ceid = value;
+                    OnPropertyChanged("CEID");
+                }
+            }
+        }
+
+        private string _ceDetailID;
+        ///<summary>Database mapping to column tbDocumentNumber.CEDetailID</summary>
+        public string CEDetailID
+        {
+            get { return _ceDetailID; }
+            set
+            {
+                if (_ceDetailID != value)
+                {
+                    _ceDetailID = value;
+                    OnPropertyChanged("CEDetailID");
+                }
+            }
+        }
+
+        private string _itemID;
+        ///<summary>Database mapping to column tbDocumentNumber.ItemID</summary>
+        public string ItemID
+        {
+            get { return _itemID; }
+            set
+            {
+                if (_itemID != value)
+                {
+                    _itemID = value;
+                    OnPropertyChanged("ItemID");
+                }
+            }
+        }
+
         ///<summary>Initializes a new instance of this class</summary>
 		public DocumentNumber() : base()
 		{
@@ -399,8 +459,12 @@ namespace GMSCore.Entity
                     case "_documentNo": return _documentNo;
                     case "_documentNoForEmployee": return _documentNoForEmployee;
                     case "_claimNo": return _claimNo;
+                    case "_projectNo": return _projectNo;
+                    case "_ceid": return _ceid;
+                    case "_ceDetailID": return _ceDetailID;
+                    case "_itemID": return _itemID;
 
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -429,8 +493,12 @@ namespace GMSCore.Entity
                     case "_documentNo": _documentNo = (string)value; break;
                     case "_documentNoForEmployee": _documentNoForEmployee = (string)value; break;
                     case "_claimNo": _claimNo = (string)value; break;
+                    case "_projectNo": _projectNo = (string)value; break;
+                    case "_ceid": _ceid = (string)value; break;
+                    case "_ceDetailID": _ceDetailID = (string)value; break;
+                    case "_itemID": _itemID = (string)value; break;
 
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -464,8 +532,12 @@ namespace GMSCore.Entity
             stb.AppendFormat("_documentNo={0}\n,", _documentNo.ToString());
             stb.AppendFormat("_documentNoForEmployee={0}\n,", _documentNoForEmployee.ToString());
             stb.AppendFormat("_claimNo={0}\n,", _claimNo.ToString());
+            stb.AppendFormat("_projectNo={0}\n,", _projectNo.ToString());
+            stb.AppendFormat("_ceid={0}\n,", _ceid.ToString());
+            stb.AppendFormat("_ceDetailID={0}\n,", _ceDetailID.ToString());
+            stb.AppendFormat("_itemID={0}\n,", _itemID.ToString());
 
-			return stb.ToString();
+            return stb.ToString();
 		}
 		#endregion
 

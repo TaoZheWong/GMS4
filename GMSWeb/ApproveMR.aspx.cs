@@ -732,6 +732,12 @@ namespace GMSWeb
                     documentNumber.CommCommentNo = "0001";
                     documentNumber.PurchaseNo = "0001";
                     documentNumber.MRNo = "0001";
+                    documentNumber.DocumentNo = "00001";
+                    documentNumber.DocumentNoForEmployee = "000001";
+                    documentNumber.ProjectNo = "000001";
+                    documentNumber.CEID = "0001";
+                    documentNumber.CEDetailID = "00001";
+                    documentNumber.ItemID = "1";
                 }
 
                 mrno = "MR" + DateTime.Now.ToString("yy") + "" + documentNumber.MRNo.ToString();

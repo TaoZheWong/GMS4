@@ -154,6 +154,11 @@
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
+                        <asp:TemplateColumn HeaderText="Active" HeaderStyle-Wrap="false" SortExpression="IsActive">
+                            <ItemTemplate>                                
+                                <asp:CheckBox Enabled="false" runat="server" Checked='<%# Convert.ToBoolean(Eval("IsActive"))%>'></asp:CheckBox>
+                            </ItemTemplate>
+                        </asp:TemplateColumn>
                     </Columns>
                     <HeaderStyle CssClass="tHeader" />
                     <PagerStyle Mode="NumericPages" CssClass="grid_pagination" />
