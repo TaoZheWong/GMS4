@@ -24,7 +24,7 @@ namespace GMSWeb.UsefulResources.Resources
 
         protected string folderPath = @"D:\GMSDocuments\Resources\";
         protected bool available = false;
-
+        protected bool byCategory = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
@@ -45,7 +45,11 @@ namespace GMSWeb.UsefulResources.Resources
                 if (Request.Params["ModuleCategoryName"] != null)
                     this.hidModuleCategoryName.Value = Request.Params["ModuleCategoryName"].ToString();
                 if (Request.Params["DocumentCategoryID"] != null)
+                {
                     this.hidDocumentCateogryID.Value = Request.Params["DocumentCategoryID"].ToString(); //store the value in a hidden field instead of using this.documentCategoryID
+                    byCategory = true;
+                }
+
                 LoadDDLs();
             }
 
@@ -86,7 +90,12 @@ namespace GMSWeb.UsefulResources.Resources
 
         protected void LoadDDLs()
         {
-            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
+            IList<DocumentCategory> lstCategory = null;
+            if (byCategory)
+                lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
+            else
+                lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(short.Parse(this.hidModuleCategoryID.Value));
+
             if (lstCategory != null && lstCategory.Count > 0)
             {
                 this.ddlDocumentCategory.DataSource = lstCategory;
@@ -153,7 +162,13 @@ namespace GMSWeb.UsefulResources.Resources
             else
                 CanDelete = false;
 
-            IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
+            //IList<DocumentCategory> lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
+
+            IList<DocumentCategory> lstCategory = null;
+            if (byCategory)
+                lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
+            else
+                lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(short.Parse(this.hidModuleCategoryID.Value));
 
             if (lstCategory != null && lstCategory.Count > 0)
             {
