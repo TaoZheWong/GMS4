@@ -22,7 +22,7 @@
     
     <input id="hidModuleCategoryID" runat="server" type="hidden" />
     <input id="hidModuleCategoryName" runat="server" type="hidden" />
-    <input id="hidDocumentCateogryID" runat="server" type="hidden" />
+    <input id="hidDocumentCateogryID" runat="server" type="hidden" value="" />
     
     <asp:Repeater ID="rppCategoryList" runat="server">
         <ItemTemplate>
