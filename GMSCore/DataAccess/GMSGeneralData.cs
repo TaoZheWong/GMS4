@@ -3840,5 +3840,21 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        public void GetSalesExecForReport(short companyId, short userid, int year, int month, string department,ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalesPersonSelectForReport", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumId", SqlDbType.NVarChar).Value = userid;
+            command.Parameters.Add("@Year", SqlDbType.NVarChar).Value = year;
+            command.Parameters.Add("@Month", SqlDbType.NVarChar).Value = month;
+            command.Parameters.Add("@Department", SqlDbType.NVarChar).Value = department;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
     }
 }
