@@ -160,6 +160,71 @@ namespace GMSWeb.Reports.Report
             }
             set { ViewState["IsControlAdded"] = value; }
         }
+        private void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+            short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+            string dept = (((DropDownList)pnlParameter.FindControl("ddlDepartment")).SelectedValue);
+            DropDownList ddlSalesPersonID = pnlParameter.FindControl("ddlSalesPersonID") as DropDownList;
+            ddlSalesPersonID.Items.Clear();
+
+
+            DataSet dsSalesPerson = new DataSet();
+            new GMSGeneralDALC().GetSalesExecForReport(session.CompanyId, loginUserOrAlternateParty, year, month, dept, ref dsSalesPerson);
+            if (dsSalesPerson.Tables[0].Rows.Count > 0)
+            {
+                for (int j = 0; j < dsSalesPerson.Tables[0].Rows.Count; j++)
+                {
+                    ddlSalesPersonID.Items.Add(new ListItem(dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString() + " - " + dsSalesPerson.Tables[0].Rows[j]["SalesPersonName"].ToString(), dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString()));
+                }
+            }
+
+            ViewState["ddlDepartment"] = dept;
+        }
+
+        private void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+            short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+            string dept = (((DropDownList)pnlParameter.FindControl("ddlDepartment")).SelectedValue);
+            DropDownList ddlSalesPersonID = pnlParameter.FindControl("ddlSalesPersonID") as DropDownList;
+            ddlSalesPersonID.Items.Clear();
+
+            DataSet dsSalesPerson = new DataSet();
+            new GMSGeneralDALC().GetSalesExecForReport(session.CompanyId, loginUserOrAlternateParty, year, month, dept ,ref dsSalesPerson);
+            if (dsSalesPerson.Tables[0].Rows.Count > 0)
+            {
+                for (int j = 0; j < dsSalesPerson.Tables[0].Rows.Count; j++)
+                {
+                    ddlSalesPersonID.Items.Add(new ListItem(dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString() + " - " + dsSalesPerson.Tables[0].Rows[j]["SalesPersonName"].ToString(), dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString()));
+                }
+            }
+        }
+
+        private void ddlMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+            short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+            string dept = (((DropDownList)pnlParameter.FindControl("ddlDepartment")).SelectedValue);
+            DropDownList ddlSalesPersonID = pnlParameter.FindControl("ddlSalesPersonID") as DropDownList;
+            ddlSalesPersonID.Items.Clear();
+
+            DataSet dsSalesPerson = new DataSet();
+            new GMSGeneralDALC().GetSalesExecForReport(session.CompanyId, loginUserOrAlternateParty, year, month, dept,ref dsSalesPerson);
+            if (dsSalesPerson.Tables[0].Rows.Count > 0)
+            {
+                for (int j = 0; j < dsSalesPerson.Tables[0].Rows.Count; j++)
+                {
+                    ddlSalesPersonID.Items.Add(new ListItem(dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString() + " - " + dsSalesPerson.Tables[0].Rows[j]["SalesPersonName"].ToString(), dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString()));
+                }
+            }
+        }
 
         private void AddControls()
         {
@@ -322,6 +387,13 @@ namespace GMSWeb.Reports.Report
                 DropDownList ddlYear = new DropDownList();
                 ddlYear.ID = "ddlYear";
                 ddlYear.CssClass = "form-control";
+
+                if (reportId.ToString() == "556")
+                {
+                    ddlYear.AutoPostBack = true;
+                    ddlYear.SelectedIndexChanged += new EventHandler(ddlYear_SelectedIndexChanged);
+                }
+
                 ddlYear.Items.Clear();
                 for (int i = 2005; i <= 2020; i++)
                 {
@@ -350,6 +422,12 @@ namespace GMSWeb.Reports.Report
                 DropDownList ddlMonth = new DropDownList();
                 ddlMonth.ID = "ddlMonth";
                 ddlMonth.CssClass = "form-control";
+                if (reportId.ToString() == "556")
+                {
+                    ddlMonth.AutoPostBack = true;
+                    ddlMonth.SelectedIndexChanged += new EventHandler(ddlMonth_SelectedIndexChanged);
+                }
+
                 ddlMonth.Items.Clear();
                 for (int i = 1; i <= 12; i++)
                 {
@@ -1447,6 +1525,82 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+            if (crReportDocument.ParameterFields["@Department"] != null)
+            {
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Department :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlDepartment = new DropDownList();
+                ddlDepartment.ID = "ddlDepartment";
+                ddlDepartment.CssClass = "form-control";              
+                ddlDepartment.Items.Clear();
+
+                ddlDepartment.Items.Add(new ListItem("NONE", "NONE"));
+                if (reportId.ToString() == "556")
+                {
+                    ddlDepartment.AutoPostBack = true;
+                    ddlDepartment.SelectedIndexChanged += new EventHandler(ddlDepartment_SelectedIndexChanged);
+                }
+
+                if (session.CompanyId.ToString() == "120")
+                {
+                    ddlDepartment.Items.Add(new ListItem("WELDING", "WELDING"));
+                    ddlDepartment.Items.Add(new ListItem("SAFETY", "SAFETY"));
+                }
+               
+                                          
+
+                pnlParameter.Controls.Add(ddlDepartment);
+                
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+
+                if (ViewState["ddlDepartment"] == null)
+                    ViewState["ddlDepartment"] = "NONE";
+
+            }
+
+
+            if (crReportDocument.ParameterFields["@SalesPersonID"] != null)
+            {
+
+                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                string dept = (((DropDownList)pnlParameter.FindControl("ddlDepartment")).SelectedValue);
+                DataSet dsSalesPerson = new DataSet();
+                new GMSGeneralDALC().GetSalesExecForReport(session.CompanyId, loginUserOrAlternateParty, year, month, dept, ref dsSalesPerson);
+                if (dsSalesPerson.Tables[0].Rows.Count > 0)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Sales Person :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlSalesPersonID = new DropDownList();
+                    ddlSalesPersonID.ID = "ddlSalesPersonID";
+                    ddlSalesPersonID.CssClass = "form-control";
+
+                    ddlSalesPersonID.Items.Clear();
+
+                    for (int j = 0; j < dsSalesPerson.Tables[0].Rows.Count; j++)
+                    {
+                        ddlSalesPersonID.Items.Add(new ListItem(dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString() + " - " + dsSalesPerson.Tables[0].Rows[j]["SalesPersonName"].ToString(), dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString()));
+                    }
+
+                    pnlParameter.Controls.Add(ddlSalesPersonID);
+
+
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+
+                }
+                if (ViewState["ddlSalesPersonID"] == null)
+                    ViewState["ddlSalesPersonID"] = -1;
+
+            }
+
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
             dynamicbutton.Text = "Submit";
@@ -1588,6 +1742,11 @@ namespace GMSWeb.Reports.Report
             if (crReportDocument.ParameterFields["@RentalType"] != null)
                 ViewState["ddlRentalType"] = ((DropDownList)pnlParameter.FindControl("ddlRentalType")).SelectedValue.ToString();
 
+            if (crReportDocument.ParameterFields["@SalesPersonID"] != null || crReportDocument.ParameterFields["SalesPersonID"] != null)
+                ViewState["ddlSalesPersonID"] = ((DropDownList)pnlParameter.FindControl("ddlSalesPersonID")).SelectedValue.ToString();
+
+            if (crReportDocument.ParameterFields["@Departement"] != null || crReportDocument.ParameterFields["Department"] != null)
+                ViewState["ddlDepartment"] = ((DropDownList)pnlParameter.FindControl("ddlDepartment")).SelectedValue.ToString();
 
             if (crReportDocument.ParameterFields["@SelectedCurrency"] != null && session.DefaultCurrency != "SGD")
                 ViewState["ddlCurrency"] = ((DropDownList)pnlParameter.FindControl("ddlCurrency")).SelectedValue.ToString();
@@ -1866,7 +2025,14 @@ namespace GMSWeb.Reports.Report
 
                     if (crReportDocument.ParameterFields["@SalesPersonType"] != null && ViewState["ddlSalesPersonType"] != null)
                         crReportDocument.SetParameterValue("@SalesPersonType", ViewState["ddlSalesPersonType"].ToString());
-                    if(crReportDocument.ParameterFields["@SalesType"] != null && ViewState["ddlSalesType"] != null)
+
+                    if (crReportDocument.ParameterFields["@SalesPersonID"] != null && ViewState["ddlSalesPersonID"] != null)
+                        crReportDocument.SetParameterValue("@SalesPersonID", ViewState["ddlSalesPersonID"].ToString());
+
+                    if (crReportDocument.ParameterFields["@Department"] != null && ViewState["ddlDepartment"] != null)
+                        crReportDocument.SetParameterValue("@Department", ViewState["ddlDepartment"].ToString());
+
+                    if (crReportDocument.ParameterFields["@SalesType"] != null && ViewState["ddlSalesType"] != null)
                         crReportDocument.SetParameterValue("@SalesType", ViewState["ddlSalesType"].ToString());
                     if (crReportDocument.ParameterFields["SalesPersonType"] != null && ViewState["ddlSalesPersonType"] != null)
                         crReportDocument.SetParameterValue("SalesPersonType", ViewState["ddlSalesPersonType"].ToString());
