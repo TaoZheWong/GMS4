@@ -3847,10 +3847,24 @@ namespace GMSCore
             SqlCommand command = new SqlCommand("procAppSalesPersonSelectForReport", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@UserNumId", SqlDbType.NVarChar).Value = userid;
-            command.Parameters.Add("@Year", SqlDbType.NVarChar).Value = year;
-            command.Parameters.Add("@Month", SqlDbType.NVarChar).Value = month;
+            command.Parameters.Add("@UserNumId", SqlDbType.Int).Value = userid;
+            command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+            command.Parameters.Add("@Month", SqlDbType.Int).Value = month;
             command.Parameters.Add("@Department", SqlDbType.NVarChar).Value = department;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void GetDepartmentForReport(short companyId, short reportid, short userid, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSelectCompanyDivisionForSalesReport", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;            
+            command.Parameters.Add("@ReportID", SqlDbType.SmallInt).Value = reportid;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userid;   
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
