@@ -1536,20 +1536,21 @@ namespace GMSWeb.Reports.Report
                 ddlDepartment.CssClass = "form-control";              
                 ddlDepartment.Items.Clear();
 
-                ddlDepartment.Items.Add(new ListItem("NONE", "NONE"));
-                if (reportId.ToString() == "556")
+                DataSet dsDepartment = new DataSet();
+                new GMSGeneralDALC().GetDepartmentForReport(session.CompanyId, reportId, loginUserOrAlternateParty, ref dsDepartment);
+                if (dsDepartment.Tables[0].Rows.Count > 0)
                 {
-                    ddlDepartment.AutoPostBack = true;
-                    ddlDepartment.SelectedIndexChanged += new EventHandler(ddlDepartment_SelectedIndexChanged);
+                    for (int j = 0; j < dsDepartment.Tables[0].Rows.Count; j++)
+                    {
+                        ddlDepartment.Items.Add(new ListItem(dsDepartment.Tables[0].Rows[j]["DepartmentName"].ToString(), dsDepartment.Tables[0].Rows[j]["DepartmentName"].ToString()));
+                    }
                 }
-
-                if (session.CompanyId.ToString() == "120")
-                {
-                    ddlDepartment.Items.Add(new ListItem("WELDING", "WELDING"));
-                    ddlDepartment.Items.Add(new ListItem("SAFETY", "SAFETY"));
-                }
-               
-                                          
+                                   
+                    if (reportId.ToString() == "556")
+                    {
+                        ddlDepartment.AutoPostBack = true;
+                        ddlDepartment.SelectedIndexChanged += new EventHandler(ddlDepartment_SelectedIndexChanged);
+                    }
 
                 pnlParameter.Controls.Add(ddlDepartment);
                 

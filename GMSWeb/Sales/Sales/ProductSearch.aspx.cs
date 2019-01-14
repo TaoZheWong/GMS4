@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using GMSCore;
+using GMSCore.Entity;
+using GMSCore.Activity;
 
 namespace GMSWeb.Sales.Sales
 {
@@ -164,12 +166,15 @@ namespace GMSWeb.Sales.Sales
             {
                 Label lblStockStatus = (Label)e.Item.FindControl("lblStockStatus");
                 HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
-
+                bool isGasDivision = false;
+                bool isWeldingDivision = false;
+                bool canAccessProductStatus = false;
+                DataSet ds_lms = new DataSet();
                 DataSet ds = new DataSet();
                 DataSet ds2 = new DataSet();
                 try
                 {
-                    if (session.WebServiceAddress.Contains("gms.leedenlimited.com"))
+                    if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
                     {
                         GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
                         if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
@@ -181,35 +186,85 @@ namespace GMSWeb.Sales.Sales
                         ds = sc.GetProductStockStatus(session.CompanyId, hidProductCode.Value.Trim());
                         ds2 = sc.GetProductDetailByProductCode(session.CompanyId, hidProductCode.Value.Trim());
                     }
-                    //dacl.GetProductStockStatus(session.CompanyId, productCode, ref ds2);
+                    else if (session.StatusType.ToString() == "L")
+                    {
+                        CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
+                        if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                        {
+                            sc1.Url = session.CMSWebServiceAddress.Trim();
+                        }
+                        else
+                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                        ds = sc1.GetProductWarehouse(hidProductCode.Value.Trim());
+                        ds2 = sc1.GetProductDetailByProductCode(hidProductCode.Value.Trim());
+                        if (ds2 != null && ds.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+                        {
+                            isGasDivision = Convert.ToBoolean(ds2.Tables[0].Rows[0]["IsGasDivision"].ToString());
+                            isWeldingDivision = Convert.ToBoolean(ds2.Tables[0].Rows[0]["IsWeldingDivision"].ToString());
+                        }
+                    }
+                    else if (session.StatusType.ToString() == "S")
+                    {
+
+                        string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + hidProductCode.Value.Trim() + "', '', '', '', '', '2099-12-31', 'Y')";
+                        SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                        ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                        "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                        query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + hidProductCode.Value.Trim().Replace("%", "") + "', '', '', '', '', '')";
+                        sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                        ds2 = sop.GET_SAP_QueryData(session.CompanyId, query,
+                        "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    }
                 }
                 catch (Exception ex)
                 {
                     this.JScriptAlertMsg(ex.Message);
                 }
+                DivisionUser du = DivisionUser.RetrieveByKey(session.CompanyId, session.UserId);
+                if (du != null)
+                {
+                    if (du.DivisionID == "GAS" && isGasDivision)
+                    {
+                        canAccessProductStatus = true;
+                    }
+                    else if (du.DivisionID == "WSD" && isWeldingDivision)
+                    {
+                        canAccessProductStatus = true;
+                    }
+                }
+                else
+                    canAccessProductStatus = true;
 
-                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                if (canAccessProductStatus && ((ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0) || (ds2 != null && ds.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)))
                 {
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                     {
-                        if (dr["Quantity"].ToString() != "0")
-                            lblStockStatus.Text = lblStockStatus.Text + "<span style=\"font-weight:bolder\">" + dr["Warehouse"].ToString() + "</span>-" + dr["WarehouseName"].ToString() +
-                                                    ":" + dr["Quantity"].ToString() + "<br>";
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            if (dr["Quantity"].ToString() != "0" && Decimal.Round(Convert.ToDecimal(dr["Quantity"]), 6).ToString() != "0.000000")
+                                lblStockStatus.Text = lblStockStatus.Text + "<span style=\"font-weight:bolder\">" + dr["Warehouse"].ToString() + "</span>-" + dr["WarehouseName"].ToString() +
+                                                        ":" + Decimal.Round(Convert.ToDecimal(dr["Quantity"]), 6).ToString() + "<br>";
+                        }
                     }
+                    if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds2.Tables[0].Rows[0]["OnOrderQuantity"].ToString() != "0" && ds2.Tables[0].Rows[0]["OnOrderQuantity"].ToString() != "0.000000")
+                        {
+                            lblStockStatus.Text = lblStockStatus.Text + "<span style=\"font-weight:bolder\">On SO</span>" + ":" + Decimal.Round(Convert.ToDecimal(ds2.Tables[0].Rows[0]["OnOrderQuantity"]), 6).ToString() + "<br>";
+                        }
+                        if (ds2.Tables[0].Rows[0]["OnPOQuantity"].ToString() != "0" && ds2.Tables[0].Rows[0]["OnPOQuantity"].ToString() != "0.000000")
+                        {
+                            lblStockStatus.Text = lblStockStatus.Text + "<span style=\"font-weight:bolder\">On PO</span>" + ":" + Decimal.Round(Convert.ToDecimal(ds2.Tables[0].Rows[0]["OnPOQuantity"].ToString()), 6).ToString() + "<br>";
+                        }
+                    }
+                    if (lblStockStatus.Text.Length >= 4)
+                        lblStockStatus.Text = lblStockStatus.Text.Substring(0, lblStockStatus.Text.Length - 4);
+
                 }
-                if (ds2 != null && ds2.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
-                {
-                    if (ds2.Tables[0].Rows[0]["OnOrderQuantity"].ToString() != "0")
-                    {
-                        lblStockStatus.Text = lblStockStatus.Text + "<span style=\"font-weight:bolder\">On SO</span>" + ":" + ds2.Tables[0].Rows[0]["OnOrderQuantity"].ToString() + "<br>";
-                    }
-                    if (ds2.Tables[0].Rows[0]["OnPOQuantity"].ToString() != "0")
-                    {
-                        lblStockStatus.Text = lblStockStatus.Text + "<span style=\"font-weight:bolder\">On PO</span>" + ":" + ds2.Tables[0].Rows[0]["OnPOQuantity"].ToString() + "<br>";
-                    }
-                }
-                if (lblStockStatus.Text.Length >= 4)
-                    lblStockStatus.Text = lblStockStatus.Text.Substring(0, lblStockStatus.Text.Length - 4);
             }
         }
         #endregion
