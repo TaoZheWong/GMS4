@@ -82,9 +82,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
+        //$(document).ready(function () {
+        //    $(".administration-menu").addClass("active expand");
+        //    $(".sub-pricelist").addClass("active");
+        //});
+
         $(document).ready(function () {
-            $(".administration-menu").addClass("active expand");
-            $(".sub-pricelist").addClass("active");
+            $(".sub-pricelist").addClass("active expand");
         });
     </script>
 </asp:Content>

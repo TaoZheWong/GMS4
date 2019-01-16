@@ -351,9 +351,10 @@ function ViewMultipleUOM()
                             }
 							PMRegion4.Visible = true;
 
-							//Added by Adam to limit B user with access can view price
-							if (uAccess != null)
-							{
+                            //Added by Adam to limit B user with access can view price
+                            //if (uAccess != null)   
+                            if (!(uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0)))
+                            {
 								dgData4.Visible = true;
 							}
 

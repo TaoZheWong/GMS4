@@ -28,37 +28,34 @@ namespace GMSWeb.Sales.Sales
         protected short loginUserOrAlternateParty = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.setCurrentLink("Products");
+            string currentLink = "Product";
+            short moduleID = 0;
+
+            if (Request.Params["CurrentLink"] != null)
+            {
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+
+            }
+
+            Master.setCurrentLink(currentLink);
+ 
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
-                Response.Redirect(base.SessionTimeOutPage("Products"));
+                Response.Redirect(base.SessionTimeOutPage(currentLink));
                 return;
             }
 
-            DataSet lstAlterParty = new DataSet();
-            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Price List", ref lstAlterParty);
-            if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
-            {
-                for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
-                {
-                    loginUserOrAlternateParty = GMSUtil.ToShort(lstAlterParty.Tables[0].Rows[i]["OnBehalfUserNumID"].ToString());
-                }
-            }
-            else
-                loginUserOrAlternateParty = session.UserId;
+            if (currentLink == "Product") moduleID = 62;
+            if (currentLink == "Sales") moduleID = 60;
 
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(loginUserOrAlternateParty,
-                                                                            107);
-            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, loginUserOrAlternateParty,
-                                                                            107);
-            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
-                Response.Redirect(base.UnauthorizedPage("Products"));
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+                                                                            moduleID);
 
-            if (!Page.IsPostBack)
-            {
-            }
+            if (uAccess == null)
+                Response.Redirect(base.UnauthorizedPage(currentLink));
         }
+
         protected void btnExport_Click(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
