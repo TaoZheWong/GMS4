@@ -102,6 +102,12 @@ namespace GMSWeb
                 Response.Redirect("~/Admin/Default.aspx");
             }
 
+            bool setDefault = false;
+
+            UserAccessCompany uAccess1 = new GMSUserActivity().RetrieveUserAccessCompanyByUserIdByDefault(session.UserId);
+            if (uAccess1 != null)
+                setDefault = true;
+
             //Access company session first 
             IList<Company> lstCompany = null;
             for (short i = 1; i < 12; i++)
@@ -112,12 +118,12 @@ namespace GMSWeb
                     {
                         lstCompany = new SystemDataActivity().RetrieveCompanyByCountryIdDivisionIdSortByCountryIdAndSeqID(i, j);
                         if (lstCompany != null && lstCompany.Count > 0)
-                        {
+                        {  
                             foreach (Company coy in lstCompany)
                             {
-                                UserAccessCompany uAccess = new GMSUserActivity().RetrieveUserAccessCompanyByUserIdCoyId(session.UserId,
-                                                                                       coy.CoyID);
-                                if (uAccess != null)
+                                UserAccessCompany uAccess = new GMSUserActivity().RetrieveUserAccessCompanyByUserIdCoyId(session.UserId, coy.CoyID);
+                                
+                                if (uAccess != null && uAccess.IsDefault == setDefault)
                                 {
                                     session.CountryId = i;
                                     session.DivisionId = j;
@@ -141,7 +147,6 @@ namespace GMSWeb
                                     session.SAPDB = coy.SAPDB;
                                     session.DimensionL1 = coy.DimensionL1;
                                     session.DefaultWarehouse = coy.DefaultWarehouse;
-
 
                                     if (session.ToNewsPage)
                                         Response.Redirect("~/News/Default.aspx");

@@ -46,8 +46,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".report-menu").addClass("active expand");
-            $(".sub-debtors").addClass("active");
+            $(".debtors-menu").addClass("active expand");
+            //$(".sub-debtors").addClass("active");
         });
     </script>
 </asp:Content>

@@ -489,7 +489,7 @@ namespace GMSWeb.Reports.Report {
                     //ddlYear.SelectedIndexChanged += DropDownListYear_SelectedIndexChanged; 
                     ddlYear.Items.Clear();
 
-                    for (int i = 2005; i <= 2020; i++) {
+                    for (int i = 2011; i <= 2016; i++) {
                         ddlYear.Items.Add(i.ToString());
                     }
 

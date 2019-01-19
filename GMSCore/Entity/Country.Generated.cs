@@ -128,8 +128,24 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-			
-		private IList<Company> _CompanyList;
+
+        private bool _isActive = false;
+        ///<summary>Database mapping to column tbCompany.IsActive</summary>
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set
+            {
+                if (_isActive != value)
+                {
+                    _isActive = value;
+                    OnPropertyChanged("IsActive");
+                }
+            }
+        }
+
+
+        private IList<Company> _CompanyList;
 		///<summary>Collection of Company objects</summary>
 		public IList<Company> CompanyList
 		{
@@ -194,8 +210,9 @@ namespace GMSCore.Entity
 					case "_modifiedBy": return _modifiedBy;
 					case "_modifiedDate": return _modifiedDate;
 					case "_CompanyList": return _CompanyList;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_isActive": return _isActive;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -212,8 +229,10 @@ namespace GMSCore.Entity
 					case "_modifiedBy": _modifiedBy = (short)value; break;
 					case "_modifiedDate": _modifiedDate = (DateTime)value; break;
 					case "_CompanyList": _CompanyList = (IList<Company>)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_isActive": _isActive = (bool)value; break;
+
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -234,9 +253,10 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_createdDate={0}\n,", _createdDate.ToString() );
 			stb.AppendFormat("_modifiedBy={0}\n,", _modifiedBy.ToString() );
 			stb.AppendFormat("_modifiedDate={0}\n,", _modifiedDate.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_isActive={0}\n,", _isActive.ToString());
+
+
+            return stb.ToString();
 		}
 		#endregion
 
