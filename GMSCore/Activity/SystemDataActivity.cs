@@ -29,7 +29,7 @@ namespace GMSCore.Activity
         #region RetrieveAllCountryListSortBySeqID
         public IList<Country> RetrieveAllCountryListSortBySeqID(LogSession session)
         {
-            QueryHelper helper = base.GetHelper();
+            QueryHelper helper = base.GetHelper();          
 
             return Country.RetrieveQuery("", string.Format(" {0} ASC ", helper.GetFieldName("Country.SeqID")));
         }
@@ -37,8 +37,10 @@ namespace GMSCore.Activity
         public IList<Country> RetrieveAllCountryListSortBySeqID()
         {
             QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = 1 ", helper.GetFieldName("Country.IsActive"));
 
-            return Country.RetrieveQuery("", string.Format(" {0} ASC ", helper.GetFieldName("Country.SeqID")));
+            return Country.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("Country.SeqID")));
         }
 
         public IList<AccountGrade> RetrieveAllAccountGrade()

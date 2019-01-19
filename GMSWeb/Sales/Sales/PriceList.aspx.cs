@@ -28,7 +28,7 @@ namespace GMSWeb.Sales.Sales
         protected short loginUserOrAlternateParty = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentLink = "Product";
+            string currentLink = "Products";
             short moduleID = 0;
 
             if (Request.Params["CurrentLink"] != null)
@@ -46,10 +46,23 @@ namespace GMSWeb.Sales.Sales
                 return;
             }
 
-            if (currentLink == "Product") moduleID = 62;
+            if (currentLink == "Products") moduleID = 62;
             if (currentLink == "Sales") moduleID = 60;
 
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+            DataSet lstAlterParty = new DataSet();
+            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Product Search", ref lstAlterParty);
+            if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
+            {
+                for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
+                {
+
+                    loginUserOrAlternateParty = GMSUtil.ToShort(lstAlterParty.Tables[0].Rows[i]["OnBehalfUserNumID"].ToString());
+                }
+            }
+            else
+                loginUserOrAlternateParty = session.UserId;
+
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(loginUserOrAlternateParty,
                                                                             moduleID);
 
             if (uAccess == null)

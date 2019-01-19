@@ -413,8 +413,23 @@ namespace GMSCore.Activity
 
             return UserAccessCompany.RetrieveFirst(stb.ToString());
         }
-        #endregion
 
+        #endregion
+        #region RetrieveUserAccessCompanyByUserIdByDefault
+        public UserAccessCompany RetrieveUserAccessCompanyByUserIdByDefault(short userNumId)
+        {
+            if (userNumId <= 0)
+                return null;            
+
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("UserAccessCompany.UserNumID"),
+                                                helper.CleanValue(userNumId)); 
+            stb.AppendFormat(" and {0} = 1 ", helper.GetFieldName("UserAccessCompany.IsDefault"));
+
+            return UserAccessCompany.RetrieveFirst(stb.ToString());
+        }
+        #endregion
 
         // Activity for UserAccessModule
         #region RetrieveUserAccessModuleByUserId

@@ -94,7 +94,7 @@ namespace GMSWeb.Finance.Reports
             ReportCategory cat2 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Archive");
             if (cat2!= null)
             {
-                cat2.Name = "Archive";
+                cat2.Name = "Archive (2011-2016)";
                 lstCategory.Add(cat2);
             }
 
@@ -109,39 +109,7 @@ namespace GMSWeb.Finance.Reports
             //{
             //    cat3.Name = "Debtors Reports";
             //    lstCategory.Add(cat3);
-            //}
-            //ReportCategory cat4 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Suppliers");
-            //if (cat4 != null)
-            //{
-            //    cat4.Name = "Suppliers Reports";
-            //    lstCategory.Add(cat4);
-            //}
-            //ReportCategory cat5 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Products");
-            //if (cat5 != null)
-            //{
-            //    cat5.Name = "Inventory Reports";
-            //    lstCategory.Add(cat5);
-            //}
-            //ReportCategory cat6 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Fixed Asset");
-            //if (cat6 != null)
-            //{
-            //    cat6.Name = "Fixed Asset Reports";
-            //    lstCategory.Add(cat6);
-            //}
-
-            ////Additional
-            //ReportCategory cat7 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Cash Flow");
-            //if (cat7 != null)
-            //{
-            //    cat7.Name = "Cash Flow & Banking Reports";
-            //    lstCategory.Add(cat7);
-            //}
-            //ReportCategory cat8 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Finance Audit");
-            //if (cat8 != null)
-            //{
-            //    cat8.Name = "Audit Report";
-            //    lstCategory.Add(cat8);
-            //}
+         
 
             //this one is display the report based on the category of the report
             //need to copy this one also, to display those reports

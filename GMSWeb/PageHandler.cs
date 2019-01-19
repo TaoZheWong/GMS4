@@ -613,7 +613,7 @@ namespace GMSWeb
                         "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Products\">Upload</a></li>" +
                         "<li class='sub-forms'><a href=\"" + appPath +
                         "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Products - Forms&ModuleCategoryID=7&ModuleCategoryName=Products\">Forms</a></li>" +
-                        "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx\">Pricelist</a></li>" +
+                        "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Pricelist</a></li>" +
                         "<li class='sub-sales-package'><a href=\"" + appPath + "/Sales/Sales/SalesPackage.aspx\">Sales Package</a></li>" +
                         "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=Products\">Claim</a></li>" +
                     "</ul>" +

@@ -54,11 +54,27 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-		
-		#endregion
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public UserAccessCompany() : base()
+
+        private bool _isDefault = false;
+        ///<summary>Database mapping to column tbUserAccessCompany.IsDefault</summary>
+        public bool IsDefault
+        {
+            get { return _isDefault; }
+            set
+            {
+                if (_isDefault != value)
+                {
+                    _isDefault = value;
+                    OnPropertyChanged("IsDefault");
+                }
+            }
+        }
+
+
+        #endregion
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public UserAccessCompany() : base()
 		{
 			// Default Constructor
 		}
@@ -110,8 +126,9 @@ namespace GMSCore.Entity
 				switch (memberName) {
 					case "_userNumID": return _userNumID;
 					case "_coyID": return _coyID;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_isDefault": return _isDefault;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -122,8 +139,9 @@ namespace GMSCore.Entity
 				switch (memberName) {
 					case "_userNumID": _userNumID = (short)value; break;
 					case "_coyID": _coyID = (short)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_isDefault": _isDefault = (bool)value; break;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -139,9 +157,10 @@ namespace GMSCore.Entity
 			
 			stb.AppendFormat("_userNumID={0}\n,", _userNumID.ToString() );
 			stb.AppendFormat("_coyID={0}\n,", _coyID.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_isDefault={0}\n,", _isDefault.ToString());
+
+
+            return stb.ToString();
 		}
 		#endregion
 
