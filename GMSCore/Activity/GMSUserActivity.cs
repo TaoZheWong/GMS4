@@ -733,7 +733,7 @@ namespace GMSCore.Activity
                 {
                     userAccessCoyInsertNew.UserNumID = userNumId;
                     userAccessCoyInsertNew.CoyID = GMSUtil.ToShort(arlCoyId[i].ToString());
-
+                    //userAccessCoyInsertNew.IsDefault = false;
                     trans.Save(userAccessCoyInsertNew);
                 }
                 #endregion
