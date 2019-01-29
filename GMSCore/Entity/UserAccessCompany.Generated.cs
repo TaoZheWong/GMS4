@@ -56,7 +56,7 @@ namespace GMSCore.Entity
 		}
 
         private bool _isDefault = false;
-        ///<summary>Database mapping to column tbUserAccessCompany.IsDefault</summary>
+        ///<summary>Database mapping to column tbUserAccessCompany.IsDefault</summary>        
         public bool IsDefault
         {
             get { return _isDefault; }
@@ -139,8 +139,7 @@ namespace GMSCore.Entity
 				switch (memberName) {
 					case "_userNumID": _userNumID = (short)value; break;
 					case "_coyID": _coyID = (short)value; break;
-                    case "_isDefault": _isDefault = (bool)value; break;
-
+                    case "_isDefault": _isDefault = (bool)value; break;      
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
@@ -157,9 +156,7 @@ namespace GMSCore.Entity
 			
 			stb.AppendFormat("_userNumID={0}\n,", _userNumID.ToString() );
 			stb.AppendFormat("_coyID={0}\n,", _coyID.ToString() );
-            stb.AppendFormat("_isDefault={0}\n,", _isDefault.ToString());
-
-
+            stb.AppendFormat("_isDefault={0}\n,", _isDefault.ToString());            
             return stb.ToString();
 		}
 		#endregion

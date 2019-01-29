@@ -3183,7 +3183,7 @@ namespace GMSCore
             return;
         }
 
-        public void CanUserAccessCost(short companyId, string prodCode, short userId, ref DataSet ds)
+        public void CanUserAccessCost(short companyId, string prodCode, short userId, bool isGasDivision, bool isWeldingDivision, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppCheckUserAccessCost", (SqlConnection)conn);
@@ -3191,6 +3191,8 @@ namespace GMSCore
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@ProdCode", SqlDbType.NVarChar).Value = prodCode;            
             command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = userId;
+            command.Parameters.Add("@IsGasDivision", SqlDbType.Bit).Value = isGasDivision;
+            command.Parameters.Add("@IsWeldingDivision", SqlDbType.Bit).Value = isWeldingDivision;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;

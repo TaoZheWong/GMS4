@@ -278,7 +278,7 @@ function ViewMultipleUOM()
                 }
 
                 DataSet dsAccessCost = new DataSet();
-                new GMSGeneralDALC().CanUserAccessCost(session.CompanyId, hidProductCode.Value, loginUserOrAlternateParty, ref dsAccessCost);
+                new GMSGeneralDALC().CanUserAccessCost(session.CompanyId, hidProductCode.Value, loginUserOrAlternateParty, isGasDivision, isWeldingDivision,  ref dsAccessCost);
                 canAccessCost = Convert.ToBoolean(dsAccessCost.Tables[0].Rows[0]["result"]);
 
                 DivisionUser du = DivisionUser.RetrieveByKey(session.CompanyId, loginUserOrAlternateParty);
