@@ -102,22 +102,36 @@
                                     <HeaderTemplate>
                                         <table class="table table-condensed">
                                             <tr bgcolor="#F5F6F7">
-                                                <td></td>
+                                                <td align="right">
+                                                    <i>Access</i>
+                                                </td>
                                                 <td>
                                                     <div class="checkbox">
                                                         <input type="checkbox" id="chkAllCompany" onclick="CheckAll(this, 'rppUserAccessCompany')" name="chkAll" title="Select All" />
                                                         <label for="chkAllCompany">&nbsp;</label>
                                                     </div>
                                                 </td>
+                                                <td> </td>
+                                                <td align="left">
+                                                    <i>Default</i>
+                                                </td>
+                                              <%--  <td>
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" id="chkDefaultCompany" onclick="CheckOne(this, 'rppUserAccessCompany')" name="chkOne" title="Select One" />
+                                                        <label for="chkDefaultCompany">&nbsp;</label>
+                                                    </div>
+                                                </td>--%>
                                             </tr>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <tr id="rppRow" runat="server" class="rppUserAccessCompany">
+                                        <tr id="rppRow" runat="server">
                                             <td>
                                                 <input type="hidden" name="hidCoyId" id="hidCoyId" runat="server" value='<%# DataBinder.Eval(Container.DataItem,"CoyID")%>' />
                                                 <input type="hidden" name="hidName" id="hidName" runat="server" value="Company List" />
+                                                <input type="hidden" name="hidDefault" id="hidDefault" runat="server" value="Company List" />
                                                 <small>
                                                     <%# DataBinder.Eval(Container.DataItem,"Code") + " - " + DataBinder.Eval(Container.DataItem,"Name")%>
+                                                 
                                                 </small>
                                             </td>
                                         </tr>

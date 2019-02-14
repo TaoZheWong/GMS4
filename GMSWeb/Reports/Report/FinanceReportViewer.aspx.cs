@@ -23,9 +23,10 @@ namespace GMSWeb.Reports.Report {
         string fileDescription = "";
         bool IsCOA2016 = false;
         protected short loginUserOrAlternateParty = 0;
+        private short rCategoryId = 0;
+ 
 
-
-        protected void Page_Load(object sender, EventArgs e) {
+        protected void Page_Load(object sender, EventArgs e) { 
             LogSession session = base.GetSessionInfo();
             if (session == null) {
                 Response.Redirect("../../SessionTimeout.htm");
@@ -65,6 +66,7 @@ namespace GMSWeb.Reports.Report {
                 //Added By Adam to GET only COA2016 Report
                 //IsDeprecatedReport = fileDescription.Contains("COA2016");
                 IsCOA2016 = new ReportsActivity().RetrieveReportById(this.reportId).IsCOA2016;
+                rCategoryId = new ReportsActivity().RetrieveReportById(this.reportId).ReportCategoryID;
 
                 fileDescription = fileDescription.Substring(0, 1);
 
@@ -489,9 +491,23 @@ namespace GMSWeb.Reports.Report {
                     //ddlYear.SelectedIndexChanged += DropDownListYear_SelectedIndexChanged; 
                     ddlYear.Items.Clear();
 
-                    for (int i = 2011; i <= 2020; i++) {
-                        ddlYear.Items.Add(i.ToString());
+                    if(rCategoryId == 23){
+
+                        for (int i = 2011; i <= 2016; i++)
+                        {
+                            ddlYear.Items.Add(i.ToString());
+                        }
+
+                    } 
+                    else {
+
+                        for (int i = 2011; i <= 2020; i++)
+                        {
+                            ddlYear.Items.Add(i.ToString());
+                        }
+
                     }
+
 
                     if ((fileDescription == "S") || (fileDescription == "P"))
                         ddlYear.SelectedValue = DateTime.Now.Year.ToString();
@@ -707,7 +723,6 @@ namespace GMSWeb.Reports.Report {
                     controlCount = controlCount + 1;
                 }
 
-
                 if (crReportDocument.ParameterFields["@Type"] != null) {
 
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -735,6 +750,7 @@ namespace GMSWeb.Reports.Report {
                     controlCount = controlCount + 1;
                 }
 
+              
                 if (crReportDocument.ParameterFields["@COARangeStart"] != null) {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">COA Range Start :"));
@@ -796,15 +812,13 @@ namespace GMSWeb.Reports.Report {
                 }
             }
             else {
-                if (crReportDocument.ParameterFields["@Date"] != null || crReportDocument.ParameterFields["@AsOfDate"] != null) {
-
-                    // add new control
+                if (crReportDocument.ParameterFields["@Date"] != null || crReportDocument.ParameterFields["@AsOfDate"] != null)
+                {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Date :"));
                     pnlParameter.Controls.Add(new LiteralControl("</label>"));
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"input-group date\">"));
-
                     TextBox txtDate = new TextBox();
                     txtDate.ID = "txtDate";
                     txtDate.Columns = 15;
@@ -1331,6 +1345,29 @@ namespace GMSWeb.Reports.Report {
                 }
 
 
+                if (crReportDocument.ParameterFields["@Display"] != null)
+                {
+
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Display :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlDisplay = new DropDownList();
+                    ddlDisplay.ID = "ddlDisplay";
+                    ddlDisplay.CssClass = "form-control";
+                    ddlDisplay.Items.Clear();
+                    ddlDisplay.Items.Add(new ListItem("In thousands", "1000"));
+                    ddlDisplay.Items.Add(new ListItem("Actual figure", "1"));
+                    pnlParameter.Controls.Add(ddlDisplay);
+                    if (ViewState["ddlDisplay"] == null)
+                        ViewState["ddlDisplay"] = "1000";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+
+
                 if (crReportDocument.ParameterFields["@SalesPersonType"] != null || crReportDocument.ParameterFields["SalesPersonType"] != null)
                 {
 
@@ -1350,6 +1387,36 @@ namespace GMSWeb.Reports.Report {
                     controlCount = controlCount + 1;
                 }
 
+
+                if (crReportDocument.ParameterFields["@SalesType"] != null || crReportDocument.ParameterFields["SalesType"] != null)
+                {
+
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Sales Team :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlSalesType = new DropDownList();
+                    ddlSalesType.ID = "ddlSalesType";
+                    ddlSalesType.CssClass = "form-control";
+                    ddlSalesType.Items.Clear();
+                    ddlSalesType.Items.Add(new ListItem("All", "All"));
+                    if (session.CompanyId == 116 || session.CompanyId == 120)
+                    {
+                        ddlSalesType.Items.Add(new ListItem("Sales Team A", "Welding"));
+                        ddlSalesType.Items.Add(new ListItem("Sales Team B", "Safety"));
+                    }
+                    pnlParameter.Controls.Add(ddlSalesType);
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    if (session.CompanyId == 116 || session.CompanyId == 120)
+                    {
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                        pnlParameter.Controls.Add(new LiteralControl("<p>*Team A consists of Team A + Shared Accounts (Welding) <br> Team B consists of Team B + Shared Accounts (Safety) "));
+                        pnlParameter.Controls.Add(new LiteralControl("</p>"));
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    }
+                    controlCount = controlCount + 1;
+                }
 
                 if (crReportDocument.ParameterFields["Sort By"] != null) {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -1857,8 +1924,7 @@ namespace GMSWeb.Reports.Report {
                 else
                     ViewState["ddlProjectID"] = -1;
                 if (crReportDocument.ParameterFields["@Type"] != null)
-                    ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();
-                if (crReportDocument.ParameterFields["@SelectedCurrency"] != null)
+                    ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();         
                     ViewState["ddlCurrency"] = ((DropDownList)pnlParameter.FindControl("ddlCurrency")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["Currency"] != null && session.DefaultCurrency != "SGD")
                     ViewState["ddlCurrency"] = ((DropDownList)pnlParameter.FindControl("ddlCurrency")).SelectedValue.ToString();
@@ -1909,6 +1975,10 @@ namespace GMSWeb.Reports.Report {
                     ViewState["ddlRental"] = ((DropDownList)pnlParameter.FindControl("ddlRental")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@RentalType"] != null || crReportDocument.ParameterFields["RentalType"] != null)
                     ViewState["ddlRentalType"] = ((DropDownList)pnlParameter.FindControl("ddlRentalType")).SelectedValue.ToString();
+                if (crReportDocument.ParameterFields["@SalesType"] != null || crReportDocument.ParameterFields["SalesType"] != null)
+                    ViewState["ddlSalesType"] = ((DropDownList)pnlParameter.FindControl("ddlSalesType")).SelectedValue.ToString();
+                if (crReportDocument.ParameterFields["@Display"] != null)
+                    ViewState["ddlDisplay"] = ((DropDownList)pnlParameter.FindControl("ddlDisplay")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@SalesPersonType"] != null || crReportDocument.ParameterFields["SalesPersonType"] != null)
                     ViewState["ddlSalesPersonType"] = ((DropDownList)pnlParameter.FindControl("ddlSalesPersonType")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@DateFrom"] != null)
@@ -2132,10 +2202,6 @@ namespace GMSWeb.Reports.Report {
                     if (crReportDocument.ParameterFields["DateTo"] != null && ViewState["txtDateTo"] != null)
                         crReportDocument.SetParameterValue("DateTo", GMSUtil.ToDate(ViewState["txtDateTo"]));
 
-
-
-
-
                     if (crReportDocument.ParameterFields["@Date"] != null && ViewState["txtDate"] != null)
                         crReportDocument.SetParameterValue("@Date", GMSUtil.ToDate(ViewState["txtDate"]));
 
@@ -2203,10 +2269,14 @@ namespace GMSWeb.Reports.Report {
                         crReportDocument.SetParameterValue("@SalesPersonType", ViewState["ddlSalesPersonType"].ToString());
                     if (crReportDocument.ParameterFields["SalesPersonType"] != null && ViewState["ddlSalesPersonType"] != null)
                         crReportDocument.SetParameterValue("SalesPersonType", ViewState["ddlSalesPersonType"].ToString());
-
+                    if (crReportDocument.ParameterFields["@SalesType"] != null && ViewState["ddlSalesType"] != null)
+                        crReportDocument.SetParameterValue("@SalesType", ViewState["ddlSalesType"].ToString());
+                    if (crReportDocument.ParameterFields["SalesType"] != null && ViewState["ddlSalesType"] != null)
+                        crReportDocument.SetParameterValue("SalesType", ViewState["ddlSalesType"].ToString());
+                    if (crReportDocument.ParameterFields["@Display"] != null && ViewState["ddlDisplay"] != null)
+                        crReportDocument.SetParameterValue("@Display", ViewState["ddlDisplay"].ToString());
                     if (crReportDocument.ParameterFields["@SelectedCurrency"] != null && ViewState["ddlCurrency"] != null)
                         crReportDocument.SetParameterValue("@SelectedCurrency", GMSUtil.ToInt(ViewState["ddlCurrency"].ToString()));
-
                     if (crReportDocument.ParameterFields["@SelectedCurrency"] != null && session.DefaultCurrency == "SGD")
                         crReportDocument.SetParameterValue("@SelectedCurrency", GMSUtil.ToInt("1"));
 

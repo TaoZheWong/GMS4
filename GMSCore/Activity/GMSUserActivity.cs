@@ -410,7 +410,7 @@ namespace GMSCore.Activity
 
             stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("UserAccessCompany.CoyID"),
                                                 helper.CleanValue(coyId));
-
+ 
             return UserAccessCompany.RetrieveFirst(stb.ToString());
         }
 
@@ -710,12 +710,13 @@ namespace GMSCore.Activity
         /// <param name="arlCoyId">ArrayList of CoyId</param>
         /// <param name="arlModuleId">ArrayList of ModuleId</param>
         /// <param name="userNumId">short value of user id</param>
+        /// <param name="DefaultCoyID">short value of default coy ID</param>
         /// <returns>ResultType enum</returns>
         public ResultType UpdateUserAccessCompany(ArrayList arlCoyId, ArrayList arlModuleId,
-                            ArrayList arlModCategoryId, ArrayList arlReportId, ArrayList arlDocumentId, ArrayList arlOpeModuleCategoryViewId, ArrayList arlOpeModuleCategoryEditId, short userNumId)
+                            ArrayList arlModCategoryId, ArrayList arlReportId, ArrayList arlDocumentId, ArrayList arlOpeModuleCategoryViewId, ArrayList arlOpeModuleCategoryEditId, short userNumId, short DefaultCoyID)
         {
             TransactionManager trans = null;
-
+             
             try
             {
                 trans = new TransactionManager();
@@ -733,11 +734,15 @@ namespace GMSCore.Activity
                 {
                     userAccessCoyInsertNew.UserNumID = userNumId;
                     userAccessCoyInsertNew.CoyID = GMSUtil.ToShort(arlCoyId[i].ToString());
-                    //userAccessCoyInsertNew.IsDefault = false;
+
+                    userAccessCoyInsertNew.IsDefault= (GMSUtil.ToShort(arlCoyId[i].ToString()) == DefaultCoyID) ? true : false;
+
                     trans.Save(userAccessCoyInsertNew);
                 }
-                #endregion
 
+
+                #endregion
+                
                 #region UserAccessModule
                 IList<UserAccessModule> lstUserAccessMod = this.RetrieveUserAccessModuleByUserId(userNumId);
                 foreach (UserAccessModule uAccessMod in lstUserAccessMod)
@@ -864,7 +869,7 @@ namespace GMSCore.Activity
         /// UpdateUserAccessRightsForCompany
         /// </summary>
         /// <param name="arlCoyId">ArrayList of CoyId</param>
-        /// <param name="arlModuleId">ArrayList of ModuleId</param>
+        /// <param name = "arlModuleId" > ArrayList of ModuleId</param>
         /// <param name="userNumId">short value of user id</param>
         /// <returns>ResultType enum</returns>
         public ResultType UpdateUserAccessRightsForCompany(ArrayList arlModuleId,
@@ -889,6 +894,7 @@ namespace GMSCore.Activity
                 {
                     userAccessModInsertNew.CoyID = coyID;
                     userAccessModInsertNew.UserNumID = userNumId;
+
                     userAccessModInsertNew.ModuleID = GMSUtil.ToShort(arlModuleId[i].ToString());
 
                     trans.Save(userAccessModInsertNew);

@@ -191,15 +191,7 @@
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-accounting-regulations").addClass("active");
                     
-                    } else if (getParameterByName("DocumentCategoryID") == "32") {
-                        $(".resources-menu").addClass("active expand");
-                        $(".sub-resource-company-information").addClass("active");
-
-                    } else if (getParameterByName("DocumentCategoryID") == "14") {
-                        $(".resources-menu").addClass("active expand");
-                        $(".sub-resource-listing-of-codes").addClass("active");
-                    }
-
+                    } 
                     else if (getParameterByName("DocumentCategoryID") == "15") {
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-forms").addClass("active");
@@ -211,18 +203,26 @@
                     else if (getParameterByName("DocumentCategoryID") == "33,28") {
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-guides").addClass("active");
+                    }                 
+                            
+                }
+                else if (getParameterByName("ModuleCategoryID") == "4") {
+                   if (getParameterByName("DocumentCategoryID") == "1") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-company-information").addClass("active");
+
                     }
-                    else if (getParameterByName("DocumentCategoryID") == "34") {
+                    else if (getParameterByName("DocumentCategoryID") == "2") {
+                        $(".resources-menu").addClass("active expand");
+                        $(".sub-resource-listing-of-codes").addClass("active");
+                    }
+                    else if (getParameterByName("DocumentCategoryID") == "18") {
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-currency-exchange-rate").addClass("active");
                     }
-                    else {
-                        
-                    }
-              
+                }
 
-                
-            } else {
+                else {
                 $(".hr-menu").addClass("active expand");
                 $(".sub-hr").addClass("active");
             }
