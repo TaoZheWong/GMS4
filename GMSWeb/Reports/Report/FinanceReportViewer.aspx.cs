@@ -1924,8 +1924,7 @@ namespace GMSWeb.Reports.Report {
                 else
                     ViewState["ddlProjectID"] = -1;
                 if (crReportDocument.ParameterFields["@Type"] != null)
-                    ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();         
-                    ViewState["ddlCurrency"] = ((DropDownList)pnlParameter.FindControl("ddlCurrency")).SelectedValue.ToString();
+                    ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["Currency"] != null && session.DefaultCurrency != "SGD")
                     ViewState["ddlCurrency"] = ((DropDownList)pnlParameter.FindControl("ddlCurrency")).SelectedValue.ToString();
 
