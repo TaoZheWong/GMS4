@@ -284,7 +284,7 @@ namespace GMSWeb
                     icon += "flag-icon flag-icon-sa ";
                     break;
                 default:
-                    icon += "ti-help ";
+                    icon += "ti-folder ";
                     break;
             }
 
