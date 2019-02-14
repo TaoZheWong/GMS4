@@ -3872,5 +3872,15 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        public void GetWarehouseSearch(short companyId, ref DataSet ds) {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand(@"Select * from tbWarehouseSearch where CoyID = @p1", (SqlConnection)conn);
+            command.Parameters.AddWithValue("@p1", companyId);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
     }
 }

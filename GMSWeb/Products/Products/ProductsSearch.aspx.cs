@@ -191,17 +191,39 @@ namespace GMSWeb.Products.Products
         #endregion
         */
         #region LoadData
-        private void LoadData()
-        {
+        private void LoadData() {
             LogSession session = base.GetSessionInfo();
-            
-            if (this.txtProductCode.Text.Trim() == "" && this.txtProductName.Text.Trim() == "" && 
-                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == "")
-            {
-                base.JScriptAlertMsg("Please input a product to search.");
-                return;
-            }
+            DataSet dsWarehouseSearch = new DataSet();
+            List<string> warehouseArray = new List<string>();
+            UserAccessModule accessSearchWarehouse = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+                                                                            151);
+            if (accessSearchWarehouse != null) {
+                new GMSGeneralDALC().GetWarehouseSearch(session.CompanyId, ref dsWarehouseSearch);
+                if (dsWarehouseSearch.Tables[0].Rows.Count > 0) {
+                    for (int i = 0; i < dsWarehouseSearch.Tables[0].Rows.Count; i++) {
+                        warehouseArray.Add(dsWarehouseSearch.Tables[0].Rows[i]["Warehouse"].ToString());
+                    }
+                }
 
+                if (this.txtProductCode.Text.Trim() == "" && this.txtProductName.Text.Trim() == "" &&
+                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == "") {
+                    if (this.txtWarehouse.Text.Trim() == "") {
+                        base.JScriptAlertMsg("Please input a product or warehouse to search.");
+                        return;
+                    }else if (!warehouseArray.Contains(this.txtWarehouse.Text.Trim().ToUpper())) {
+                        base.JScriptAlertMsg("Please input a product to search for this warehouse.");
+                        return;
+                    }
+                }
+            }
+            else {
+                if (this.txtProductCode.Text.Trim() == "" && this.txtProductName.Text.Trim() == "" &&
+                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == "") {
+                    base.JScriptAlertMsg("Please input a product to search.");
+                    return;
+                }
+            }
+            
             string productCode = "%" + txtProductCode.Text.Trim() + "%";
             string productName = "%" + txtProductName.Text.Trim() + "%";
             string productGroupCode = "%" + txtProductGroupCode.Text.Trim() + "%";
