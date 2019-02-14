@@ -130,11 +130,19 @@ namespace GMSWeb.Admin.Accounts
 				        var chk = checkList[i];
 				        if( chk )
 					        chk.checked = b;					
-			        }
-		           
+			       }         
+	            }
+         
+	            function RemoveCheckAll( e , checkAllName)
+	            {
+		            var unchk = $('#'+checkAllName);
+		            if(unchk !=null)
+		            {
+				        unchk.attr('checked',false);
+		            }
 	            }
 
-                function CheckAllEdit( e )
+                   function CheckAllEdit( e )
 	            {	
 		            var p = e.parentElement.parentElement.parentElement;	
 		            var b = e.checked;
@@ -149,14 +157,6 @@ namespace GMSWeb.Admin.Accounts
 		            }
 	            }
 
-	            function RemoveCheckAll( e , checkAllName)
-	            {
-		            var unchk = $('#'+checkAllName);
-		            if(unchk !=null)
-		            {
-				        unchk.attr('checked',false);
-		            }
-	            }
 
                 function RemoveCheckAllEdit( e )
 	            {
@@ -168,6 +168,27 @@ namespace GMSWeb.Admin.Accounts
 				            unchk.checked = false;
 		            }
 	            }
+             
+	             function CheckOne( e , checkListName )
+	            {	
+		            var b = e.checked;
+                    var checkList = $('.'+ checkListName +' input:checkbox');
+			       
+				        var chk = checkList;
+				        if( chk )
+					        chk.checked = b;					
+			           
+	            }
+ 
+                 function RemoveCheckOne( e )
+	            {
+		           var unchk = $('#'+checkAllName);
+		            if(unchk !=null)
+		            {
+				        unchk.attr('checked',false);
+		            }
+	            }
+
 	            </script>"; 
 
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
@@ -229,6 +250,7 @@ namespace GMSWeb.Admin.Accounts
                 #region Get data from tbUserAccessCompany for comparison (checkbox)
                 IList<UserAccessCompany> lstUCoyAccess = null;
                 lstUCoyAccess = new GMSUserActivity().RetrieveUserAccessCompanyByUserId(this.userNumId);
+
                 #endregion
 
                 for (int g = 0; g < rppUserAccessCompany.Items.Count; g++)
@@ -240,6 +262,7 @@ namespace GMSWeb.Admin.Accounts
                     if (hTR != null)
                     {
                         HtmlTableCell hTC = new HtmlTableCell();
+                        hTC.Attributes.Add("class", "rppUserAccessCompany");
 
                         hTC.InnerHtml = @"<div class=""checkbox""> <input type=""checkbox"" onclick=""RemoveCheckAll(this, 'chkAllCompany')"" id='CoyID_" + GMSUtil.ToStr(company.CoyID) + 
                                 @"' name=""CoyID"" value=""" +
@@ -258,6 +281,30 @@ namespace GMSWeb.Admin.Accounts
 
                         hTC.InnerHtml += " /><label for='CoyID_"+ GMSUtil.ToStr(company.CoyID) +"'></label></div>";
                         hTR.Cells.Add(hTC);
+
+
+                        HtmlTableCell hTC3 = new HtmlTableCell();
+                        hTR.Cells.Add(hTC3);
+
+                        HtmlTableCell hTC2 = new HtmlTableCell();
+                        hTC2.Attributes.Add("class", "rppUserAccessDefaultCompany");
+                        hTC2.InnerHtml = @"<div class=""checkbox""> <input type=""checkbox"" onclick=""RemoveCheckOne(this, 'chkDefaultCompany')"" id='DefaultCoyID_" + GMSUtil.ToStr(company.CoyID) +
+                                @"' name=""DefaultCoyID"" value=""" +
+                                GMSUtil.ToStr(company.CoyID) +
+                                @""" title=""" +
+                                GMSUtil.ToStr(company.Name) + @""" ";
+
+                        foreach (UserAccessCompany uaCoy in lstUCoyAccess)
+                        {
+                            if (uaCoy.CoyID.ToString().Equals(company.CoyID.ToString()) && uaCoy.IsDefault)
+                            {
+                                hTC2.InnerHtml += @" checked=""checked"" ";
+                                break;
+                            }
+                        }
+
+                        hTC2.InnerHtml += " /><label for='DefaultCoyID_" + GMSUtil.ToStr(company.CoyID) + "'></label></div>";
+                        hTR.Cells.Add(hTC2);
                     }
                 }
 
@@ -284,6 +331,8 @@ namespace GMSWeb.Admin.Accounts
                         {
                             RepeaterItem item = (RepeaterItem)rppUserAccessCompany.Controls[i];
                             HtmlInputHidden hidName = (HtmlInputHidden)item.FindControl("hidName");
+                            HtmlInputHidden hidDefault = (HtmlInputHidden)item.FindControl("hidDefault");
+
 
                             if (hidName != null)
                             {
@@ -297,14 +346,23 @@ namespace GMSWeb.Admin.Accounts
                                     HtmlTableCell tc = new HtmlTableCell();
 
                                     tc.InnerHtml = "<small><b>" + nextrow + "</b></small>";
-                                    tc.Width = "80%";
+                                    //tc.Width = "80%";
                                     tr.Cells.Add(tc);
 
                                     tc = new HtmlTableCell();
                                     tc.InnerHtml = "";
-                                    tc.Width = "20%";
+                                    //tc.Width = "20%";
                                     tr.Cells.Add(tc);
-                                    
+
+                                    tc = new HtmlTableCell();
+                                    tc.InnerHtml = "";
+                                    //tc.Width = "20%";
+                                    tr.Cells.Add(tc);
+
+                                    tc = new HtmlTableCell();
+                                    tc.InnerHtml = "";
+                                    //tc.Width = "20%";
+                                    tr.Cells.Add(tc);
 
                                     tr.BgColor = "#F5F6F7";
                                     item.Controls.AddAt(0, tr);
@@ -1025,12 +1083,14 @@ namespace GMSWeb.Admin.Accounts
             {
                 #region For All
                 ArrayList arlCoyId = new ArrayList();
+                ArrayList arlIsDefault = new ArrayList();
                 ArrayList arlModuleId = new ArrayList();
                 ArrayList arlModCategoryId = new ArrayList();
                 ArrayList arlReportId = new ArrayList();
                 ArrayList arlDocumentId = new ArrayList();
                 ArrayList arlOpeModuleCategoryViewId = new ArrayList();
                 ArrayList arlOpeModuleCategoryEditId = new ArrayList();
+                short DefaultCoyID = 0; 
 
                 #region get CoyID access rights
                 if (Utilities.Util.CheckStr(Request.Form["CoyID"]).Trim().Length > 0)
@@ -1051,6 +1111,39 @@ namespace GMSWeb.Admin.Accounts
                     else
                         arlCoyId.Add(Request.Form["CoyID"].Trim().ToString());
                 }
+                 
+                if (Utilities.Util.CheckStr(Request.Form["IsDefault"]).Trim().Length > 0)
+                {
+                    string[] strIsDefaults = null;
+                    if (Utilities.Util.inString(Request.Form["IsDefault"], ',') == true)
+                    {
+                        strIsDefaults = Request.Form["IsDefault"].Trim().TrimEnd(',').Split(',');
+
+                        if (strIsDefaults.Length > 0)
+                        {
+                            for (int i = 0; i < strIsDefaults.Length; i++)
+                            {
+                                arlIsDefault.Add(strIsDefaults[i].ToString());
+                            }
+                        }
+                    }
+                    else
+                        arlIsDefault.Add(Request.Form["IsDefault"].Trim().ToString());
+                }
+
+                if (Utilities.Util.CheckStr(Request.Form["DefaultCoyID"]).Trim().Length > 0)
+                {
+                    string[] strDefaultCoyIDs = null;
+                    if (Utilities.Util.inString(Request.Form["DefaultCoyID"], ',') == true)
+                    {
+                        JScriptAlertMsg("You can only select one default! Please reset again");
+                        //return;
+                    }
+                    else
+                        DefaultCoyID = GMSUtil.ToShort(Request.Form["DefaultCoyID"].Trim().ToString());
+                }
+
+
                 #endregion
 
                 #region get ModuleCategoryID access rights
@@ -1189,7 +1282,7 @@ namespace GMSWeb.Admin.Accounts
                     // update access rights'
                     try
                     {
-                        ResultType result = new GMSUserActivity().UpdateUserAccessCompany(arlCoyId, arlModuleId, arlModCategoryId, arlReportId, arlDocumentId, arlOpeModuleCategoryViewId, arlOpeModuleCategoryEditId, this.userNumId);
+                        ResultType result = new GMSUserActivity().UpdateUserAccessCompany(arlCoyId, arlModuleId, arlModCategoryId, arlReportId, arlDocumentId, arlOpeModuleCategoryViewId, arlOpeModuleCategoryEditId, this.userNumId, DefaultCoyID);
                         switch (result)
                         {
                             case ResultType.Ok:
