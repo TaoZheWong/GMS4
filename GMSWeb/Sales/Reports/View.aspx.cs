@@ -178,13 +178,13 @@ namespace GMSWeb.Sales.Reports
             if (hidIsExternalReport.Value.ToString() == "True")
             {
                 ClientScript.RegisterStartupScript(typeof(string), "Report",
-               string.Format("jsOpenOperationalReport('Reports/Report/ExternalReportViewer.aspx?REPORTID={0}');",
+               string.Format("jsOpenOperationalReport('Reports/Report/ExternalReportViewer.aspx?CurrentLink=Sales&REPORTID={0}');",
                                     e.CommandArgument.ToString()), true);
             }
             else
             {
                 ClientScript.RegisterStartupScript(typeof(string), "Report",
-               string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?REPORTID={0}');",
+               string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?CurrentLink=Sales&REPORTID={0}');",
                                     e.CommandArgument.ToString()) , true);
             }           
 

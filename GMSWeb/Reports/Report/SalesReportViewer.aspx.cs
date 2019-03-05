@@ -27,6 +27,7 @@ namespace GMSWeb.Reports.Report
         string fileName = "";
         string fileDescription = "";
         string isLargeFont, isOptimizedTable;
+        private string currentLink = "";
 
         protected short loginUserOrAlternateParty = 0;
 
@@ -57,8 +58,14 @@ namespace GMSWeb.Reports.Report
             //if (uAccess == null)
             //    Response.Redirect("../../Unauthorized.htm");
 
+            this.currentLink = Request.QueryString["CurrentLink"];
+
             DataSet lstAlterParty = new DataSet();
-            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Product Report", ref lstAlterParty);
+
+            if(currentLink == "Products")
+                new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Product Report", ref lstAlterParty);
+            else
+                new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Sales Detail", ref lstAlterParty);
             if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
             {
                 for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)

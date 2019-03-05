@@ -159,7 +159,7 @@ namespace GMSWeb.Products.Reports
 			//else
 			//{
 				ClientScript.RegisterStartupScript(typeof(string), "Report",
-					string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?REPORTID={0}');",
+					string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?CurrentLink=Products&REPORTID={0}');",
 										e.CommandArgument.ToString())
 										, true);
 			//}
