@@ -122,7 +122,7 @@ namespace GMSWeb.Products.Products
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
 
-            int columnIndex = 10;//this will remove the second column
+            int columnIndex = 9;//this will remove the second column
             DataTable copyDataTable;
             copyDataTable = ds.Tables[0].Copy();
             copyDataTable.DefaultView.Sort = "ProductCode ASC";

@@ -110,13 +110,13 @@ namespace GMSWeb
 
             //Access company session first 
             IList<Company> lstCompany = null;
-            for (short i = 1; i < 12; i++)
+            for (short i = 1; i <= 15; i++)
             {
                 if (i != 9)
                 {
                     for (short j = 5; j > 1; j--)
                     {
-                        lstCompany = new SystemDataActivity().RetrieveCompanyByCountryIdDivisionIdSortByCountryIdAndSeqID(i, j);
+                        lstCompany = new SystemDataActivity().RetrieveCompanyByCountryIdDivisionIdSortByCountryIdAndSeqID(i, j); //countryid, divisionid
                         if (lstCompany != null && lstCompany.Count > 0)
                         {  
                             foreach (Company coy in lstCompany)

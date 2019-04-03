@@ -29,9 +29,10 @@ namespace GMSWeb.Sales.Reports
     public partial class View : GMSBasePage
     {
         protected short loginUserOrAlternateParty = 0;
+        protected string currentLink = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentLink = "Sales";
+            currentLink = "Sales";
             LogSession session = base.GetSessionInfo();
 
             if (Request.Params["CurrentLink"] != null)
@@ -178,13 +179,13 @@ namespace GMSWeb.Sales.Reports
             if (hidIsExternalReport.Value.ToString() == "True")
             {
                 ClientScript.RegisterStartupScript(typeof(string), "Report",
-               string.Format("jsOpenOperationalReport('Reports/Report/ExternalReportViewer.aspx?CurrentLink=Sales&REPORTID={0}');",
+               string.Format("jsOpenOperationalReport('Reports/Report/ExternalReportViewer.aspx?CurrentLink=" + this.currentLink + "&REPORTID={0}');",
                                     e.CommandArgument.ToString()), true);
             }
             else
             {
                 ClientScript.RegisterStartupScript(typeof(string), "Report",
-               string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?CurrentLink=Sales&REPORTID={0}');",
+               string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?CurrentLink=" + this.currentLink + "&REPORTID={0}');",
                                     e.CommandArgument.ToString()) , true);
             }           
 

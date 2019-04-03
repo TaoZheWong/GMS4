@@ -39,7 +39,7 @@ namespace GMSWeb.Debtors.Reports
             }
 
             DataSet lstAlterParty = new DataSet();
-            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Product Report", ref lstAlterParty);
+            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Sales Details", ref lstAlterParty);
             if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
             {
                 for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
@@ -151,7 +151,7 @@ namespace GMSWeb.Debtors.Reports
 
 
             ClientScript.RegisterStartupScript(typeof(string), "Report",
-                string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?REPORTID={0}');",
+                string.Format("jsOpenOperationalReport('Reports/Report/SalesReportViewer.aspx?CurrentLink=Sales&REPORTID={0}');",
                                     e.CommandArgument.ToString())
                                     , true);
 

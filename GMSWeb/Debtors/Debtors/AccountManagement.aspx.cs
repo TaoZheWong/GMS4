@@ -1804,9 +1804,6 @@ namespace GMSWeb.Debtors.Debtors
 				GMSCore.Entity.AccountProspect accountProspect = new AccountProspectActivity().RetrieveAccountProspectByAccountCode(session.CompanyId, this.hidAccountCode.Value.Trim());
 				if (accountProspect != null)
 				{
-
-
-
 					accountProspect.AccountName = txtAccountName.Text.Trim();
 					accountProspect.SalesPersonID = this.ddlSalesman.SelectedValue;
 					accountProspect.DefaultCurrency = this.ddlCurrency.SelectedValue;
@@ -1854,19 +1851,10 @@ namespace GMSWeb.Debtors.Debtors
 						this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
 						return;
 					}
-
-
-
-
-
 				}
 
 			}
-
-
-
-
-
+            
 			GMSCore.Entity.AccountInformation accountInfo = new AccountInformationActivity().RetrieveAccountInformationByAccountCode(session.CompanyId, this.hidAccountCode.Value.Trim());
 
 			if (accountInfo == null)
