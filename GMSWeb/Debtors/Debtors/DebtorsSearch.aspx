@@ -101,6 +101,16 @@
                                     <%# Eval("DefaultCurrency")%>
                                 </ItemTemplate>
                             </asp:TemplateColumn>
+                              <asp:TemplateColumn HeaderText="Office Phone" SortExpression="OfficePhone" HeaderStyle-Wrap="false" >
+                                <ItemTemplate>
+                                    <%# Eval("OfficePhone")%>
+                                </ItemTemplate>
+                            </asp:TemplateColumn>
+                            <asp:TemplateColumn HeaderText="Fax" SortExpression="Fax" HeaderStyle-Wrap="false" >
+                                <ItemTemplate>
+                                    <%# Eval("Fax")%>
+                                </ItemTemplate>
+                            </asp:TemplateColumn>
                             <asp:TemplateColumn HeaderText="Industry" SortExpression="Industry" HeaderStyle-Wrap="false" >
                                 <ItemTemplate>
                                     <%# Eval("Industry")%>
