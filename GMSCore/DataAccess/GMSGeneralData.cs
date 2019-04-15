@@ -3918,5 +3918,75 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        public void DeleteProductCostForYearMonth(short companyId, short year, short month)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppProductCostByYearAndMonthDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@tbYear", SqlDbType.SmallInt).Value = year;
+                command.Parameters.Add("@tbMonth", SqlDbType.SmallInt).Value = month;
+                rdr = command.ExecuteReader();
+
+
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+
+        }
+
+        public void InsertProductCostForYearMonth(short companyId, short year, short month, string product, string uom, string dimensionL1, string dimensionL2, string dimensionL3, string dimensionL4, Decimal totalProduction, Decimal totalCost)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppProductCostByYearAndMonthInsert", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@tbYear", SqlDbType.SmallInt).Value = year;
+                command.Parameters.Add("@tbMonth", SqlDbType.SmallInt).Value = month;
+                command.Parameters.Add("@Product", SqlDbType.NVarChar).Value = product;
+                command.Parameters.Add("@UOM", SqlDbType.NVarChar).Value = uom;
+                command.Parameters.Add("@DimensionL1", SqlDbType.NVarChar).Value = dimensionL1;
+                command.Parameters.Add("@DimensionL2", SqlDbType.NVarChar).Value = dimensionL2;
+                command.Parameters.Add("@DimensionL3", SqlDbType.NVarChar).Value = dimensionL3;
+                command.Parameters.Add("@DimensionL4", SqlDbType.NVarChar).Value = dimensionL4;
+                command.Parameters.Add("@TotalProduction", SqlDbType.Decimal).Value = totalProduction;
+                command.Parameters.Add("@TotalCost", SqlDbType.Decimal).Value = totalCost;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+
     }
 }
