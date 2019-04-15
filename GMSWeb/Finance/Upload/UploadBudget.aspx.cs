@@ -199,12 +199,12 @@ namespace GMSWeb.Finance.Upload
 				FileUpload1.SaveAs(AppDomain.CurrentDomain.BaseDirectory + GMSCoreBase.TEMP_DOC_PATH + "\\" + FileUpload1.FileName);
 
 				this.IFrame1.Attributes["style"] = "";
-				this.IFrame1.Attributes["src"] = String.Format("UploadParsing.aspx?FILENAME={0}&YEAR={1}&PURPOSEID={2}&PROJECTID={3}&CUSTOMERTYPE={4}&DEPARTMENTID={5}",
+				this.IFrame1.Attributes["src"] = String.Format("UploadParsing.aspx?FILENAME={0}&YEAR={1}&PURPOSEID={2}&PROJECTID={3}&DEPARTMENTID={4}",
 															Server.UrlEncode(FileUpload1.FileName),
 															this.ddlYear.SelectedValue,
 															this.ddlPurpose.SelectedValue,
 															this.ddlProject.SelectedValue,
-															this.ddlCustomerType.SelectedValue,
+															//this.ddlCustomerType.SelectedValue,
 															this.ddlDepartment.SelectedValue);
 
 

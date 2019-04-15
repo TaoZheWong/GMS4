@@ -34,7 +34,7 @@ namespace GMSWeb.Organization.Upload
             year = GMSUtil.ToShort(Request.Params["YEAR"]);
             itemPurposeId = GMSUtil.ToShort(Request.Params["PURPOSEID"]);
             //projectId = GMSUtil.ToShort(Request.Params["PROJECTID"]);
-            customerType = Request.Params["CUSTOMERTYPE"].ToString();
+            //customerType = Request.Params["CUSTOMERTYPE"].ToString();
             //departmentId = GMSUtil.ToShort(Request.Params["DEPARTMENTID"]);
 
             excelFilePath = AppDomain.CurrentDomain.BaseDirectory + GMSCoreBase.TEMP_DOC_PATH + Path.DirectorySeparatorChar + excelFileName;
@@ -282,7 +282,7 @@ namespace GMSWeb.Organization.Upload
                     }
                     else
                     {
-                        Response.Output.Write("<SPAN STYLE='color: red'>Item Name '" + budgetExcel.Tables[0].Rows[i]["1"].ToString() + "' cannot be found at row " + (i) + ".</SPAN><br><br>");
+                        Response.Output.Write("<SPAN STYLE='color: red'>Item Name '" + budgetExcel.Tables[0].Rows[i][i].ToString() + "' cannot be found at row " + (i) + ".</SPAN><br><br>");
                         Response.Flush();
                     }                    
                     
@@ -290,6 +290,7 @@ namespace GMSWeb.Organization.Upload
                 }
                 //Response.Output.Write("Updating YTD total for all items...<br>");
                 //Response.Flush();
+                new GMSGeneralDALC().procUpdateBudgetSummary(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
                 new GMSGeneralDALC().procUpdateBudgetPerformanceIndicators(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
             }
             catch (Exception ex)
@@ -301,6 +302,7 @@ namespace GMSWeb.Organization.Upload
             {
                 Response.Output.Write("Updating YTD total for all items....<br>");
                 Response.Flush();
+                new GMSGeneralDALC().procUpdateBudgetSummary(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
                 new GMSGeneralDALC().procUpdateBudgetPerformanceIndicators(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
                 Response.Output.Write("Updating YTD total successful.....<br>");
                 Response.Flush();

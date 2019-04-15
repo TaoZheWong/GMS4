@@ -1494,6 +1494,42 @@ namespace GMSCore
             return;
         }
 
+        public void procUpdateBudgetSummary(short companyId, int FYE, short projectId, short departmentId, short sectionId, short unitId, short year)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppUpdateBudgetSummary", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@FYE", SqlDbType.Int).Value = FYE;
+                command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = projectId;
+                command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = departmentId;
+                command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = sectionId;
+                command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = unitId;
+                command.Parameters.Add("@BudgetYear", SqlDbType.SmallInt).Value = year;
+                command.CommandTimeout = 10000;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+
+
+
         //Added By Kim on 19 Sept 2013
         /// <summary>
         /// ComputePerformanceIndicator

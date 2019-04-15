@@ -27,25 +27,25 @@
                 <div class="m-t-20">
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    Dimention 1
+		                    Dimension 1
                         </label>
 	                    <asp:DropDownList CssClass="form-control" ID="ddlDim1" runat="server" DataTextField="ProjectName" DataValueField="ProjectID" AutoPostBack ="true" OnSelectedIndexChanged="ddlDim1_SelectedIndexChanged" />
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    Dimention 2
+		                    Dimension 2
                         </label>
 	                    <asp:DropDownList CssClass="form-control" ID="ddlDim2" runat="server" AutoPostBack ="true" Enabled="false" OnSelectedIndexChanged="ddlDim2_SelectedIndexChanged"  />
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    Dimention 3
+		                    Dimension 3
                         </label>
 	                    <asp:DropDownList CssClass="form-control" ID="ddlDim3" runat="server" AutoPostBack ="true" Enabled="false"  OnSelectedIndexChanged="ddlDim3_SelectedIndexChanged" />
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    Dimention 4
+		                    Dimension 4
                         </label>
 	                    <asp:DropDownList CssClass="form-control" ID="ddlDim4" runat="server" AutoPostBack ="true" Enabled="false"  />
                     </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    <asp:Label CssClass="tbLabel" ID="lblPurpose" runat="server">Purpose</asp:Label>
+		                    <asp:Label CssClass="tbLabel" ID="lblPurpose" runat="server">Type</asp:Label>
                         </label>
 	                        <asp:DropDownList CssClass="form-control" ID="ddlPurpose" runat="server" DataTextField="ItemPurposeName" DataValueField="ItemPurposeID" onchange="SelectPurpose(this)"/>
                     </div>      
@@ -119,7 +119,7 @@
 	                        <asp:DropDownList CssClass="form-control" ID="ddlDepartment" runat="server" DataTextField="DepartmentName" DataValueField="DepartmentID" />
                     </div>
                     -->
-                    <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                  <%--  <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
 		                    <asp:Label CssClass="tbLabel" ID="lblCustomerType" runat="server">Customer Type</asp:Label>
                         </label>
@@ -127,10 +127,10 @@
                                 <asp:ListItem Value="E">External</asp:ListItem>
                                 <asp:ListItem Value="I">Interco</asp:ListItem>
                             </asp:DropDownList>
-                    </div>  
+                    </div> --%> 
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    <asp:Label CssClass="tbLabel" ID="lblLocation" runat="server">Location</asp:Label>
+		                    <asp:Label CssClass="tbLabel" ID="lblLocation" runat="server">File</asp:Label>
                         </label>
 	                        <div class="input-group">
                                 <input type="text" class="form-control" readonly>
