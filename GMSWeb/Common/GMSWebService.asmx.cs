@@ -62,5 +62,17 @@ namespace GMSWeb.Common
                 return null;
                
         }
+
+        [WebMethod]
+        public void DeleteProductCostForYearMonth(short companyId, short year, short month)
+        {
+            new GMSGeneralDALC().DeleteProductCostForYearMonth(companyId, year, month);
+        }
+
+        [WebMethod]
+        public void InsertProductCostForYearMonth(short companyId, short year, short month, string product, string uom, string dimensionL1, string dimensionL2, string dimensionL3, string dimensionL4, Decimal totalProduction, Decimal totalCost)
+        {
+            new GMSGeneralDALC().InsertProductCostForYearMonth(companyId, year, month, product, uom, dimensionL1, dimensionL2, dimensionL3, dimensionL4, totalProduction, totalCost);
+        }
     }
 }
