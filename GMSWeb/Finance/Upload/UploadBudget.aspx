@@ -130,7 +130,7 @@
                     </div> --%> 
                     <div class="form-group col-lg-3 col-md-6 col-sm-6">
                         <label class="control-label">
-		                    <asp:Label CssClass="tbLabel" ID="lblLocation" runat="server">File</asp:Label>
+		                    <asp:Label CssClass="tbLabel" ID="lblLocation" runat="server">Browse</asp:Label>
                         </label>
 	                        <div class="input-group">
                                 <input type="text" class="form-control" readonly>

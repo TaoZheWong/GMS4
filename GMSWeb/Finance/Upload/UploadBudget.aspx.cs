@@ -516,19 +516,19 @@ namespace GMSWeb.Finance.Upload
             IRow row1 = sheet1.CreateRow(1);
             row1.RowStyle = headerRowStyle;
             ICell dim1Cell = row1.CreateCell(0);
-            dim1Cell.SetCellValue(this.ddlDim1.SelectedItem.Text != null ? "DIM1: " + this.ddlDim1.SelectedItem.Text.ToUpper() : "DIM1: " + "NONE");
+            dim1Cell.SetCellValue(this.ddlDim1.SelectedItem.Text != null ? "D1: " + this.ddlDim1.SelectedItem.Text.ToUpper() : "D1: " + "NONE");
             dim1Cell.CellStyle = dim1Style;
 
             ICell dim2Cell = row1.CreateCell(3);
-            dim2Cell.SetCellValue(this.ddlDim2.SelectedItem.Text != null ? "DIM2: " + this.ddlDim2.SelectedItem.Text.ToUpper() : "DIM2: " + "NONE");
+            dim2Cell.SetCellValue(this.ddlDim2.SelectedItem.Text != null ? "D2: " + this.ddlDim2.SelectedItem.Text.ToUpper() : "D2: " + "NONE");
             dim2Cell.CellStyle = headerRowStyle;
 
             ICell dim3Cell = row1.CreateCell(7);
-            dim3Cell.SetCellValue(this.ddlDim3.SelectedItem.Text != null ? "DIM3: " + this.ddlDim3.SelectedItem.Text.ToUpper() : "DIM3: " + "NONE");
+            dim3Cell.SetCellValue(this.ddlDim3.SelectedItem.Text != null ? "D3: " + this.ddlDim3.SelectedItem.Text.ToUpper() : "D3: " + "NONE");
             dim3Cell.CellStyle = headerRowStyle;
 
             ICell dim4Cell = row1.CreateCell(11);
-            dim4Cell.SetCellValue(this.ddlDim4.SelectedItem.Text != null ? "DIM4: " + this.ddlDim4.SelectedItem.Text.ToUpper() : "DIM4: " + "NONE");
+            dim4Cell.SetCellValue(this.ddlDim4.SelectedItem.Text != null ? "D4: " + this.ddlDim4.SelectedItem.Text.ToUpper() : "D4: " + "NONE");
             dim4Cell.CellStyle = headerRowStyle;
 
             //borderRight
@@ -593,7 +593,9 @@ namespace GMSWeb.Finance.Upload
             ICell cellDetail,cellFigure;
           
             IRow rowItem;
-            
+
+
+            var a = 1;
             foreach (DataRow dr in dsPNLItem.Tables[0].Rows)
             {
                 rowItem = sheet1.CreateRow(rowCount);
@@ -601,9 +603,15 @@ namespace GMSWeb.Finance.Upload
                 cellDetail = rowItem.CreateCell(0);
                 cellDetail.CellStyle = setCellStyleByItem(snRowCellStyleThin, snRowCellStyleMedium, snRowCellStyleDouble, dr["itemName"].ToString());
 
+                //if (dr["itemName"].ToString() != "Performance Indicators")
+                //    cellDetail.SetCellValue(dr["itemSN"].ToString());
+
                 if (dr["itemName"].ToString() != "Performance Indicators")
-                    cellDetail.SetCellValue(dr["itemSN"].ToString());
-                
+                    cellDetail.SetCellValue(a);
+
+                if (dr["itemName"].ToString() == "Performance Indicators")
+                    a = 0;//reset performance indicator value
+
                 cellDetail = rowItem.CreateCell(1);
                 cellDetail.CellStyle = setCellStyleByItem(itemCellStyleThin, itemCellStyleMedium, itemCellStyleDouble, dr["itemName"].ToString());
                 cellDetail.SetCellValue(dr["itemName"].ToString());
@@ -622,21 +630,21 @@ namespace GMSWeb.Finance.Upload
                     else if (dr["itemName"].ToString() == "(PNL)Total Other Op Income/ (Exp)")
                         cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "12:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "15)");
                     else if (dr["itemName"].ToString() == "(PNL)Total S&D Expenses")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "17:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "26)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "17:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "31)");
                     else if (dr["itemName"].ToString() == "(PNL)A&G Direct Expenses")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "28:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "38)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "33:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "46)");
                     else if (dr["itemName"].ToString() == "(PNL)Other A&G Expenses")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "40:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "45)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "48:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "53)");
                     else if (dr["itemName"].ToString() == "(PNL)Total A&G Expenses")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "39," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "46)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "47," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "54)");
                     else if (dr["itemName"].ToString() == "(PNL)Profit from Operations")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "11," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "16," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "27," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "47)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "11," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "16," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "32," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "55)");
                     else if (dr["itemName"].ToString() == "(PNL)Total Non-Op Income/(Exp)")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "49:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "54)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "57:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "62)");
                     else if (dr["itemName"].ToString() == "(PNL)Profit Before Taxation")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "48," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "55)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "56," + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "63)");
                     else if (dr["itemName"].ToString() == "(PNL)Profit After Taxation")
-                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "56:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "57)");
+                        cellFigure.SetCellFormula("SUM(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "64:" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "65)");
                     else if (dr["itemName"].ToString() == "Gross Profits Margin %")
                         cellFigure.SetCellFormula(NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "11/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7*100%");
                     else if (dr["itemName"].ToString() == "- External Sales GP %")
@@ -644,15 +652,15 @@ namespace GMSWeb.Finance.Upload
                     else if (dr["itemName"].ToString() == "- Interco Sales GP %")
                         cellFigure.SetCellFormula("(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "6-" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "9)/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "6");
                     else if (dr["itemName"].ToString() == "Selling & Dist Margin %")
-                        cellFigure.SetCellFormula("-(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "27)/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
+                        cellFigure.SetCellFormula("-(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "32)/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
                     else if (dr["itemName"].ToString() == "A&G Margin Total %")
-                        cellFigure.SetCellFormula("-(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "47)/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
+                        cellFigure.SetCellFormula("-(" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "55)/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
                     else if (dr["itemName"].ToString() == "Operating Profit Margin %")
-                        cellFigure.SetCellFormula(NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "48/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
-                    else if (dr["itemName"].ToString() == "Profit Before Taxation %")
                         cellFigure.SetCellFormula(NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "56/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
+                    else if (dr["itemName"].ToString() == "Profit Before Taxation %")
+                        cellFigure.SetCellFormula(NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "64/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
                     else if (dr["itemName"].ToString() == "Profit After Taxation %")
-                        cellFigure.SetCellFormula(NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "58/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
+                        cellFigure.SetCellFormula(NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "66/" + NPOI.SS.Util.CellReference.ConvertNumToColString(cellFigure.ColumnIndex) + "7");
                     else
                         cellFigure.SetCellValue(0);
                     
@@ -672,7 +680,9 @@ namespace GMSWeb.Finance.Upload
                 }
                 rowCount++;
                 cellIndex++;
+                a++;
             }
+           
 
             ICellStyle hiddenStyle = hssfworkbook.CreateCellStyle();
             hiddenStyle.IsHidden = true;

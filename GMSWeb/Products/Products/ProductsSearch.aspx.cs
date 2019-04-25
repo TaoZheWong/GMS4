@@ -126,7 +126,9 @@ namespace GMSWeb.Products.Products
             DataTable copyDataTable;
             copyDataTable = ds.Tables[0].Copy();
             copyDataTable.DefaultView.Sort = "ProductCode ASC";
-            copyDataTable.Columns.RemoveAt(columnIndex);
+            //copyDataTable.Columns.RemoveAt(columnIndex);
+            copyDataTable.Columns.Remove("WeightedCost");
+            copyDataTable.Columns.Remove("IsActive");
 
             GridView GridView1 = new GridView();
             GridView1.AllowPaging = false;            
