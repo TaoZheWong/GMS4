@@ -1681,6 +1681,26 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+            if (crReportDocument.ParameterFields["@DocType"] != null) {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Document Type :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlDoctype = new DropDownList();
+                ddlDoctype.ID = "ddlDoctype";
+                ddlDoctype.CssClass = "form-control";
+                ddlDoctype.Items.Clear();
+                ddlDoctype.Items.Add(new ListItem("Doc Date", "DocDate"));
+                ddlDoctype.Items.Add(new ListItem("Trn Date", "TrnDate"));
+                pnlParameter.Controls.Add(ddlDoctype);
+                if (ViewState["ddlDoctype"] == null)
+                    ViewState["ddlDoctype"] = "DocDate";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
             dynamicbutton.Text = "Submit";
@@ -1990,9 +2010,10 @@ namespace GMSWeb.Reports.Report
 
             if (crReportDocument.ParameterFields["@Display"] != null)
                 ViewState["ddlDisplay"] = ((DropDownList)pnlParameter.FindControl("ddlDisplay")).SelectedValue;
-
             if (crReportDocument.ParameterFields["@MRScheme"] != null)
                 ViewState["ddlMRScheme"] = ((DropDownList)pnlParameter.FindControl("ddlMRScheme")).SelectedValue;
+            if (crReportDocument.ParameterFields["@DocType"] != null)
+                ViewState["ddlDocType"] = ((DropDownList)pnlParameter.FindControl("ddlDocType")).SelectedValue;
 
             RefreshCrystalReport();
         }
@@ -2336,18 +2357,16 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@Scheme", ViewState["ddlScheme"].ToString());
                     if (crReportDocument.ParameterFields["Scheme"] != null && ViewState["ddlScheme"] != null)
                         crReportDocument.SetParameterValue("Scheme", ViewState["ddlScheme"].ToString());
-
                     if (crReportDocument.ParameterFields["@MRNo"] != null && ViewState["txtMRNo"] != null)
                         crReportDocument.SetParameterValue("@MRNo", ViewState["txtMRNo"].ToString());
-
                     if (crReportDocument.ParameterFields["@UserID"] != null)
                         crReportDocument.SetParameterValue("@UserID", session.UserId);
-
                     if (crReportDocument.ParameterFields["@Display"] != null)
                         crReportDocument.SetParameterValue("@Display", ViewState["ddlDisplay"].ToString());
-
                     if (crReportDocument.ParameterFields["@MRScheme"] != null && ViewState["ddlMRScheme"] != null)
                         crReportDocument.SetParameterValue("@MRScheme", ViewState["ddlMRScheme"].ToString());
+                    if (crReportDocument.ParameterFields["@DocType"] != null)
+                        crReportDocument.SetParameterValue("@DocType", ViewState["ddlDocType"].ToString());
 
                     cyReportViewer.ReportSource = crReportDocument;
 

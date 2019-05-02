@@ -688,7 +688,8 @@ namespace GMSConApp
                         GMSUtil.ToFloat(dr["exchangerate"].ToString()),
                         GMSUtil.ToFloat(dr["taxrate"].ToString()),
                         dr["customersalespersonid"].ToString(),
-                        dr["transactionsalespersonid"].ToString()
+                        dr["transactionsalespersonid"].ToString(),
+                        GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion for " + i.ToString());
@@ -714,7 +715,8 @@ namespace GMSConApp
                         GMSUtil.ToFloat(dr["exchangerate"].ToString()),
                         GMSUtil.ToFloat(dr["taxrate"].ToString()),
                         dr["customersalespersonid"].ToString(),
-                        dr["transactionsalespersonid"].ToString()
+                        dr["transactionsalespersonid"].ToString(),
+                        GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales II data insertion for " + i.ToString());
@@ -750,7 +752,8 @@ namespace GMSConApp
                         dr["dono"].ToString(),
                         dr["location"].ToString(),
                         dr["customersalespersonid"].ToString(),
-                        dr["transactionsalespersonid"].ToString()
+                        dr["transactionsalespersonid"].ToString(),
+                        GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion for " + i.ToString());
@@ -1537,7 +1540,7 @@ namespace GMSConApp
                     //query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "SalesTrnType", "SalesTrnNo", "SalesTrnDate", "SrNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitCost", "UnitAmount", "Cost", "Amount", "GPAmount", "Currency", "ExchangeRate", "TaxRate", "LMSDONo",
-                    "Warehouse", "CustomerSalesPersonID", "TrnSalesPersonID", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    "Warehouse", "CustomerSalesPersonID", "TrnSalesPersonID", "SalesDocDate", "DueDate", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     tempProductName = "";
                     //Insert Sales Detail data into GMS
@@ -1569,7 +1572,8 @@ namespace GMSConApp
                         dr["LMSDONo"].ToString(),
                         dr["Warehouse"].ToString(),
                         dr["CustomerSalesPersonID"].ToString(),
-                        dr["TrnSalesPersonID"].ToString()
+                        dr["TrnSalesPersonID"].ToString(),
+                        GMSUtil.ToDate(dr["SalesDocDate"].ToString())
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion");
@@ -1591,7 +1595,7 @@ namespace GMSConApp
                     query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "TrnSalesPersonID", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "TrnSalesPersonID", "DocDate", "DueDate", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     string lmsDoc = "";
@@ -1614,7 +1618,8 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                         GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                         dr["CustomerSalesPersonID"].ToString(),
-                        dr["TrnSalesPersonID"].ToString()
+                        dr["TrnSalesPersonID"].ToString(),
+                        GMSUtil.ToDate(dr["DocDate"].ToString())
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
@@ -1670,7 +1675,7 @@ namespace GMSConApp
                     query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "Field18", "Field19", "Field20",
+                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "DocDate", "DueDate", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     //Insert Sales II data into GMS (Overpayment)
@@ -1697,7 +1702,8 @@ namespace GMSConApp
                             GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                             GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                             dr["CustomerSalesPersonID"].ToString(),
-                            ""
+                            "",
+                            GMSUtil.ToDate(dr["DocDate"].ToString())
                         );
 
 
@@ -1741,7 +1747,7 @@ namespace GMSConApp
                         query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '" + from + "', '" + to + "')";
                         //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '', '')";
                         ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "Field18", "Field19", "Field20",
+                        "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "Field13", "ReconNum", "ReconDate", "ReconAmount", "TotalPaymentAmount", "DocDate", "DueDate", "Field20",
                         "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                         //Insert Sales III data into GMS (Overpayment)
@@ -1767,7 +1773,8 @@ namespace GMSConApp
                                 GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                                 GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                                 dr["CustomerSalesPersonID"].ToString(),
-                                ""
+                                "",
+                                GMSUtil.ToDate(dr["DocDate"].ToString())
                             );
 
                             if (dr["ReconNum"].ToString() != "")
