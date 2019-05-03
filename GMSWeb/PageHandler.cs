@@ -427,6 +427,7 @@ namespace GMSWeb
                     "<li class='sub-salesman-detail'><a href=\"" + appPath + "/Sales/Sales/Salesman.aspx\">Salesman Detail</a></li>" +
                     "<li class='sub-forms'><a href=\"" + appPath +
                     "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Sales - Forms&ModuleCategoryID=8&ModuleCategoryName=Sales\">Forms</a></li>" +
+                    "<li class='sub-team-setup'><a href=\"" + appPath + "/Sales/Sales/TeamSetup.aspx\">Team Setup</a></li>" +
                     // "<li class='sub-package-costing'><a href=\"" + appPath + "/Sales/Sales/SalesBreakdown.aspx\">Package Costing</a></li>" +
                     "</ul>";
 
