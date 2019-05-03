@@ -651,6 +651,14 @@
       <DependentUpon>ReportCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity\RetrieveBase.cs" />
+    <Compile Include="Entity\SalesGroup.cs" />
+    <Compile Include="Entity\SalesGroup.Generated.cs">
+      <DependentUpon>SalesGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\SalesGroupTeam.cs" />
+    <Compile Include="Entity\SalesGroupTeam.Generated.cs">
+      <DependentUpon>SalesGroupTeam.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\SalesPerson.cs" />
     <Compile Include="Entity\SalesPerson.Generated.cs">
       <DependentUpon>SalesPerson.cs</DependentUpon>
@@ -675,6 +683,10 @@
     <Compile Include="Entity\SalesPersonUser.Generated.cs">
       <DependentUpon>SalesPersonUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\SalesTeamSalesPerson.cs" />
+    <Compile Include="Entity\SalesTeamSalesPerson.Generated.cs">
+      <DependentUpon>SalesTeamSalesPerson.cs</DependentUpon>
+    </Compile>    
     <Compile Include="Entity\ScheduledTaskGRNDetail.cs" />
     <Compile Include="Entity\ScheduledTaskGRNDetail.Generated.cs">
       <DependentUpon>ScheduledTaskGRNDetail.cs</DependentUpon>

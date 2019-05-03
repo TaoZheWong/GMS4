@@ -1168,6 +1168,7 @@
     <Content Include="Products\Products\ProductMovement.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
+    <Content Include="Sales\Sales\TeamSetup.aspx" />
     <Content Include="scripts\Common.js" />
     <Content Include="SiteHeader.ascx" />
     <Content Include="UsefulResources\Resources\ViewUsefulResources.aspx" />
@@ -1897,6 +1898,13 @@
     </Compile>
     <Compile Include="Sales\Sales\ParsingProductPrice.aspx.designer.cs">
       <DependentUpon>ParsingProductPrice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Sales\TeamSetup.aspx.cs">
+      <DependentUpon>TeamSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Sales\TeamSetup.aspx.designer.cs">
+      <DependentUpon>TeamSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Sales\Upload.aspx.cs">
       <DependentUpon>Upload.aspx</DependentUpon>

@@ -1873,7 +1873,7 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesPersonMaster.CoyID"),
                                 helper.CleanValue(companyID));
-
+             
             return SalesPersonMaster.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("SalesPersonMaster.SalesPersonMasterName")));
         }
         #endregion
@@ -2694,5 +2694,75 @@ namespace GMSCore.Activity
             return unitID;
         }
         #endregion
+
+        #region RetrieveTeamSetupSalesGroup
+        public IList<SalesGroup> RetrieveTeamSetupSalesGroup(short companyId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesGroup.CoyID"),
+                                helper.CleanValue(companyId));
+           
+            return SalesGroup.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+
+        #region RetrieveTeamSetupSalesGroupTeam
+        public IList<SalesGroupTeam> RetrieveTeamSetupSalesGroupTeam(short companyId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesGroupTeam.CoyID"),
+                                helper.CleanValue(companyId));
+
+            return SalesGroupTeam.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+        #region RetrieveTeamSetupSalesGroupTeamByTeamID
+        public SalesGroupTeam RetrieveTeamSetupSalesGroupTeamByTeamID(short companyId, short teamId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesGroupTeam.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("SalesGroupTeam.TeamID"),
+                                helper.CleanValue(teamId));
+
+            return SalesGroupTeam.RetrieveFirst(stb.ToString(), "");
+        }
+        #endregion
+
+        #region RetrieveTeamSetupSalesTeamSalesPerson
+        public IList<SalesTeamSalesPerson> RetrieveTeamSetupSalesTeamSalesPerson(short companyId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesTeamSalesPerson.CoyID"),
+                                helper.CleanValue(companyId));
+
+            return SalesTeamSalesPerson.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+
+        #region RetrieveTeamSetupSalesTeamSalesPersonByTeamID
+        public SalesTeamSalesPerson RetrieveTeamSetupSalesTeamSalesPersonByTeamID(short companyId, string salespersonid)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesTeamSalesPerson.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("SalesTeamSalesPerson.SalesPersonID"),
+                                helper.CleanValue(salespersonid));
+
+            return SalesTeamSalesPerson.RetrieveFirst(stb.ToString(), "");
+        }
+        #endregion
+
+
+
     }
+
 }
