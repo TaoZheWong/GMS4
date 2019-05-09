@@ -233,6 +233,33 @@ namespace GMSWeb.Reports.Report
             }
         }
 
+        private void ddlGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            short selectedvalue = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlGroup")).SelectedValue);
+            DropDownList ddlTeam = pnlParameter.FindControl("ddlTeam") as DropDownList;
+            ddlTeam.Items.Clear();
+
+            if (selectedvalue > 0)
+            {
+                ddlTeam.Enabled = true;
+                LogSession session = base.GetSessionInfo();
+                SystemDataActivity sDA = new SystemDataActivity();
+                IList<GMSCore.Entity.SalesGroupTeam> lstEE = null;
+                lstEE = sDA.RetrieveTeamSetupSalesTeamByGroupID(session.CompanyId, selectedvalue);
+                ddlTeam.Items.Add(new ListItem("N/A", "0"));
+                foreach (var x in lstEE)
+                {
+                    ddlTeam.Items.Add(new ListItem( x.TeamName, x.TeamID.ToString()));
+                }
+            }
+            else
+            {
+                ddlTeam.Enabled = false;
+            }
+
+            cyReportViewer.Visible = false;
+        }
+
         private void AddControls()
         {
             LogSession session = base.GetSessionInfo();
@@ -1681,24 +1708,59 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
-            if (crReportDocument.ParameterFields["@DocType"] != null) {
+
+
+            if (crReportDocument.ParameterFields["@GroupID"] != null || crReportDocument.ParameterFields["GroupID"] != null)
+            {
+                SystemDataActivity sDA = new SystemDataActivity();
+                IList<GMSCore.Entity.SalesGroup> lstEE = null;
+                lstEE = sDA.RetrieveTeamSetupSalesGroup(session.CompanyId);
 
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Document Type :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Group :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                DropDownList ddlDoctype = new DropDownList();
-                ddlDoctype.ID = "ddlDoctype";
-                ddlDoctype.CssClass = "form-control";
-                ddlDoctype.Items.Clear();
-                ddlDoctype.Items.Add(new ListItem("Doc Date", "DocDate"));
-                ddlDoctype.Items.Add(new ListItem("Trn Date", "TrnDate"));
-                pnlParameter.Controls.Add(ddlDoctype);
-                if (ViewState["ddlDoctype"] == null)
-                    ViewState["ddlDoctype"] = "DocDate";
+                DropDownList ddlGroup = new DropDownList();
+                ddlGroup.ID = "ddlGroup";
+                ddlGroup.CssClass = "form-control";
+                ddlGroup.AutoPostBack = true;
+                ddlGroup.SelectedIndexChanged += new EventHandler(ddlGroup_SelectedIndexChanged);
+
+                ddlGroup.Items.Clear();
+                foreach (var x in lstEE)
+                {
+                    ddlGroup.Items.Add(new ListItem( x.GroupName, x.GroupID.ToString()));
+                }
+
+                pnlParameter.Controls.Add(ddlGroup);
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
+
+                if (ViewState["ddlGroup"] == null)
+                    ViewState["ddlGroup"] = 0;
+
+                if (crReportDocument.ParameterFields["@TeamID"] != null || crReportDocument.ParameterFields["TeamID"] != null)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Team :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlTeam = new DropDownList();
+                    ddlTeam.ID = "ddlTeam";
+                    ddlTeam.CssClass = "form-control";
+                    ddlTeam.Enabled = false;
+                    ddlTeam.AutoPostBack = true;
+                    
+                    pnlParameter.Controls.Add(ddlTeam);
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                    if (ViewState["ddlTeam"] == null)
+                        ViewState["ddlTeam"] = 0;
+
+                }
+
             }
 
             Button dynamicbutton = new Button();
@@ -1820,6 +1882,7 @@ namespace GMSWeb.Reports.Report
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
+            cyReportViewer.Visible = true;
 
             if (crReportDocument.ParameterFields["@Year"] != null)
                 ViewState["ddlYear"] = ((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue.ToString();
@@ -2010,10 +2073,21 @@ namespace GMSWeb.Reports.Report
 
             if (crReportDocument.ParameterFields["@Display"] != null)
                 ViewState["ddlDisplay"] = ((DropDownList)pnlParameter.FindControl("ddlDisplay")).SelectedValue;
+
             if (crReportDocument.ParameterFields["@MRScheme"] != null)
                 ViewState["ddlMRScheme"] = ((DropDownList)pnlParameter.FindControl("ddlMRScheme")).SelectedValue;
-            if (crReportDocument.ParameterFields["@DocType"] != null)
-                ViewState["ddlDocType"] = ((DropDownList)pnlParameter.FindControl("ddlDocType")).SelectedValue;
+
+            if (crReportDocument.ParameterFields["@GroupID"] != null && (DropDownList)pnlParameter.FindControl("ddlGroup") != null
+                    && !string.IsNullOrEmpty(((DropDownList)pnlParameter.FindControl("ddlGroup")).SelectedValue.ToString()))
+                ViewState["ddlGroup"] = ((DropDownList)pnlParameter.FindControl("ddlGroup")).SelectedValue;
+            else
+                ViewState["ddlGroup"] = 0;
+
+            if (crReportDocument.ParameterFields["@TeamID"] != null && (DropDownList)pnlParameter.FindControl("ddlTeam") != null
+                    && !string.IsNullOrEmpty(((DropDownList)pnlParameter.FindControl("ddlTeam")).SelectedValue.ToString()))
+                ViewState["ddlTeam"] = ((DropDownList)pnlParameter.FindControl("ddlTeam")).SelectedValue;
+            else
+                ViewState["ddlTeam"] = 0;
 
             RefreshCrystalReport();
         }
@@ -2357,16 +2431,24 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@Scheme", ViewState["ddlScheme"].ToString());
                     if (crReportDocument.ParameterFields["Scheme"] != null && ViewState["ddlScheme"] != null)
                         crReportDocument.SetParameterValue("Scheme", ViewState["ddlScheme"].ToString());
+
                     if (crReportDocument.ParameterFields["@MRNo"] != null && ViewState["txtMRNo"] != null)
                         crReportDocument.SetParameterValue("@MRNo", ViewState["txtMRNo"].ToString());
+
                     if (crReportDocument.ParameterFields["@UserID"] != null)
                         crReportDocument.SetParameterValue("@UserID", session.UserId);
+
                     if (crReportDocument.ParameterFields["@Display"] != null)
                         crReportDocument.SetParameterValue("@Display", ViewState["ddlDisplay"].ToString());
+
                     if (crReportDocument.ParameterFields["@MRScheme"] != null && ViewState["ddlMRScheme"] != null)
                         crReportDocument.SetParameterValue("@MRScheme", ViewState["ddlMRScheme"].ToString());
-                    if (crReportDocument.ParameterFields["@DocType"] != null)
-                        crReportDocument.SetParameterValue("@DocType", ViewState["ddlDocType"].ToString());
+                    
+                    if (crReportDocument.ParameterFields["@GroupID"] != null && ViewState["ddlGroup"] != null )
+                        crReportDocument.SetParameterValue("@GroupID", GMSUtil.ToInt(ViewState["ddlGroup"].ToString()));
+                    
+                    if (crReportDocument.ParameterFields["@TeamID"] != null && ViewState["ddlTeam"] != null)
+                        crReportDocument.SetParameterValue("@TeamID", GMSUtil.ToInt(ViewState["ddlTeam"].ToString()));
 
                     cyReportViewer.ReportSource = crReportDocument;
 
