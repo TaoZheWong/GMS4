@@ -25,7 +25,7 @@
 		    <Columns>
 		        <asp:TemplateColumn HeaderText="Trn Date" >
 				    <ItemTemplate>
-					    <%# Eval("TrnDate", "{0: dd-MMM-yyyy}")%>
+					    <%# DateTime.Parse(Eval("TrnDate").ToString()).ToString("dd-MMM-yyyy") %>
 				    </ItemTemplate>
 			    </asp:TemplateColumn>
 			    
@@ -63,7 +63,8 @@
 		    <Columns>
 		        <asp:TemplateColumn HeaderText="Trn Date">
 				    <ItemTemplate>
-					    <%# Eval("TrnDate", "{0: dd-MMM-yyyy}")%>
+                        
+                        <%# DateTime.Parse(Eval("TrnDate").ToString()).ToString("dd-MMM-yyyy") %>
 				    </ItemTemplate>
 			    </asp:TemplateColumn>
 			    <asp:TemplateColumn HeaderText="PO No.">

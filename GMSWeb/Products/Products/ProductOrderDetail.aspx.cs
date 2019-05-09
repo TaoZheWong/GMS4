@@ -387,8 +387,8 @@ namespace GMSWeb.Products.Products
                                 lblETA.Text = String.Format("{0:dd-MMM-yyyy}", ds.Tables[0].Rows[0]["ETA"]);
 
                             lblRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
-                             
-                         }
+
+                        }
                      }
                      catch (Exception ex)
                      {
@@ -437,6 +437,8 @@ namespace GMSWeb.Products.Products
                                 lblETD.Text = String.Format("{0:dd-MMM-yyyy}", ds.Tables[0].Rows[0]["ETD"]);
                             if (ds.Tables[0].Rows[0]["ETA"].ToString() != "1/01/1900 12:00:00 AM")
                                 lblETA.Text = String.Format("{0:dd-MMM-yyyy}", ds.Tables[0].Rows[0]["ETA"]);
+
+
 
                             lblRemarks.Text = ds.Tables[0].Rows[0]["Remarks"].ToString();
 
