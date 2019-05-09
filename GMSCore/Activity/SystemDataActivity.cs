@@ -2707,6 +2707,20 @@ namespace GMSCore.Activity
         }
         #endregion
 
+        #region RetrieveTeamSetupSalesTeamByGroupID
+        public IList<SalesGroupTeam> RetrieveTeamSetupSalesTeamByGroupID(short companyId, short groupId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesGroupTeam.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("SalesGroupTeam.GroupID"),
+                                helper.CleanValue(groupId));
+
+            return SalesGroupTeam.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
 
         #region RetrieveTeamSetupSalesGroupTeam
         public IList<SalesGroupTeam> RetrieveTeamSetupSalesGroupTeam(short companyId)

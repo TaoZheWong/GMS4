@@ -309,7 +309,7 @@ namespace GMSWeb.Sales.Sales
                     return;
                 }
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                153);
+                                                                                152);
                 if (uAccess == null)
                     Response.Redirect(base.UnauthorizedPage("Sales"));
 
