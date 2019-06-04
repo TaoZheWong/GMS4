@@ -74,9 +74,29 @@ namespace GMSWeb.Products.Products
             userRole = GetUserRole(CompanyId, session.UserId);
             hidUserRole.Value = userRole;
             hidCurrentLink.Value = currentLink;
+            short loginUserOrAlternateParty = GetloginUserOrAlternateParty(session.CompanyId, session.UserId);
             hidMRScheme.Value = session.MRScheme;
             hidDimensionL1.Value = session.DimensionL1;
             hidWarehouse.Value = session.DefaultWarehouse;
+            //if (session.CompanyId.ToString() == "120")
+            //{
+            //    DivisionUser du = DivisionUser.RetrieveByKey(session.CompanyId, loginUserOrAlternateParty);
+            //    if (du != null)
+            //    {
+            //        if (du.DivisionID == "GAS")
+            //        {
+            //            session.MRScheme = "Department";
+            //            session.DefaultWarehouse = "G02";
+            //            session.DimensionL1 = "GAS";
+            //        }
+            //        else if (du.DivisionID == "WSD")
+            //        {
+            //            session.MRScheme = "Product";
+            //            session.DefaultWarehouse = "W02";
+            //            session.DimensionL1 = "WSD";
+            //        }
+            //    }
+            //}
             MRRole purchaser = new MRRoleActivity().RetrieveMainPurchaser(CompanyId);
             if (purchaser != null)
                 hidMainPurchaserUserID.Value = purchaser.UserNumID.ToString();
@@ -1667,7 +1687,7 @@ namespace GMSWeb.Products.Products
             bool Changes = false;
             bool StatusChange = false;
             bool AllowInsert = true;
-
+            string RecipeNo = "";
             try
             {
                 if (ProductInfo != null)
@@ -1725,6 +1745,8 @@ namespace GMSWeb.Products.Products
                                 ProductGroupCode = idict[key].ToString();
                             else if (key.ToString() == "RowStatus")
                                 RowStatus = idict[key].ToString();
+                            else if (key.ToString() == "RecipeNo")
+                                RecipeNo = idict[key].ToString();
                         }
 
                         if ((IsNew && KeyToSplit == uniqueProductGroup) || !IsNew)
@@ -1767,6 +1789,7 @@ namespace GMSWeb.Products.Products
                                     md.UnitPurchasePrice = GMSUtil.ToDouble(UnitPurchasePrice);
                                     md.SellingCurrency = SellingCurrency;
                                     md.Reason = Reason;
+                                    md.RecipeNo = RecipeNo;
                                     md.CreatedBy = loginUserOrAlternateParty;
                                     md.CreatedDate = DateTime.Now;
                                     md.Save();
@@ -1800,6 +1823,7 @@ namespace GMSWeb.Products.Products
                                 md.UnitPurchasePrice = GMSUtil.ToDouble(UnitPurchasePrice);
                                 md.SellingCurrency = SellingCurrency;
                                 md.Reason = Reason;
+                                md.RecipeNo = RecipeNo;
                                 md.CreatedBy = loginUserOrAlternateParty;
                                 md.CreatedDate = DateTime.Now;
                                 md.Save();
@@ -1825,6 +1849,10 @@ namespace GMSWeb.Products.Products
                                     mv.Save();
                                 }
                                 insertedVendor = true;
+                            }
+
+                            if (RecipeNo != "") {
+                                ImportRecipe(CompanyId, RecipeNo);
                             }
                         }
 
@@ -2474,5 +2502,307 @@ namespace GMSWeb.Products.Products
 
         }
 
+     
+
+        [WebMethod]
+        public static void ImportRecipeInfo(short CompanyId, string recipeno)
+        {
+            Company coy = Company.RetrieveByKey(CompanyId);
+            string RecipeNotFoundMessage = "";
+            string RecipeSuccessdMessage = "";
+            string message = "";
+            List<string> recipeNoList = new List<string>();
+            Dictionary<string, string> newDict = new Dictionary<string, string>();
+
+            CMSWebService.CMSWebService sc = new CMSWebService.CMSWebService();
+            if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+            {
+                
+                if (recipeno != "")
+                {
+                    DataSet ds = new DataSet();
+                    try
+                    {
+                        if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+                        {
+                            sc.Url = coy.CMSWebServiceAddress.Trim();
+                        }
+                        else
+                            sc.Url = "http://localhost/CMS.WebServices/Recipe.asmx";
+
+                        ds = sc.GetRecipe(recipeno);
+                        if (ds != null && ds.Tables[0].Rows.Count == 0)
+                        {
+                            if (RecipeNotFoundMessage == "")
+                                RecipeNotFoundMessage = RecipeNotFoundMessage + recipeno.Trim();
+                            else
+                                RecipeNotFoundMessage = RecipeNotFoundMessage + "," + recipeno.Trim();
+                        }
+
+                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            if (RecipeSuccessdMessage == "")
+                                RecipeSuccessdMessage = RecipeSuccessdMessage + recipeno.Trim();
+                            else
+                                RecipeSuccessdMessage = RecipeSuccessdMessage + "," + recipeno.Trim();
+                        }
+
+                        //tbRecipe
+                        //if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        //{
+                        //    if (RecipeSuccessdMessage == "")
+                        //        RecipeSuccessdMessage = RecipeSuccessdMessage + RecipeNo.Trim();
+                        //    else
+                        //        RecipeSuccessdMessage = RecipeSuccessdMessage + "," + RecipeNo.Trim();
+
+
+                        //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                        //    {
+                        //        bool IsStandardLiquidContent;
+                        //        if (ds.Tables[0].Rows[j]["IsStandardLiquidContent"].ToString() == "True")
+                        //            IsStandardLiquidContent = true;
+                        //        else
+                        //            IsStandardLiquidContent = false;
+
+                        //        new GMSGeneralDALC().InsertRecipe(GMSUtil.ToByte(CompanyId),
+                        //            ds.Tables[0].Rows[j]["RecipeNo"].ToString(),
+                        //            ds.Tables[0].Rows[j]["AccountCode"].ToString(),
+                        //            DateTime.Parse(ds.Tables[0].Rows[j]["RecipeDate"].ToString()),
+                        //            ds.Tables[0].Rows[j]["MixtureType"].ToString(),
+                        //            ds.Tables[0].Rows[j]["MolecularUnit"].ToString(),
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["CylinderCapacity"].ToString()),
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["Temperature"].ToString()),
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["RequiredPressure"].ToString()),
+                        //            IsStandardLiquidContent,
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["LiquidContent"].ToString()),
+                        //            ds.Tables[0].Rows[j]["TopPressure"].ToString(),
+                        //            ds.Tables[0].Rows[j]["CertificationType"].ToString(),
+                        //            ds.Tables[0].Rows[j]["ValveConnection"].ToString(),
+                        //            ds.Tables[0].Rows[j]["ValveConnectionType"].ToString(),
+                        //            GMSUtil.ToShort(ds.Tables[0].Rows[j]["ShelfLife"].ToString()),
+                        //            ds.Tables[0].Rows[j]["SpecialRequirement"].ToString(),
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["GasContent"].ToString()),
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["Pressure"].ToString()),
+                        //            GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["GasPrice"].ToString()),
+                        //            GMSUtil.ToShort(ds.Tables[0].Rows[j]["MinLeadTime"].ToString()),
+                        //            GMSUtil.ToShort(ds.Tables[0].Rows[j]["MaxLeadTime"].ToString()),
+                        //            GMSUtil.ToShort(ds.Tables[0].Rows[j]["TotalComponent"].ToString()),
+                        //            ds.Tables[0].Rows[j]["CylinderTypeID"].ToString(),
+                        //            ds.Tables[0].Rows[j]["Remarks"].ToString());
+                        //    }
+                        //}
+
+                        ////tbRecipeDetail
+                        //if (ds != null && ds.Tables[1].Rows.Count > 0)
+                        //{
+                        //    for (int j = 0; j < ds.Tables[1].Rows.Count; j++)
+                        //    {
+                        //        bool IsBaseGas, RequiredSpecification;
+
+                        //        if (ds.Tables[1].Rows[j]["IsBaseGas"].ToString() == "true")
+                        //            IsBaseGas = true;
+                        //        else
+                        //            IsBaseGas = false;
+
+                        //        if (ds.Tables[1].Rows[j]["RequiredSpecification"].ToString() == "true")
+                        //            RequiredSpecification = true;
+                        //        else
+                        //            RequiredSpecification = false;
+
+                        //        new GMSGeneralDALC().InsertRecipeDetail(
+                        //             GMSUtil.ToByte(CompanyId),
+                        //             ds.Tables[1].Rows[j]["RecipeNo"].ToString(),
+                        //             GMSUtil.ToShort(ds.Tables[1].Rows[j]["DetailNo"].ToString()),
+                        //             GMSUtil.ToShort(ds.Tables[1].Rows[j]["ComponentID"].ToString()),
+                        //             GMSUtil.ToShort(ds.Tables[1].Rows[j]["ConcentrationUnitID"].ToString()),
+                        //             GMSUtil.ToFloat(ds.Tables[1].Rows[j]["RequestedConcentration"].ToString()),
+                        //             ds.Tables[1].Rows[j]["RequestedConcentrationUnit"].ToString(),
+                        //             GMSUtil.ToFloat(ds.Tables[1].Rows[j]["IdealWeight"].ToString()),
+                        //             IsBaseGas,
+                        //             RequiredSpecification,
+                        //             GMSUtil.ToFloat(ds.Tables[1].Rows[j]["BlendTolerance"].ToString()),
+                        //             GMSUtil.ToFloat(ds.Tables[1].Rows[j]["CertificationAccuracy"].ToString())
+                        //             );
+                        //    }
+                        //}
+
+                        //if (RecipeSuccessdMessage != "")
+                        //{
+                        //    using (TransactionScope tran = new TransactionScope())
+                        //    {
+                        //        message = Resubmission("Recipe No:"+ RecipeNotFoundMessage + " imported.", "Record added/updated successfully!", "", CompanyId, UserID, CurrentMRStatus);
+                        //        if (RecipeNotFoundMessage == "")
+                        //            tran.Complete();
+                        //        else
+                        //            throw new HttpException(500, RecipeNotFoundMessage);
+
+
+                        //    }
+                        //}
+                        using (TransactionScope tran = new TransactionScope())
+                        {
+                            if (RecipeNotFoundMessage != "")
+                                throw new HttpException(500, "Recipe No: " + recipeno + " not found in CMS. Please check!");
+                            if (RecipeSuccessdMessage != "")
+                                tran.Complete();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new HttpException(500, ex.Message);
+                    }
+                }
+            }
+        }
+
+        public static void ImportRecipe(short CompanyId, string recipeno)
+        {
+            Company coy = Company.RetrieveByKey(CompanyId);
+            string RecipeNotFoundMessage = "";
+            string RecipeSuccessdMessage = "";
+            string message = "";
+            List<string> recipeNoList = new List<string>();
+            Dictionary<string, string> newDict = new Dictionary<string, string>();
+
+            CMSWebService.CMSWebService sc = new CMSWebService.CMSWebService();
+            if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+            {
+
+                if (recipeno != "")
+                {
+                    DataSet ds = new DataSet();
+                    try
+                    {
+                        if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+                        {
+                            sc.Url = coy.CMSWebServiceAddress.Trim();
+                        }
+                        else
+                            sc.Url = "http://localhost/CMS.WebServices/Recipe.asmx";
+
+                        ds = sc.GetRecipe(recipeno);
+                        if (ds != null && ds.Tables[0].Rows.Count == 0)
+                        {
+                            if (RecipeNotFoundMessage == "")
+                                RecipeNotFoundMessage = RecipeNotFoundMessage + recipeno.Trim();
+                            else
+                                RecipeNotFoundMessage = RecipeNotFoundMessage + "," + recipeno.Trim();
+                        }
+
+                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            if (RecipeSuccessdMessage == "")
+                                RecipeSuccessdMessage = RecipeSuccessdMessage + recipeno.Trim();
+                            else
+                                RecipeSuccessdMessage = RecipeSuccessdMessage + "," + recipeno.Trim();
+                        }
+
+                        //tbRecipe
+                        if (ds != null && ds.Tables[0].Rows.Count > 0)
+                        {
+                            if (RecipeSuccessdMessage == "")
+                                RecipeSuccessdMessage = RecipeSuccessdMessage + recipeno.Trim();
+                            else
+                                RecipeSuccessdMessage = RecipeSuccessdMessage + "," + recipeno.Trim();
+
+
+                            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                            {
+                                bool IsStandardLiquidContent;
+                                if (ds.Tables[0].Rows[j]["IsStandardLiquidContent"].ToString() == "True")
+                                    IsStandardLiquidContent = true;
+                                else
+                                    IsStandardLiquidContent = false;
+
+                                new GMSGeneralDALC().InsertRecipe(GMSUtil.ToByte(CompanyId),
+                                    ds.Tables[0].Rows[j]["RecipeNo"].ToString(),
+                                    ds.Tables[0].Rows[j]["AccountCode"].ToString(),
+                                    DateTime.Parse(ds.Tables[0].Rows[j]["RecipeDate"].ToString()),
+                                    ds.Tables[0].Rows[j]["MixtureType"].ToString(),
+                                    ds.Tables[0].Rows[j]["MolecularUnit"].ToString(),
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["CylinderCapacity"].ToString()),
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["Temperature"].ToString()),
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["RequiredPressure"].ToString()),
+                                    IsStandardLiquidContent,
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["LiquidContent"].ToString()),
+                                    ds.Tables[0].Rows[j]["TopPressure"].ToString(),
+                                    ds.Tables[0].Rows[j]["CertificationType"].ToString(),
+                                    ds.Tables[0].Rows[j]["ValveConnection"].ToString(),
+                                    ds.Tables[0].Rows[j]["ValveConnectionType"].ToString(),
+                                    GMSUtil.ToShort(ds.Tables[0].Rows[j]["ShelfLife"].ToString()),
+                                    ds.Tables[0].Rows[j]["SpecialRequirement"].ToString(),
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["GasContent"].ToString()),
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["Pressure"].ToString()),
+                                    GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["GasPrice"].ToString()),
+                                    GMSUtil.ToShort(ds.Tables[0].Rows[j]["MinLeadTime"].ToString()),
+                                    GMSUtil.ToShort(ds.Tables[0].Rows[j]["MaxLeadTime"].ToString()),
+                                    GMSUtil.ToShort(ds.Tables[0].Rows[j]["TotalComponent"].ToString()),
+                                    ds.Tables[0].Rows[j]["CylinderTypeID"].ToString(),
+                                    ds.Tables[0].Rows[j]["Remarks"].ToString());
+                            }
+                        }
+
+                        ////tbRecipeDetail
+                        if (ds != null && ds.Tables[1].Rows.Count > 0)
+                        {
+                            for (int j = 0; j < ds.Tables[1].Rows.Count; j++)
+                            {
+                                bool IsBaseGas, RequiredSpecification;
+
+                                if (ds.Tables[1].Rows[j]["IsBaseGas"].ToString() == "true")
+                                    IsBaseGas = true;
+                                else
+                                    IsBaseGas = false;
+
+                                if (ds.Tables[1].Rows[j]["RequiredSpecification"].ToString() == "true")
+                                    RequiredSpecification = true;
+                                else
+                                    RequiredSpecification = false;
+
+                                new GMSGeneralDALC().InsertRecipeDetail(
+                                     GMSUtil.ToByte(CompanyId),
+                                     ds.Tables[1].Rows[j]["RecipeNo"].ToString(),
+                                     GMSUtil.ToShort(ds.Tables[1].Rows[j]["DetailNo"].ToString()),
+                                     GMSUtil.ToShort(ds.Tables[1].Rows[j]["ComponentID"].ToString()),
+                                     GMSUtil.ToShort(ds.Tables[1].Rows[j]["ConcentrationUnitID"].ToString()),
+                                     GMSUtil.ToFloat(ds.Tables[1].Rows[j]["RequestedConcentration"].ToString()),
+                                     ds.Tables[1].Rows[j]["RequestedConcentrationUnit"].ToString(),
+                                     GMSUtil.ToFloat(ds.Tables[1].Rows[j]["IdealWeight"].ToString()),
+                                     IsBaseGas,
+                                     RequiredSpecification,
+                                     GMSUtil.ToFloat(ds.Tables[1].Rows[j]["BlendTolerance"].ToString()),
+                                     GMSUtil.ToFloat(ds.Tables[1].Rows[j]["CertificationAccuracy"].ToString())
+                                     );
+                            }
+                        }
+
+                        //if (RecipeSuccessdMessage != "")
+                        //{
+                        //    using (TransactionScope tran = new TransactionScope())
+                        //    {
+                        //        message = Resubmission("Recipe No:"+ RecipeNotFoundMessage + " imported.", "Record added/updated successfully!", "", CompanyId, UserID, CurrentMRStatus);
+                        //        if (RecipeNotFoundMessage == "")
+                        //            tran.Complete();
+                        //        else
+                        //            throw new HttpException(500, RecipeNotFoundMessage);
+
+
+                        //    }
+                        //}
+                        using (TransactionScope tran = new TransactionScope())
+                        {
+                            if (RecipeNotFoundMessage != "")
+                                throw new HttpException(500, "Recipe No: " + recipeno + " not found in CMS. Please check!");
+                            if (RecipeSuccessdMessage != "")
+                                tran.Complete();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new HttpException(500, ex.Message);
+                    }
+                }
+            }
+        }
     }
 }

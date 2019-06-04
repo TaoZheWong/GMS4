@@ -264,6 +264,7 @@
                     </div>
                 </div>
          </div>
+
             <div class="panel-tab tab-v2">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#salestab" data-toggle="tab">Confirmed Sales</a></li>
@@ -440,7 +441,7 @@
                                         </ul>
                                     </div>
                                 </div>
-
+                                <a href="#" class="btn btn-info" id="ImportRecipe" style="display: none">Import Recipe</a>
                                 <a href="#" class="btn btn-warning" id="ConfirmVendor" style="display: none">Confirm Vendor</a>
                                 <a href="#" class="btn btn-info " id="SubmitForApproval" style="display: none">SubmitForApproval</a>
                                 <a href="#" class="btn btn-success " id="Approve" style="display: none">Approve</a>
@@ -873,6 +874,15 @@
                                                 <label for="lblApprover2">Approver (4)</label>
                                                 <input type='hidden' id='Approver4ID' class='form-control' name='Approver4ID' value='0'>
                                                 <input type="text" class="form-control" id="Approver4" placeholder="" name='Approver4' onmousedown="GetApprover4(this,'Approver4ID');" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="RecipeInfo" style="display: none">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="lblTotalPurchasePrice">Recipe No.</label>
+                                                <input type="text" class="form-control" id="RecipeNo" placeholder="" name='RecipeNo' />
+                                                <input type='hidden' class='form-control' id='PriceStatus' name='PriceStatus'>
                                             </div>
                                         </div>
                                     </div>

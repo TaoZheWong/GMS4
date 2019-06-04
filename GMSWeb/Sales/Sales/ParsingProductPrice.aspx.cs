@@ -64,6 +64,7 @@ namespace GMSWeb.Sales.Sales
                     DBManager db = DBManager.GetInstance();
 
                     DataSet ds = new DataSet();
+                    var temp = dsExcel.Tables[0].Rows[i];
                     (new GMSGeneralDALC()).IsProductManager(sess.CompanyId, dsExcel.Tables[0].Rows[i]["ProductCode"].ToString(), loginUserOrAlternateParty, ref ds);
                     if (ds == null || ds.Tables.Count <= 0 || ds.Tables[0].Rows.Count <= 0)
                     {
@@ -86,7 +87,7 @@ namespace GMSWeb.Sales.Sales
                                  GMSUtil.ToFloat(dr["UserPrice"].ToString()), GMSUtil.ToFloat(dr["RetailPrice"].ToString()),
                                  sess.UserId, dr["Remarks"].ToString());
 
-                            Response.Output.Write("Inserting successful.<br>");
+                            Response.Output.Write("Inserting successful.<br>");         
                             Response.Flush();
                         }
                         catch (Exception ex)

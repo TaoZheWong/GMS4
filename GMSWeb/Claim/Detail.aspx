@@ -69,7 +69,7 @@
                             </tr>
                         </table>
                         <div class="form-group " data-ng-if="claim.claimInfo.Status == '0'">
-                            <input type="file" id="attachmentFile" data-ng-file-select="onFileSelect($files)" data-ng-model="claim.attachmentSrc" class="form-control">
+                            <input type="file" id="attachmentFile" accept="image/*" data-ng-file-select="onFileSelect($files)" data-ng-model="claim.attachmentSrc" class="form-control">
                         </div>
                         <img data-ng-src="{{claim.attachmentSrc}}" class="img-responsive img-thumbnail" data-ng-if="claim.attachmentSrc != ''"/>
                     </div>

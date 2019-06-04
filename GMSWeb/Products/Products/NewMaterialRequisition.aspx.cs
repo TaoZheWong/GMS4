@@ -4730,6 +4730,7 @@ namespace GMSWeb.Products.Products
                                     md.PurchaseCurrency = row["PurchaseCurrency"].ToString();
                                     md.UnitPurchasePrice = GMSUtil.ToDouble(row["UnitPurchasePrice"].ToString());
                                     md.Reason = row["Reason"].ToString();
+                                    md.RecipeNo = row["RecipeNo"].ToString();
                                     //md.CreatedBy = loginUserOrAlternateParty;
                                     md.CreatedBy = session.UserId;
                                     md.CreatedDate = DateTime.Now;
@@ -4767,6 +4768,7 @@ namespace GMSWeb.Products.Products
                                 md.PurchaseCurrency = row["PurchaseCurrency"].ToString();
                                 md.UnitPurchasePrice = GMSUtil.ToDouble(row["UnitPurchasePrice"].ToString());
                                 md.Reason = row["Reason"].ToString();
+                                md.RecipeNo = row["RecipeNo"].ToString();
                                 md.CreatedBy = session.UserId;
                                 md.CreatedDate = DateTime.Now;
                                 md.Save();

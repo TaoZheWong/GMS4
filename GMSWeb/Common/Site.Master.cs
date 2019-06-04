@@ -368,6 +368,8 @@ namespace GMSWeb
                 session.GASLMSWebServiceAddress = newCoy.GASLMSWebServiceAddress;
                 session.WSDLMSWebServiceAddress = newCoy.WSDLMSWebServiceAddress;
                 session.MRScheme = newCoy.MRScheme;
+                session.DimensionL1 = newCoy.DimensionL1;
+                session.DefaultWarehouse = newCoy.DefaultWarehouse;
                 session.TableSuffix = newCoy.TableSuffix;
                 session.SAPURI = newCoy.SAPURI;
                 session.SAPKEY = newCoy.SAPKEY;

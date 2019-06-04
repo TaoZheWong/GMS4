@@ -362,9 +362,24 @@ namespace GMSCore.Entity
                 }
             }
         }
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public MRDetail() : base()
+
+        private string _recipeNo="";
+        ///<summary>Database mapping to column tbMRDetail.RecipeNo</summary>
+        public string RecipeNo
+        {
+            get { return _recipeNo; }
+            set
+            {
+                if (_recipeNo != value)
+                {
+                    _recipeNo = value;
+                    OnPropertyChanged("RecipeNo");
+                }
+            }
+        }
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public MRDetail() : base()
 		{
 			// Default Constructor
 		}
@@ -434,8 +449,8 @@ namespace GMSCore.Entity
 					case "_sellingCurrency": return _sellingCurrency;
 					case "_purchaseCurrency": return _purchaseCurrency;
                     case "_reason": return _reason;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_recipeNo": return _recipeNo;
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -467,8 +482,8 @@ namespace GMSCore.Entity
 					case "_sellingCurrency": _sellingCurrency = (string)value; break;
 					case "_purchaseCurrency": _purchaseCurrency = (string)value; break;
                     case "_reason": _reason = (string)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_recipeNo": _recipeNo = (string)value; break;
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -505,9 +520,9 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_sellingCurrency={0}\n,", _sellingCurrency.ToString() );
 			stb.AppendFormat("_purchaseCurrency={0}\n,", _purchaseCurrency.ToString() );
             stb.AppendFormat("_reason={0}\n,", _reason.ToString());
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_recipeNo={0}\n,", _recipeNo.ToString());
+
+            return stb.ToString();
 		}
 		#endregion
 
