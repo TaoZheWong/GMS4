@@ -61,7 +61,7 @@ namespace GMSWeb.Organization.Upload
             bool IsBudgetCOA2016 = false;
             int hiddenRowCount = budgetExcel.Tables[0].Rows.Count - 1;
             string[] hiddenValue = budgetExcel.Tables[0].Rows[hiddenRowCount][1].ToString().Split(',');
-            string companyName = budgetExcel.Tables[0].Rows[0][0].ToString();
+            string companyName = budgetExcel.Tables[0].Rows[0][1].ToString();
             string dim1 = hiddenValue[1];
             string dim2 = hiddenValue[2];
             string dim3 = hiddenValue[3];

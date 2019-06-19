@@ -448,7 +448,7 @@ namespace GMSWeb.Finance.Upload
           
             //merging cell
             // first row to last , first cell to last cell
-            var companySpace = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, 2);
+            var companySpace = new NPOI.SS.Util.CellRangeAddress(0, 0, 1, 2);
             var asOfSpace = new NPOI.SS.Util.CellRangeAddress(0, 0, 6, 8);
             var forYearSpace = new NPOI.SS.Util.CellRangeAddress(0, 0, 12, 13);
             var dim1Space = new NPOI.SS.Util.CellRangeAddress(1, 1, 0, 2);
@@ -474,12 +474,12 @@ namespace GMSWeb.Finance.Upload
 
             IRow row0 = sheet1.CreateRow(0);
             row0.RowStyle = headerRowStyle;
-            ICell companyCell = row0.CreateCell(0);
+            ICell companyCell = row0.CreateCell(1);
             companyCell.SetCellValue(company.Name.ToUpper());
             companyCell.CellStyle = companyStyle;
 
-            tempCell = row0.CreateCell(1);
-            tempCell.CellStyle = topBorderStyle;
+            //tempCell = row0.CreateCell(1);
+            //tempCell.CellStyle = topBorderStyle;
             tempCell = row0.CreateCell(2);
             tempCell.CellStyle = topBorderStyle;
             tempCell = row0.CreateCell(3);
@@ -693,7 +693,7 @@ namespace GMSWeb.Finance.Upload
             sheet1.GetRow(rowCount).RowStyle.IsHidden = true;
 
             //company
-            ICell hiddenCell = hiddenRow.CreateCell(0);
+            ICell hiddenCell = hiddenRow.CreateCell(1);
            //  
             hiddenCell.SetCellValue(session.CompanyId.ToString() + "," + this.ddlDim1.SelectedItem.Text.ToString() + "," + this.ddlDim2.SelectedItem.Text.ToString() + "," + this.ddlDim3.SelectedItem.Text.ToString() + "," + this.ddlDim4.SelectedItem.Text.ToString() + "," + this.templateYear.SelectedValue);
             hiddenCell.CellStyle = hiddenStyle;
