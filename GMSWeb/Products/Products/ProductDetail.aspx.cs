@@ -1037,7 +1037,7 @@ function ViewMultipleUOM()
 			else
 			{ 
 				new GMSGeneralDALC().UpdateProductInfoByProductCode(session.CompanyId, productCode, remarks, session.UserId);
-				lblMessage.Text = "Data has been Updated!";               
+				lblMessage.Text = "Data has been Updated!";
 			}	
 		}
 
