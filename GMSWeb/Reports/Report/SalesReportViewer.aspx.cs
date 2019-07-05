@@ -1763,6 +1763,26 @@ namespace GMSWeb.Reports.Report
 
             }
 
+            if (crReportDocument.ParameterFields["@DocType"] != null) {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Document Type :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlDoctype = new DropDownList();
+                ddlDoctype.ID = "ddlDoctype";
+                ddlDoctype.CssClass = "form-control";
+                ddlDoctype.Items.Clear();
+                ddlDoctype.Items.Add(new ListItem("Doc Date", "DocDate"));
+                ddlDoctype.Items.Add(new ListItem("Trn Date", "TrnDate"));
+                pnlParameter.Controls.Add(ddlDoctype);
+                if (ViewState["ddlDoctype"] == null)
+                    ViewState["ddlDoctype"] = "DocDate";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
             dynamicbutton.Text = "Submit";
@@ -2088,6 +2108,9 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlTeam"] = ((DropDownList)pnlParameter.FindControl("ddlTeam")).SelectedValue;
             else
                 ViewState["ddlTeam"] = 0;
+
+            if (crReportDocument.ParameterFields["@DocType"] != null)
+                ViewState["ddlDocType"] = ((DropDownList)pnlParameter.FindControl("ddlDocType")).SelectedValue;
 
             RefreshCrystalReport();
         }
@@ -2449,6 +2472,9 @@ namespace GMSWeb.Reports.Report
                     
                     if (crReportDocument.ParameterFields["@TeamID"] != null && ViewState["ddlTeam"] != null)
                         crReportDocument.SetParameterValue("@TeamID", GMSUtil.ToInt(ViewState["ddlTeam"].ToString()));
+
+                    if (crReportDocument.ParameterFields["@DocType"] != null)
+                        crReportDocument.SetParameterValue("@DocType", ViewState["ddlDocType"].ToString());
 
                     cyReportViewer.ReportSource = crReportDocument;
 
