@@ -166,24 +166,24 @@ namespace GMSWeb.Finance.Upload
                                 "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                                 "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
-                            if (session.FYE.ToString() == month.ToString())
-                            {
-                                query = "CALL \"AF_API_GET_SAP_TRIALBALANCE_DIMENSION\" (" + year + "," + month + ", 'Y')";
-                                ds4901 = sop.GET_SAP_QueryData(session.CompanyId, query,
-                                "Year", "Month", "Project", "Department", "Section", "Unit", "AccountCode", "PrevBalance", "Debit", "Credit",
-                                "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
-                                "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-                                if (ds4901 != null && ds4901.Tables.Count > 0 && ds4901.Tables[0].Rows.Count > 0)
-                                {
-                                    DataView dv = new DataView(ds4901.Tables[0]);
-                                    dv.RowFilter = "AccountCode = '4901' AND Project = '' AND Department = '' AND Section= '' AND Unit = ''";
-                                    DataTable dt4901 = dv.ToTable();
-                                    foreach (DataRow row in dt4901.Rows)
-                                    {
-                                        ds.Tables[0].ImportRow(row);
-                                    }                                        
+                            DataView dvOri = new DataView(ds.Tables[0]);
+                            dvOri.RowFilter = "AccountCode <> '4901'";
+                            DataTable dtOri = dvOri.ToTable();
+                            ds.Reset();
+                            ds.Tables.Add(dtOri);
+                            
+                            query = "CALL \"AF_API_GET_SAP_TRIALBALANCE_DIMENSION\" (" + year + "," + month + ", 'Y')";
+                            ds4901 = sop.GET_SAP_QueryData(session.CompanyId, query,
+                            "Year", "Month", "Project", "Department", "Section", "Unit", "AccountCode", "PrevBalance", "Debit", "Credit",
+                            "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                            "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                            if (ds4901 != null && ds4901.Tables.Count > 0 && ds4901.Tables[0].Rows.Count > 0) {
+                                DataView dv = new DataView(ds4901.Tables[0]);
+                                dv.RowFilter = "AccountCode = '4901'";
+                                DataTable dt4901 = dv.ToTable();
+                                foreach (DataRow row in dt4901.Rows) {
+                                    ds.Tables[0].ImportRow(row);
                                 }
-
                             }
                         }
                         else

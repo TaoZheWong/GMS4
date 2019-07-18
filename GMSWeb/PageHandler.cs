@@ -115,6 +115,13 @@ namespace GMSWeb
                     if (currentLink == "CompanyHR") inner += "<li class=\"selected purple\">" + address;
                     else inner += "<li class='purple'>" + address;
                 }
+
+                if (lstModuleCategory.Contains(22))
+                {
+                    address = "<a href=\"" + appPath + "/Procurement/\" id=\"lnkProcurement\"><span>Procurement</span></a></li>";
+                    if (currentLink == "Procurement") inner += "<li class=\"selected purple\">" + address;
+                    else inner += "<li class='purple'>" + address;
+                }
                 //if (lstModuleCategory.Contains(4))
                 //{
                 //    address = "<a href=\"" + appPath + "/UsefulResources/\" id=\"lnkUR\"><i class='ti-bar-chart'></i> <span>Resources</span></a></li>";
@@ -917,6 +924,19 @@ namespace GMSWeb
                  "<li><a href=\"" + appPath + "/Issue/Issue.aspx?System=L&Type=B\">Errors(Bugs)</a></li>" +
                  "<li><a href=\"" + appPath + "/Issue/Issue.aspx?System=L&Type=C\">Changes</a></li>" +
                  "</ul>";
+            }
+            else if (currentLink == "Procurement")
+            {
+                sideMenu =
+                  "<li class='has-sub vendor-menu'>" +
+                  "<a href='javascript:;'>" +
+                 "<i class='ti-user'></i>" +
+                 "<span>Vendor</span>" +
+                 "</a>" +
+                 "<ul class=\"sub-menu\">" +
+                 //"<li class='sub-forms'><a href=\"" + appPath + "/Procurement/Forms/AddEditVendorApplicationForm.aspx\">Forms</a></li>" +
+                 "<li class='sub-records'><a href=\"" + appPath + "/Procurement/Records/VendorDetails.aspx\">Records</a></li>";
+               
             }
 
 

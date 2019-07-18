@@ -686,7 +686,7 @@
     <Compile Include="Entity\SalesTeamSalesPerson.cs" />
     <Compile Include="Entity\SalesTeamSalesPerson.Generated.cs">
       <DependentUpon>SalesTeamSalesPerson.cs</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Entity\ScheduledTaskGRNDetail.cs" />
     <Compile Include="Entity\ScheduledTaskGRNDetail.Generated.cs">
       <DependentUpon>ScheduledTaskGRNDetail.cs</DependentUpon>
@@ -763,6 +763,14 @@
     <Compile Include="Entity\UserAccessReportForCompany.Generated.cs">
       <DependentUpon>UserAccessReportForCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\Vendor.cs" />
+    <Compile Include="Entity\Vendor.Generated.cs" />
+    <Compile Include="Entity\VendorApplicationForm.cs" />
+    <Compile Include="Entity\VendorApplicationForm.Generated.cs" />
+    <Compile Include="Entity\VendorCompanyKeyPersonnel.cs" />
+    <Compile Include="Entity\VendorCompanyKeyPersonnel.Generated.cs" />
+    <Compile Include="Entity\VendorCustomerProjectRecords.cs" />
+    <Compile Include="Entity\VendorCustomerProjectRecords.Generated.cs" />
     <Compile Include="Entity\VwCompanyListing.cs" />
     <Compile Include="Entity\VwCompanyListing.Generated.cs">
       <DependentUpon>VwCompanyListing.cs</DependentUpon>

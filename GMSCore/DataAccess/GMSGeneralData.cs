@@ -3988,5 +3988,30 @@ namespace GMSCore
             return;
         }
 
+        public void SendVendorEmail(short companyID, string companyName, string email, string link) {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procVendorEmailGenerator", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@coyid", SqlDbType.SmallInt).Value = companyID;
+                command.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = companyName;
+                command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+                command.Parameters.Add("@linktopass", SqlDbType.NVarChar).Value = link;
+                rdr = command.ExecuteReader();
+            }
+            finally {
+                if (conn != null) {
+                    conn.Close();
+                }
+                if (rdr != null) {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+
     }
 }

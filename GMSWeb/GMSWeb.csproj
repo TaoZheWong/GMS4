@@ -1163,6 +1163,45 @@
     <Content Include="PopCalendar2005\DisableCalendar.gif" />
     <Content Include="PopCalendar2005\PopCalendar.js" />
     <Content Include="PopCalendar2005\PopCalendarFunctions.js" />
+    <Content Include="Procurement\Default.aspx" />
+    <Content Include="Procurement\Forms\AddEditVendorApplicationForm.aspx" />
+    <Content Include="Procurement\Forms\VendorApplicationForm.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm1.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm10.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm11.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm12.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm13.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm14.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm15.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm2.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm3.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm4.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm5.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm6.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm7.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm8.aspx" />
+    <Content Include="Procurement\Forms\VendorEvaluationForm9.aspx" />
+    <Content Include="Procurement\Records\AddEditVendorDetails.aspx" />
+    <Content Include="Procurement\Records\AutoCompleteVendorName.asmx" />
+    <Content Include="Procurement\Records\mail.aspx" />
+    <Content Include="Procurement\Records\VendorDetails.aspx" />
+    <Content Include="Procurement\Records\VendorRecords.aspx" />
+    <Content Include="Procurement\Records\VendorRecords1.aspx" />
+    <Content Include="Procurement\Records\VendorRecords10.aspx" />
+    <Content Include="Procurement\Records\VendorRecords11.aspx" />
+    <Content Include="Procurement\Records\VendorRecords12.aspx" />
+    <Content Include="Procurement\Records\VendorRecords13.aspx" />
+    <Content Include="Procurement\Records\VendorRecords14.aspx" />
+    <Content Include="Procurement\Records\VendorRecords15.aspx" />
+    <Content Include="Procurement\Records\VendorRecords2.aspx" />
+    <Content Include="Procurement\Records\VendorRecords3.aspx" />
+    <Content Include="Procurement\Records\VendorRecords4.aspx" />
+    <Content Include="Procurement\Records\VendorRecords5.aspx" />
+    <Content Include="Procurement\Records\VendorRecords6.aspx" />
+    <Content Include="Procurement\Records\VendorRecords7.aspx" />
+    <Content Include="Procurement\Records\VendorRecords8.aspx" />
+    <Content Include="Procurement\Records\VendorRecords9.aspx" />
     <Content Include="Products\Products\MaterialRequisitionDivision.aspx" />
     <Content Include="Products\Products\ProductBatchSerial.aspx" />
     <Content Include="Products\Products\ProductMovement.aspx" />
@@ -1592,6 +1631,276 @@
     </Compile>
     <Compile Include="Offline.aspx.designer.cs">
       <DependentUpon>Offline.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\AddEditVendorApplicationForm.aspx.cs">
+      <DependentUpon>AddEditVendorApplicationForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\AddEditVendorApplicationForm.aspx.designer.cs">
+      <DependentUpon>AddEditVendorApplicationForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorApplicationForm.aspx.cs">
+      <DependentUpon>VendorApplicationForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorApplicationForm.aspx.designer.cs">
+      <DependentUpon>VendorApplicationForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm.aspx.cs">
+      <DependentUpon>VendorEvaluationForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm1.aspx.cs">
+      <DependentUpon>VendorEvaluationForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm1.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm10.aspx.cs">
+      <DependentUpon>VendorEvaluationForm10.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm10.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm10.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm11.aspx.cs">
+      <DependentUpon>VendorEvaluationForm11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm11.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm11.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm12.aspx.cs">
+      <DependentUpon>VendorEvaluationForm12.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm12.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm12.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm13.aspx.cs">
+      <DependentUpon>VendorEvaluationForm13.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm13.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm13.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm14.aspx.cs">
+      <DependentUpon>VendorEvaluationForm14.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm14.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm14.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm15.aspx.cs">
+      <DependentUpon>VendorEvaluationForm15.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm15.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm15.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm2.aspx.cs">
+      <DependentUpon>VendorEvaluationForm2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm2.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm3.aspx.cs">
+      <DependentUpon>VendorEvaluationForm3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm3.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm4.aspx.cs">
+      <DependentUpon>VendorEvaluationForm4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm4.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm5.aspx.cs">
+      <DependentUpon>VendorEvaluationForm5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm5.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm6.aspx.cs">
+      <DependentUpon>VendorEvaluationForm6.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm6.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm6.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm7.aspx.cs">
+      <DependentUpon>VendorEvaluationForm7.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm7.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm7.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm8.aspx.cs">
+      <DependentUpon>VendorEvaluationForm8.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm8.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm8.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm9.aspx.cs">
+      <DependentUpon>VendorEvaluationForm9.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Forms\VendorEvaluationForm9.aspx.designer.cs">
+      <DependentUpon>VendorEvaluationForm9.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\AddEditVendorDetails.aspx.cs">
+      <DependentUpon>AddEditVendorDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\AddEditVendorDetails.aspx.designer.cs">
+      <DependentUpon>AddEditVendorDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\AutoCompleteVendorName.asmx.cs">
+      <DependentUpon>AutoCompleteVendorName.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\mail.aspx.cs">
+      <DependentUpon>mail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\mail.aspx.designer.cs">
+      <DependentUpon>mail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorDetails.aspx.cs">
+      <DependentUpon>VendorDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorDetails.aspx.designer.cs">
+      <DependentUpon>VendorDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords.aspx.cs">
+      <DependentUpon>VendorRecords.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords.aspx.designer.cs">
+      <DependentUpon>VendorRecords.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords1.aspx.cs">
+      <DependentUpon>VendorRecords1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords1.aspx.designer.cs">
+      <DependentUpon>VendorRecords1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords10.aspx.cs">
+      <DependentUpon>VendorRecords10.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords10.aspx.designer.cs">
+      <DependentUpon>VendorRecords10.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords11.aspx.cs">
+      <DependentUpon>VendorRecords11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords11.aspx.designer.cs">
+      <DependentUpon>VendorRecords11.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords12.aspx.cs">
+      <DependentUpon>VendorRecords12.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords12.aspx.designer.cs">
+      <DependentUpon>VendorRecords12.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords13.aspx.cs">
+      <DependentUpon>VendorRecords13.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords13.aspx.designer.cs">
+      <DependentUpon>VendorRecords13.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords14.aspx.cs">
+      <DependentUpon>VendorRecords14.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords14.aspx.designer.cs">
+      <DependentUpon>VendorRecords14.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords15.aspx.cs">
+      <DependentUpon>VendorRecords15.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords15.aspx.designer.cs">
+      <DependentUpon>VendorRecords15.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords2.aspx.cs">
+      <DependentUpon>VendorRecords2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords2.aspx.designer.cs">
+      <DependentUpon>VendorRecords2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords3.aspx.cs">
+      <DependentUpon>VendorRecords3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords3.aspx.designer.cs">
+      <DependentUpon>VendorRecords3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords4.aspx.cs">
+      <DependentUpon>VendorRecords4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords4.aspx.designer.cs">
+      <DependentUpon>VendorRecords4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords5.aspx.cs">
+      <DependentUpon>VendorRecords5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords5.aspx.designer.cs">
+      <DependentUpon>VendorRecords5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords6.aspx.cs">
+      <DependentUpon>VendorRecords6.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords6.aspx.designer.cs">
+      <DependentUpon>VendorRecords6.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords7.aspx.cs">
+      <DependentUpon>VendorRecords7.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords7.aspx.designer.cs">
+      <DependentUpon>VendorRecords7.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords8.aspx.cs">
+      <DependentUpon>VendorRecords8.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords8.aspx.designer.cs">
+      <DependentUpon>VendorRecords8.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords9.aspx.cs">
+      <DependentUpon>VendorRecords9.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Procurement\Records\VendorRecords9.aspx.designer.cs">
+      <DependentUpon>VendorRecords9.aspx</DependentUpon>
     </Compile>
     <Compile Include="Products\Products\AccountSearch.aspx.cs">
       <DependentUpon>AccountSearch.aspx</DependentUpon>
