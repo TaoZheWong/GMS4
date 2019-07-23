@@ -2834,12 +2834,14 @@ namespace GMSCore.Activity
         #endregion
 
         #region RetrieveVendorCompanyKeyPersonnel
-        public IList<VendorCompanyKeyPersonnel> RetrieveVendorCompanyKeyPersonnel(short companyId)
+        public IList<VendorCompanyKeyPersonnel> RetrieveVendorCompanyKeyPersonnel(short companyId, short vendorID)
         {
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("VendorCompanyKeyPersonnel.CoyID"),
                                 helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("VendorCompanyKeyPersonnel.VendorID"),
+                                helper.CleanValue(vendorID));
 
             return VendorCompanyKeyPersonnel.RetrieveQuery(stb.ToString());
         }
@@ -2860,12 +2862,14 @@ namespace GMSCore.Activity
         #endregion
 
         #region RetrieveVendorCustomerProjectRecords
-        public IList<VendorCustomerProjectRecords> RetrieveVendorCustomerProjectRecords(short companyId)
+        public IList<VendorCustomerProjectRecords> RetrieveVendorCustomerProjectRecords(short companyId, short vendorId)
         {
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("VendorCustomerProjectRecords.CoyID"),
                                 helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("VendorCustomerProjectRecords.VendorID"),
+                               helper.CleanValue(vendorId));
 
             return VendorCustomerProjectRecords.RetrieveQuery(stb.ToString());
         }
@@ -2904,6 +2908,48 @@ namespace GMSCore.Activity
             where.AppendFormat("RandomID LIKE {0} And FormID = {1} ", helper.CleanValue(randomid), helper.CleanValue(formid));
             OPathQuery<VendorApplicationForm> query = new OPathQuery<VendorApplicationForm>(where.ToString());
             return DBManager.GetInstance().Engine.GetObjectSet<VendorApplicationForm>(query);
+        }
+        #endregion
+
+        #region RetrieveVendorCompanyPersonnelByVendor
+        public IList<VendorCompanyKeyPersonnel> RetrieveVendorCompanyPersonnelByVendor(short companyId, short vendorId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("VendorCompanyKeyPersonnel.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("VendorCompanyKeyPersonnel.VendorID"),
+                               helper.CleanValue(vendorId));
+
+            return VendorCompanyKeyPersonnel.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+        #region RetrieveVendorCustomerProjectRecordsByVendor
+        public IList<VendorCustomerProjectRecords> RetrieveVendorCustomerProjectRecordsByVendor(short companyId, short vendorId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("VendorCustomerProjectRecords.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("VendorCustomerProjectRecords.VendorID"),
+                               helper.CleanValue(vendorId));
+
+            return VendorCustomerProjectRecords.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+        #region RetrieveVendorCustomerProjectRecordsByVendor
+        public VendorApplicationForm RetrieveVendorApplicationFormIDByRandomID(short companyId, string randomId)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("VendorApplicationForm.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} = {1} ", helper.GetFieldName("VendorApplicationForm.RandomID"),
+                               helper.CleanValue(randomId));
+
+            return VendorApplicationForm.RetrieveFirst(stb.ToString(), "");
         }
         #endregion
 

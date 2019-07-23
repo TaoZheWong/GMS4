@@ -88,7 +88,7 @@ namespace GMSWeb.Procurement.Records
             }
 
             IList<GMSCore.Entity.VendorCompanyKeyPersonnel> lstEE = null;
-            lstEE = new SystemDataActivity().RetrieveVendorCompanyKeyPersonnel(session.CompanyId);
+            lstEE = new SystemDataActivity().RetrieveVendorCompanyKeyPersonnel(session.CompanyId, GMSUtil.ToShort(hidVendorID4.Value));
             this.dgData.DataSource = lstEE;
             this.dgData.DataBind();
 
@@ -155,7 +155,7 @@ namespace GMSWeb.Procurement.Records
                         sgt.VendorID = GMSUtil.ToInt(hidVendorID4.Value.Trim());
                         sgt.PersonnelName = txtNewPersonnelName.Text.Trim();
                         sgt.PersonnelDesignation = txtNewPersonnelDesignation.Text.Trim();
-                        sgt.PersonnelYearOfExperience = txtNewPersonnelYearOfExperience.Text.Trim();
+                        sgt.PersonnelYearOfExperience = GMSUtil.ToInt(txtNewPersonnelYearOfExperience.Text.Trim());
                         sgt.Save();
                         LoadData();
 
@@ -188,7 +188,7 @@ namespace GMSWeb.Procurement.Records
                 GMSCore.Entity.VendorCompanyKeyPersonnel ee = GMSCore.Entity.VendorCompanyKeyPersonnel.RetrieveByKey(int.Parse(hidPersonnelID.Value));
                 ee.PersonnelName = txtEditPersonnelName.Text.Trim();
                 ee.PersonnelDesignation = txtEditPersonnelDesignation.Text.Trim();
-                ee.PersonnelYearOfExperience = txtEditPersonnelYearOfExperience.Text.Trim();
+                ee.PersonnelYearOfExperience = GMSUtil.ToInt(txtEditPersonnelYearOfExperience.Text.Trim());
 
                 try
                 {

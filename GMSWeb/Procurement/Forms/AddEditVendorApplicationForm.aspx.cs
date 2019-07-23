@@ -311,10 +311,10 @@ namespace GMSWeb.Procurement.Forms
             btnSendEmail.Visible = true;
 
             //localhost
-            linktopass = "localhost" + appPath + "/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + vendorAppForm.RandomID.ToString() +"&FORMID=" + vendorAppForm.FormID.ToString();
+            linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm1.aspxRANDOMID=" + vendorAppForm.RandomID.ToString() + "&FORMID=" + vendorAppForm.FormID.ToString();
 
             //lnkVendorEvaluation.Text = lnkVendorEvaluation.NavigateUrl = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm.aspx?FORMID=" + vendorApplicationForm.FormID;
-
+            //linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm1.aspxRANDOMID=" + vendorAppForm.RandomID.ToString() + "&FORMID=" + vendorAppForm.FormID.ToString();
 
             var m = new ResponseModel();
 

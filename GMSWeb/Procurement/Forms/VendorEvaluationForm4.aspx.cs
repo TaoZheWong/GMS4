@@ -84,7 +84,7 @@ namespace GMSWeb.Procurement.Forms
             this.hidCoyID.Value = vendorapplicationform.CoyID.ToString();
 
             IList<GMSCore.Entity.VendorCompanyKeyPersonnel> lstEE = null;
-            lstEE = new SystemDataActivity().RetrieveVendorCompanyKeyPersonnel(GMSUtil.ToShort(hidCoyID.Value.Trim()));
+            lstEE = new SystemDataActivity().RetrieveVendorCompanyKeyPersonnel(GMSUtil.ToShort(hidCoyID.Value.Trim()), GMSUtil.ToShort(hidVendorID4.Value.Trim()));
             this.dgData.DataSource = lstEE;
             this.dgData.DataBind();
 
@@ -159,7 +159,7 @@ namespace GMSWeb.Procurement.Forms
                         sgt.VendorID = GMSUtil.ToInt(hidVendorID4.Value.Trim());
                         sgt.PersonnelName = txtNewPersonnelName.Text.Trim();
                         sgt.PersonnelDesignation = txtNewPersonnelDesignation.Text.Trim();
-                        sgt.PersonnelYearOfExperience = txtNewPersonnelYearOfExperience.Text.Trim();
+                        sgt.PersonnelYearOfExperience = GMSUtil.ToInt(txtNewPersonnelYearOfExperience.Text.Trim());
                         sgt.Save();
                         LoadData();
 
@@ -192,7 +192,7 @@ namespace GMSWeb.Procurement.Forms
                 ee.CoyID = GMSUtil.ToInt(hidCoyID.Value.Trim());
                 ee.PersonnelName = txtEditPersonnelName.Text.Trim();
                 ee.PersonnelDesignation = txtEditPersonnelDesignation.Text.Trim();
-                ee.PersonnelYearOfExperience = txtEditPersonnelYearOfExperience.Text.Trim();
+                ee.PersonnelYearOfExperience = GMSUtil.ToInt(txtEditPersonnelYearOfExperience.Text.Trim());
 
                 try
                 {
@@ -327,12 +327,11 @@ namespace GMSWeb.Procurement.Forms
         protected void btnUpload_Click(object sender, EventArgs e)
         {
 
-            if (!(txtDocumentName.Text == "" || (!FileUpload1.HasFile)))
+            if (txtDocumentName.Text != "" && FileUpload1.HasFile)
             {
                 string fileName = "";
 
-                if (FileUpload1.HasFile)
-                {
+               
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
@@ -349,8 +348,9 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform.Save();
                         vendorapplicationform.Resync();
                         JScriptAlertMsg("Document is uploaded or updated.");
-                        LoadData();
-                    }
+                        lblMsg.Text = "";
+                        linkfileName.Text = vendorapplicationform.CompanyOrganisationFileName;
+                }
                     catch (Exception ex)
                     {
                         JScriptAlertMsg(ex.Message);
@@ -358,31 +358,7 @@ namespace GMSWeb.Procurement.Forms
                 }
                 else
                 {
-
-                    //new document 
-                    //check if the document existed before
-                    //string documentName;
-
-                    // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                    GMSCore.Entity.VendorApplicationForm vendorApplicationForm = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                    vendorApplicationForm.CompanyOrganisationDocumentName = txtDocumentName.Text.Trim().ToUpper();
-                    fileName = string.Concat(vendorApplicationForm.VendorID, vendorApplicationForm.CompanyOrganisationDocumentName, vendorApplicationForm.FormID,Path.GetExtension(this.FileUpload1.FileName));
-                    vendorApplicationForm.CompanyOrganisationFileName = fileName;
-                    FileUpload1.SaveAs(folderPath + "\\" + fileName);
-                    vendorApplicationForm.Save();
-                    vendorApplicationForm.Resync();
-
-                    JScriptAlertMsg("Document is uploaded or updated.");
-                    //lblMsg.Text = "";
-                    txtDocumentName.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                    LoadData();
-                }
-            }
-            else
-            {
+                
                 lblMsg.Text = "You must key in the Document Name or specify a file.";
                 linkfileName.Text = "";
             }

@@ -328,6 +328,15 @@ namespace GMSWeb.Procurement.Forms {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContactPersonEmail;
         
         /// <summary>
+        /// revContactPersonEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revContactPersonEmail;
+        
+        /// <summary>
         /// btnUpdate control.
         /// </summary>
         /// <remarks>

@@ -82,7 +82,7 @@
                 <div class="panel-body">
                     <div class="form-horizontal m-t-20">
                         <div class="form-group col-lg-12">
-                        <label class="col-sm-12 control-label text-left text-underline">
+                        <label class="col-sm-12 control-label text-left">
                              <b>1.	Acceptance of Conditions</b> 
                         </label>
                         <div class="col-sm-12">
@@ -117,7 +117,7 @@
                     
                     <div class="form-horizontal m-t-20">
                         <div class="form-group col-lg-12">
-                        <label class="col-sm-12 control-label text-left text-underline">
+                        <label class="col-sm-12 control-label text-left">
                              <b>2.	Payment</b> 
                         </label>
                         <div class="col-sm-12">
@@ -130,7 +130,7 @@
                     
                     <div class="form-horizontal m-t-20">
                         <div class="form-group col-lg-12">
-                        <label class="col-sm-12 control-label text-left text-underline">
+                        <label class="col-sm-12 control-label text-left">
                              <b>3.	Prices</b> 
                         </label>
                         <div class="col-sm-12">
@@ -143,7 +143,7 @@
 
                      <div class="form-horizontal m-t-20">
                         <div class="form-group col-lg-12">
-                        <label class="col-sm-12 control-label text-left text-underline">
+                        <label class="col-sm-12 control-label text-left">
                              <b>4.	Delivery and Cancellation</b> 
                         </label>
                         <div class="col-sm-12">
@@ -156,7 +156,7 @@
 
                     <div class="form-horizontal m-t-20">
                         <div class="form-group col-lg-12">
-                        <label class="col-sm-12 control-label text-left text-underline">
+                        <label class="col-sm-12 control-label text-left">
                              <b>5.	Invoice</b> 
                         </label>
                         <div class="col-sm-12">
@@ -166,17 +166,209 @@
                         </div>
                     </div>
                    </div> 
+
+                      <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>6.	Conformity and certification</b> 
+                        </label>
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label text-left text-justify">
+                           The Company reserves the right to request for certificates of origin and/or test certificates for the Goods. Such certificates must clearly state the Company’s PO number and the serial number of the Goods.
+                        </label>
+                            <input type="hidden" id="Hidden2" runat="server" />
+                            
+                        </div>
+                    </div>            
+                   </div>  
+                    
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>7.	Packing </b> 
+                        </label>
+                        <div class="col-sm-12">
+                        <label class="col-sm-12 control-label text-left text-justify ">
+                         For Goods where delivery by shipments or airfreight are required, the PO number and shipping marks must appear on all invoices, bills of lading, packing list, correspondence and other papers in connection with this PO. Net and gross weights of each package in kilograms and pounds must be shown on all copies of invoices and packing lists. Packages are to be numbered with contents of each package shown on packing lists. Invoices must be typewritten with full description of goods without abbreviation and must show terms of purchase. Country of origin must be shown on all invoices and packing lists. A copy of the packing list must be included in each package delivered so that materials can be checked when received at destination.
+                        </label>   
+                        </div>
+                    </div>
+                   </div>      
+                    
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>8.	Liquidated Damages</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                         The liquidated damages for late delivery is 0.5% per day of the PO value and the Supplier shall be liable to pay the Company liquidated damages so far as the Goods remain undelivered subject to a maximum of 15% of the PO value.
+                        </label>   
+                        </div>
+                    </div>
+                   </div>   
+
+                     <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>9.	Warranties</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                         Unless otherwise agreed, Seller warrants that the goods supplied shall be new, fit for purpose and be free from defect in material, workmanship and design (where applicable) and the goods shall conform strictly with the written specifications of Buyer as supplied to Seller and subject thereto shall be of the best commercial quality.
+                        </label>   
+                        </div>
+                    </div>
+                   </div> 
+
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>10.	Inspection and Acceptance</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                        Buyer shall be provided with reasonable opportunity to examine the goods delivered before acceptance. Seller shall provide Buyer with a minimum of 7 working days prior notice in writing for local Factory Acceptance Test and 14 working days prior notice in writing for Factory Acceptance Test not in Singapore. Buyer reserves the right to reject any goods that are not in accordance with specifications or are damaged or defective. Buyer shall have no obligation to pay for rejected, damaged or defective goods. Rejected goods will be held by Buyer pending Seller’s instructions at Seller’s cost and risk.
+                        Buyer also requires Seller to arrange for the rectification or replacement of such non- conforming, damaged or defective goods at Seller’s cost and expense. Where specifications for goods require approval from external certifying body, Seller shall also comply with those requirements.
+                        Acknowledgement of delivery or payment for goods prior to inspection shall not be deemed to constitute acceptance of the goods or a waiver of Buyer’s right to reject the same
+                        </label>   
+                        </div>
+                    </div>
+                   </div> 
+
+                        <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>11.	Title and Risk</b> 
+                        </label>
+                            <input type="hidden" id="Hidden5" runat="server" />
+                        <div class="col-sm-12">
+                        <label class="col-sm-12 control-label text-left text-justify">
+                          Title to the goods shall pass to Buyer upon the earlier of payment, delivery, or acceptance of the goods by Buyer, to the extent of and proportional to the amount of money paid by Buyer for the goods.
+                        </label>           
+                        </div>
+                    </div>
+
+                         <div class="form-group col-lg-12">
+                        <div class="col-sm-12">
+                        <label class="col-sm-12 control-label text-left text-justify">
+                         Risk for loss or damage in the goods shall remain with Seller and shall pass to Buyer on delivery and acceptance of the goods at Buyer’s premises.
+                        </label>           
+                        </div>
+                    </div>            
+                   </div>  
+                    
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>12.	Insurance</b> 
+                        </label>
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label text-left text-justify ">
+                         Seller shall be responsible at its cost and expense to provide necessary insurance for the goods against loss or damage until delivery and acceptance of the goods by Buyer
+                        </label>   
+                        </div>
+                    </div>
+                   </div>      
+                    
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>13.	Intellectual Property Rights</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                         Seller warrants that the goods sold do not infringe the intellectual property rights of any third parties, and Seller indemnifies and holds harmless Buyer, its customers and users of the goods from and against all losses, damages, liability, claims, demands, costs and expenses for any actual or alleged infringement of any patent, registered design, trademark, copyright or other intellectual property rights of third parties, in relation to the goods supplied or any use or resale by Buyer of such goods.
+                        </label>   
+                        </div>
+                    </div>
+                   </div>   
+
+                     <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>14.	Indemnity</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                         Seller shall be absolutely and solely responsible for and fully indemnifies and keeps Buyer indemnified against accidents, injuries, death, damages and losses to any person, property and things as set out below
+                        </label>   
+                        </div>
+                       <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                        •	Persons employed by Seller or any of his subcontractors.  
+                        </label>   
+                           <label class="col-sm-12 control-label text-left text-justify ">
+                        •	All tools, equipment and machinery brought into Buyer’s premises or worksites for the performance of Seller’s scope of work 
+                        </label> 
+                        </div>
+                    </div>
+                   </div> 
+
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>15.	Confidentially</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                        All information or document, either in verbal or written form, provided by Buyer which may otherwise be acquired by Seller including but not limited to specification and drawing relating to this Purchase Order shall be treated as confidential information by Seller and shall not be disclosed to any third party without Buyer prior written consent.
+                        </label>   
+                        </div>
+                    </div>
+                   </div> 
+
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>16.	Governing Law</b> 
+                        </label>
+                        <div class="col-sm-12">
+                      <label class="col-sm-12 control-label text-left text-justify ">
+                       This PO shall be governed by the laws of Singapore.
+                        </label>   
+                        </div>
+                    </div>
+                   </div>               
+          
+                  <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>17.	Arbitration</b> 
+                        </label>
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label text-left text-justify">
+                          Any disputes arising out of the purchase order or its performance which cannot be settled amicably by the Buyer and the Seller shall be referred to and finally resolved by arbitration in Singapore in the English language by a sole arbitrator in accordance with the Arbitration Rules of the Singapore International Arbitration Centre for the time being in force which rules are deemed to be incorporated by reference into this Clause
+                        </label>
+                            <input type="hidden" id="Hidden6" runat="server" />                            
+                        </div>
+                    </div>
+                    
+                    <div class="form-horizontal m-t-20">
+                        <div class="form-group col-lg-12">
+                        <label class="col-sm-12 control-label text-left">
+                             <b>18.	Amended or Additional Terms</b> 
+                        </label>
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label text-left text-justify ">
+                          Where Seller and Buyer subsequently enter into a written agreement containing different terms and conditions in respect of the goods, the terms and conditions in respect of that written agreement shall prevail over the terms and conditions herein. 
+                        </label>   
+                        </div>
+                    </div>
+                   </div>      
                      
-                </div>
-       
+                </div>     
+        </div>
+      </div>
+
+            
                  <div class="panel-footer clearfix">
-                       <asp:Button ID="btnUpdate" Text="Next" EnableViewState="False" runat="server" CssClass="btn btn-primary pull-right m-r-10"
-                        OnClick="btnUpdate_Click"></asp:Button>
+                       <asp:Button ID="btnSubmit" Text="Submit" EnableViewState="False" runat="server" CssClass="btn btn-primary pull-right m-r-10"
+                        OnClick="btnSubmit_Click"></asp:Button>
                        <asp:Button ID="btnBack" Text="Back" EnableViewState="False" runat="server" CssClass="btn btn-primary pull-right m-r-10"
                        ValidationGroup="valGrpNewRow" OnClick="btnBack_Click"></asp:Button>      
                  </div>
-        </div>
-</div>
+
 
     </form>
      <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/plugins/jquery/jquery-1.9.1.min.js"></script> 

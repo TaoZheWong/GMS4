@@ -23,7 +23,7 @@ namespace GMSWeb.Procurement.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             if (!Page.IsPostBack)
             {
 
@@ -161,8 +161,8 @@ namespace GMSWeb.Procurement.Forms
             GMSCore.Entity.VendorApplicationForm vendor1 = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID5.Value));
             if (vendor1 != null)
             {
-                
-                btnUpdate.Visible = true;
+
+                btnSubmit.Visible = true;
                 btnBack.Visible = true;
 
                 //string appPath = HttpRuntime.AppDomainAppVirtualPath;
@@ -182,17 +182,38 @@ namespace GMSWeb.Procurement.Forms
         #endregion
 
 
-        #region btnUpdate_Click
-        protected void btnUpdate_Click(object sender, EventArgs e)
+        #region btnSubmit_Click
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
 
-            Response.Redirect("../Forms/VendorEvaluationForm13.aspx?RANDOMID=" + hidRandomID.Value.Trim() + "&FORMID=" + hidFormID4.Value.Trim());
 
-        }
-            
+            GMSCore.Entity.VendorApplicationForm vendorApplicationForm = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID5.Value.Trim()));
+
+            vendorApplicationForm.VEFStatus = "1";
+            vendorApplicationForm.ApprovedStatus = "0";
+            vendorApplicationForm.SubmissionDate = Convert.ToDateTime(System.DateTime.Now.ToString("dd/MM/yyyy"));
+            vendorApplicationForm.Save();
+            vendorApplicationForm.Resync();
+            hidFormID5.Value = vendorApplicationForm.FormID.ToString();
+
+            LoadData();
+
+            Response.Redirect("../../Common/Message.aspx?MESSAGE=" + "The form has been submitted.");
+            return;
+
+
+
+            StringBuilder str = new StringBuilder();
+            str.Append("<script language='javascript'>");
+            str.Append("var url = '../../Common/YesNo_PopUp.aspx?Msg=Record modified successfully! Add another new one?';");
+            str.Append("var r = showModalDialog(url,'','dialogHeight:150px;dialogWidth:300px;status:no;');");
+            str.Append("if (r) {window.location.href = \"../../Procurement/Forms/VendorEvaluationForm15.aspx\";} else " + " {window.close();} ");
+            str.Append("</script>");
+            System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "add", str.ToString(), false);
         }
         #endregion
 
     }
+}
 
 

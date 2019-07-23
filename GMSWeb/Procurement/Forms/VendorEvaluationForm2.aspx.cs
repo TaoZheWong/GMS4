@@ -211,19 +211,19 @@ namespace GMSWeb.Procurement.Forms
 
                 string tempScopeOfWork = vendorapplicationform.ScopeOfWork;
 
-                string[] scopes = tempScopeOfWork.Split(',');
+                string[] scopes = tempScopeOfWork.Split(';');
 
                 foreach (string scope in scopes)
                 {
                     switch (scope)
                     {
                         //default: throw new ApplicationException("Unknown checkbox: " + scope);
-                        case "Supply of material, equipment": chkManufacturer.Checked = true; break;
-                        case "Building related construction, renovation, addition and alteration": chkSubcontractor.Checked = true; break;
-                        case "Process Machinery installation, maintenance or servicing worksAgent/Distributor": chkAgent.Checked = true; break;
-                        case "On site contractors": chkStockiest.Checked = true; break;
-                        case "Waste Collectors": chkFabricator.Checked = true; break;
-                        case "Transporters": chkTradingHouse.Checked = true; break;
+                        case "Supply of material, equipment": chkSupply.Checked = true; break;
+                        case "Building related construction, renovation, addition and alteration": chkBuilding.Checked = true; break;
+                        case "Process Machinery installation, maintenance or servicing works": chkProcess.Checked = true; break;
+                        case "On site contractors": chkContractors.Checked = true; break;
+                        case "Waste Collectors": chkCollectors.Checked = true; break;
+                        case "Transporters": chkTransporters.Checked = true; break;
                     }
                 }
                 }
@@ -299,17 +299,17 @@ namespace GMSWeb.Procurement.Forms
             var tempScopeOfWork= "";
 
             if (chkSupply.Checked)
-                tempScopeOfWork =  string.Concat(tempScopeOfWork, "Supply of material, equipment,");
+                tempScopeOfWork =  string.Concat(tempScopeOfWork, "Supply of material, equipment;");
             if (chkBuilding.Checked)
-                tempScopeOfWork = string.Concat(tempScopeOfWork, "Building related construction, renovation, addition and alteration,");
+                tempScopeOfWork = string.Concat(tempScopeOfWork, "Building related construction, renovation, addition and alteration;");
             if (chkProcess.Checked)
-                tempScopeOfWork = string.Concat(tempScopeOfWork, "Process Machinery installation, maintenance or servicing works,");
+                tempScopeOfWork = string.Concat(tempScopeOfWork, "Process Machinery installation, maintenance or servicing works;");
             if (chkContractors.Checked)
-                tempScopeOfWork = string.Concat(tempScopeOfWork, "On site contractors,");
+                tempScopeOfWork = string.Concat(tempScopeOfWork, "On site contractors;");
             if (chkCollectors.Checked)
-                tempScopeOfWork = string.Concat(tempScopeOfWork, "Waste Collectors,");
+                tempScopeOfWork = string.Concat(tempScopeOfWork, "Waste Collectors;");
             if (chkTransporters.Checked)
-                tempScopeOfWork = string.Concat(tempScopeOfWork, "Transporters,");
+                tempScopeOfWork = string.Concat(tempScopeOfWork, "Transporters;");
 
             vendorApplicationForm.TypeOfOwnership = tempTypeOfOwnership;
             vendorApplicationForm.NatureOfBusiness = tempNatureOfBusiness;
@@ -476,66 +476,39 @@ namespace GMSWeb.Procurement.Forms
         #region btnUpload_Click
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-          
 
-            if (!(txtDocumentName.Text == "" || (!FileUpload1.HasFile)))
+
+            if (txtDocumentName.Text != "" && FileUpload1.HasFile)
             {
                 string fileName = "";
 
-                if (FileUpload1.HasFile)
+                if (!Directory.Exists(folderPath))
                 {
-                    if (!Directory.Exists(folderPath))
-                    {
-                        Directory.CreateDirectory(folderPath);
-                    }
-                    try
-                    {
-                        GMSCore.Entity.VendorApplicationForm vendorapplicationform = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-                        if (vendorapplicationform != null)
-                            vendorapplicationform.AgentDistributorDocumentName = txtDocumentName.Text.Trim();
-                        fileName = string.Concat(vendorapplicationform.VendorID, vendorapplicationform.AgentDistributorDocumentName, vendorapplicationform.FormID, Path.GetExtension(this.FileUpload1.FileName));
-                        vendorapplicationform.AgentDistributorFileName = fileName;
-                        FileUpload1.SaveAs(folderPath + "\\" + fileName);
-
-                        vendorapplicationform.Save();
-                        vendorapplicationform.Resync();
-                        JScriptAlertMsg("Document is uploaded or updated.");
-
-                        LoadData();
-                    }
-                    catch (Exception ex)
-                    {
-                        JScriptAlertMsg(ex.Message);
-                    }
+                    Directory.CreateDirectory(folderPath);
                 }
-                else
+                try
                 {
+                    GMSCore.Entity.VendorApplicationForm vendorapplicationform = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
+                    if (vendorapplicationform != null)
+                        vendorapplicationform.AgentDistributorDocumentName = txtDocumentName.Text.Trim();
+                    fileName = string.Concat(vendorapplicationform.VendorID, vendorapplicationform.AgentDistributorDocumentName, vendorapplicationform.FormID, Path.GetExtension(this.FileUpload1.FileName));
+                    vendorapplicationform.AgentDistributorFileName = fileName;
+                    FileUpload1.SaveAs(@"D:\GMSDocuments\VendorDocuments\AgentDistributor" + "\\" + FileUpload1.FileName);
 
-                    //new document 
-                    //check if the document existed before
-                    //string documentName;
-
-                    // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                    GMSCore.Entity.VendorApplicationForm vendorApplicationForm = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                    vendorApplicationForm.AgentDistributorDocumentName = txtDocumentName.Text.Trim().ToUpper();
-                    fileName = string.Concat(vendorApplicationForm.VendorID, vendorApplicationForm.AgentDistributorDocumentName, vendorApplicationForm.FormID, Path.GetExtension(this.FileUpload1.FileName));
-                    vendorApplicationForm.AgentDistributorFileName = fileName;
-                    FileUpload1.SaveAs(folderPath + "\\" + fileName);
-                    vendorApplicationForm.Save();
-                    vendorApplicationForm.Resync();
-
+                    vendorapplicationform.Save();
+                    vendorapplicationform.Resync();
                     JScriptAlertMsg("Document is uploaded or updated.");
-                    //lblMsg.Text = "";
-                   
-                    txtDocumentName.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                    LoadData();
+                    linkfileName.Text = vendorapplicationform.AgentDistributorFileName;
+                    lblMsg.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    JScriptAlertMsg(ex.Message);
                 }
             }
             else
             {
+               
                 lblMsg.Text = "You must key in the Document Name or specify a file.";
                 linkfileName.Text = "";
             }

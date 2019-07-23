@@ -155,12 +155,12 @@
                             <EditItemTemplate>
                                 <asp:TextBox CssClass="form-control input-sm" ID="txtEditPersonnelYearOfExperience" runat="server" Columns="15" MaxLength="50" Text='<%# Eval("PersonnelYearOfExperience") %>' />
                                   <asp:RequiredFieldValidator
-									ID="rfvEditPersonnelYearOfExperience" runat="server" ControlToValidate="txtEditPersonnelYearOfExperience" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorPersonnel1" />
+									ID="rfvEditPersonnelYearOfExperience" runat="server" Type="Integer" Operator="DataTypeCheck" ControlToValidate="txtEditPersonnelYearOfExperience" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorPersonnel1" />
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewPersonnelYearOfExperience" runat="server" Columns="15" MaxLength="50" />
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewPersonnelYearOfExperience" runat="server" Columns="15" MaxLength="10"/>
                                  <asp:RequiredFieldValidator
-									ID="rfvNewPersonnelYearOfExperience" runat="server" ControlToValidate="txtNewPersonnelYearOfExperience" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorPersonnel" />
+									ID="rfvNewPersonnelYearOfExperience" runat="server" Type="Integer" Operator="DataTypeCheck" ControlToValidate="txtNewPersonnelYearOfExperience" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorPersonnel" />
                             </FooterTemplate>
                         </asp:TemplateColumn>
 

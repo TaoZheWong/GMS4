@@ -351,9 +351,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _paidUpCapital;
+        private decimal _paidUpCapital;
         ///<summary>Database mapping to column tbVendorApplicationForm.PaidUpCapital</summary>
-        public string PaidUpCapital
+        public decimal PaidUpCapital
         {
             get { return _paidUpCapital; }
             set
@@ -366,9 +366,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _annualTurnover;
+        private decimal _annualTurnover;
         ///<summary>Database mapping to column tbVendorApplicationForm.AnnualTurnover</summary>
-        public string AnnualTurnover
+        public decimal AnnualTurnover
         {
             get { return _annualTurnover; }
             set
@@ -381,9 +381,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _authorizedCapital;
+        private decimal _authorizedCapital;
         ///<summary>Database mapping to column tbVendorApplicationForm.AuthorizedCapital</summary>
-        public string AuthorizedCapital
+        public decimal AuthorizedCapital
         {
             get { return _authorizedCapital; }
             set
@@ -472,9 +472,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _creditTerm;
+        private int _creditTerm;
         ///<summary>Database mapping to column tbVendorApplicationForm.CreditTerm</summary>
-        public string CreditTerm
+        public int CreditTerm
         {
             get { return _creditTerm; }
             set
@@ -503,9 +503,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _qANoOfPersonnel;
+        private int _qANoOfPersonnel;
         ///<summary>Database mapping to column tbVendorApplicationForm.QANoOfPersonnel</summary>
-        public string QANoOfPersonnel
+        public int QANoOfPersonnel
         {
             get { return _qANoOfPersonnel; }
             set
@@ -572,7 +572,7 @@ namespace GMSCore.Entity
             {
                 if (_hSEContactPersonDesignation != value)
                 {
-                    _hSEContactPerson = value;
+                    _hSEContactPersonDesignation = value;
                     OnPropertyChanged("HSEContactPersonDesignation");
                 }
             }
@@ -1099,7 +1099,7 @@ namespace GMSCore.Entity
             {
                 if (_declarationDesignation != value)
                 {
-                    _declarationName = value;
+                    _declarationDesignation = value;
                     OnPropertyChanged("DeclarationDesignation");
                 }
             }
@@ -2026,18 +2026,18 @@ namespace GMSCore.Entity
                     case "_scopeOfWork": _scopeOfWork = (string)value; break;
                     case "_vEFStatus": _vEFStatus = (string)value; break;
                     case "_approvedStatus": _approvedStatus = (string)value; break;
-                    case "_paidUpCapital": _paidUpCapital = (string)value; break;
-                    case "_annualTurnover": _annualTurnover = (string)value; break;
-                    case "_authorizedCapital": _authorizedCapital = (string)value; break;
+                    case "_paidUpCapital": _paidUpCapital = (decimal)value; break;
+                    case "_annualTurnover": _annualTurnover = (decimal)value; break;
+                    case "_authorizedCapital": _authorizedCapital = (decimal)value; break;
                     case "_bankInformation": _bankInformation = (string)value; break;
                     case "_bankName": _bankName = (string)value; break;
                     case "_accountNo": _accountNo = (string)value; break;
                     case "_bankerAddress": _bankerAddress = (string)value; break;
                     case "_tradeCurrency": _tradeCurrency = (string)value; break;
-                    case "_creditTerm": _creditTerm = (string)value; break;
+                    case "_creditTerm": _creditTerm = (int)value; break;
                     case "_swiftCode": _swiftCode = (string)value; break;
 
-                    case "_qANoOfPersonnel": _qANoOfPersonnel = (string)value; break;
+                    case "_qANoOfPersonnel": _qANoOfPersonnel = (int)value; break;
                     case "_qAContactPerson": _qAContactPerson = (string)value; break;
                     case "_qAContactPersonDesignation": _qAContactPersonDesignation = (string)value; break;
                     case "_hSEContactPerson": _hSEContactPerson = (string)value; break;

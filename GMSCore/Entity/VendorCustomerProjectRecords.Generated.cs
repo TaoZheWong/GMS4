@@ -95,9 +95,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _yearOfCompletion;
+        private int _yearOfCompletion;
         ///<summary>Database mapping to column tbVendorVendorCustomerProjectRecords.YearOfCompletion</summary>
-        public string YearOfCompletion
+        public int YearOfCompletion
         {
             get { return _yearOfCompletion; }
             set
@@ -195,7 +195,7 @@ namespace GMSCore.Entity
                     case "_vendorID": _vendorID = (int)value; break;
                     case "_customerName": _customerName = (string)value; break;
                     case "_projectNo": _projectNo = (string)value; break;
-                    case "_yearOfCompletion": _yearOfCompletion = (string)value; break;
+                    case "_yearOfCompletion": _yearOfCompletion = (int)value; break;
                     case "_tbVendorCustomerObject": _tbVendorCustomerObject = (ObjectHolder<Vendor>)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));

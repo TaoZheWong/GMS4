@@ -167,16 +167,16 @@ namespace GMSWeb.Procurement.Records
             GMSCore.Entity.VendorApplicationForm vendor1 = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID5.Value));
             if (vendor1 != null)
             {
-                txtPaidUpCapital.Text = vendor1.PaidUpCapital;
-                hidPaidUpCapital.Value = vendor1.PaidUpCapital;
-                txtAnnualTurnover.Text = vendor1.AnnualTurnover;
-                txtAuthorizedCapital.Text = vendor1.AuthorizedCapital;
+                txtPaidUpCapital.Text = vendor1.PaidUpCapital.ToString();
+                hidPaidUpCapital.Value = vendor1.PaidUpCapital.ToString();
+                txtAnnualTurnover.Text = vendor1.AnnualTurnover.ToString();
+                txtAuthorizedCapital.Text = vendor1.AuthorizedCapital.ToString();
                 txtBankInformation.Text = vendor1.BankInformation;
                 txtBankName.Text = vendor1.BankName;
                 txtAccountNo.Text = vendor1.AccountNo;
                 txtBankerAddress.Text = vendor1.BankInformation;
                 txtTradeCurrency.Text = vendor1.TradeCurrency;
-                txtCreditTerm.Text = vendor1.CreditTerm;
+                txtCreditTerm.Text = vendor1.CreditTerm.ToString();
                 txtSwiftCode.Text = vendor1.SwiftCode;
 
                 linkfileName.Text = vendorapplicationform.FinancialInformationFileName;
@@ -268,15 +268,15 @@ namespace GMSWeb.Procurement.Records
             {
                 vendorApplicationForm.CoyID = session.CompanyId;
                 vendorApplicationForm.VendorID = GMSUtil.ToInt(this.hidVendorID4.Value.Trim());
-                vendorApplicationForm.PaidUpCapital = txtPaidUpCapital.Text.Trim();
-                vendorApplicationForm.AnnualTurnover = txtAnnualTurnover.Text.Trim();
-                vendorApplicationForm.AuthorizedCapital = txtAuthorizedCapital.Text.Trim();
+                vendorApplicationForm.PaidUpCapital = GMSUtil.ToDecimal(txtPaidUpCapital.Text.Trim());
+                vendorApplicationForm.AnnualTurnover = GMSUtil.ToDecimal(txtAnnualTurnover.Text.Trim());
+                vendorApplicationForm.AuthorizedCapital = GMSUtil.ToDecimal(txtAuthorizedCapital.Text.Trim());
                 vendorApplicationForm.BankInformation = txtBankInformation.Text.Trim();
                 vendorApplicationForm.BankName = txtBankName.Text.Trim();
                 vendorApplicationForm.AccountNo = txtAccountNo.Text.Trim();
                 vendorApplicationForm.BankerAddress = txtBankName.Text.Trim();
                 vendorApplicationForm.TradeCurrency = txtTradeCurrency.Text.Trim();
-                vendorApplicationForm.CreditTerm = txtCreditTerm.Text.Trim();
+                vendorApplicationForm.CreditTerm = GMSUtil.ToInt(txtCreditTerm.Text.Trim());
                 vendorApplicationForm.SwiftCode = txtSwiftCode.Text.Trim();
 
                 vendorApplicationForm.Save();

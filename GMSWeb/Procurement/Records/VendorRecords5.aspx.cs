@@ -166,8 +166,8 @@ namespace GMSWeb.Procurement.Records
             if (vendor1 != null)
             {
 
-                txtQANoOfPersonnel.Text = vendor1.QANoOfPersonnel;
-                hidQANoOfPersonnel.Value = vendor1.QANoOfPersonnel;
+                txtQANoOfPersonnel.Text = vendor1.QANoOfPersonnel.ToString();
+                hidQANoOfPersonnel.Value = vendor1.QANoOfPersonnel.ToString();
                 txtQAContactPerson.Text = vendor1.QAContactPerson;
                 txtQAContactPersonDesignation.Text = vendor1.QAContactPersonDesignation;
                 txtHSEContactPerson.Text = vendor1.HSEContactPerson;
@@ -267,7 +267,7 @@ namespace GMSWeb.Procurement.Records
             {
                 vendorApplicationForm.CoyID = session.CompanyId;
                 vendorApplicationForm.VendorID = GMSUtil.ToInt(this.hidVendorID4.Value.Trim());
-                vendorApplicationForm.QANoOfPersonnel = txtQANoOfPersonnel.Text.Trim();
+                vendorApplicationForm.QANoOfPersonnel = GMSUtil.ToInt(txtQANoOfPersonnel.Text.Trim());
                 vendorApplicationForm.QAContactPerson = txtQAContactPerson.Text.Trim();
                 vendorApplicationForm.QAContactPersonDesignation = txtQAContactPersonDesignation.Text.Trim();
                 vendorApplicationForm.HSEContactPerson = txtHSEContactPerson.Text.Trim();

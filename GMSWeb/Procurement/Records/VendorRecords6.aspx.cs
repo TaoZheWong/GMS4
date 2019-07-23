@@ -189,7 +189,7 @@ namespace GMSWeb.Procurement.Records
             //this.dgData1.DataBind();
 
             IList<GMSCore.Entity.VendorCustomerProjectRecords> lstEE = null;
-            lstEE = new SystemDataActivity().RetrieveVendorCustomerProjectRecords(session.CompanyId);
+            lstEE = new SystemDataActivity().RetrieveVendorCustomerProjectRecords(session.CompanyId, GMSUtil.ToShort(hidVendorID4.Value.Trim()));
             this.dgData1.DataSource = lstEE;
             this.dgData1.DataBind();
 
@@ -254,7 +254,7 @@ namespace GMSWeb.Procurement.Records
                         sgt.VendorID = GMSUtil.ToInt(hidVendorID4.Value.Trim());
                         sgt.CustomerName = txtNewCustomerName.Text.Trim();
                         sgt.ProjectNo = txtNewProjectNo.Text.Trim();
-                        sgt.YearOfCompletion = txtNewYearOfCompletion.Text.Trim();
+                        sgt.YearOfCompletion = GMSUtil.ToInt(txtNewYearOfCompletion.Text.Trim());
                         sgt.Save();
                         LoadData();
 
@@ -287,7 +287,7 @@ namespace GMSWeb.Procurement.Records
                 GMSCore.Entity.VendorCustomerProjectRecords ee = GMSCore.Entity.VendorCustomerProjectRecords.RetrieveByKey(int.Parse(hidRecordID.Value));
                 ee.CustomerName = txtEditCustomerName.Text.Trim();
                 ee.ProjectNo = txtEditProjectNo.Text.Trim();
-                ee.YearOfCompletion = txtEditYearOfCompletion.Text.Trim();
+                ee.YearOfCompletion = GMSUtil.ToInt(txtEditYearOfCompletion.Text.Trim());
 
                 try
                 {

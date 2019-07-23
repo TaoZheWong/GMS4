@@ -247,6 +247,10 @@
                                     CssClass="form-control" />
                                <asp:RequiredFieldValidator
 								ID="rfvContactPersonEmail" runat="server" ControlToValidate="txtContactPersonEmail" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorDetail" />
+                                <asp:RegularExpressionValidator ID="revContactPersonEmail" runat="server" ErrorMessage="Invalid email address."  ControlToValidate="txtContactPersonEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic">
+                                </asp:RegularExpressionValidator>
+
+
                             </div>
                         </div>
                         

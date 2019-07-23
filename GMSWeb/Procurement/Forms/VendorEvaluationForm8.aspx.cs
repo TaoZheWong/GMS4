@@ -311,13 +311,11 @@ namespace GMSWeb.Procurement.Forms
         #region btnUpload_Click
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-        
-            if (!(txtDocumentName.Text == "" || (!FileUpload1.HasFile)))
+
+            if (txtDocumentName.Text != "" && FileUpload1.HasFile)
             {
                 string fileName = "";
-
-                if (FileUpload1.HasFile)
-                {
+ 
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
@@ -334,9 +332,9 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform.Save();
                         vendorapplicationform.Resync();
                         JScriptAlertMsg("Document is uploaded or updated.");
-
-                        LoadData();
-                    }
+                        linkfileName.Text = vendorapplicationform.ReferenceProjectsFileName;
+                        lblMsg.Text = "";
+                }
                     catch (Exception ex)
                     {
                         JScriptAlertMsg(ex.Message);
@@ -344,31 +342,7 @@ namespace GMSWeb.Procurement.Forms
                 }
                 else
                 {
-
-                    //new document 
-                    //check if the document existed before
-                    //string documentName;
-
-                    // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                    GMSCore.Entity.VendorApplicationForm vendorApplicationForm = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                    vendorApplicationForm.ReferenceProjectsDocumentName = txtDocumentName.Text.Trim().ToUpper();
-                    fileName = string.Concat(vendorApplicationForm.VendorID, vendorApplicationForm.ReferenceProjectsDocumentName, vendorApplicationForm.FormID, Path.GetExtension(this.FileUpload1.FileName));
-                    vendorApplicationForm.ReferenceProjectsFileName = fileName;
-                    FileUpload1.SaveAs(folderPath + "\\" + fileName);
-                    vendorApplicationForm.Save();
-                    vendorApplicationForm.Resync();
-
-                    JScriptAlertMsg("Document is uploaded or updated.");
-                    //lblMsg.Text = "";
-                    txtDocumentName.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                    LoadData();
-                }
-            }
-            else
-            {
+            
                 lblMsg.Text = "You must key in the Document Name or specify a file.";
                 linkfileName.Text = "";
             }
@@ -426,14 +400,12 @@ namespace GMSWeb.Procurement.Forms
         #region btnUpload2_Click
         protected void btnUpload2_Click(object sender, EventArgs e)
         {
-      
 
-            if (!(txtDocumentName2.Text == "" || (!FileUpload2.HasFile)))
+
+            if (txtDocumentName2.Text != "" && FileUpload2.HasFile)
             {
                 string fileName2 = "";
-
-                if (FileUpload2.HasFile)
-                {
+            
                     if (!Directory.Exists(folderPath2))
                     {
                         Directory.CreateDirectory(folderPath2);
@@ -450,9 +422,9 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform2.Save();
                         vendorapplicationform2.Resync();
                         JScriptAlertMsg("Document is uploaded or updated.");
-
-                        LoadData();
-                    }
+                        linkfileName2.Text = vendorapplicationform2.QualificationCertificatesFileName;
+                        lblMsg2.Text = "";
+                }
                     catch (Exception ex)
                     {
                         JScriptAlertMsg(ex.Message);
@@ -460,31 +432,7 @@ namespace GMSWeb.Procurement.Forms
                 }
                 else
                 {
-
-                    //new document 
-                    //check if the document existed before
-                    //string documentName;
-
-                    // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                    GMSCore.Entity.VendorApplicationForm vendorApplicationForm2 = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                    vendorApplicationForm2.QualificationCertificatesDocumentName = txtDocumentName2.Text.Trim().ToUpper();
-                    fileName2 = string.Concat(vendorApplicationForm2.VendorID, vendorApplicationForm2.QualificationCertificatesDocumentName, vendorApplicationForm2.QualificationCertificatesDocumentName, Path.GetExtension(this.FileUpload2.FileName));
-                    vendorApplicationForm2.QualificationCertificatesFileName = fileName2;
-                    FileUpload2.SaveAs(folderPath + "\\" + fileName2);
-                    vendorApplicationForm2.Save();
-                    vendorApplicationForm2.Resync();
-
-                    JScriptAlertMsg("Document is uploaded or updated.");
-                    //lblMsg.Text = "";
-                    txtDocumentName2.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                    LoadData();
-                }
-            }
-            else
-            {
+                
                 lblMsg2.Text = "You must key in the Document Name or specify a file.";
                 linkfileName2.Text = "";
             }
@@ -541,15 +489,13 @@ namespace GMSWeb.Procurement.Forms
         #region btnUpload3_Click
         protected void btnUpload3_Click(object sender, EventArgs e)
         {
-        
 
-            if (!(txtDocumentName3.Text == "" || (!FileUpload3.HasFile)))
+
+            if (txtDocumentName3.Text != "" && FileUpload3.HasFile)
             {
                 string fileName = "";
 
-                if (FileUpload3.HasFile)
-                {
-                    if (!Directory.Exists(folderPath3))
+                  if (!Directory.Exists(folderPath3))
                     {
                         Directory.CreateDirectory(folderPath3);
                     }
@@ -565,9 +511,9 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform3.Save();
                         vendorapplicationform3.Resync();
                         JScriptAlertMsg("Document is uploaded or updated.");
-
-                        LoadData();
-                    }
+                        linkfileName3.Text = vendorapplicationform3.RelevantRecordsFileName;
+                        lblMsg3.Text = "";
+                }
                     catch (Exception ex)
                     {
                         JScriptAlertMsg(ex.Message);
@@ -575,31 +521,7 @@ namespace GMSWeb.Procurement.Forms
                 }
                 else
                 {
-
-                    //new document 
-                    //check if the document existed before
-                    //string documentName;
-
-                    // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                    GMSCore.Entity.VendorApplicationForm vendorApplicationForm3 = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                    vendorApplicationForm3.RelevantRecordsDocumentName = txtDocumentName3.Text.Trim().ToUpper();
-                    fileName = string.Concat(vendorApplicationForm3.VendorID, vendorApplicationForm3.RelevantRecordsDocumentName, vendorApplicationForm3.FormID, Path.GetExtension(this.FileUpload3.FileName));
-                    vendorApplicationForm3.RelevantRecordsFileName = fileName;
-                    FileUpload3.SaveAs(folderPath3 + "\\" + fileName);
-                    vendorApplicationForm3.Save();
-                    vendorApplicationForm3.Resync();
-
-                    JScriptAlertMsg("Document is uploaded or updated.");
-                    //lblMsg.Text = "";
-                    txtDocumentName3.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                    LoadData();
-                }
-            }
-            else
-            {
+      
                 lblMsg3.Text = "You must key in the Document Name or specify a file.";
                 linkfileName3.Text = "";
             }

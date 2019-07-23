@@ -162,16 +162,16 @@ namespace GMSWeb.Procurement.Forms
             GMSCore.Entity.VendorApplicationForm vendor1 = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID5.Value));
             if (vendor1 != null)
             {
-                txtPaidUpCapital.Text = vendor1.PaidUpCapital;
-                hidPaidUpCapital.Value = vendor1.PaidUpCapital;
-                txtAnnualTurnover.Text = vendor1.AnnualTurnover;
-                txtAuthorizedCapital.Text = vendor1.AuthorizedCapital;
+                txtPaidUpCapital.Text = vendor1.PaidUpCapital.ToString();
+                hidPaidUpCapital.Value = vendor1.PaidUpCapital.ToString();
+                txtAnnualTurnover.Text = vendor1.AnnualTurnover.ToString();
+                txtAuthorizedCapital.Text = vendor1.AuthorizedCapital.ToString();
                 txtBankInformation.Text = vendor1.BankInformation;
                 txtBankName.Text = vendor1.BankName;
                 txtAccountNo.Text = vendor1.AccountNo;
                 txtBankerAddress.Text = vendor1.BankInformation;
                 txtTradeCurrency.Text = vendor1.TradeCurrency;
-                txtCreditTerm.Text = vendor1.CreditTerm;
+                txtCreditTerm.Text = vendor1.CreditTerm.ToString();
                 txtSwiftCode.Text = vendor1.SwiftCode;
 
                 txtDocumentName.Text = vendorapplicationform.FinancialInformationDocumentName;
@@ -263,14 +263,12 @@ namespace GMSWeb.Procurement.Forms
         #region btnUpload_Click
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-           
 
-            if (!(txtDocumentName.Text == "" || (!FileUpload1.HasFile)))
+
+            if (txtDocumentName.Text != "" && FileUpload1.HasFile)
             {
                 string fileName = "";
-
-                if (FileUpload1.HasFile)
-                {
+  
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
@@ -287,7 +285,8 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform.Save();
                         vendorapplicationform.Resync();
                         JScriptAlertMsg("Document is uploaded or updated.");
-                        LoadData();
+                        linkfileName.Text = vendorapplicationform.FinancialInformationFileName;
+                        lblMsg.Text = "";
                     }
                     catch (Exception ex)
                     {
@@ -295,31 +294,6 @@ namespace GMSWeb.Procurement.Forms
                     }
                 }
                 else { 
-
-                //new document 
-                //check if the document existed before
-                //string documentName;
-
-                // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                GMSCore.Entity.VendorApplicationForm vendorApplicationForm = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                vendorApplicationForm.FinancialInformationDocumentName = txtDocumentName.Text.Trim().ToUpper();
-                fileName = string.Concat(vendorApplicationForm.VendorID, vendorApplicationForm.FinancialInformationDocumentName, vendorApplicationForm.FormID, Path.GetExtension(this.FileUpload1.FileName));
-                vendorApplicationForm.FinancialInformationFileName = fileName;
-                FileUpload1.SaveAs(folderPath + "\\" + fileName);
-                vendorApplicationForm.Save();
-                vendorApplicationForm.Resync();
-
-                JScriptAlertMsg("Document is uploaded or updated.");
-                //lblMsg.Text = "";
-                txtDocumentName.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                LoadData();
-                }
-            }
-            else
-            {
                 lblMsg.Text = "You must key in the Document Name or specify a file.";
                 linkfileName.Text = "";
             }
@@ -349,15 +323,15 @@ namespace GMSWeb.Procurement.Forms
             {
                 //vendorApplicationForm.CoyID = session.CompanyId;
                 vendorApplicationForm.VendorID = GMSUtil.ToInt(this.hidVendorID4.Value.Trim());
-                vendorApplicationForm.PaidUpCapital = txtPaidUpCapital.Text.Trim();
-                vendorApplicationForm.AnnualTurnover = txtAnnualTurnover.Text.Trim();
-                vendorApplicationForm.AuthorizedCapital = txtAuthorizedCapital.Text.Trim();
+                vendorApplicationForm.PaidUpCapital = GMSUtil.ToDecimal(txtPaidUpCapital.Text.Trim());
+                vendorApplicationForm.AnnualTurnover = GMSUtil.ToDecimal(txtAnnualTurnover.Text.Trim());
+                vendorApplicationForm.AuthorizedCapital = GMSUtil.ToDecimal(txtAuthorizedCapital.Text.Trim());
                 vendorApplicationForm.BankInformation = txtBankInformation.Text.Trim();
                 vendorApplicationForm.BankName = txtBankName.Text.Trim();
                 vendorApplicationForm.AccountNo = txtAccountNo.Text.Trim();
                 vendorApplicationForm.BankerAddress = txtBankName.Text.Trim();
                 vendorApplicationForm.TradeCurrency = txtTradeCurrency.Text.Trim();
-                vendorApplicationForm.CreditTerm = txtCreditTerm.Text.Trim();
+                vendorApplicationForm.CreditTerm = GMSUtil.ToInt(txtCreditTerm.Text.Trim());
                 vendorApplicationForm.SwiftCode = txtSwiftCode.Text.Trim();
 
                 vendorApplicationForm.Save();

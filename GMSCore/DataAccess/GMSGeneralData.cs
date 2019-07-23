@@ -3988,10 +3988,12 @@ namespace GMSCore
             return;
         }
 
-        public void SendVendorEmail(short companyID, string companyName, string email, string link) {
+        public void SendVendorEmail(short companyID, string companyName, string email, string link)
+        {
             IDbConnection conn = cm.GetConnection();
-            SqlDataReader rdr = null;
-            try {
+            SqlDataReader rdr = null; 
+            try
+            {
                 conn.Open();
                 SqlCommand command = new SqlCommand("procVendorEmailGenerator", (SqlConnection)conn);
                 command.CommandType = CommandType.StoredProcedure;
@@ -4001,11 +4003,14 @@ namespace GMSCore
                 command.Parameters.Add("@linktopass", SqlDbType.NVarChar).Value = link;
                 rdr = command.ExecuteReader();
             }
-            finally {
-                if (conn != null) {
+            finally
+            {
+                if (conn != null)
+                {
                     conn.Close();
                 }
-                if (rdr != null) {
+                if (rdr != null)
+                {
                     rdr.Close();
                 }
             }

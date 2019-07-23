@@ -233,12 +233,12 @@
                             <EditItemTemplate>
                                 <asp:TextBox CssClass="form-control input-sm" ID="txtEditYearOfCompletion" runat="server" Columns="15" MaxLength="50" Text='<%# Eval("YearOfCompletion") %>' />
                                   <asp:RequiredFieldValidator
-									ID="rfvEditYearOfCompletion" runat="server" ControlToValidate="txtEditYearOfCompletion" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorCustomer1" />
+									ID="rfvEditYearOfCompletion" runat="server" ControlToValidate="txtEditYearOfCompletion" Type="Integer" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorCustomer1" />
                             </EditItemTemplate>
                             <FooterTemplate>
                                 <asp:TextBox CssClass="form-control input-sm" ID="txtNewYearOfCompletion" runat="server" Columns="15" MaxLength="50" />
                                  <asp:RequiredFieldValidator
-									ID="rfvNewYearOfCompletion" runat="server" ControlToValidate="txtNewYearOfCompletion" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorCustomer"/>
+									ID="rfvNewYearOfCompletion" runat="server" ControlToValidate="txtNewYearOfCompletion" Type="Integer" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpVendorCustomer"/>
                             </FooterTemplate>
                         </asp:TemplateColumn>
 

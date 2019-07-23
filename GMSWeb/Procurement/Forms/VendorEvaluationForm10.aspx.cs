@@ -287,14 +287,12 @@ namespace GMSWeb.Procurement.Forms
         #region btnUpload_Click
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-       
 
-            if (!(txtDocumentName.Text == "" || (!FileUpload1.HasFile)))
+
+            if (txtDocumentName.Text != "" && FileUpload1.HasFile)
             {
                 string fileName = "";
 
-                if (FileUpload1.HasFile)
-                {
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);
@@ -312,9 +310,9 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform.Save();
                         vendorapplicationform.Resync();
                         JScriptAlertMsg("Document is uploaded or updated.");
-
-                        LoadData();
-                    }
+                        linkfileName.Text = vendorapplicationform.ACRAFileName;
+                        lblMsg.Text = "";
+                }
                     catch (Exception ex)
                     {
                         JScriptAlertMsg(ex.Message);
@@ -323,30 +321,6 @@ namespace GMSWeb.Procurement.Forms
                 else
                 {
 
-                    //new document 
-                    //check if the document existed before
-                    //string documentName;
-
-                    // documentName = this.txtDocumentName.Text.Trim().ToUpper();
-
-                    GMSCore.Entity.VendorApplicationForm vendorApplicationForm = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(GMSUtil.ToInt(hidFormID4.Value.Trim()));
-
-                    vendorApplicationForm.ACRADocumentName = txtDocumentName.Text.Trim().ToUpper();
-                    fileName = string.Concat(vendorApplicationForm.VendorID, vendorApplicationForm.ACRADocumentName, vendorApplicationForm.FormID, Path.GetExtension(this.FileUpload1.FileName));
-                    vendorApplicationForm.ACRAFileName = fileName;
-                    FileUpload1.SaveAs(folderPath + "\\" + fileName);
-                    vendorApplicationForm.Save();
-                    vendorApplicationForm.Resync();
-
-                    JScriptAlertMsg("Document is uploaded or updated.");
-                    //lblMsg.Text = "";
-                    txtDocumentName.Text = "";
-                    //this.Title = Request.Params["PageTitle"].ToString();
-                    LoadData();
-                }
-            }
-            else
-            {
                 lblMsg.Text = "You must key in the Document Name or specify a file.";
                 linkfileName.Text = "";
             }

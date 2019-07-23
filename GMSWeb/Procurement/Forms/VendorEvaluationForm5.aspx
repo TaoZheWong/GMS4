@@ -152,12 +152,12 @@
                             <label for="<%=chkManualYes.ClientID %>">Yes</label>
                             </div>
                         </div>
-                         <div class="col-sm-6">
+                      <%--   <div class="col-sm-6">
                             <div class="checkbox">
                             <asp:CheckBox ID="chkManualNo" runat="server" Checked="false" />
                             <label for="<%=chkManualNo.ClientID %>">No</label>
                          </div>
-                        </div>
+                        </div>--%>
                        </div>              
           </div>     
    

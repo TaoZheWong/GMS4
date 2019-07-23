@@ -60,6 +60,9 @@ namespace GMSWeb.Products.Products
                 isOptimizedTable = isOptimizedTableCookie.Value == "true" ? "optimizedTable" : "";
 
             LoadData();
+ 
+            hidStatusType.Value = session.StatusType.ToString();
+
         }
 
         protected void LoadData()
@@ -148,6 +151,7 @@ namespace GMSWeb.Products.Products
                     {
                         this.dgData.DataSource = ds;
                         this.dgData.DataBind();
+                        
                     }
                     else
                     {
@@ -346,6 +350,46 @@ namespace GMSWeb.Products.Products
         {
         }
         #endregion
+
+        #region dgData_ItemDataBound
+        protected void dgData_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            GMSGeneralDALC dacl = new GMSGeneralDALC();
+            DataSet ds = new DataSet();
+            DataSet ds1 = new DataSet();
+
+            //(new GMSGeneralDALC()).IsProductManagerByProductGroupCode(session.CompanyId, this.productGroupCode, loginUserOrAlternateParty, ref ds1);
+            ////Is product manager
+            //if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+            //{
+            //    this.dgPO.Columns[3].Visible = true;
+            //}
+            
+                Label lblTrnDate = (Label)e.Item.FindControl("lblTrnDate");
+      
+                if (lblTrnDate != null)
+                {
+                    try
+                    {
+                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        //dd-MMM-yyyy  
+                        if (ds.Tables[0].Rows[0]["TrnDate"].ToString() != "1/01/1900 12:00:00 AM")
+                            lblTrnDate.Text = String.Format("{0:dd-MMM-yyyy}", ds.Tables[0].Rows[0]["TrnDate"]);
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        //this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+                    }
+
+                }
+            
+        }
+        #endregion
+
         #region dgPO_ItemDataBound
         protected void dgPO_ItemDataBound(object sender, DataGridItemEventArgs e)
         {

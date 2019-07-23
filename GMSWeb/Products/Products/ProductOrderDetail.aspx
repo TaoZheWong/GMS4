@@ -20,13 +20,18 @@
 <body class="<%=getIsLargeFont%> <%=getIsOptimizedTable%>">
     <form id="form1" runat="server">
     <div class="container m-t-20">
+          <div class="form-group col-lg-12 col-sm-12">           
+                <div class="col-sm-4">
+                    <input type="hidden" id="hidStatusType" runat="server" />
+                </div>
+            </div>
         <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false"
-		    GridLines="none" CellPadding="5" CellSpacing="5" CssClass="table table-condensed table-striped table-hover">
-		    <Columns>
-		        <asp:TemplateColumn HeaderText="Trn Date" >
-				    <ItemTemplate>
-					    <%# DateTime.Parse(Eval("TrnDate").ToString()).ToString("dd-MMM-yyyy") %>
-				    </ItemTemplate>
+		    GridLines="none" CellPadding="5" CellSpacing="5" CssClass="table table-condensed table-striped table-hover" OnItemDataBound="dgData_ItemDataBound">
+             <Columns>
+		        <asp:TemplateColumn HeaderText="Trn Date">
+				    <ItemTemplate>       
+                   <%# hidStatusType.Value == "S" ? DateTime.ParseExact(Eval("TrnDate").ToString(), "M/d/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture).ToString("dd-MMM-yyyy"):DateTime.Parse(Eval("TrnDate").ToString()).ToString("dd-MMM-yyyy")%> 
+			    </ItemTemplate>
 			    </asp:TemplateColumn>
 			    
 			    <asp:TemplateColumn HeaderText="Trn No." >
@@ -62,8 +67,7 @@
 		    GridLines="none" CellPadding="5" CellSpacing="5" CssClass="table table-condensed table-striped table-hover" OnItemDataBound="dgPO_ItemDataBound">
 		    <Columns>
 		        <asp:TemplateColumn HeaderText="Trn Date">
-				    <ItemTemplate>
-                        
+				    <ItemTemplate>    
                         <%# DateTime.Parse(Eval("TrnDate").ToString()).ToString("dd-MMM-yyyy") %>
 				    </ItemTemplate>
 			    </asp:TemplateColumn>

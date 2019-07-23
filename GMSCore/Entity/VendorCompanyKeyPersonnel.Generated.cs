@@ -95,9 +95,9 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _personnelYearOfExperience;
+        private int _personnelYearOfExperience;
         ///<summary>Database mapping to column tbVendorCompanyKeyPersonnel.PersonnelYearOfExperience</summary>
-        public string PersonnelYearOfExperience
+        public int PersonnelYearOfExperience
         {
             get { return _personnelYearOfExperience; }
             set
@@ -195,7 +195,7 @@ namespace GMSCore.Entity
                     case "_vendorID": _vendorID = (int)value; break;
                     case "_personnelName": _personnelName = (string)value; break;
                     case "_personnelDesignation": _personnelDesignation = (string)value; break;
-                    case "_personnelYearOfExperience": _personnelYearOfExperience = (string)value; break;
+                    case "_personnelYearOfExperience": _personnelYearOfExperience = (int)value; break;
                     case "_tbVendorPersonnelObject": _tbVendorPersonnelObject = (ObjectHolder<Vendor>)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));

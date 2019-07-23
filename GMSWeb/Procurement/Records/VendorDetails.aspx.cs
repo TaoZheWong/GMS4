@@ -36,7 +36,7 @@ namespace GMSWeb.Procurement.Records
                 return;
             }
 
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId, 157);
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId, 155);
             if (uAccess == null)
                 Response.Redirect(base.UnauthorizedPage("Procurement"));
 
@@ -138,12 +138,14 @@ namespace GMSWeb.Procurement.Records
             GMSCore.Entity.VendorApplicationForm vendorApplicationForm = new GMSCore.Entity.VendorApplicationForm();
             GMSCore.Entity.VendorApplicationForm vendorApplicationForm1 = GMSCore.Entity.VendorApplicationForm.RetrieveByKey(formid);
             GMSCore.Entity.VendorCompanyKeyPersonnel vendorCompanyKeyPersonnel = new GMSCore.Entity.VendorCompanyKeyPersonnel();
-            GMSCore.Entity.VendorCompanyKeyPersonnel vendorCompanyKeyPersonnel1 = GMSCore.Entity.VendorCompanyKeyPersonnel.RetrieveByKey(formid);
+            IList<GMSCore.Entity.VendorCompanyKeyPersonnel> vendorCompanyKeyPersonnel1 = null;
+            vendorCompanyKeyPersonnel1 = new SystemDataActivity().RetrieveVendorCompanyPersonnelByVendor(session.CompanyId,GMSUtil.ToShort(hidNewVendorID.Value.Trim()));
             GMSCore.Entity.VendorCustomerProjectRecords vendorCustomerProjectRecords = new GMSCore.Entity.VendorCustomerProjectRecords();
-            GMSCore.Entity.VendorCustomerProjectRecords vendorCustomerProjectRecords1 = GMSCore.Entity.VendorCustomerProjectRecords.RetrieveByKey(formid);
-
+            IList<GMSCore.Entity.VendorCustomerProjectRecords> vendorCustomerProjectRecords1 = null;
+            vendorCustomerProjectRecords1 = new SystemDataActivity().RetrieveVendorCustomerProjectRecordsByVendor(session.CompanyId, GMSUtil.ToShort(hidNewVendorID.Value.Trim()));
+          
             vendorApplicationForm.CoyID = session.CompanyId;
-            vendorApplicationForm.VendorID = GMSUtil.ToInt(this.hidNewVendorID.Value.Trim());
+            vendorApplicationForm.VendorID = vendorApplicationForm1.VendorID;
             vendorApplicationForm.CompanyName = vendorApplicationForm1.CompanyName;
             vendorApplicationForm.BusinessAddress = vendorApplicationForm1.BusinessAddress;
             vendorApplicationForm.CompanyRegNo = vendorApplicationForm1.CompanyRegNo;
@@ -175,9 +177,13 @@ namespace GMSWeb.Procurement.Records
             vendorApplicationForm.CreditTerm = vendorApplicationForm1.CreditTerm;
             vendorApplicationForm.SwiftCode = vendorApplicationForm1.SwiftCode;
 
-            vendorCompanyKeyPersonnel.PersonnelName = vendorCompanyKeyPersonnel1.PersonnelName;
-            vendorCompanyKeyPersonnel.PersonnelDesignation = vendorCompanyKeyPersonnel1.PersonnelDesignation;
-            vendorCompanyKeyPersonnel.PersonnelYearOfExperience = vendorCompanyKeyPersonnel1.PersonnelYearOfExperience;
+            foreach(var x in vendorCompanyKeyPersonnel1) { 
+            vendorCompanyKeyPersonnel.PersonnelName = x.PersonnelName;
+            vendorCompanyKeyPersonnel.PersonnelDesignation = x.PersonnelDesignation;
+            vendorCompanyKeyPersonnel.PersonnelYearOfExperience = x.PersonnelYearOfExperience;
+
+            vendorCompanyKeyPersonnel.Save();
+            }
 
             vendorApplicationForm.QANoOfPersonnel = vendorApplicationForm1.QANoOfPersonnel;
             vendorApplicationForm.QAContactPerson = vendorApplicationForm1.QAContactPerson;
@@ -195,9 +201,13 @@ namespace GMSWeb.Procurement.Records
             vendorApplicationForm.Certifications = vendorApplicationForm1.Certifications;
             vendorApplicationForm.Societies = vendorApplicationForm1.Societies;
 
-            vendorCustomerProjectRecords.CustomerName = vendorCustomerProjectRecords1.CustomerName;
-            vendorCustomerProjectRecords.ProjectNo = vendorCustomerProjectRecords1.ProjectNo;
-            vendorCustomerProjectRecords.YearOfCompletion = vendorCustomerProjectRecords1.YearOfCompletion;
+            foreach(var y in vendorCustomerProjectRecords1) { 
+            vendorCustomerProjectRecords.CustomerName = y.CustomerName;
+            vendorCustomerProjectRecords.ProjectNo = y.ProjectNo;
+            vendorCustomerProjectRecords.YearOfCompletion = y.YearOfCompletion;
+
+            vendorCustomerProjectRecords.Save();
+            }
 
             vendorApplicationForm.VendorComment1 = vendorApplicationForm1.VendorComment1;
             vendorApplicationForm.ViolationOfHSE = vendorApplicationForm1.ViolationOfHSE;
@@ -241,28 +251,33 @@ namespace GMSWeb.Procurement.Records
             vendorApplicationForm.ChkCompanyBackground = vendorApplicationForm1.ChkCompanyBackground;
             vendorApplicationForm.ChkProductInformation = vendorApplicationForm1.ChkProductInformation;
             vendorApplicationForm.ChkTechnicalInformation = vendorApplicationForm1.ChkTechnicalInformation;
-            vendorApplicationForm.ChkBrochure = vendorApplicationForm1.ChkBrochure;  
+            vendorApplicationForm.ChkBrochure = vendorApplicationForm1.ChkBrochure;
+            vendorApplicationForm.RandomID = string.Concat(DateTime.Now.ToString("yyyyMMddHHmmssfff"), vendorApplicationForm.VendorID);
 
             vendorApplicationForm.Save();
             vendorApplicationForm.Resync();
             //hidFormID.Value = vendorApplicationForm.FormID.ToString();
             LoadData();
 
+         
+            VendorApplicationForm vendorformid = new SystemDataActivity().RetrieveVendorApplicationFormIDByRandomID(session.CompanyId, vendorApplicationForm.RandomID);
+
+
             var companyID = session.CompanyId;
-            var randomID = hidRandomID.Value;
-            var companyName = vendorApplicationForm.CompanyName;
-            var email = vendorApplicationForm.VendorObject.Email;
+            var randomID = vendorApplicationForm.RandomID;
+            var companyName = vendorApplicationForm1.VendorObject.CompanyName;
+            var email = vendorApplicationForm1.VendorObject.Email;
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
-            var linktopass = "localhost" + appPath + "/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + vendorApplicationForm1.RandomID.ToString() + "&FORMID=" + vendorApplicationForm1.FormID.ToString();
+            var linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
+            //localhost
+            //"localhost" + appPath + "/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
 
-
+            //lnkVendorEvaluation.Text = lnkVendorEvaluation.NavigateUrl =  "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
 
             SystemDataActivity sDataActivity = new SystemDataActivity();
             GMSCore.Entity.VendorApplicationForm vendorAppForm = sDataActivity.RetrieveVendorApplicationFormByVendorID(GMSUtil.ToInt(hidNewVendorID.Value.Trim()));
 
-            //localhost
-
-            //lnkVendorEvaluation.Text = lnkVendorEvaluation.NavigateUrl = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm.aspx?FORMID=" + vendorApplicationForm.FormID;
+            
 
 
             var m = new ResponseModel();
@@ -335,7 +350,10 @@ namespace GMSWeb.Procurement.Records
                         vendor.CompanyName = txtNewVendorName.Text.Trim();
                         vendor.Email = txtNewVendorEmail.Text.Trim();
                         vendor.Save();
-                    
+
+                        txtNewVendorName.Text = "";
+                        txtNewVendorEmail.Text = "";
+
                         this.PageMsgPanel.ShowMessage("Vendor successfully created.", MessagePanelControl.MessageEnumType.Alert);
                         LoadData();
                     }

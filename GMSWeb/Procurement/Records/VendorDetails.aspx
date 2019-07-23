@@ -50,6 +50,8 @@
                  <asp:TextBox ID="txtNewVendorEmail" runat="server" Columns="80" MaxLength="80" CssClass="form-control"
                  onfocus="select();" /><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                  ControlToValidate="txtNewVendorEmail" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewRow" />
+                 <asp:RegularExpressionValidator ID="revVendorEmail" runat="server" ErrorMessage="Invalid email address."  ControlToValidate="txtNewVendorEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic">
+                 </asp:RegularExpressionValidator>
                 </div>
             </div>
             </div>
