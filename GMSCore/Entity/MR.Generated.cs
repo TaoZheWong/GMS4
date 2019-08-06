@@ -668,6 +668,54 @@ namespace GMSCore.Entity
             }
         }
 
+        private short _dim1;
+        ///<summary>Database mapping to column tbMR.Dim1</summary>
+        public short Dim1 {
+            get { return _dim1; }
+            set {
+                if (_dim1 != value) {
+                    _dim1 = value;
+                    OnPropertyChanged("Dim1");
+                }
+            }
+        }
+
+        private short _dim2 = 10;
+        ///<summary>Database mapping to column tbMR.Dim2</summary>
+        public short Dim2 {
+            get { return _dim2; }
+            set {
+                if (_dim2 != value) {
+                    _dim2 = value;
+                    OnPropertyChanged("Dim2");
+                }
+            }
+        }
+
+        private short _dim3;
+        ///<summary>Database mapping to column tbMR.Dim3</summary>
+        public short Dim3 {
+            get { return _dim3; }
+            set {
+                if (_dim3 != value) {
+                    _dim3 = value;
+                    OnPropertyChanged("Dim3");
+                }
+            }
+        }
+
+        private short _dim4;
+        ///<summary>Database mapping to column tbMR.Dim4</summary>
+        public short Dim4 {
+            get { return _dim4; }
+            set {
+                if (_dim4 != value) {
+                    _dim4 = value;
+                    OnPropertyChanged("Dim4");
+                }
+            }
+        }
+
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -771,7 +819,10 @@ namespace GMSCore.Entity
                     case "_warehouse": return _warehouse;
                     case "_mRScheme": return _mRScheme;
                     case "_othersRemarks": return _othersRemarks;
-
+                    case "_dim1": return _dim1;
+                    case "_dim2": return _dim2;
+                    case "_dim3": return _dim3;
+                    case "_dim4": return _dim4;
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
                 }
             }
@@ -826,6 +877,10 @@ namespace GMSCore.Entity
                     case "_warehouse": _warehouse = (string)value; break;
                     case "_mRScheme": _mRScheme = (string)value; break;
                     case "_othersRemarks": _othersRemarks = (string)value; break;
+                    case "_dim1": _dim1 = (short)value; break;
+                    case "_dim2": _dim2 = (short)value; break;
+                    case "_dim3": _dim3 = (short)value; break;
+                    case "_dim4": _dim4 = (short)value; break;
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
                 }
             }
@@ -883,6 +938,10 @@ namespace GMSCore.Entity
             stb.AppendFormat("_warehouse={0}\n,", _warehouse.ToString());
             stb.AppendFormat("_mRScheme={0}\n,", _mRScheme.ToString());
             stb.AppendFormat("_othersRemarks={0}\n,", _othersRemarks.ToString());
+            stb.AppendFormat("_dim1={0}\n,", _dim1.ToString());
+            stb.AppendFormat("_dim2={0}\n,", _dim2.ToString());
+            stb.AppendFormat("_dim3={0}\n,", _dim3.ToString());
+            stb.AppendFormat("_dim4={0}\n,", _dim4.ToString());
             return stb.ToString();
         }
         #endregion

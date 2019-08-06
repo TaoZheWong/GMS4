@@ -184,7 +184,7 @@ namespace GMSWeb.Products.Products
         public static List<Dictionary<string, string>> GetMRHeader(short CompanyId, string MRNo)
         {
             DataSet dsTemp = new DataSet();
-            new GMSGeneralDALC().GetMaterialRequisitionByMRNo(CompanyId, MRNo, ref dsTemp);
+            new GMSGeneralDALC().GetMaterialRequisitionByMRNo(CompanyId, MRNo, ref dsTemp); //procAppMaterialRequisitionsByMRNoSelect
             return GMSUtil.ToJson(dsTemp, 0);
         }
 
@@ -550,6 +550,10 @@ namespace GMSWeb.Products.Products
             string warehouse = "";
             string purchaserid = "";
             string othersRemarks = "";
+            string dim1 = "";
+            string dim2 = "";
+            string dim3 = "";
+            string dim4 = "";
 
             List<string> uniqueProductGroup = new List<string>();
 
@@ -636,6 +640,14 @@ namespace GMSWeb.Products.Products
                     purchaserid = idict[key].ToString();
                 else if (key.ToString() == "othersRemarks")
                     othersRemarks = idict[key].ToString();
+                else if (key.ToString() == "dim1")
+                    dim1 = idict[key].ToString();
+                else if (key.ToString() == "dim2")
+                    dim2 = idict[key].ToString();
+                else if (key.ToString() == "dim3")
+                    dim3 = idict[key].ToString();
+                else if (key.ToString() == "dim4")
+                    dim4 = idict[key].ToString();
             }
 
             int totalUniqueCount = 1;
@@ -700,11 +712,16 @@ namespace GMSWeb.Products.Products
                     mr.DimensionL1 = dimensionL1;
                     mr.Warehouse = warehouse;
                     mr.MRScheme = MRScheme;
+                    mr.Dim1 = GMSUtil.ToShort(dim1);
+                    mr.Dim2 = GMSUtil.ToShort(dim2);
+                    mr.Dim3 = GMSUtil.ToShort(dim3);
+                    mr.Dim4 = GMSUtil.ToShort(dim4);
+
 
                     if (isconsole == "Yes")
                     {
                         mr.IsConsole = true;
-                        mr.ConsoleDate = GMSUtil.ToDate(consoleDate);
+                        mr.ConsoleDate = GMSUtil.ToDate(consoleDate); 
                     }
                     else
                     {
@@ -792,6 +809,10 @@ namespace GMSWeb.Products.Products
                 mr.OrderReason = orderreason;
                 mr.MRDate = GMSUtil.ToDate(mrdate);
                 mr.OthersRemarks = othersRemarks;
+                mr.Dim1 = GMSUtil.ToShort(dim1);
+                mr.Dim2 = GMSUtil.ToShort(dim2);
+                mr.Dim3 = GMSUtil.ToShort(dim3);
+                mr.Dim4 = GMSUtil.ToShort(dim4);
                 if (isconsole == "Yes")
                 {
                     mr.IsConsole = true;
@@ -2803,6 +2824,44 @@ namespace GMSWeb.Products.Products
                     }
                 }
             }
+        }
+
+        [WebMethod]
+        public static IList<CompanyProject> GetDim1(short CompanyId) {
+            IList<CompanyProject> lstProject = null;
+            lstProject = new SystemDataActivity().RetrieveAllCompanyProjectListByCompanyIDSortByProjectID(CompanyId);
+           
+            return lstProject;
+        }
+
+        [WebMethod]
+        public static List<Dictionary<string, string>> GetDim2(short CompanyId, short ProjectId) {
+            GMSGeneralDALC dacl = new GMSGeneralDALC();
+            DataSet dsDepartments = new DataSet();
+
+            dacl.GetDepartmentByDivision(CompanyId, Convert.ToInt16(ProjectId), ref dsDepartments);
+
+            return GMSUtil.ToJson(dsDepartments, 0);
+        }
+
+        [WebMethod]
+        public static List<Dictionary<string, string>> GetDim3(short CompanyId, short DepartmentId) {
+            GMSGeneralDALC dacl = new GMSGeneralDALC();
+            DataSet dsSections = new DataSet();
+
+            dacl.GetCompanySection(CompanyId, Convert.ToInt16(DepartmentId), ref dsSections);
+
+            return GMSUtil.ToJson(dsSections, 0);
+        }
+
+        [WebMethod]
+        public static List<Dictionary<string, string>> GetDim4(short CompanyId, short SectionId) {
+            GMSGeneralDALC dacl = new GMSGeneralDALC();
+            DataSet dsUnits = new DataSet();
+
+            dacl.GetCompanyUnit(CompanyId, Convert.ToInt16(SectionId), ref dsUnits);
+
+            return GMSUtil.ToJson(dsUnits, 0);
         }
     }
 }
