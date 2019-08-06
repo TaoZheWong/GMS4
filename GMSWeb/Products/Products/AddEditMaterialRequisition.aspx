@@ -165,6 +165,33 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="rowgasdivision" class="row m-t-20" style="display: none">
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label class="control-label text-left" for="dim1">Dim 1:</label>
+                            <select class="form-control" id="dim1" name="dim1" disabled>
+                                <option value="-1">L1NA</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label class="control-label text-left" for="dim2">Dim 2:</label>
+                            <select class="form-control" id="dim2" name="dim2" disabled>
+                                <option value="-1">L2NA</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label class="control-label text-left" for="dim3">Dim 3:</label>
+                            <select class="form-control" id="dim3" name="dim3" disabled>
+                                <option value="-1">L3NA</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                            <label class="control-label text-left" for="dim4">Dim 4:</label>
+                            <select class="form-control" id="dim4" name="dim4" disabled>
+                                <option value="-1">L4NA</option>
+                            </select>
+                        </div>
+                    </div>
                   
                     <div class="row">
                         <div class="form-group col-lg-3 col-md-6 col-sm-12">

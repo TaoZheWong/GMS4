@@ -22,7 +22,7 @@ $(document).ready(function() {
               return true;
           }
 
-       });
+      });
        
        $('#FormSearch input[type=text],textarea').focusout(function(event){
            $(this).val($(this).val().toUpperCase()); 
@@ -509,7 +509,7 @@ $(document).ready(function() {
             $('#hidMRScheme').val(data[0].MRScheme);  
         });    
         */
-        EnabledAccess(); 
+        EnabledAccess();
         
         $('[data-toggle="popover"]').popover();
         
@@ -749,7 +749,7 @@ $(document).ready(function() {
                 $('#tblAttachment').find("button").attr('disabled',false);   
                 
                 $('#MRHeader').find('input, textarea, select').each(function() { 
-                    if(this.name != "status")
+                    if (this.name != "status")
                         $('#' + this.name).attr("disabled", false);            
                 });
                
@@ -765,11 +765,10 @@ $(document).ready(function() {
                     $('#' + this.name).attr("disabled", false);            
                 });  
                 
-                $('#drag').css("display", '');               
-                                        
+                $('#drag').css("display", '');
+                //$('#dim1').attr("disabled", '');
            } 
-           
-             
+
            
            if(MRNo == undefined || MRNo == '')
            {                 
@@ -786,15 +785,16 @@ $(document).ready(function() {
         }
         
         function LoadHeader()
-        {            
+        {
             var MRNo = getUrlVars()["MRNo"];
+            MRGasDimension();
             if(MRNo == undefined || MRNo == '')
             {                
                 InitialiseMR();
             }
             else 
             { 
-                GetMRHeader();            
+                GetMRHeader();
             }
             
         }       
@@ -1253,7 +1253,6 @@ $(document).ready(function() {
                 var CurrentMRStatus = "'"+ getCurrentMRStatus() + "'";
                 var MRScheme = "'"+ getMRScheme() + "'";
                 
-                
                 var datastr = '{MRInfo: ' + (localStorage.getItem('DataTables_tblMRHeader_'+$('#mr-no').val())) + ', ' + 
                               'ProductInfo: ' + ProductInfo +', ' + 
                               'ConfirmedSalesInfo: ' + ConfirmedSalesInfo + ', ' + 
@@ -1363,6 +1362,10 @@ $(document).ready(function() {
             objHeader['DimensionL1'] = $("input[id*=hidDimensionL1]").val();
             objHeader['Warehouse'] = $("input[id*=hidWarehouse]").val();
             objHeader['othersRemarks'] = $('#OthersRemarks').val();
+            objHeader['dim1'] = $('#dim1').val();
+            objHeader['dim2'] = $('#dim2').val();
+            objHeader['dim3'] = $('#dim3').val();
+            objHeader['dim4'] = $('#dim4').val();
             localStorage.setItem( 'DataTables_'+tablename, JSON.stringify(objHeader));
         }   
                  
@@ -2118,6 +2121,18 @@ $(document).ready(function() {
                     $('#TaxTypeName').val(item.TaxTypeID + '-' + item.TaxName);
                     $('#exchange-rate').val(item.ExchangeRate);
                     $('#warehouse').val(item.Warehouse);
+                    GetDim1(function (data) {
+                        $('#dim1').val(item.Dim1);
+                    });
+                    GetDim2(item.Dim1, function (data) {
+                        $('#dim2').val(item.Dim2);
+                    });
+                    GetDim3(item.Dim2, function (data) {
+                        $('#dim3').val(item.Dim3);
+                    });
+                    GetDim4(item.Dim3, function (data) {
+                        $('#dim4').val(item.Dim4);
+                    });
                     
                     if(item.createdbyname != "")
                         $("label[for='Created']").html("Created By " + item.createdbyname + " On " + item.createddate);
@@ -2315,4 +2330,169 @@ function ImportRecipe(item) {
     }
 }
 
- 
+function MRGasDimension() {
+    var CoyID = getCoyID();
+    var Scheme = getMRScheme();
+    var $dim1 = $('#dim1');
+    var $dim2 = $('#dim2');
+    var $dim3 = $('#dim3');
+    var $dim4 = $('#dim4');
+
+    if(CoyID == 120 && Scheme == 'Department'){
+        $("#rowgasdivision").css("display", '');
+            GetDim1(function (data) { });
+    }
+
+    $('#dim1').change(function () {
+        GetDim2($(this).val(), function () {
+            $('#dim3').empty().append(function () {
+                return '<option value="-1">L3NA</option>'
+            });
+
+            $('#dim4').empty().append(function () {
+                return '<option value="-1">L4NA</option>'
+            });
+        });
+    });
+
+    $('#dim2').change(function () {
+        GetDim3($(this).val(), function () {
+            $('#dim4').empty().append(function () {
+                return '<option value="-1">L4NA</option>'
+            });
+        });
+    });
+
+    $('#dim3').change(function () {
+        GetDim4($(this).val(), function () { });
+    });
+}
+
+function GetDim1(callback) {
+    var CoyID = getCoyID();
+    var Scheme = getMRScheme();
+    var UserId = getUserID();
+    var urlink = get_hostname(window.location.href);
+    var $dim1 = $('#dim1')
+    var $dim2 = $('#dim2')
+
+    $.ajax({
+        async: true,
+        type: "POST",
+        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim1",
+        data: "{'CompanyId' : '" + CoyID + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $dim1.empty().append(function () {
+                var output = '';
+                $.each(data, function (key, value) {
+                    output += '<option value="' + value.ProjectID + '">' + value.ProjectName + '</option>';
+                });
+                return output;
+            });
+            callback()
+            return;
+        },
+        error: function (xhr, text, status) {
+            var r = jQuery.parseJSON(xhr.responseText);
+            alert("Message: " + r.Message);
+        }
+    });
+}
+
+function GetDim2(projectid, callback) {
+    var CoyID = getCoyID();
+    var Scheme = getMRScheme();
+    var UserId = getUserID();
+    var urlink = get_hostname(window.location.href);
+    var $dim2 = $('#dim2')
+
+    $.ajax({
+        async: true,
+        type: "POST",
+        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim2",
+        data: "{'CompanyId' : '" + CoyID + "', 'ProjectId' : '" + projectid + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $dim2.empty().append(function () {
+                var output = '';
+                $.each(data, function (key, value) {
+                    output += '<option value="' + value.DepartmentID + '">' + value.DepartmentName + '</option>';
+                });
+                return output;
+            });
+            callback()
+        },
+        error: function (xhr, text, status) {
+            var r = jQuery.parseJSON(xhr.responseText);
+            alert("Message: " + r.Message);
+        }
+    });
+}
+
+function GetDim3(departmentid, callback) {
+    var CoyID = getCoyID();
+    var Scheme = getMRScheme();
+    var UserId = getUserID();
+    var urlink = get_hostname(window.location.href);
+    var $dim3 = $('#dim3')
+    var $dim4 = $('#dim4')
+
+    $.ajax({
+        async: true,
+        type: "POST",
+        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim3",
+        data: "{'CompanyId' : '" + CoyID + "', 'DepartmentId' : '" + departmentid + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $dim3.empty().append(function () {
+                var output = '';
+                $.each(data, function (key, value) {
+                    output += '<option value="' + value.SectionID + '">' + value.SectionName + '</option>';
+                });
+                return output;
+            });
+            
+            callback();
+        },
+        error: function (xhr, text, status) {
+            var r = jQuery.parseJSON(xhr.responseText);
+            alert("Message: " + r.Message);
+        }
+    });
+}
+
+function GetDim4(sectionid, callback) {
+    var CoyID = getCoyID();
+    var Scheme = getMRScheme();
+    var UserId = getUserID();
+    var urlink = get_hostname(window.location.href);
+    var $dim4 = $('#dim4')
+
+    $.ajax({
+        async: true,
+        type: "POST",
+        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim4",
+        data: "{'CompanyId' : '" + CoyID + "', 'SectionId' : '" + sectionid + "'}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $dim4.empty().append(function () {
+                var output = '';
+                $.each(data, function (key, value) {
+                    output += '<option value="' + value.UnitID + '">' + value.UnitName + '</option>';
+                });
+                return output;
+            });
+
+            callback();
+        },
+        error: function (xhr, text, status) {
+            var r = jQuery.parseJSON(xhr.responseText);
+            alert("Message: " + r.Message);
+        }
+    });
+}
