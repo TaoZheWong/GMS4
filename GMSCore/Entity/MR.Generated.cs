@@ -668,6 +668,18 @@ namespace GMSCore.Entity
             }
         }
 
+        private string _recipeNo = "";
+        ///<summary>Database mapping to column tbMR.OthersRemarks</summary>
+        public string RecipeNo {
+            get { return _recipeNo; }
+            set {
+                if (_recipeNo != value) {
+                    _recipeNo = value;
+                    OnPropertyChanged("RecipeNo");
+                }
+            }
+        }
+
         private short _dim1;
         ///<summary>Database mapping to column tbMR.Dim1</summary>
         public short Dim1 {
@@ -819,6 +831,7 @@ namespace GMSCore.Entity
                     case "_warehouse": return _warehouse;
                     case "_mRScheme": return _mRScheme;
                     case "_othersRemarks": return _othersRemarks;
+                    case "_recipeNo": return _recipeNo;
                     case "_dim1": return _dim1;
                     case "_dim2": return _dim2;
                     case "_dim3": return _dim3;
@@ -877,6 +890,7 @@ namespace GMSCore.Entity
                     case "_warehouse": _warehouse = (string)value; break;
                     case "_mRScheme": _mRScheme = (string)value; break;
                     case "_othersRemarks": _othersRemarks = (string)value; break;
+                    case "_recipeNo": _recipeNo = (string)value; break;
                     case "_dim1": _dim1 = (short)value; break;
                     case "_dim2": _dim2 = (short)value; break;
                     case "_dim3": _dim3 = (short)value; break;
@@ -938,6 +952,7 @@ namespace GMSCore.Entity
             stb.AppendFormat("_warehouse={0}\n,", _warehouse.ToString());
             stb.AppendFormat("_mRScheme={0}\n,", _mRScheme.ToString());
             stb.AppendFormat("_othersRemarks={0}\n,", _othersRemarks.ToString());
+            stb.AppendFormat("_recipeNo={0}\n,", _recipeNo.ToString());
             stb.AppendFormat("_dim1={0}\n,", _dim1.ToString());
             stb.AppendFormat("_dim2={0}\n,", _dim2.ToString());
             stb.AppendFormat("_dim3={0}\n,", _dim3.ToString());
