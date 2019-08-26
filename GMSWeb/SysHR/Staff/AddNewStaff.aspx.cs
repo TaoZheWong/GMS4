@@ -49,6 +49,17 @@ namespace GMSWeb.SysHR.Staff
                 Response.Redirect(base.UnauthorizedPage(ViewState["TYPE"].ToString()));
 
             // Rename();
+            GMSCore.Entity.AuditForModuleAccess audit = AuditForModuleAccess.RetrieveByKey(session.CompanyId, session.UserId, 45, GMSUtil.ToDate(DateTime.Now));
+            if (audit == null)
+            {
+                audit = new AuditForModuleAccess();
+                audit.CoyID = session.CompanyId;
+                audit.UserID = session.UserId;
+                audit.ModuleID = 45;
+                audit.Remarks = "";
+                audit.AccessDate = GMSUtil.ToDate(DateTime.Now);
+                audit.Save();
+            }
 
             if (!IsPostBack)
             {

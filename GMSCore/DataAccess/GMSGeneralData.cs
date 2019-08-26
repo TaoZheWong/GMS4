@@ -4018,5 +4018,14 @@ namespace GMSCore
             return;
         }
 
+        public void GetProductCategoryForReport(ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductCategoryForReportSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
     }
 }

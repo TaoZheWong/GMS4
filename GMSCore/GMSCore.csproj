@@ -173,6 +173,10 @@
     <Compile Include="Entity\Audit.Generated.cs">
       <DependentUpon>Audit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\AuditForModuleAccess.cs" />
+    <Compile Include="Entity\AuditForModuleAccess.Generated.cs">
+      <DependentUpon>AuditForModuleAccess.cs</DependentUpon>
+    </Compile>    
     <Compile Include="Entity\AuditForReportAccess.cs" />
     <Compile Include="Entity\AuditForReportAccess.Generated.cs">
       <DependentUpon>AuditForReportAccess.cs</DependentUpon>

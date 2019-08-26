@@ -925,13 +925,17 @@ namespace GMSWeb.Reports.Report
                 ddlCategory.ID = "ddlCategory";
                 ddlCategory.CssClass = "form-control";
                 ddlCategory.Items.Clear();
-                ddlCategory.Items.Add(new ListItem("ALL", "ALL"));
-                ddlCategory.Items.Add(new ListItem("FILLER METALS", "FILLER METALS"));
-                ddlCategory.Items.Add(new ListItem("EQUIPMENT", "EQUIPMENT"));
-                ddlCategory.Items.Add(new ListItem("ACCESSORIES", "ACCESSORIES"));
-                ddlCategory.Items.Add(new ListItem("SAFETY", "SAFETY"));
-                ddlCategory.Items.Add(new ListItem("GAS", "GAS"));
-                ddlCategory.Items.Add(new ListItem("TRADING", "TRADING"));
+
+                GMSGeneralDALC GSdacl = new GMSGeneralDALC();
+                DataSet dsPC = new DataSet();
+                GSdacl.GetProductCategoryForReport(ref dsPC);
+                if (dsPC.Tables != null && dsPC.Tables[0] != null)
+                {
+                    foreach (DataRow dr in dsPC.Tables[0].Rows)
+                    {
+                        ddlCategory.Items.Add(new ListItem(dr["SubCategoryName"].ToString(), dr["SubCategoryName"].ToString()));
+                    }
+                }
 
                 pnlParameter.Controls.Add(ddlCategory);
                 if (ViewState["ddlCategory"] == null)

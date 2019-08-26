@@ -1813,6 +1813,11 @@ namespace GMSConApp
                     // Update Customer SalesPersonID to Sales Detail, Sales
                     Console.WriteLine(DateTime.Now.ToString() + " -- Update Customer Sales Person in GMS...");
                     oDAL.GMS_ImportUpdateDataByAction(CoyID, "UpdateCustomerSalesPerson");
+
+                    // Update ProductGroup Info to Sales Detail
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Update Product Group Information in GMS...");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "UpdateSalesDetailProduct");
+
                 }
 
                 if (execute)

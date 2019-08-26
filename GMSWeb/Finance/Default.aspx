@@ -158,8 +158,6 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (resp) {
-                   
-                    
                     if (resp.Status != 0) {
                         console.log(resp.Message);
                         return 0;
@@ -217,7 +215,7 @@
                 type: "POST",
                 async: true,
                 contentType: "application/json; charset=utf-8",
-                success: function (resp){
+                success: function (resp) {
                     
                     if (resp.Status != 0) {
                         console.log(resp.Message);
@@ -271,7 +269,7 @@
                 type: "POST",
                 async: true,
                 contentType: "application/json; charset=utf-8",
-                success: function (resp){
+                success: function (resp) {
                     
                     if (resp.Status != 0) {
                         console.log(resp.Message);
@@ -326,7 +324,6 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (resp){
-
                     
                     if (resp.Status != 0) {
                         console.log(resp.Message);
