@@ -45,7 +45,7 @@ namespace GMSWeb.HR.Staff
             IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,44);
 
             if (uAccess == null && (uAccessForCompanyList == null || uAccessForCompanyList.Count <= 0))
-                Response.Redirect(base.UnauthorizedPage("HR"));
+                Response.Redirect(base.UnauthorizedPage("HR"));            
 
             if (!Page.IsPostBack)
             {
@@ -59,6 +59,18 @@ namespace GMSWeb.HR.Staff
                     Response.Redirect(base.SessionTimeOutPage("HR"));
                     return;
                 }
+            }
+
+            GMSCore.Entity.AuditForModuleAccess audit = AuditForModuleAccess.RetrieveByKey(session.CompanyId, session.UserId, 44, GMSUtil.ToDate(DateTime.Now));
+            if (audit == null)
+            {
+                audit = new AuditForModuleAccess();
+                audit.CoyID = session.CompanyId;
+                audit.UserID = session.UserId;
+                audit.ModuleID = 44;
+                audit.Remarks = ViewState["EmployeeID"].ToString();
+                audit.AccessDate = GMSUtil.ToDate(DateTime.Now);
+                audit.Save();
             }
             LoadData();
         }

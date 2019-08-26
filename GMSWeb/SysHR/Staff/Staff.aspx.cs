@@ -52,6 +52,18 @@ namespace GMSWeb.SysHR.Staff
             if (uAccess == null && (uAccessForCompanyList == null || uAccessForCompanyList.Count <=0))
                 Response.Redirect(base.UnauthorizedPage(ViewState["TYPE"].ToString()));
 
+            GMSCore.Entity.AuditForModuleAccess audit = AuditForModuleAccess.RetrieveByKey(session.CompanyId, session.UserId, 43, GMSUtil.ToDate(DateTime.Now));
+            if (audit == null)
+            {
+                audit = new AuditForModuleAccess();
+                audit.CoyID = session.CompanyId;
+                audit.UserID = session.UserId;
+                audit.ModuleID = 43;
+                audit.Remarks = "";
+                audit.AccessDate = GMSUtil.ToDate(DateTime.Now);
+                audit.Save();
+            }
+
             string javaScript =
             @"<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>
 
