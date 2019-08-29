@@ -1946,6 +1946,9 @@ namespace GMSCore.Activity
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesPerson.CoyID"),
                                 helper.CleanValue(companyID));
 
+            stb.AppendFormat(" and {0} not like {1} ", helper.GetFieldName("SalesPerson.SalesPersonName"),
+                               helper.CleanValue("%DO NOT USE%"));   
+
             return SalesPerson.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("SalesPerson.SalesPersonID")));
         }
         #endregion
