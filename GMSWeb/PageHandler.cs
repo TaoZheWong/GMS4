@@ -624,6 +624,8 @@ namespace GMSWeb
                         "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Pricelist</a></li>" +
                         "<li class='sub-sales-package'><a href=\"" + appPath + "/Sales/Sales/SalesPackage.aspx\">Sales Package</a></li>" +
                         "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=Products\">Claim</a></li>" +
+                        "<li class='sub-productgroup-setup'><a href=\"" + appPath + "/Products/Products/ProductGroupSetup.aspx\">Product Group Setup</a></li>" +
+                        "<li class='sub-product-setup'><a href=\"" + appPath + "/Products/Products/ProductSetup.aspx\">Product Setup</a></li>" +
                     "</ul>" +
                     "</li>" +
                     "</li>";

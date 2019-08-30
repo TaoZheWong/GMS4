@@ -332,7 +332,76 @@ namespace GMSCore
         }
         #endregion
 
+        /// <summary>
+        /// Retrieve a list of products group without short name
+        /// </summary>
+        public void GetProductGroupWithNoShortName(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductGroupWithNoShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
 
+        /// <summary>
+        /// Retrieve a list of products group short name
+        /// </summary>
+        public void GetProductGroupWithShortName(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductGroupWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        /// <summary>
+        /// Retrieve a list of products short name
+        /// </summary>
+        public void GetProductWithShortName(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        /// <summary>
+        /// Retrieve a list of products without short name
+        /// </summary>
+        public void GetProductWithNoShortName(short companyId, string productGroupCode, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductWithNoShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;        
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        /// <summary>
+        /// Retrieve a list of products group in Product
+        /// </summary>
+        public void GetProductGroupInProduct(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductGroupInProductSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
 
     }
 }

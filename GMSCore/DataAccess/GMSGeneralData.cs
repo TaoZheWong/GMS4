@@ -4027,5 +4027,34 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        public void UpdateProductShortName(short companyId, string productCode, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppProductShortNameUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;  
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
     }
 }
