@@ -1204,7 +1204,9 @@
     <Content Include="Procurement\Records\VendorRecords9.aspx" />
     <Content Include="Products\Products\MaterialRequisitionDivision.aspx" />
     <Content Include="Products\Products\ProductBatchSerial.aspx" />
+    <Content Include="Products\Products\ProductGroupSetup.aspx" />
     <Content Include="Products\Products\ProductMovement.aspx" />
+    <Content Include="Products\Products\ProductSetup.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
     <Content Include="Sales\Sales\TeamSetup.aspx" />
@@ -1964,6 +1966,13 @@
     <Compile Include="Products\Products\ProductBatchSerial.aspx.designer.cs">
       <DependentUpon>ProductBatchSerial.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Products\Products\ProductGroupSetup.aspx.cs">
+      <DependentUpon>ProductGroupSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\ProductGroupSetup.aspx.designer.cs">
+      <DependentUpon>ProductGroupSetup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Products\Products\ProductMovement.aspx.cs">
       <DependentUpon>ProductMovement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1977,6 +1986,13 @@
     </Compile>
     <Compile Include="Products\Products\ProductSearch.aspx.designer.cs">
       <DependentUpon>ProductSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Products\ProductSetup.aspx.cs">
+      <DependentUpon>ProductSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\ProductSetup.aspx.designer.cs">
+      <DependentUpon>ProductSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Products\Products\ProductUOM.aspx.cs">
       <DependentUpon>ProductUOM.aspx</DependentUpon>

@@ -247,11 +247,26 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-		
-		#endregion
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public Product() : base()
+
+        private string _shortName;
+        ///<summary>Database mapping to column tbProduct.ShortName</summary>       
+        public string ShortName
+        {
+            get { return _shortName; }
+            set
+            {
+                if (_shortName != value)
+                {
+                    _shortName = value;
+                    OnPropertyChanged("ShortName");
+                }
+            }
+        }
+
+        #endregion
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public Product() : base()
 		{
 			// Default Constructor
 		}
@@ -278,8 +293,9 @@ namespace GMSCore.Entity
 					case "_ownerType": return _ownerType;
 					case "_isNonTrackingTradingGas": return _isNonTrackingTradingGas;
 					case "_isOld": return _isOld;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_shortName": return _shortName;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -303,8 +319,9 @@ namespace GMSCore.Entity
 					case "_ownerType": _ownerType = (string)value; break;
 					case "_isNonTrackingTradingGas": _isNonTrackingTradingGas = (bool)value; break;
 					case "_isOld": _isOld = (bool)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_shortName": _shortName = (string)value; break;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -333,9 +350,10 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_ownerType={0}\n,", _ownerType.ToString() );
 			stb.AppendFormat("_isNonTrackingTradingGas={0}\n,", _isNonTrackingTradingGas.ToString() );
 			stb.AppendFormat("_isOld={0}\n,", _isOld.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
+
+
+            return stb.ToString();
 		}
 		#endregion
 

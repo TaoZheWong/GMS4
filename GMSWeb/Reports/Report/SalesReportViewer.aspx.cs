@@ -191,82 +191,6 @@ namespace GMSWeb.Reports.Report
             ViewState["ddlDepartment"] = dept;
         }
 
-        #region SelectedIndexChanged
-        private void ddlProjectID_SelectedIndexChanged(object sender, EventArgs e) {
-            short selectedvalue = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlProjectID")).SelectedValue);
-            DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
-            ddlDepartmentID.Items.Clear();
-            DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
-            ddlSectionID.Items.Clear();
-            DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
-            ddlUnitID.Items.Clear();
-
-            if (selectedvalue > 0) {
-                ddlDepartmentID.Enabled = true;
-                LogSession session = base.GetSessionInfo();
-                GMSGeneralDALC dacl = new GMSGeneralDALC();
-                DataSet dsDepartments = new DataSet();
-                dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, ref dsDepartments);
-                foreach (DataRow dr in dsDepartments.Tables[0].Rows) {
-                    ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
-                }
-            }
-            else {
-                ddlDepartmentID.Enabled = false;
-            }
-
-            ddlSectionID.Enabled = false;
-            ddlUnitID.Enabled = false;
-            cyReportViewer.Visible = false;
-        }
-        private void ddlDepartmentID_SelectedIndexChanged(object sender, EventArgs e) {
-            short selectedvalue = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlDepartmentID")).SelectedValue);
-            DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
-            ddlSectionID.Items.Clear();
-            DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
-            ddlUnitID.Items.Clear();
-
-            if (selectedvalue > 0) {
-                ddlSectionID.Enabled = true;
-                LogSession session = base.GetSessionInfo();
-                GMSGeneralDALC dacl = new GMSGeneralDALC();
-                DataSet dsSections = new DataSet();
-                dacl.GetCompanySection(session.CompanyId, selectedvalue, ref dsSections);
-                foreach (DataRow dr in dsSections.Tables[0].Rows) {
-                    ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
-                }
-            }
-            else {
-                ddlSectionID.Enabled = false;
-            }
-
-            ddlUnitID.Enabled = false;
-            cyReportViewer.Visible = false;
-        }
-
-        private void ddlSectionID_SelectedIndexChanged(object sender, EventArgs e) {
-            short selectedvalue = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlSectionID")).SelectedValue);
-            DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
-            ddlUnitID.Items.Clear();
-            if (selectedvalue > 0) {
-                ddlUnitID.Enabled = true;
-                LogSession session = base.GetSessionInfo();
-                GMSGeneralDALC dacl = new GMSGeneralDALC();
-                DataSet dsUnits = new DataSet();
-
-                dacl.GetCompanyUnit(session.CompanyId, selectedvalue, ref dsUnits);
-                foreach (DataRow dr in dsUnits.Tables[0].Rows) {
-                    ddlUnitID.Items.Add(new ListItem(dr["UnitName"].ToString(), dr["UnitID"].ToString()));
-                }
-
-            }
-            else {
-                ddlUnitID.Enabled = false;
-            }
-            cyReportViewer.Visible = false;
-        }
-        #endregion
-
         private void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
@@ -889,6 +813,7 @@ namespace GMSWeb.Reports.Report
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
             }
+  
 
             if (crReportDocument.ParameterFields["@TopNumber"] != null || crReportDocument.ParameterFields["TopNumber"] != null)
             {
@@ -901,10 +826,11 @@ namespace GMSWeb.Reports.Report
                 ddlTopNumber.ID = "ddlTopNumber";
                 ddlTopNumber.CssClass = "form-control";
                 ddlTopNumber.Items.Clear();
-                ddlTopNumber.Items.Add(new ListItem("ALL", "ALL"));
-                ddlTopNumber.Items.Add(new ListItem("TOP 50", "TOP 50"));
-                ddlTopNumber.Items.Add(new ListItem("TOP 100", "TOP 100"));
-               
+                //ddlTopNumber.Items.Add(new ListItem("TOP 50", "TOP 50"));
+                //ddlTopNumber.Items.Add(new ListItem("TOP 100", "TOP 100"));
+                ddlTopNumber.Items.Add(new ListItem("TOP SALES", "TOP SALES"));
+                ddlTopNumber.Items.Add(new ListItem("TOP STOCK", "TOP STOCK"));
+
                 pnlParameter.Controls.Add(ddlTopNumber);
                 if (ViewState["ddlTopNumber"] == null)
                     ViewState["ddlTopNumber"] = "All";
@@ -928,7 +854,7 @@ namespace GMSWeb.Reports.Report
 
                 GMSGeneralDALC GSdacl = new GMSGeneralDALC();
                 DataSet dsPC = new DataSet();
-                GSdacl.GetProductCategoryForReport(ref dsPC);
+                GSdacl.GetProductCategoryForReport(ref dsPC); 
                 if (dsPC.Tables != null && dsPC.Tables[0] != null)
                 {
                     foreach (DataRow dr in dsPC.Tables[0].Rows)
@@ -938,8 +864,8 @@ namespace GMSWeb.Reports.Report
                 }
 
                 pnlParameter.Controls.Add(ddlCategory);
-                if (ViewState["ddlCategory"] == null)
-                    ViewState["ddlCategory"] = "All";
+                //if (ViewState["ddlCategory"] == null)
+                //    ViewState["ddlCategory"] = "All";
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
@@ -1895,227 +1821,6 @@ namespace GMSWeb.Reports.Report
 
             }
 
-            if (crReportDocument.ParameterFields["Requestor"] != null) {
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Requestor :"));
-                pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                TextBox txtRequestor = new TextBox();
-                txtRequestor.ID = "txtRequestor";
-                txtRequestor.CssClass = "form-control";
-                txtRequestor.Attributes["placeholder"] = "e.g. Adrian";
-                pnlParameter.Controls.Add(txtRequestor);
-                if (ViewState["txtRequestor"] == null)
-                    ViewState["txtRequestor"] = "";
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                controlCount = controlCount + 1;
-            }
-
-            if (crReportDocument.ParameterFields["RefNo"] != null) {
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Reference No :"));
-                pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                TextBox txtRefNo = new TextBox();
-                txtRefNo.ID = "txtRefNo";
-                txtRefNo.CssClass = "form-control";
-                txtRefNo.Attributes["placeholder"] = "e.g. A12345";
-                pnlParameter.Controls.Add(txtRefNo);
-                if (ViewState["txtRefNo"] == null)
-                    ViewState["txtRefNo"] = "";
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                controlCount = controlCount + 1;
-            }
-
-            if (crReportDocument.ParameterFields["ProjNo"] != null) {
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Project No :"));
-                pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                TextBox txtProjNo = new TextBox();
-                txtProjNo.ID = "txtProjNo";
-                txtProjNo.CssClass = "form-control";
-                txtProjNo.Attributes["placeholder"] = "e.g. A12345";
-                pnlParameter.Controls.Add(txtProjNo);
-                if (ViewState["txtProjNo"] == null)
-                    ViewState["txtProjNo"] = "";
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                controlCount = controlCount + 1;
-            }
-
-            if (crReportDocument.ParameterFields["BudgetCode"] != null) {
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Budget Code :"));
-                pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                TextBox txtBudgetCode = new TextBox();
-                txtBudgetCode.ID = "txtBudgetCode";
-                txtBudgetCode.CssClass = "form-control";
-                txtBudgetCode.Attributes["placeholder"] = "e.g. A12345";
-                pnlParameter.Controls.Add(txtBudgetCode);
-                if (ViewState["txtBudgetCode"] == null)
-                    ViewState["txtBudgetCode"] = "";
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                controlCount = controlCount + 1;
-            }
-
-            if (crReportDocument.ParameterFields["MRStatus"] != null) {
-
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">MR Status :"));
-                pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                DropDownList ddlMRStatus = new DropDownList();
-                ddlMRStatus.ID = "ddlMRStatus";
-                ddlMRStatus.CssClass = "form-control";
-                ddlMRStatus.Items.Clear();
-                ddlMRStatus.Items.Add(new ListItem("All", ""));
-                ddlMRStatus.Items.Add(new ListItem("In Progress", "P"));
-                ddlMRStatus.Items.Add(new ListItem("Pending For Approval", "F"));
-                ddlMRStatus.Items.Add(new ListItem("Approved", "A"));
-                ddlMRStatus.Items.Add(new ListItem("Closed", "C"));
-                pnlParameter.Controls.Add(ddlMRStatus);
-                if (ViewState["ddlMRStatus"] == null)
-                    ViewState["ddlMRStatus"] = "All";
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                controlCount = controlCount + 1;
-            }
-
-            #region ProjectID
-            if (crReportDocument.ParameterFields["ProjectID"] != null) {
-                DataSet dsProjects = new DataSet();
-                dacl.GetCompanyProject(session.CompanyId, ref dsProjects);
-
-                if (dsProjects.Tables[0].Rows.Count > 0) {
-                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 1 : "));
-                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                    DropDownList ddlProjectID = new DropDownList();
-                    ddlProjectID.ID = "ddlProjectID";
-                    ddlProjectID.CssClass = "form-control";
-                    ddlProjectID.AutoPostBack = true;
-                    ddlProjectID.SelectedIndexChanged += new EventHandler(ddlProjectID_SelectedIndexChanged);
-                    ddlProjectID.Items.Clear();
-
-                    for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++) {
-                        ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ProjectID"].ToString()));
-                    }
-
-                    pnlParameter.Controls.Add(ddlProjectID);
-                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                    controlCount = controlCount + 1;
-
-                    if (crReportDocument.ParameterFields["DepartmentID"] != null) {
-                        //Add in Department DropDown
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 2 : "));
-                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-
-                        DropDownList ddlDepartmentID = new DropDownList();
-                        ddlDepartmentID.ID = "ddlDepartmentID";
-                        ddlDepartmentID.CssClass = "form-control";
-                        ddlDepartmentID.Enabled = false;
-                        ddlDepartmentID.AutoPostBack = true;
-                        ddlDepartmentID.SelectedIndexChanged += new EventHandler(ddlDepartmentID_SelectedIndexChanged);
-                        ddlDepartmentID.Items.Clear();
-
-                        pnlParameter.Controls.Add(ddlDepartmentID);
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        controlCount = controlCount + 1;
-
-                        if (ViewState["ddlDepartmentID"] == null)
-                            ViewState["ddlDepartmentID"] = -1;
-
-
-
-                        //Add in Section DropDown
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 3 : "));
-                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-
-                        DropDownList ddlSectionID = new DropDownList();
-                        ddlSectionID.ID = "ddlSectionID";
-                        ddlSectionID.CssClass = "form-control";
-                        ddlSectionID.Enabled = false;
-                        ddlSectionID.AutoPostBack = true;
-                        ddlSectionID.SelectedIndexChanged += new EventHandler(ddlSectionID_SelectedIndexChanged);
-                        ddlSectionID.Items.Clear();
-
-                        pnlParameter.Controls.Add(ddlSectionID);
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        controlCount = controlCount + 1;
-
-                        if (ViewState["ddlSectionID"] == null)
-                            ViewState["ddlSectionID"] = -1;
-
-
-                        //Add in Unit DropDown
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 4 : "));
-                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-
-                        DropDownList ddlUnitID = new DropDownList();
-                        ddlUnitID.ID = "ddlUnitID";
-                        ddlUnitID.CssClass = "form-control";
-                        ddlUnitID.Enabled = false;
-                        ddlUnitID.Items.Clear();
-
-                        pnlParameter.Controls.Add(ddlUnitID);
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        controlCount = controlCount + 1;
-
-                        if (ViewState["ddlUnitID"] == null)
-                            ViewState["ddlUnitID"] = -1;
-
-
-                        //Bind Department if Project > 0
-                        if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0 && !IsPostBack) {
-                            ddlDepartmentID.Enabled = true;
-                            DataSet dsDepartments = new DataSet();
-                            dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, ref dsDepartments);
-
-                            foreach (DataRow dr in dsDepartments.Tables[0].Rows) {
-                                ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
-                            }
-
-                            //Bind Section if Department > 0
-                            if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack) {
-                                DataSet dsSections = new DataSet();
-                                dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), ref dsSections);
-                                foreach (DataRow dr in dsSections.Tables[0].Rows) {
-                                    ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
-                                }
-                                ddlSectionID.Enabled = true;
-                            }
-
-                        }
-
-
-
-                    }
-
-
-
-                }
-                if (ViewState["ddlProjectID"] == null)
-                    ViewState["ddlProjectID"] = -1;
-
-            }
-            #endregion
-
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
             dynamicbutton.Text = "Submit";
@@ -2264,8 +1969,7 @@ namespace GMSWeb.Reports.Report
             if (crReportDocument.ParameterFields["@Rental"] != null)
                 ViewState["ddlRental"] = ((DropDownList)pnlParameter.FindControl("ddlRental")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@RentalType"] != null)
-                ViewState["ddlRentalType"] = ((DropDownList)pnlParameter.FindControl("ddlRentalType")).SelectedValue.ToString();
-
+                ViewState["ddlRentalType"] = ((DropDownList)pnlParameter.FindControl("ddlRentalType")).SelectedValue.ToString();   
             if (crReportDocument.ParameterFields["@SalesPersonID"] != null || crReportDocument.ParameterFields["SalesPersonID"] != null)
                 ViewState["ddlSalesPersonID"] = ((DropDownList)pnlParameter.FindControl("ddlSalesPersonID")).SelectedValue.ToString();
 
@@ -2445,37 +2149,6 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlTeam"] = ((DropDownList)pnlParameter.FindControl("ddlTeam")).SelectedValue;
             else
                 ViewState["ddlTeam"] = 0;
-
-            if (crReportDocument.ParameterFields["Requestor"] != null)
-                ViewState["txtRequestor"] = ((TextBox)pnlParameter.FindControl("txtRequestor")).Text.ToString();
-            if (crReportDocument.ParameterFields["RefNo"] != null)
-                ViewState["txtRefNo"] = ((TextBox)pnlParameter.FindControl("txtRefNo")).Text.ToString();
-            if (crReportDocument.ParameterFields["ProjNo"] != null)
-                ViewState["txtProjNo"] = ((TextBox)pnlParameter.FindControl("txtProjNo")).Text.ToString();
-            if (crReportDocument.ParameterFields["BudgetCode"] != null)
-                ViewState["txtBudgetCode"] = ((TextBox)pnlParameter.FindControl("txtBudgetCode")).Text.ToString();
-            if (crReportDocument.ParameterFields["MRStatus"] != null)
-                ViewState["ddlMRStatus"] = ((DropDownList)pnlParameter.FindControl("ddlMRStatus")).SelectedValue.ToString();
-
-            if (crReportDocument.ParameterFields["ProjectID"] != null && (DropDownList)pnlParameter.FindControl("ddlProjectID") != null)
-                ViewState["ddlProjectID"] = ((DropDownList)pnlParameter.FindControl("ddlProjectID")).SelectedValue.ToString();
-            else
-                ViewState["ddlProjectID"] = -1;
-            if (crReportDocument.ParameterFields["DepartmentID"] != null && (DropDownList)pnlParameter.FindControl("ddlDepartmentID") != null
-                 && !string.IsNullOrEmpty(((DropDownList)pnlParameter.FindControl("ddlDepartmentID")).SelectedValue.ToString()))
-                ViewState["ddlDepartmentID"] = ((DropDownList)pnlParameter.FindControl("ddlDepartmentID")).SelectedValue.ToString();
-            else
-                ViewState["ddlDepartmentID"] = -1;
-            if (crReportDocument.ParameterFields["SectionID"] != null && (DropDownList)pnlParameter.FindControl("ddlSectionID") != null
-                && !string.IsNullOrEmpty(((DropDownList)pnlParameter.FindControl("ddlSectionID")).SelectedValue.ToString()))
-                ViewState["ddlSectionID"] = ((DropDownList)pnlParameter.FindControl("ddlSectionID")).SelectedValue.ToString();
-            else
-                ViewState["ddlSectionID"] = -1;
-            if (crReportDocument.ParameterFields["UnitID"] != null && (DropDownList)pnlParameter.FindControl("ddlUnitID") != null
-                && !string.IsNullOrEmpty(((DropDownList)pnlParameter.FindControl("ddlUnitID")).SelectedValue.ToString()))
-                ViewState["ddlUnitID"] = ((DropDownList)pnlParameter.FindControl("ddlUnitID")).SelectedValue.ToString();
-            else
-                ViewState["ddlUnitID"] = -1;
 
             RefreshCrystalReport();
         }
@@ -2845,28 +2518,6 @@ namespace GMSWeb.Reports.Report
                     
                     if (crReportDocument.ParameterFields["@TeamID"] != null && ViewState["ddlTeam"] != null)
                         crReportDocument.SetParameterValue("@TeamID", GMSUtil.ToInt(ViewState["ddlTeam"].ToString()));
-
-                    if (crReportDocument.ParameterFields["Requestor"] != null && ViewState["txtRequestor"] != null)
-                        crReportDocument.SetParameterValue("Requestor", ViewState["txtRequestor"].ToString());
-                    if (crReportDocument.ParameterFields["RefNo"] != null && ViewState["txtRefNo"] != null)
-                        crReportDocument.SetParameterValue("RefNo", ViewState["txtRefNo"].ToString());
-                    if (crReportDocument.ParameterFields["ProjNo"] != null && ViewState["txtProjNo"] != null)
-                        crReportDocument.SetParameterValue("ProjNo", ViewState["txtProjNo"].ToString());
-                    if (crReportDocument.ParameterFields["BudgetCode"] != null && ViewState["txtBudgetCode"] != null)
-                        crReportDocument.SetParameterValue("BudgetCode", ViewState["txtBudgetCode"].ToString());
-                    if (crReportDocument.ParameterFields["MRStatus"] != null && ViewState["ddlMRStatus"] != null)
-                        crReportDocument.SetParameterValue("MRStatus", ViewState["ddlMRStatus"].ToString());
-
-                    if (crReportDocument.ParameterFields["ProjectID"] != null && ViewState["ddlProjectID"] != null)
-                        crReportDocument.SetParameterValue("ProjectID", GMSUtil.ToInt(ViewState["ddlProjectID"].ToString()));
-                    if (crReportDocument.ParameterFields["DepartmentID"] != null && ViewState["ddlDepartmentID"] != null)
-                        crReportDocument.SetParameterValue("DepartmentID", GMSUtil.ToInt(ViewState["ddlDepartmentID"].ToString()));
-                    if (crReportDocument.ParameterFields["SectionID"] != null && ViewState["ddlSectionID"] != null)
-                        crReportDocument.SetParameterValue("SectionID", GMSUtil.ToInt(ViewState["ddlSectionID"].ToString()));
-                    if (crReportDocument.ParameterFields["UnitID"] != null && ViewState["ddlUnitID"] != null)
-                        crReportDocument.SetParameterValue("UnitID", GMSUtil.ToInt(ViewState["ddlUnitID"].ToString()));
-
-
 
                     cyReportViewer.ReportSource = crReportDocument;
 

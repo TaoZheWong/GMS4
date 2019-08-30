@@ -1775,6 +1775,8 @@ namespace GMSCore.Activity
         }
         #endregion
 
+        
+
         #region RetrieveAllProductNameListByPrefixByCompanyIDSortByProductName
         public IList<Product> RetrieveAllProductNameListByPrefixByCompanyIDSortByProductName(string prefix, short companyID)
         {
@@ -1935,6 +1937,38 @@ namespace GMSCore.Activity
                                 helper.CleanValue(companyId));
 
             return ProductGroup.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+        #region RetrieveProductGroupWithNoShortNameByCoyIDName
+        public IList<ProductGroup> RetrieveProductGroupWithNoShortNameByCoyIDName(short companyId)
+        {          
+
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);           
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("ProductGroup.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("ProductGroup.ShortName"),
+                                helper.CleanValue(""));
+
+            return ProductGroup.RetrieveQuery(stb.ToString(),string.Format(" {0} ASC ", helper.GetFieldName("ProductGroup.ProductGroupCode")));
+            
+        }
+        #endregion
+
+        #region RetrieveProductGroupWithShortNameByCoyIDName
+        public IList<ProductGroup> RetrieveProductGroupWithShortNameByCoyIDName(short companyId)
+        {
+
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("ProductGroup.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat(" and {0} not like {1} ", helper.GetFieldName("ProductGroup.ShortName"),
+                                helper.CleanValue(""));
+
+            return ProductGroup.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("ProductGroup.ProductGroupCode")));
+
         }
         #endregion
 
@@ -2956,6 +2990,20 @@ namespace GMSCore.Activity
         }
         #endregion
 
+        //Product
+        #region RetrieveProductByProdcode
+        public Product RetrieveProductByProdcode(int companyId, string prodCode)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Product.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("Product.ProductCode"),
+                                helper.CleanValue(prodCode));            
+            return Product.RetrieveFirst(stb.ToString(), string.Format(" {0} ASC", helper.GetFieldName("Product.ProductCode")));
+  
+        }
+        #endregion
     }
 
 }

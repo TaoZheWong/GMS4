@@ -84,11 +84,27 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-		
-		#endregion
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public ProductGroup() : base()
+
+        private string _shortName;
+        ///<summary>Database mapping to column tbProductGroup.ShortName</summary>
+        [DataObjectField(true, false)]
+        public string ShortName
+        {
+            get { return _shortName; }
+            set
+            {
+                if (_shortName != value)
+                {
+                    _shortName = value;
+                    OnPropertyChanged("ShortName");
+                }
+            }
+        }
+
+        #endregion
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public ProductGroup() : base()
 		{
 			// Default Constructor
 		}
@@ -142,8 +158,8 @@ namespace GMSCore.Entity
 					case "_productGroupCode": return _productGroupCode;
 					case "_productGroupName": return _productGroupName;
 					case "_productGroupManagerID": return _productGroupManagerID;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_shortName": return _shortName;
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -156,8 +172,9 @@ namespace GMSCore.Entity
 					case "_productGroupCode": _productGroupCode = (string)value; break;
 					case "_productGroupName": _productGroupName = (string)value; break;
 					case "_productGroupManagerID": _productGroupManagerID = (short)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_shortName": _shortName = (string)value; break;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -175,9 +192,9 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_productGroupCode={0}\n,", _productGroupCode.ToString() );
 			stb.AppendFormat("_productGroupName={0}\n,", _productGroupName.ToString() );
 			stb.AppendFormat("_productGroupManagerID={0}\n,", _productGroupManagerID.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
+
+            return stb.ToString();
 		}
 		#endregion
 
