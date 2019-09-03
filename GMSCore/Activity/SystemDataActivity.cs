@@ -50,13 +50,15 @@ namespace GMSCore.Activity
             return AccountGrade.RetrieveQuery("", string.Format(" {0} ASC ", helper.GetFieldName("AccountGrade.GradeCode")));
         }
 
-        public IList<AccountClass> RetrieveAllAccountClass()
+        public IList<AccountClass> RetrieveAllAccountClass(short coyID)
         {
+
             QueryHelper helper = base.GetHelper();
-
-            return AccountClass.RetrieveQuery("", string.Format(" {0} ASC ", helper.GetFieldName("AccountClass.ClassID")));
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("AccountClass.CoyID"),
+                                helper.CleanValue(coyID));
+            return AccountClass.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("AccountClass.ClassID")));
         }
-
         public IList<AccountGroup> RetrieveAllAccountGroup()
         {
             QueryHelper helper = base.GetHelper();
@@ -3004,6 +3006,42 @@ namespace GMSCore.Activity
   
         }
         #endregion
+
+        #region RetrieveAccountClass
+        public IList<AccountClass> RetrieveAccountClass(short companyId, string shortname, int value)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("AccountClass.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND ( {0} = {1} ", helper.GetFieldName("AccountClass.ShortName"),
+                                helper.CleanValue(shortname));
+            stb.AppendFormat("OR {0} = {1} )", helper.GetFieldName("AccountClass.Value"),
+                                helper.CleanValue(value));
+
+            return AccountClass.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+        #region RetrieveAccountClassByClassID
+        public IList<AccountClass> RetrieveAccountClassByClassID(short companyId, string classId, string shortname, int value)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("AccountClass.CoyID"),
+                                helper.CleanValue(companyId));
+            stb.AppendFormat("AND {0} != {1} ", helper.GetFieldName("AccountClass.ClassID"),
+                                helper.CleanValue(classId));
+            stb.AppendFormat("AND ( {0} = {1} ", helper.GetFieldName("AccountClass.ShortName"),
+                                helper.CleanValue(shortname));
+            stb.AppendFormat("OR {0} = {1} )", helper.GetFieldName("AccountClass.Value"),
+                                helper.CleanValue(value));
+
+            return AccountClass.RetrieveQuery(stb.ToString());
+        }
+        #endregion
+
+
     }
 
 }

@@ -21,24 +21,40 @@ namespace GMSCore.Entity
 	[DataObject(true)]
     public partial class AccountClass : PersistBase<AccountClass>, IObjectHelper
 	{
-		#region Properties
-	
-		private string _classID;
-		///<summary>Database mapping to column tbAccountClass.ClassID</summary>
-		public string ClassID
-		{
-			get { return _classID; }
-			set
-			{
-				if (_classID != value)
-				{
-					_classID = value;
-					OnPropertyChanged("ClassID");
-				}
-			}
-		}
-			
-		private string _className;
+        #region Properties
+
+        private short _coyID;
+        ///<summary>Database mapping to column tbAccountClass.CoyID</summary>
+        [DataObjectField(true, false)]
+        public short CoyID
+        {
+            get { return _coyID; }
+            set
+            {
+                if (_coyID != value)
+                {
+                    _coyID = value;
+                    OnPropertyChanged("CoyID");
+                }
+            }
+        }
+        private string _classID;
+        ///<summary>Database mapping to column tbAccountClass.ClassID</summary>
+        [DataObjectField(true, false)]
+        public string ClassID
+        {
+            get { return _classID; }
+            set
+            {
+                if (_classID != value)
+                {
+                    _classID = value;
+                    OnPropertyChanged("ClassID");
+                }
+            }
+        }
+
+        private string _className;
 		///<summary>Database mapping to column tbAccountClass.ClassName</summary>
 		public string ClassName
 		{
@@ -52,26 +68,99 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-		
-		#endregion
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public AccountClass() : base()
+
+        private string _shortName;
+        ///<summary>Database mapping to column tbAccountClass.ClassName</summary>
+        public string ShortName
+        {
+            get { return _shortName; }
+            set
+            {
+                if (_shortName != value)
+                {
+                    _shortName = value;
+                    OnPropertyChanged("ShortName");
+                }
+            }
+        }
+
+        private int _value;
+        ///<summary>Database mapping to column tbAccountClass.ClassName</summary>
+        public int Value
+        {
+            get { return _value; }
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+                    OnPropertyChanged("ShortName");
+                }
+            }
+        }
+
+
+        #endregion
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public AccountClass() : base()
 		{
 			// Default Constructor
 		}
-		
-		#region IObjectHelper
-		/// <summary>Indexer to update local member variables</summary>	
-		/// <remarks>This indexer is used by the Wilson ORMapper</remarks>
-		object IObjectHelper.this[string memberName]
+
+        ///<summary>Retrieve an instance of this class using its ID from the persistence store</summary>
+		[DataObjectMethod(DataObjectMethodType.Select)]
+        public static AccountClass RetrieveByKey(short coyID, string ClassID)
+        {
+            DBManager db = DBManager.GetInstance();
+            QueryHelper helper = db.Engine.QueryHelper;
+            string where = helper.GetExpression("AccountClass.CoyID", coyID);
+            where += " and ";
+            where += helper.GetExpression("AccountClass.ClassID", ClassID);
+
+            return RetrieveFirst(where);
+        }
+
+        ///<summary>Delete instance from the persistence store based on primary key(s)</summary>
+		[DataObjectMethod(DataObjectMethodType.Delete)]
+        public static int DeleteByKey(short coyID, string ClassID)
+        {
+            DBManager db = DBManager.GetInstance();
+            QueryHelper helper = db.Engine.QueryHelper;
+            string where = helper.GetExpression("AccountClass.CoyID", coyID);
+            where += " and ";
+            where += helper.GetExpression("AccountClass.ClassID", ClassID);
+
+            return Delete(where);
+        }
+
+        ///<summary>Delete instance from the persistence store based on primary key(s) using a transaction</summary>
+        ///<param name="transaction">An instance of a Wilson.ORMapper.Transaction to perform operation with.</param>
+        public static int DeleteByKey(Wilson.ORMapper.Transaction transaction, short coyID, string ClassID)
+        {
+            DBManager db = DBManager.GetInstance();
+            QueryHelper helper = db.Engine.QueryHelper;
+            string where = helper.GetExpression("AccountClass.CoyID", coyID);
+            where += " and ";
+            where += helper.GetExpression("AccountClass.ClassID", ClassID);
+
+            return Delete(transaction, where);
+        }
+
+        #region IObjectHelper
+        /// <summary>Indexer to update local member variables</summary>	
+        /// <remarks>This indexer is used by the Wilson ORMapper</remarks>
+        object IObjectHelper.this[string memberName]
 		{
 			get {
 				switch (memberName) {
 					case "_classID": return _classID;
 					case "_className": return _className;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_shortName": return _shortName;
+                    case "_value": return _value;
+                    case "_coyID": return _coyID;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -82,8 +171,11 @@ namespace GMSCore.Entity
 				switch (memberName) {
 					case "_classID": _classID = (string)value; break;
 					case "_className": _className = (string)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_shortName": _shortName = (string)value; break;
+                    case "_value": _value = (int)value; break;
+                    case "_coyID": _coyID = (short)value; break;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -99,9 +191,11 @@ namespace GMSCore.Entity
 			
 			stb.AppendFormat("_classID={0}\n,", _classID.ToString() );
 			stb.AppendFormat("_className={0}\n,", _className.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
+            stb.AppendFormat("_value={0}\n,", _value.ToString());
+            stb.AppendFormat("_coyID={0}\n,", _coyID.ToString());
+
+            return stb.ToString();
 		}
 		#endregion
 

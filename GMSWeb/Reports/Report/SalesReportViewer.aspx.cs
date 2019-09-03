@@ -923,6 +923,28 @@ namespace GMSWeb.Reports.Report
 
             }
 
+            if (crReportDocument.ParameterFields["@Doctype"] != null || crReportDocument.ParameterFields["DocType"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Document Type :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlDocument = new DropDownList();
+                ddlDocument.ID = "ddlDocument";
+                ddlDocument.CssClass = "form-control";
+                ddlDocument.Items.Clear();  
+                ddlDocument.Items.Add(new ListItem("Trn Date", "TrnDate"));
+                ddlDocument.Items.Add(new ListItem("Doc Date", "DocDate"));
+               
+                pnlParameter.Controls.Add(ddlDocument);
+                if (ViewState["ddlDocument"] == null)
+                    ViewState["ddlDocument"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
 
             if (crReportDocument.ParameterFields["@GroupBy"] != null || crReportDocument.ParameterFields["GroupBy"] != null)
             {
@@ -1952,6 +1974,8 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlMonth"] = ((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Type"] != null || crReportDocument.ParameterFields["Type"] != null)
                 ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();
+            if (crReportDocument.ParameterFields["@Doctype"] != null || crReportDocument.ParameterFields["Doctype"] != null)
+                ViewState["ddlDocument"] = ((DropDownList)pnlParameter.FindControl("ddlDocument")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@TopNumber"] != null || crReportDocument.ParameterFields["TopNumber"] != null)
                 ViewState["ddlTopNumber"] = ((DropDownList)pnlParameter.FindControl("ddlTopNumber")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Category"] != null || crReportDocument.ParameterFields["Category"] != null)
@@ -2263,6 +2287,10 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@Type", ViewState["ddlType"].ToString());
                     if (crReportDocument.ParameterFields["Type"] != null && ViewState["ddlType"] != null)
                         crReportDocument.SetParameterValue("Type", ViewState["ddlType"].ToString());
+                    if (crReportDocument.ParameterFields["@Doctype"] != null && ViewState["ddlDocument"] != null)
+                        crReportDocument.SetParameterValue("@Doctype", ViewState["ddlDocument"].ToString());
+                    if (crReportDocument.ParameterFields["Doctype"] != null && ViewState["ddlDocument"] != null)
+                        crReportDocument.SetParameterValue("Doctype", ViewState["ddlDocument"].ToString());
                     if (crReportDocument.ParameterFields["@TopNumber"] != null && ViewState["ddlTopNumber"] != null)
                         crReportDocument.SetParameterValue("@TopNumber", ViewState["ddlTopNumber"].ToString());
                     if (crReportDocument.ParameterFields["TopNumber"] != null && ViewState["ddlTopNumber"] != null)

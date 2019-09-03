@@ -1209,6 +1209,7 @@
     <Content Include="Products\Products\ProductSetup.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
+    <Content Include="Sales\Sales\CustomerTypeSetup.aspx" />
     <Content Include="Sales\Sales\TeamSetup.aspx" />
     <Content Include="scripts\Common.js" />
     <Content Include="SiteHeader.ascx" />
@@ -2195,6 +2196,13 @@
     </Compile>
     <Compile Include="Sales\Sales\AddressSearch.aspx.designer.cs">
       <DependentUpon>AddressSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Sales\CustomerTypeSetup.aspx.cs">
+      <DependentUpon>CustomerTypeSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Sales\CustomerTypeSetup.aspx.designer.cs">
+      <DependentUpon>CustomerTypeSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Sales\Import.aspx.cs">
       <DependentUpon>Import.aspx</DependentUpon>

@@ -127,7 +127,7 @@ namespace GMSWeb.Debtors.Debtors
 
             IList<GMSCore.Entity.AccountClass> lstAccClass = null;
 
-            lstAccClass = sDataActivity.RetrieveAllAccountClass();
+            lstAccClass = sDataActivity.RetrieveAllAccountClass(session.CompanyId);
             ddlType.DataSource = lstAccClass;
             ddlType.DataBind();
             
