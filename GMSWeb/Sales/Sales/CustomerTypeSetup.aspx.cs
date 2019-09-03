@@ -16,19 +16,19 @@ using GMSCore.Entity;
 using GMSWeb.CustomCtrl;
 using System.Data.SqlClient;
 
-namespace GMSWeb.Products.Products
+namespace GMSWeb.Sales.Sales
 {
-    public partial class ProductGroupSetup : GMSBasePage
+    public partial class CustomerTypeSetup : GMSBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentLink = "Products";
-            lblPageHeader.Text = "Products";
+            string currentLink = "Sales";
+            lblPageHeader.Text = "Sales";
 
             if (Request.Params["CurrentLink"] != null)
             {
                 currentLink = Request.Params["CurrentLink"].ToString().Trim();
-                if (Request.Params["CurrentLink"].ToString().Trim() == "Products")
+                if (Request.Params["CurrentLink"].ToString().Trim() == "Sales")
                     lblPageHeader.Text = "Administration";
                 else
                     lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
@@ -41,7 +41,7 @@ namespace GMSWeb.Products.Products
                 return;
             }
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            154);
+                                                                            158);
             if (uAccess == null)
                 Response.Redirect(base.UnauthorizedPage(currentLink));
 
@@ -76,14 +76,26 @@ namespace GMSWeb.Products.Products
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
         }
 
+        //#region LoadData
+        //private void LoadData()
+        //{
+        //    LogSession session = base.GetSessionInfo();
+        //    IList<GMSCore.Entity.AccountClass> lstEE = null;
+        //    lstEE = new SystemDataActivity().RetrieveAccountClass(session.CompanyId);
+        //    this.dgData.DataSource = lstEE;
+        //    this.dgData.DataBind();
+
+        //}
+        //#endregion
+
         #region LoadData
         private void LoadData()
         {
             LogSession session = base.GetSessionInfo();
-            ProductsDataDALC proddacl = new ProductsDataDALC();
-            DataSet dsProducts = new DataSet();
-            proddacl.GetProductGroupWithShortName(session.CompanyId, ref dsProducts);
-            this.dgData.DataSource = dsProducts.Tables[0];
+            GMSGeneralDALC classdacl = new GMSGeneralDALC();
+            DataSet dsClass = new DataSet();
+            classdacl.GetClassNameWithShortName(session.CompanyId, ref dsClass);
+            this.dgData.DataSource = dsClass.Tables[0];
             this.dgData.DataBind();
         }
         #endregion
@@ -104,17 +116,20 @@ namespace GMSWeb.Products.Products
 
             if (e.Item.ItemType == ListItemType.Footer)
             {
-                DropDownList ddlNewGroupName = (DropDownList)e.Item.FindControl("ddlNewProductGroup");
-                if (ddlNewGroupName != null)
+                DropDownList ddlNewClassName = (DropDownList)e.Item.FindControl("ddlNewClassName");
+                //DropDownList ddlNewSalesPersonMasterName = (DropDownList)e.Item.FindControl("ddlNewSalesPersonMasterName");
+                if (ddlNewClassName != null)
                 {
-                    ProductsDataDALC proddacl = new ProductsDataDALC();
-                    DataSet dsProducts = new DataSet();
-                    proddacl.GetProductGroupWithNoShortName(session.CompanyId, ref dsProducts);
-                    ddlNewGroupName.DataSource = dsProducts.Tables[0];
-                    ddlNewGroupName.DataBind();
-                }
-            }
 
+                    GMSGeneralDALC classdacl = new GMSGeneralDALC();
+                    DataSet dsClass = new DataSet();
+                    classdacl.GetClassNameWithNoShortName(session.CompanyId, ref dsClass);
+                    ddlNewClassName.DataSource = dsClass.Tables[0];
+                    ddlNewClassName.DataBind();
+
+                }
+
+            }
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete");
@@ -148,36 +163,44 @@ namespace GMSWeb.Products.Products
                 LogSession session = base.GetSessionInfo();
                 if (session == null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("Products"));
+                    Response.Redirect(base.SessionTimeOutPage("Sales"));
                     return;
                 }
 
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                155);
+                                                                                159);
                 if (uAccess == null)
                 {
                     System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
                     return;
                 }
 
-                DropDownList ddlNewProductGroup = (DropDownList)e.Item.FindControl("ddlNewProductGroup");
+                DropDownList ddlNewClassName = (DropDownList)e.Item.FindControl("ddlNewClassName");
                 TextBox txtNewShortName = (TextBox)e.Item.FindControl("txtNewShortName");
-                CheckBox chkNewIsBudget = (CheckBox)e.Item.FindControl("chkNewIsBudget");
-                if (ddlNewProductGroup != null && !string.IsNullOrEmpty(ddlNewProductGroup.SelectedValue) &&
-                   txtNewShortName != null && !string.IsNullOrEmpty(txtNewShortName.Text))
+                TextBox txtNewValue = (TextBox)e.Item.FindControl("txtNewValue");
+
+
+                if (ddlNewClassName != null && !string.IsNullOrEmpty(ddlNewClassName.SelectedValue) &&
+                   txtNewShortName != null && !string.IsNullOrEmpty(txtNewShortName.Text) &&
+                   txtNewValue != null && !string.IsNullOrEmpty(txtNewValue.Text))
                 {
-                    GMSCore.Entity.ProductGroup pg = GMSCore.Entity.ProductGroup.RetrieveByKey(session.CompanyId, ddlNewProductGroup.SelectedValue);
-                    pg.ShortName = txtNewShortName.Text.Trim();
-                    if (chkNewIsBudget.Checked)
-                        pg.IsBudget = true;
-                    else
-                        pg.IsBudget = false;
+                    IList<GMSCore.Entity.AccountClass> lstData = null;
+                    SystemDataActivity sDataActivity = new SystemDataActivity();
+                    lstData = sDataActivity.RetrieveAccountClass(session.CompanyId, txtNewShortName.Text.Trim(), int.Parse(txtNewValue.Text.Trim()));
+                    if (lstData.Count <= 0)
+                    {
+
+                        GMSCore.Entity.AccountClass ac = GMSCore.Entity.AccountClass.RetrieveByKey(session.CompanyId, ddlNewClassName.SelectedValue);
+                        ac.ShortName = txtNewShortName.Text.Trim();
+                        ac.Value = int.Parse(txtNewValue.Text.Trim());
 
                     try
                     {
-                        pg.Save();
+                        ac.Save();
                         this.dgData.EditItemIndex = -1;
-                        LoadData();
+                        this.PageMsgPanel.ShowMessage("Customer Type has been created successfully.", MessagePanelControl.MessageEnumType.Info);
+                            LoadData();
+
                     }
                     catch (Exception ex)
                     {
@@ -185,6 +208,12 @@ namespace GMSWeb.Products.Products
                         return;
                     }
                 }
+                else
+                {
+                        this.PageMsgPanel.ShowMessage("Short Name or Value already exists.", MessagePanelControl.MessageEnumType.Info);
+                        return;
+                    }
+            }
             }
         }
         #endregion
@@ -195,37 +224,47 @@ namespace GMSWeb.Products.Products
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
-                Response.Redirect(base.SessionTimeOutPage("Products"));
+                Response.Redirect(base.SessionTimeOutPage("Sales"));
                 return;
             }
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            155);
+                                                                            159);
             if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("Products"));
+                Response.Redirect(base.UnauthorizedPage("Sales"));
 
-            HtmlInputHidden hidProductGroupCode = (HtmlInputHidden)e.Item.FindControl("hidProductGroupCode");
+            //DropDownList ddlEditClassName = (DropDownList)e.Item.FindControl("ddlEditClassName");
             TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName");
-            CheckBox chkEditIsBudget = (CheckBox)e.Item.FindControl("chkEditIsBudget");
+            TextBox txtEditValue = (TextBox)e.Item.FindControl("txtEditValue");
+            HtmlInputHidden hidClassID = (HtmlInputHidden)e.Item.FindControl("hidClassID");
 
-            if (hidProductGroupCode != null &&
-                txtEditShortName != null && !string.IsNullOrEmpty(txtEditShortName.Text))
+            if (txtEditShortName != null && !string.IsNullOrEmpty(txtEditShortName.Text) && hidClassID != null &&
+                txtEditValue != null && !string.IsNullOrEmpty(txtEditValue.Text))
             {
-                GMSCore.Entity.ProductGroup pg = GMSCore.Entity.ProductGroup.RetrieveByKey(session.CompanyId, hidProductGroupCode.Value);
-                pg.ShortName = txtEditShortName.Text.Trim();
-                if (chkEditIsBudget.Checked)
-                    pg.IsBudget = true;
-                else
-                    pg.IsBudget = false;
+                IList<GMSCore.Entity.AccountClass> lstData = null;
+                SystemDataActivity sDataActivity = new SystemDataActivity();
+                lstData = sDataActivity.RetrieveAccountClassByClassID(session.CompanyId, hidClassID.Value, txtEditShortName.Text.Trim(), int.Parse(txtEditValue.Text.Trim()));
+                if (lstData.Count <= 0)
+                {
 
+                GMSCore.Entity.AccountClass ac = GMSCore.Entity.AccountClass.RetrieveByKey(session.CompanyId, hidClassID.Value);
+                ac.ShortName = txtEditShortName.Text.Trim();
+                ac.Value = int.Parse(txtEditValue.Text.Trim());
                 try
                 {
-                    pg.Save();
+                    ac.Save();
                     this.dgData.EditItemIndex = -1;
-                    LoadData();
+                    this.PageMsgPanel.ShowMessage("Customer Type has been updated successfully.", MessagePanelControl.MessageEnumType.Info);
+                        LoadData();
                 }
                 catch (Exception ex)
                 {
                     this.MsgPanel1.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+                    return;
+                }
+                }
+                else
+                {
+                    this.PageMsgPanel.ShowMessage("Short Name or Value already exists.", MessagePanelControl.MessageEnumType.Info);
                     return;
                 }
             }
@@ -240,33 +279,35 @@ namespace GMSWeb.Products.Products
                 LogSession session = base.GetSessionInfo();
                 if (session == null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("Products"));
+                    Response.Redirect(base.SessionTimeOutPage("Sales"));
                     return;
                 }
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                155);
+                                                                                159);
                 if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("Products"));
+                    Response.Redirect(base.UnauthorizedPage("Sales"));
 
-                HtmlInputHidden hidProductGroupCode = (HtmlInputHidden)e.Item.FindControl("hidProductGroupCode");
+                HtmlInputHidden hidClassID = (HtmlInputHidden)e.Item.FindControl("hidClassID");
 
-                if (hidProductGroupCode != null)
+                if (hidClassID != null)
                 {
-                    GMSCore.Entity.ProductGroup pg = GMSCore.Entity.ProductGroup.RetrieveByKey(session.CompanyId, hidProductGroupCode.Value);
-                    pg.ShortName = "";
-                    pg.IsBudget = false;
-                    try
-                    {
-                        pg.Save();
-                        this.dgData.EditItemIndex = -1;
-                        this.dgData.CurrentPageIndex = 0;
-                        LoadData();
-                    }
-                    catch (Exception ex)
-                    {
-                        this.MsgPanel1.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-                        return;
-                    }
+
+                        GMSCore.Entity.AccountClass ac = GMSCore.Entity.AccountClass.RetrieveByKey(session.CompanyId, hidClassID.Value);
+                        ac.ShortName = "";
+                        ac.Value = 0;
+                        try
+                        {
+                            ac.Save();
+                            this.dgData.EditItemIndex = -1;
+                            this.dgData.CurrentPageIndex = 0;
+                            LoadData();
+                        }
+                        catch (Exception ex)
+                        {
+                           
+                           this.MsgPanel1.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+                           return;
+                        }     
                 }
             }
         }
@@ -278,7 +319,7 @@ namespace GMSWeb.Products.Products
             this.dgData.CurrentPageIndex = 0;
             LoadData();
         }
-        #endregion       
-        
+        #endregion
+
     }
 }

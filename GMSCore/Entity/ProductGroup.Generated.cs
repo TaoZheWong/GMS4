@@ -101,6 +101,21 @@ namespace GMSCore.Entity
             }
         }
 
+        private bool _isBudget = false;
+        ///<summary>Database mapping to column tbProductGroup.IsBudget</summary>
+        public bool IsBudget
+        {
+            get { return _isBudget; }
+            set
+            {
+                if (_isBudget != value)
+                {
+                    _isBudget = value;
+                    OnPropertyChanged("IsBudget");
+                }
+            }
+        }
+
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -159,6 +174,7 @@ namespace GMSCore.Entity
 					case "_productGroupName": return _productGroupName;
 					case "_productGroupManagerID": return _productGroupManagerID;
                     case "_shortName": return _shortName;
+                    case "_isBudget": return _isBudget;
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
@@ -173,6 +189,7 @@ namespace GMSCore.Entity
 					case "_productGroupName": _productGroupName = (string)value; break;
 					case "_productGroupManagerID": _productGroupManagerID = (short)value; break;
                     case "_shortName": _shortName = (string)value; break;
+                    case "_isBudget": _isBudget = (bool)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -193,6 +210,7 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_productGroupName={0}\n,", _productGroupName.ToString() );
 			stb.AppendFormat("_productGroupManagerID={0}\n,", _productGroupManagerID.ToString() );
             stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
+            stb.AppendFormat("_isBudget={0}\n,", _isBudget.ToString());
 
             return stb.ToString();
 		}

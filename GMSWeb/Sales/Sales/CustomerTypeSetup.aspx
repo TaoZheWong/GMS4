@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Common/Site.Master" AutoEventWireup="true" CodeBehind="ProductGroupSetup.aspx.cs" Inherits="GMSWeb.Products.Products.ProductGroupSetup" %>
-
+﻿<%@ Page Language="C#" MasterPageFile="~/Common/Site.Master" AutoEventWireup="true" CodeBehind="CustomerTypeSetup.aspx.cs" Inherits="GMSWeb.Sales.Sales.CustomerTypeSetup" %>
 <%@ MasterType VirtualPath="~/Common/Site.Master"%> 
 <%@ Register TagPrefix="uctrl" TagName="MsgPanel" Src="~/CustomCtrl/MessagePanelControl.ascx" %>
 <%@ Register TagPrefix="uctrl" TagName="Calendar" Src="~/CustomCtrl/CalendarControl.ascx" %>
@@ -11,9 +10,9 @@
 <a name="TemplateInfo"></a>
 <ul class="breadcrumb pull-right">
     <li><a href="#"><asp:Label ID="lblPageHeader" runat="server" /></a></li>
-    <li class="active">Product Group Setup</li>
+    <li class="active">Customer Type Setup</li>
 </ul>
-<h1 class="page-header">Product Group Setup <br /><small>Setup of product group short name.</small></h1>
+<h1 class="page-header">Customer Type Setup <br /><small>Setup of Customer Type.</small></h1>
          
    <%--Group Setup --%>   
      <div class="panel panel-primary">
@@ -29,7 +28,7 @@
         <div class="panel-body no-padding">
             <div class="table-responsive">
                 <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false" ShowFooter="true"
-                    DataKeyField="ProductGroupCode" OnCancelCommand="dgData_CancelCommand" OnEditCommand="dgData_EditCommand"
+                    DataKeyField="ClassID" OnCancelCommand="dgData_CancelCommand" OnEditCommand="dgData_EditCommand"
                     OnUpdateCommand="dgData_UpdateCommand" OnItemCommand="dgData_CreateCommand" GridLines="none"
                     OnItemDataBound="dgData_ItemDataBound" OnDeleteCommand="dgData_DeleteCommand"
                     CellPadding="5" CellSpacing="5" CssClass="table table-striped table-condensed table-hover" AllowPaging="true"
@@ -37,58 +36,60 @@
                     <Columns>
                         <asp:TemplateColumn HeaderText="No">
                             <ItemTemplate>
-                                <%# (Container.ItemIndex + 1) + ((dgData.CurrentPageIndex) * dgData.PageSize)  %>   
-                                <input type="hidden" id="hidProductGroupCode" runat="server" value='<%# Eval("ProductGroupCode")%>' />                            
+                                <%# (Container.ItemIndex + 1) + ((dgData.CurrentPageIndex) * dgData.PageSize)  %>
+                                <input type="hidden" id="hidClassID" runat="server" value='<%# Eval("ClassID")%>' />
                             </ItemTemplate>
                         </asp:TemplateColumn>
 
-                        <asp:TemplateColumn HeaderText="Product Group Name" HeaderStyle-Wrap="false">
-                            <ItemTemplate>  
-                                <asp:Label ID="lblProductGroupName" runat="server">
-                                    <asp:LinkButton ID="lnkEdit" runat="server" CommandName="Edit" EnableViewState="false"
-                                            CausesValidation="false"><span><%# Eval("ProductGroupCodeName")%></span></asp:LinkButton>
-                                </asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <%# Eval("ProductGroupCodeName")%>
-                            </EditItemTemplate>
-                            <FooterTemplate>
-                                <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewProductGroup" runat="Server" DataTextField="ProductGroupCodeName" DataValueField="ProductGroupCode" Width="100%" />
-                            </FooterTemplate>
-                        </asp:TemplateColumn>                        
-                       
-                         <asp:TemplateColumn HeaderText="Short Name">
+                        <asp:TemplateColumn HeaderText="Class" HeaderStyle-Wrap="false">
                             <ItemTemplate>
-                                <asp:Label ID="lblShortName" runat="server">
-												       <%# Eval("ShortName")%>
+                                <asp:Label ID="lblClassName" runat="server">
+                                    <asp:LinkButton ID="lnkEdit" runat="server" CommandName="Edit" EnableViewState="true"
+                                            CausesValidation="false"><span><%# Eval("ClassName")%></span></asp:LinkButton>
                                 </asp:Label>
                             </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox CssClass="form-control input-sm" ID="txtEditShortName" runat="server" Columns="40" MaxLength="20" Text='<%# Eval("ShortName") %>' />
-                                  <asp:RequiredFieldValidator
-									ID="rfvEditShortName" runat="server" ControlToValidate="txtEditShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpEditTeamName" />
+                        <EditItemTemplate>
+                              <%# Eval("ClassName")%>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewShortName" runat="server" Columns="40" MaxLength="20" />
-                                 <asp:RequiredFieldValidator
-									ID="rfvNewEditShortName" runat="server" ControlToValidate="txtNewShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewTeamName" />
+                                <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewClassName" runat="Server" DataTextField="ClassName"
+                                    DataValueField="ClassID" />
                             </FooterTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Is Budget" >
-                                        <ItemTemplate>
-                                            <%# ( (bool)Eval( "IsBudget" ) ) ? "Yes" : "No"%>
-                                        </ItemTemplate>
-                                        <EditItemTemplate>
-                                            <div class="checkbox input-sm no-margin">
-                                                <asp:CheckBox ID="chkEditIsBudget" runat="server" Checked='<%# Eval("IsBudget") %>' Text=" "/>
-                                            </div>
-                                        </EditItemTemplate>
-                                        <FooterTemplate>
-                                             <div class="checkbox input-sm no-margin">
-								                <asp:CheckBox ID="chkNewIsBudget" runat="server" Checked="false" Text=" "/>
-							                </div>
-                                        </FooterTemplate>
-                                    </asp:TemplateColumn>
+
+                        <asp:TemplateColumn HeaderText="Short Name">
+                             <ItemTemplate>                               
+                                <%# Eval( "ShortName")%>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtEditShortName" runat="server" Columns="15" MaxLength="3" Text='<%# Eval("ShortName") %>' />
+                                 <asp:RequiredFieldValidator
+									ID="rfvEditShortName" runat="server" ControlToValidate="txtEditShortName" ErrorMessage="*" Display="dynamic" MaxLength="3" ValidationGroup="valGrpEditShortName" />
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewShortName" runat="server" Columns="15" MaxLength="3" />
+                                <asp:RequiredFieldValidator
+									ID="rfvNewShortName" runat="server" ControlToValidate="txtNewShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewShortName" />
+                            </FooterTemplate>
+                        </asp:TemplateColumn>
+                       
+                         <asp:TemplateColumn HeaderText="Value">
+                            <ItemTemplate>
+                                <asp:Label ID="lblValue" runat="server">
+												       <%# Eval("Value")%>
+                                </asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox CssClass="form-control input-sm custom-number" ID="txtEditValue" runat="server" Columns="15" MaxLength="50" Text='<%# Eval("Value") %>' />
+                                  <asp:RequiredFieldValidator
+									ID="rfvEditValue" runat="server" ControlToValidate="txtEditValue" ErrorMessage="*"  Display="dynamic" ValidationGroup="valGrpEditShortName" />
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox CssClass="form-control input-sm custom-number" ID="txtNewValue" runat="server" Columns="15" MaxLength="50" />
+                                 <asp:RequiredFieldValidator
+									ID="rfvNewValue" runat="server" ControlToValidate="txtNewValue" ErrorMessage="*"  Display="dynamic" ValidationGroup="valGrpNewShortName" />
+                            </FooterTemplate>
+                        </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderStyle-HorizontalAlign="Center"
                             ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center" HeaderText="Function">
                             <ItemTemplate>
@@ -97,13 +98,13 @@
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:LinkButton ID="lnkSave" runat="server" CommandName="Update" EnableViewState="false"
-                                    ValidationGroup="valGrpEditTeamName" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Save"><i class="ti-check"></i></asp:LinkButton>
+                                    ValidationGroup="valGrpEditShortName" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Save"><i class="ti-check"></i></asp:LinkButton>
                                 <asp:LinkButton ID="lnkCancel" runat="server" CommandName="Cancel" EnableViewState="false"
                                     CausesValidation="false" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Cancel"><i class="ti-close"></i></asp:LinkButton>
                             </EditItemTemplate>
                             <FooterTemplate>
                                 <asp:LinkButton ID="lnkCreate" runat="server" CommandName="Create" EnableViewState="false"
-                                    ValidationGroup="valGrpNewTeamName" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Add"><i class="ti-plus"></i></asp:LinkButton>
+                                    ValidationGroup="valGrpNewShortName" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Add"><i class="ti-plus"></i></asp:LinkButton>
                             </FooterTemplate>
                         </asp:TemplateColumn>
                     </Columns>
@@ -134,7 +135,15 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".administration-menu").addClass("active expand");
-            $(".sub-productgroup-setup").addClass("active");
+            $(".sub-customertype-setup").addClass("active");
         });
+
+        var numberElements = document.getElementsByClassName("custom-number");
+        // Loop through each one
+        for (var i = 0; i < numberElements.length; i++) {
+            // Get your current element
+            numberElements[i].type = 'number';
+        }
+
     </script>
 </asp:Content>

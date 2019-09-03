@@ -70,12 +70,12 @@
                                 <asp:Label ID="lblShortName" runat="server"><%# Eval("ShortName")%></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:TextBox CssClass="form-control input-sm" ID="txtEditShortName" runat="server" Columns="40" MaxLength="20" Text='<%# Eval("ShortName") %>' />
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtEditShortName" runat="server" Columns="100" MaxLength="100" Text='<%# Eval("ShortName") %>' />
                                   <asp:RequiredFieldValidator
 									ID="rfvEditShortName" runat="server" ControlToValidate="txtEditShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpEditTeamName" />
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewShortName" runat="server" Columns="40" MaxLength="20" />
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewShortName" runat="server" Columns="100" MaxLength="100" />
                                  <asp:RequiredFieldValidator
 									ID="rfvNewEditShortName" runat="server" ControlToValidate="txtNewShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewTeamName" />
                             </FooterTemplate>

@@ -3236,6 +3236,34 @@ namespace GMSCore
         }
 
         /// <summary>
+        /// Retrieve a list of class name short name
+        /// </summary>
+        public void GetClassNameWithShortName(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppClassNameWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        /// <summary>
+        /// Retrieve a list of class name without short name
+        /// </summary>
+        public void GetClassNameWithNoShortName(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppClassNameWithNoShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        /// <summary>
         /// CanUserAccessDocument
         /// </summary>
         public void CheckDataForMR(short companyId, string documentType, string documentNo, short userId, ref DataSet ds)
