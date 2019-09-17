@@ -1140,7 +1140,10 @@ namespace GMSConApp
                 sop.BaseAddress = SAPURI;
                 sop.SAPKey = SAPKEY;
                 sop.SAPDB = SAPDB;
-
+                Console.WriteLine(SAPURI);
+                Console.WriteLine(SAPKEY);
+                Console.WriteLine(SAPDB);
+                
                 if (executeFX)
                 {
                     // Delete Exchange Rate              
@@ -1439,15 +1442,16 @@ namespace GMSConApp
                 // Delete Duplicate Account
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Duplicate Account data in GMS...");
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteDuplicateAccount");
-
+               
                 if (execute)
                 {
                     // Delete GRN
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete GRN data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteGRN");
+                    //Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete GRN data in GMS...");
+                    //oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteGRN");
 
                     //Retrieve Last Month GRN
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving GRN data...");
+                    //query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '2019-01-01' , '2019-12-31')";
                     query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '" + from + "' , '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('', '', '' , '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
@@ -1480,7 +1484,7 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End GRN data insertion");
                     ds.Dispose();
                 }
-
+              
                 if (execute)
                 {
                     // Delete Stock Movement
@@ -1626,7 +1630,7 @@ namespace GMSConApp
                     ds.Dispose();
 
                 }
-
+                
                 if (execute)
                 {
                     string lmsDoc = "";
@@ -1667,10 +1671,10 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt I data insertion.");
                     ds.Dispose();
 
-                    /*
-                     * Retrieve Sales II - Unreconciled based on trn no
-                     * Parameter : doc no from, doc no to, date from, date to
-                    */
+                    
+                    // Retrieve Sales II - Unreconciled based on trn no
+                    // Parameter : doc no from, doc no to, date from, date to
+                    
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
                     query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT\" ('', '', '', '')";
@@ -1738,11 +1742,11 @@ namespace GMSConApp
                     {
                         Console.WriteLine(DateTime.Now.ToString() + " -- End Receipt II data insertion.");
                         ds.Dispose();
-                        /*
-                         * Retrieve Sales III   : Partially or fully reconciled based on recon date
-                         * Parameter            : doc no from, doc no to, date from, date to
-                         * Added                : 2018-08-14 Annie
-                        */
+                        
+                        // Retrieve Sales III   : Partially or fully reconciled based on recon date
+                        // Parameter            : doc no from, doc no to, date from, date to
+                        // Added                : 2018-08-14 Annie
+                        
                         Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales II data...");
                         query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '" + from + "', '" + to + "')";
                         //query = "CALL \"AF_API_GET_SAP_OVERPAYMENT_RECON\" ('', '', '', '')";
@@ -1907,8 +1911,7 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Purchase Order data insertion.");
                     ds.Dispose();
-                }                
-
+                }
             }
         }
     }

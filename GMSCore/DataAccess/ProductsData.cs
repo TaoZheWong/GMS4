@@ -403,5 +403,39 @@ namespace GMSCore
             return;
         }
 
+        /// <summary>
+        /// Retrieve a list of products code, short name for search
+        /// </summary>
+        public void GetProductCodeWithShortName(short companyId, string ProductCode, string ProductName, string ShortName, ref DataSet dsProducts)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductCodeWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = ProductCode;
+            command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = ProductName;
+            command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = ShortName;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dsProducts);
+            return;
+        }
+
+        /// <summary>
+        /// Retrieve a list of products group code, short name for search
+        /// </summary>
+        public void GetProductGroupCodeWithShortName(short companyId, string ProductGroupCode, string ProductGroupName, string ShortName, ref DataSet dsProducts)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductGroupCodeWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = ProductGroupCode;
+            command.Parameters.Add("@ProductGroupName", SqlDbType.NVarChar).Value = ProductGroupName;
+            command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = ShortName;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dsProducts);
+            return;
+        }
+
     }
 }
