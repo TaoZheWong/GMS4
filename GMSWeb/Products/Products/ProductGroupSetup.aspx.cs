@@ -85,11 +85,60 @@ namespace GMSWeb.Products.Products
             proddacl.GetProductGroupWithShortName(session.CompanyId, ref dsProducts);
             this.dgData.DataSource = dsProducts.Tables[0];
             this.dgData.DataBind();
-        }
-        #endregion
 
-        #region dgData datagrid PageIndexChanged event handling
-        protected void dgData_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+
+            //string ProductGroupCode = "";
+            //string ShortName = "";
+            //if ((!string.IsNullOrEmpty(txtProductGroupCode.Text)) || (!string.IsNullOrEmpty(txtShortName.Text)))
+            //{
+            //    ProductGroupCode = "%" + txtProductGroupCode.Text.Trim() + "%";
+            //    ShortName = "%" + txtShortName.Text.Trim() + "%";
+          
+            //}
+            //else {
+            //    base.JScriptAlertMsg("Please input product code or short name to search.");
+            //    return;
+            //}
+            //try
+            //{
+            //    proddacl.GetProductGroupCodeWithShortName(session.CompanyId, ProductGroupCode, ShortName, ref dsProducts);
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+            //}
+
+            //int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
+            //int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
+
+            //if (dsProducts != null && dsProducts.Tables[0].Rows.Count > 0)
+            //{
+            //    if (endIndex < dsProducts.Tables[0].Rows.Count)
+            //        this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+            //            endIndex.ToString() + " " + "of" + " " + dsProducts.Tables[0].Rows.Count.ToString();
+            //    else
+            //        this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+            //            dsProducts.Tables[0].Rows.Count.ToString() + " " + "of" + " " + dsProducts.Tables[0].Rows.Count.ToString();
+
+            //    this.lblSearchSummary.Visible = true;
+            //    this.dgData.DataSource = dsProducts;
+            //    this.dgData.DataBind();
+          
+            //}
+            //else
+            //{
+            //    this.lblSearchSummary.Text = "No records.";
+            //    this.lblSearchSummary.Visible = true;
+            //    this.dgData.DataSource = null;
+            //    this.dgData.DataBind();
+            //    return;
+        
+            //}
+        }
+    #endregion
+
+    #region dgData datagrid PageIndexChanged event handling
+    protected void dgData_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
             DataGrid dtg = (DataGrid)source;
             dtg.CurrentPageIndex = e.NewPageIndex;
@@ -272,13 +321,76 @@ namespace GMSWeb.Products.Products
         }
         #endregion
 
+
         #region btnSearch_Click
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.dgData.CurrentPageIndex = 0;
-            LoadData();
+                RetrieveProductGroup();
         }
-        #endregion       
-        
+        #endregion
+
+        #region RetrieveProductGroup
+        private void RetrieveProductGroup()
+        {
+
+            LogSession session = base.GetSessionInfo();
+            ProductsDataDALC proddacl = new ProductsDataDALC();
+            DataSet dsProducts = new DataSet();
+
+            string ProductGroupCode = "";
+            string ProductGroupName = "";
+            string ShortName = "";
+            if (string.IsNullOrEmpty(txtProductGroupCode.Text.Trim()) && string.IsNullOrEmpty(txtProductGroupName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()))
+            {
+                this.MsgPanel2.ShowMessage("Please input product group to search", MessagePanelControl.MessageEnumType.Alert);
+                resultList.Visible = false;
+          
+            }
+            else
+            {
+                ProductGroupCode = "%" + txtProductGroupCode.Text.Trim() + "%";
+                ProductGroupName = "%" + txtProductGroupName.Text.Trim() + "%";
+                ShortName = "%" + txtShortName.Text.Trim() + "%";
+                resultList.Visible = true;
+            }
+            try
+            {
+                proddacl.GetProductGroupCodeWithShortName(session.CompanyId, ProductGroupCode, ProductGroupName, ShortName, ref dsProducts);
+            }
+            catch (Exception ex)
+            {
+                this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+            }
+
+            int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
+            int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
+
+            if (dsProducts != null && dsProducts.Tables[0].Rows.Count > 0)
+            {
+                if (endIndex < dsProducts.Tables[0].Rows.Count)
+                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        endIndex.ToString() + " " + "of" + " " + dsProducts.Tables[0].Rows.Count.ToString();
+                else
+                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        dsProducts.Tables[0].Rows.Count.ToString() + " " + "of" + " " + dsProducts.Tables[0].Rows.Count.ToString();
+
+                this.lblSearchSummary.Visible = true;
+                this.dgData.DataSource = dsProducts;
+                this.dgData.DataBind();
+
+            }
+            else
+            {
+                this.lblSearchSummary.Text = "No records.";
+                this.lblSearchSummary.Visible = true;
+                this.dgData.DataSource = null;
+                this.dgData.DataBind();
+                return;
+
+            }
+        }
+        #endregion
+
     }
 }

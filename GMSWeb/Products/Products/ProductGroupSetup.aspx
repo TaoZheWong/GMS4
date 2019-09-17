@@ -14,9 +14,50 @@
     <li class="active">Product Group Setup</li>
 </ul>
 <h1 class="page-header">Product Group Setup <br /><small>Setup of product group short name.</small></h1>
+
+    <%--Search--%>
+   <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+                <a data-init="true" title="" data-original-title="" href="javascript:;" class="btn" data-toggle="panel-collapse"><i class="glyphicon glyphicon-chevron-up"></i></a>
+            </div>
+            <h4 class="panel-title">
+                <i class="ti-search"></i>
+                Search filter
+            </h4>
+        </div>
+        <div class="panel-body row">
+            <div class="form-horizontal m-t-20">
+               <div class="form-group col-lg-4 col-md-6 col-sm-6">
+                    <label class="control-label">Product Group Code</label>
+                        <asp:TextBox runat="server" ID="txtProductGroupCode" MaxLength="4" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. A21"></asp:TextBox>
+                </div>
+                <div class="form-group col-lg-4 col-md-6 col-sm-6">
+                    <label class="control-label">Product Group Name</label>
+                        <asp:TextBox runat="server" ID="txtProductGroupName" MaxLength="50" Columns="20" onfocus="select();"
+                            CssClass="form-control" placeholder="e.g. AUWELD FILLER METALS"></asp:TextBox>
+                </div>
+                <div class="form-group col-lg-4 col-md-6 col-sm-6">
+                    <label class="control-label">Short Name</label>
+                        <asp:TextBox runat="server" ID="txtShortName" MaxLength="50" Columns="20" onfocus="select();"
+                                    CssClass="form-control" ></asp:TextBox>
+                </div>
+               
+            </div>
+        </div>
+       </div>
+
+   <div class="panel-footer clearfix">
+        <asp:Button ID="btnSearch" Text="Search" EnableViewState="False" runat="server" CssClass="pull-right btn btn-primary m-l-5" OnClick="btnSearch_Click"></asp:Button> 
+    </div>
+         <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+    <ContentTemplate>
+        <uctrl:MsgPanel ID="MsgPanel2" runat="server" EnableViewState="false" />
+    </ContentTemplate>
+</asp:UpdatePanel>
          
    <%--Group Setup --%>   
-     <div class="panel panel-primary">
+     <div class="panel panel-primary" id="resultList" runat="server" visible="true">
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn" data-toggle="panel-expand"><i class="glyphicon glyphicon-resize-full"></i></a>
@@ -42,7 +83,7 @@
                             </ItemTemplate>
                         </asp:TemplateColumn>
 
-                        <asp:TemplateColumn HeaderText="Product Group Name" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Product Group Name" HeaderStyle-Wrap="false"  SortExpression="ProductGroupName">
                             <ItemTemplate>  
                                 <asp:Label ID="lblProductGroupName" runat="server">
                                     <asp:LinkButton ID="lnkEdit" runat="server" CommandName="Edit" EnableViewState="false"
@@ -57,7 +98,7 @@
                             </FooterTemplate>
                         </asp:TemplateColumn>                        
                        
-                         <asp:TemplateColumn HeaderText="Short Name">
+                         <asp:TemplateColumn HeaderText="Short Name" HeaderStyle-Wrap="false"  SortExpression="ShortName">
                             <ItemTemplate>
                                 <asp:Label ID="lblShortName" runat="server">
 												       <%# Eval("ShortName")%>
@@ -74,7 +115,7 @@
 									ID="rfvNewEditShortName" runat="server" ControlToValidate="txtNewShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewTeamName" />
                             </FooterTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Is Budget" >
+                        <asp:TemplateColumn HeaderText="Is Budget" HeaderStyle-Wrap="false"  SortExpression="IsBudget">
                                         <ItemTemplate>
                                             <%# ( (bool)Eval( "IsBudget" ) ) ? "Yes" : "No"%>
                                         </ItemTemplate>

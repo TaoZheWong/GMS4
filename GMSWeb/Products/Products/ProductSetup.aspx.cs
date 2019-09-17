@@ -259,9 +259,71 @@ namespace GMSWeb.Products.Products
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.dgData.CurrentPageIndex = 0;
-            LoadData();
+            RetrieveProduct();
         }
-        #endregion   
+        #endregion
+
+        #region RetrieveProduct
+        private void RetrieveProduct()
+        {
+
+            LogSession session = base.GetSessionInfo();
+            ProductsDataDALC proddacl = new ProductsDataDALC();
+            DataSet dsProducts = new DataSet();
+
+            string ProductCode = "";
+            string ProductName = "";
+            string ShortName = "";
+            if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()))
+            {
+                this.MsgPanel2.ShowMessage("Please input product to search", MessagePanelControl.MessageEnumType.Alert);
+                resultList.Visible = false;
+
+            }
+            else
+            {
+                ProductCode = "%" + txtProductCode.Text.Trim() + "%";
+                ProductName = "%" + txtProductName.Text.Trim() + "%";
+                ShortName = "%" + txtShortName.Text.Trim() + "%";
+                resultList.Visible = true;
+            }
+            try
+            {
+                proddacl.GetProductCodeWithShortName(session.CompanyId, ProductCode, ProductName, ShortName, ref dsProducts);
+            }
+            catch (Exception ex)
+            {
+                this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+            }
+
+            int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
+            int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
+
+            if (dsProducts != null && dsProducts.Tables[0].Rows.Count > 0)
+            {
+                if (endIndex < dsProducts.Tables[0].Rows.Count)
+                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        endIndex.ToString() + " " + "of" + " " + dsProducts.Tables[0].Rows.Count.ToString();
+                else
+                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        dsProducts.Tables[0].Rows.Count.ToString() + " " + "of" + " " + dsProducts.Tables[0].Rows.Count.ToString();
+
+                this.lblSearchSummary.Visible = true;
+                this.dgData.DataSource = dsProducts;
+                this.dgData.DataBind();
+
+            }
+            else
+            {
+                this.lblSearchSummary.Text = "No records.";
+                this.lblSearchSummary.Visible = true;
+                this.dgData.DataSource = null;
+                this.dgData.DataBind();
+                return;
+
+            }
+        }
+        #endregion
 
         protected void ddlNewProductGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
