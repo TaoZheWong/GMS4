@@ -8,7 +8,7 @@
 <a name="TemplateInfo"></a>
 
 <ul class="breadcrumb pull-right">
-    <li class="active">Audited Reports</li>
+    <li class="active">Reports</li>
 </ul>
 <h1 class="page-header">Reports <small>Click a report to view.</small></h1>
       
@@ -48,7 +48,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".audited-menu").addClass("active expand");
-            $(".sub-audit").addClass("active");
+            $(".sub-audit-report").addClass("active");
         });
     </script>
 </asp:Content>

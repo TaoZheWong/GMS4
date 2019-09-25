@@ -1,12 +1,11 @@
 <%@ Page Language="C#" MasterPageFile="~/Common/Site.Master" AutoEventWireup="true" CodeBehind="UploadAudit.aspx.cs" Inherits="GMSWeb.Finance.Upload.UploadAudit" Title="Finance - Upload Audit Page" %>
-
 <%@ MasterType VirtualPath="~/Common/Site.Master" %>
 <%@ Register TagPrefix="uctrl" TagName="Calendar" Src="~/CustomCtrl/CalendarControl.ascx" %>
 <%@ Register TagPrefix="uctrl" TagName="MsgPanel" Src="~/CustomCtrl/MessagePanelControl.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <ul class="breadcrumb pull-right">
-        <li><a href="#">Accounting/Tax</a></li>
-        <li class="active">Audit Upload</li>
+        <li><a href="#">Audited</a></li>
+        <li class="active">Upload</li>
     </ul>
     <h1 class="page-header">Audit Upload
     <br />
@@ -84,7 +83,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".accounting-menu").addClass("active expand");
+            $(".audited-menu").addClass("active expand");
             $(".sub-upload-audit").addClass("active");
         });
     </script>

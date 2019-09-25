@@ -1447,7 +1447,7 @@ namespace GMSConApp
                 {
                     // Delete GRN
                     //Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete GRN data in GMS...");
-                    //oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteGRN");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteGRN");
 
                     //Retrieve Last Month GRN
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving GRN data...");
