@@ -802,11 +802,15 @@ namespace GMSWeb
                 "</ul>" +
                 "</li>" +
 
-                "<li class='has-sub audited-menu sub-audit'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">" +
+                "<li class='has-sub audited-menu'>" +
+                "<a href='javascript:;'>" +
                 "<i class='ti-stamp'></i>" +
-                "<span>Audited Reports</span>" +
+                "<span>Audited</span>" +
                 "</a>" +
+                "<ul class=\"sub-menu\">" +
+                    "<li class='sub-upload-audit'><a href=\"" + appPath + "/Finance/Upload/UploadAudit.aspx\">Upload</a></li>" +
+                    "<li class='sub-audit-report'><a href=\"" + appPath + "/Finance/Reports/FinanceAuditReport.aspx\">Reports</a></li>" +
+                "</ul>" +
                 //"<ul class=\"sub-menu\">" +
                 //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
