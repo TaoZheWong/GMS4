@@ -1484,7 +1484,36 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End GRN data insertion");
                     ds.Dispose();
                 }
-              
+
+                // Contact Person
+                /*
+                if (execute)
+                {
+                    // Delete Contact Person
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Contact Person data in GMS...");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteContactPerson");
+
+                    //Retrieve Contact Person
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Contact Person Data data...");
+                    query = "SELECT \"CardCode\", \"Name\", \"Position\", \"Address\",  \"Tel1\", \"Tel2\", \"Cellolar\", \"Fax\", \"E_MailL\", \"FirstName\", \"MiddleName\", \"LastName\",  \"BlockComm\" FROM OCPR WHERE \"Active\" = 'Y'";
+                    ds = sop.GET_SAP_QueryData(CoyID, query,
+                        "AccountCode", "Name", "Position", "Address", "Tel1", "Tel2", "Mobile", "Fax", "Email", "FirtName", "MiddleName", "LastName", "BlockComm", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    //Insert Contact Person data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Contact Person data into GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        oDAL.GMS_Insert_Warehouse(CoyID,
+                        dr["field1"].ToString(),
+                        dr["field2"].ToString()
+                        );
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Warehouse data insertion");
+                    ds.Dispose();
+                }
+                */
+
                 if (execute)
                 {
                     // Delete Stock Movement

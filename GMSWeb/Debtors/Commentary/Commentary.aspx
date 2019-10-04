@@ -102,20 +102,9 @@
                             <asp:ListItem Value="Customer">Customer</asp:ListItem>
                             <asp:ListItem Value="Invoice">Invoice</asp:ListItem>
                         </asp:DropDownList>
-                </div> 
-            </div>    
-              <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label class="control-label">Customer Code</label>
-                            <asp:TextBox runat="server" ID="txtAccountCode" MaxLength="50" Columns="50" onfocus="select();"
-                            CssClass="form-control" placeholder="e.g. DLK690"></asp:TextBox>                
-                </div> 
-               <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label class="control-label">Customer Name</label>
-                            <asp:TextBox runat="server" ID="txtAccountName" MaxLength="50" Columns="50" onfocus="select();"
-                            CssClass="form-control" placeholder="e.g. Keppel"></asp:TextBox>                
-                </div> 
-            </div> 
-         
+                </div>
+            </div>
+        </div>
         <div class="panel-footer clearfix">
             <asp:Button ID="btnSearch" Text="Search" EnableViewState="False" runat="server" CssClass="btn btn-primary pull-right"
                 OnClick="btnSearch_Click" OnClientClick="return btnSearch_OnClick();"></asp:Button>
@@ -139,7 +128,7 @@
             <div id="data-table" class="table-responsive">
                 <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false"
                     GridLines="none" CellPadding="5" CellSpacing="5" CssClass="table table-condensed table-striped table-hover" AllowPaging="true"
-                    PageSize="20" OnPageIndexChanged="dgData_PageIndexChanged" EnableViewState="false">
+                    PageSize="20" OnPageIndexChanged="dgData_PageIndexChanged" EnableViewState="true">
                     <Columns>
                         <asp:TemplateColumn HeaderText="No" ItemStyle-Width="15px">
                             <ItemTemplate>

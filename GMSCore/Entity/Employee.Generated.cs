@@ -533,8 +533,68 @@ namespace GMSCore.Entity
                 }
             }
         }
-			
-		private ObjectHolder<Company> _tbCompanyObject;
+
+        private string _division="";
+        ///<summary>Database mapping to column tbEmployee.Department</summary>
+        public string Division
+        {
+            get { return _division; }
+            set
+            {
+                if (_division != value)
+                {
+                    _division = value;
+                    OnPropertyChanged("DimensionL1");
+                }
+            }
+        }
+
+        private string _department2 = "";
+        ///<summary>Database mapping to column tbEmployee.Department</summary>
+        public string Department2
+        {
+            get { return _department2; }
+            set
+            {
+                if (_department2 != value)
+                {
+                    _department2 = value;
+                    OnPropertyChanged("DimensionL2");
+                }
+            }
+        }
+
+        private string _section;
+        ///<summary>Database mapping to column tbEmployee.Department</summary>
+        public string Section
+        {
+            get { return _section; }
+            set
+            {
+                if (_section != value)
+                {
+                    _section = value;
+                    OnPropertyChanged("DimensionL3");
+                }
+            }
+        }
+
+        private string _unit;
+        ///<summary>Database mapping to column tbEmployee.Department</summary>
+        public string Unit
+        {
+            get { return _unit; }
+            set
+            {
+                if (_unit != value)
+                {
+                    _unit = value;
+                    OnPropertyChanged("DimensionL4");
+                }
+            }
+        }
+
+        private ObjectHolder<Company> _tbCompanyObject;
 		///<summary>Instance of a Company object</summary>
 		public Company CompanyObject
 		{
@@ -660,14 +720,18 @@ namespace GMSCore.Entity
 					case "_race": return _race;
 					case "_notification": return _notification;
                     case "_userName": return _userName;
-					case "_tbCompanyObject": return _tbCompanyObject;
+                    case "_division": return _division;
+                    case "_department2": return _department2;
+                    case "_section": return _section;
+                    case "_unit": return _unit;
+                    case "_tbCompanyObject": return _tbCompanyObject;
 					case "_superiorTbEmployeeObject": return _superiorTbEmployeeObject;
 					case "_superiorTbEmployeeList": return _superiorTbEmployeeList;
 					case "_jDUploadedByUsersObject": return _jDUploadedByUsersObject;
 					case "_kPIUploadedByUsersObject": return _kPIUploadedByUsersObject;
 					case "_tbEmployeeCourseList": return _tbEmployeeCourseList;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -710,14 +774,18 @@ namespace GMSCore.Entity
 					case "_race": _race = (string)value; break;
 					case "_notification": _notification = (Nullable<bool>)value; break;
                     case "_userName": _userName = (string)value; break;
-					case "_tbCompanyObject": _tbCompanyObject = (ObjectHolder<Company>)value; break;
+                    case "_division": _division = (string)value; break;
+                    case "_department2": _department2 = (string)value; break;
+                    case "_section": _section = (string)value; break;
+                    case "_unit": _unit = (string)value; break;
+                    case "_tbCompanyObject": _tbCompanyObject = (ObjectHolder<Company>)value; break;
 					case "_superiorTbEmployeeObject": _superiorTbEmployeeObject = (ObjectHolder<Employee>)value; break;
 					case "_superiorTbEmployeeList": _superiorTbEmployeeList = (IList<Employee>)value; break;
 					case "_jDUploadedByUsersObject": _jDUploadedByUsersObject = (ObjectHolder<GMSUser>)value; break;
 					case "_kPIUploadedByUsersObject": _kPIUploadedByUsersObject = (ObjectHolder<GMSUser>)value; break;
 					case "_tbEmployeeCourseList": _tbEmployeeCourseList = (IList<EmployeeCourse>)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -765,8 +833,12 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_race={0}\n,", _race.ToString() );
 			stb.AppendFormat("_notification={0}\n,", _notification.ToString() );
             stb.AppendFormat("_userName={0}\n,", _userName.ToString());
-			
-			return stb.ToString();
+            stb.AppendFormat("_division={0}\n,", _division.ToString());
+            stb.AppendFormat("_department2={0}\n,", _department2.ToString());
+            stb.AppendFormat("_section={0}\n,", _section.ToString());
+            stb.AppendFormat("_unit={0}\n,", _unit.ToString());
+
+            return stb.ToString();
 		}
 		#endregion
 

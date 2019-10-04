@@ -516,6 +516,15 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
+                    "<li class='has-sub recruitment-menu'>" +
+                    "<a href='javascript:;'>" +
+                    "<span>Recruitment</span>" +
+                    "</a>" +
+                    "<ul class=\"sub-menu\">" +
+                        "<li class='sub-resume'><a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx\">Recruitment</a></li>" +
+                    "</ul>" +
+                    "</li>" +
+
                 //"<li class='has-sub'>" +
                 //"<a href='javascript:;'>" +
                 //"<i class='ti-package'></i>" +
@@ -850,6 +859,7 @@ namespace GMSWeb
                     "<li class='sub-data-setup'><a href=\"" + appPath + "/Finance/Upload/UploadSpecialData.aspx\">Data Setup</a></li>" +
                     "<li class='sub-entertainment-expense'><a href=\"" + appPath + "/HR/Commission/EntertainmentExpense.aspx?CurrentLink=CompanyFinance\">Entertainment</a></li>" +
                     "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=CompanyFinance\">Claim</a></li>" +
+                    "<li class='sub-dimension-setup'><a href=\"" + appPath + "/Finance/Upload/DimensionSetup.aspx\">Dimension Setup</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/BankFacilities/CustomerList.aspx\">Receiver/Payer</a></li>" +                
                 "</ul>" +
                 "</li>" +

@@ -55,6 +55,7 @@
     <Content Include="Finance\Reports\FinanceGroupReport.aspx" />
     <Content Include="Finance\Reports\FinanceManufactureAccount.aspx" />
     <Content Include="Finance\Reports\FinancePurchaseCreditor.aspx" />
+    <Content Include="Finance\Upload\DimensionSetup.aspx" />
     <Content Include="News\Feeds.js" />
     <Content Include="News\GMS3.png" />
     <Content Include="HR\Training\Course.aspx" />
@@ -1536,6 +1537,13 @@
     </Compile>
     <Compile Include="Finance\Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Upload\DimensionSetup.aspx.cs">
+      <DependentUpon>DimensionSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Upload\DimensionSetup.aspx.designer.cs">
+      <DependentUpon>DimensionSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Finance\Upload\ProcessTrialBalance.aspx.cs">
       <DependentUpon>ProcessTrialBalance.aspx</DependentUpon>
