@@ -32,7 +32,7 @@ namespace GMSWeb.HR.Staff
             excelFilePath = AppDomain.CurrentDomain.BaseDirectory + GMSCoreBase.TEMP_DOC_PATH + Path.DirectorySeparatorChar + excelFileName;
             Response.ContentType = "text/html";
             if (type == "EmployeeInfo")
-                ParseExcelFileNew();
+                ParseExcelFile();
             else if (type == "Qualification")
                 ImportQualification();
             else if (type == "History")
@@ -78,15 +78,19 @@ namespace GMSWeb.HR.Staff
                         employee.NRIC = dsExcel.Tables[0].Rows[i]["NRIC"].ToString();
                         employee.EmailAddress = dsExcel.Tables[0].Rows[i]["Email"].ToString().Trim();
                         employee.IsUnitHead = (dsExcel.Tables[0].Rows[i]["IsUnitHead"].ToString()=="yes")?true:false;
+                        employee.Division = dsExcel.Tables[0].Rows[i]["Division"].ToString();
+                        employee.Department2 = dsExcel.Tables[0].Rows[i]["Department2"].ToString();
+                        employee.Section = dsExcel.Tables[0].Rows[i]["Section"].ToString();
+                        employee.Unit = dsExcel.Tables[0].Rows[i]["Unit"].ToString();
 
                         employee.ModifiedBy = sess.UserId;
                         employee.ModifiedDate = DateTime.Now;
 
                         Response.Output.Write("Update Employee Detail For Employee No: '" + employee.EmployeeNo + "' ...<br>");
                         Response.Flush();
-
                         try
                         {
+
                             ResultType update = new EmployeeActivity().UpdateEmployee(ref employee, sess);
                             if (update == ResultType.Ok)
                             {
@@ -128,6 +132,10 @@ namespace GMSWeb.HR.Staff
                         employee.IsInactive = false;
                         employee.CreatedBy = sess.UserId;
                         employee.CreatedDate = DateTime.Now;
+                        employee.Division = dsExcel.Tables[0].Rows[i]["Division"].ToString();
+                        employee.Department2 = dsExcel.Tables[0].Rows[i]["Department2"].ToString();
+                        employee.Section = dsExcel.Tables[0].Rows[i]["Section"].ToString();
+                        employee.Unit = dsExcel.Tables[0].Rows[i]["Unit"].ToString();
 
                         //GMSCore.Entity.DocumentNumber documentNumber = GMSCore.Entity.DocumentNumber.RetrieveByKey(1, (short)DateTime.Now.Year);
                         //employee.EmployeeID = documentNumber.EmployeeID;
@@ -135,7 +143,6 @@ namespace GMSWeb.HR.Staff
 
                         Response.Output.Write("Inserting Employee Detail For Employee No: '" + employee.EmployeeNo + "' ...<br>");
                         Response.Flush();
-
                         try
                         {
                             ResultType create = new EmployeeActivity().CreateEmployee(ref employee, sess);

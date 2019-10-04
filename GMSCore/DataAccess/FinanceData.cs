@@ -180,7 +180,431 @@ namespace GMSCore
                 }
             }
         }
-        #endregion 
+        #endregion
+
+        #region GetCompanyProject
+        public void GetCompanyProject(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procFinanceCompanyProjectSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateCompanyProjectShortName
+        public void UpdateCompanyProjectShortName(short companyId, string projectId, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanyProjectShortNameUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@ProjectID", SqlDbType.NVarChar).Value = projectId;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region AddNewCompanyProject
+        public void AddNewCompanyProject(short companyId, string projectCode, string projectName, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceAddNewCompanyProject", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@ProjectCode", SqlDbType.NVarChar).Value = projectCode;
+                command.Parameters.Add("@ProjectName", SqlDbType.NVarChar).Value = projectName;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region DeleteCompanyProject
+        public void DeleteCompanyProject(short companyId, string projectId)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanyProjectDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@ProjectID", SqlDbType.NVarChar).Value = projectId;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region GetCompanyDepartment
+        public void GetCompanyDepartment(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procFinanceCompanyDepartmentSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateCompanyDepartmentShortName
+        public void UpdateCompanyDepartmentShortName(short companyId, string departmentId, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanyDepartmentShortNameUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@DepartmentID", SqlDbType.NVarChar).Value = departmentId;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region AddNewCompanyDepartment
+        public void AddNewCompanyDepartment(short companyId, string departmentCode, string departmentName, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceAddNewCompanyDepartment", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@DepartmentCode", SqlDbType.NVarChar).Value = departmentCode;
+                command.Parameters.Add("@DepartmentName", SqlDbType.NVarChar).Value = departmentName;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region DeleteCompanyDepartment
+        public void DeleteCompanyDepartment(short companyId, string departmentID)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanyDepartmentDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@DepartmentID", SqlDbType.NVarChar).Value = departmentID;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region GetCompanySection
+        public void GetCompanySection(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procFinanceCompanySectionSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateCompanySectionShortName
+        public void UpdateCompanySectionShortName(short companyId, string sectionId, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanySectionShortNameUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@SectionID", SqlDbType.NVarChar).Value = sectionId;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region AddNewCompanySection
+        public void AddNewCompanySection(short companyId, string sectionCode, string sectionName, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceAddNewCompanySection", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@SectionCode", SqlDbType.NVarChar).Value = sectionCode;
+                command.Parameters.Add("@SectionName", SqlDbType.NVarChar).Value = sectionName;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region DeleteCompanySection
+        public void DeleteCompanySection(short companyId, string sectionID)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanySectionDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@SectionID", SqlDbType.NVarChar).Value = sectionID;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region GetCompanyUnit
+        public void GetCompanyUnit(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procFinanceCompanyUnitSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateCompanyUnitShortName
+        public void UpdateCompanyUnitShortName(short companyId, string unitId, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanyUnitShortNameUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UnitID", SqlDbType.NVarChar).Value = unitId;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region AddNewCompanyUnit
+        public void AddNewCompanyUnit(short companyId, string unitCode, string unitName, string shortName)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceAddNewCompanyUnit", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UnitCode", SqlDbType.NVarChar).Value = unitCode;
+                command.Parameters.Add("@UnitName", SqlDbType.NVarChar).Value = unitName;
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region DeleteCompanyUnit
+        public void DeleteCompanyUnit(short companyId, string unitID)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procFinanceCompanyUnitDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UnitID", SqlDbType.NVarChar).Value = unitID;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
 
         public void GetFinanceItemByName(string itemName ,short companyId, short startYear, short endYear, short startMonth, short endMonth, ref DataSet ds)
         {

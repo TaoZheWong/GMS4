@@ -50,7 +50,7 @@ namespace GMSCore
         //    return;
         //}
 
-        public void GetDebtorsRecordsWithDays(short companyId, short days, DateTime asOfDate, string salesPersonID, short userId, string salesPersonType, string accountCode, string accountName, ref DataSet ds)
+        public void GetDebtorsRecordsWithDays(short companyId, short days, DateTime asOfDate, string salesPersonID, short userId, string salesPersonType, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppDebtorRecordsWithDaysSelect", (SqlConnection)conn);
@@ -60,9 +60,7 @@ namespace GMSCore
             command.Parameters.Add("@AsOfDate", SqlDbType.SmallDateTime).Value = asOfDate;
             command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salesPersonID;
             command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = userId;
-            command.Parameters.Add("@SalesPersonType", SqlDbType.NVarChar).Value = salesPersonType;
-            command.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountCode;
-            command.Parameters.Add("@AccountName", SqlDbType.NVarChar).Value = accountName;
+            command.Parameters.Add("@SalesPersonType", SqlDbType.NVarChar).Value = salesPersonType;            
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;

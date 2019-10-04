@@ -157,6 +157,34 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-sm-12">
+                                    <label class="col-sm-4 control-label text-left">Division</label>
+                                    <div class="col-sm-8">
+                                        <asp:TextBox ID="txtDivision" runat="server" Columns="30" MaxLength="50" onfocus="select();"
+                                            CssClass="form-control" onchange="this.value = this.value.toUpperCase()" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-sm-12">
+                                    <label class="col-sm-4 control-label text-left">Department</label>
+                                    <div class="col-sm-8">
+                                        <asp:TextBox ID="txtDepartment" runat="server" Columns="30" MaxLength="50" onfocus="select();"
+                                            CssClass="form-control" onchange="this.value = this.value.toUpperCase()" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-sm-12">
+                                    <label class="col-sm-4 control-label text-left">Section</label>
+                                    <div class="col-sm-8">
+                                        <asp:TextBox ID="txtSection" runat="server" Columns="30" MaxLength="50" onfocus="select();"
+                                            CssClass="form-control" onchange="this.value = this.value.toUpperCase()" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-sm-12">
+                                    <label class="col-sm-4 control-label text-left">Unit</label>
+                                    <div class="col-sm-8">
+                                        <asp:TextBox ID="txtUnit" runat="server" Columns="30" MaxLength="50" onfocus="select();"
+                                            CssClass="form-control" onchange="this.value = this.value.toUpperCase()" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-sm-12">
                                     <label class="col-sm-4 control-label text-left">Is Unit Head</label>
                                     <div class="col-sm-8">
                                         <div class="radio-inline m-b-3">

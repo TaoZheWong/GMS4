@@ -159,7 +159,6 @@ namespace GMSWeb.SysHR.Staff
                 }
                 coyID = ddlCompany.SelectedValue;
                 type = ddlType.SelectedValue;
-
             }
 
             if (FileUpload1.HasFile)
@@ -229,6 +228,10 @@ namespace GMSWeb.SysHR.Staff
             employee.Grade = txtNewGrade.Text.Trim();
             employee.EmailAddress = txtNewEmail.Text.Trim();
             employee.CarPlate = txtCarPlate.Text.Trim();
+            employee.Division = txtDivision.Text.Trim();
+            employee.Department2 = txtDepartment.Text.Trim();
+            employee.Section = txtSection.Text.Trim();
+            employee.Unit = txtUnit.Text.Trim();
             employee.IsUnitHead = false;
             if (rbIsUnitHead.Checked)
                 employee.IsUnitHead = true;

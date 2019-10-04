@@ -219,14 +219,11 @@ namespace GMSWeb.Debtors.Commentary
 			string salesPersonID = ddlSalesperson.SelectedValue.Trim();
             string salesPersonType = ddlSalesPersonType.SelectedValue.Trim();
             short days = GMSUtil.ToShort(ddlPeriod.SelectedValue.Trim());
-            string accountCode = "%" + txtAccountCode.Text.Trim() + "%";
-            string accountName = "%" + txtAccountName.Text.Trim() + "%";
-
-            DebtorCommentaryDALC dcDALC = new DebtorCommentaryDALC();
+			DebtorCommentaryDALC dcDALC = new DebtorCommentaryDALC();
 			DataSet ds = new DataSet();
 			try
 			{
-				dcDALC.GetDebtorsRecordsWithDays(session.CompanyId, days, asOfDate, salesPersonID, loginUserOrAlternateParty, salesPersonType , accountCode, accountName, ref ds);
+				dcDALC.GetDebtorsRecordsWithDays(session.CompanyId, days, asOfDate, salesPersonID, loginUserOrAlternateParty, salesPersonType ,ref ds);
 			}
 			catch (Exception ex)
 			{
@@ -314,6 +311,9 @@ namespace GMSWeb.Debtors.Commentary
 		#endregion
 
 		
+
+		
+
 		#region EditCommentCommand
 		protected void EditCommentCommand(object sender, CommandEventArgs e)
 		{
