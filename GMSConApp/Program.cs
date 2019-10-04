@@ -6,8 +6,8 @@ namespace GMSConApp
 {
     class Program
     {
-        static string _DBConn = "server=gms\\gms;database=gms;user=sa;password=gms$628128lnox";
-        //static string _DBConn = "server=(local)\\gmswms;database=gms;user=sa;password=gms71419$";
+        //static string _DBConn = "server=gms\\gms;database=gms;user=sa;password=gms$628128lnox";
+        static string _DBConn = "server=(local)\\gmswms;database=gms;user=sa;password=gms71419$";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
         static string _CMSDefaultURL = "http://10.1.1.21/CMS.WebServices/Recipe.asmx";
         static DAL oDAL = null;
@@ -1486,7 +1486,7 @@ namespace GMSConApp
                 }
 
                 // Contact Person
-                /*
+                
                 if (execute)
                 {
                     // Delete Contact Person
@@ -1499,20 +1499,24 @@ namespace GMSConApp
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                         "AccountCode", "Name", "Position", "Address", "Tel1", "Tel2", "Mobile", "Fax", "Email", "FirtName", "MiddleName", "LastName", "BlockComm", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                         "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    
+                    //"CoyID" , "AccountCode 10", "Name 50", "Position 90", "Address 100", "Tel1 20", "Tel2 20", "Mobile 50", "Fax 20", "Email 100", "FirtName 50", "MiddleName 50", "LastName 50", "BlockComm bit"
 
                     //Insert Contact Person data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Contact Person data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        oDAL.GMS_Insert_Warehouse(CoyID,
-                        dr["field1"].ToString(),
+                        /*
+                        oDAL.GMS_Insert_ContactPerson(CoyID,
+                        dr["AccountCode"].ToString(),
                         dr["field2"].ToString()
                         );
+                        */
                     }
-                    Console.WriteLine(DateTime.Now.ToString() + " -- End Warehouse data insertion");
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Contact Person data insertion");
                     ds.Dispose();
                 }
-                */
+                
 
                 if (execute)
                 {
