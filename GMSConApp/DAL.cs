@@ -691,5 +691,28 @@ namespace GMSConApp
             cm.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
             SPexecutor("procAppWSProductNotesDelete");
         }
+
+        public void GMS_Insert_ContactPerson(short CoyID, string accountCode, string name, string position, string address,
+            string tel1, string tel2, string mobile, string fax, string email, string firstName, string middleName,
+            string lastName, string blockComm)
+        {
+            CNCMGenerator();
+            cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
+            cm.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountCode;
+            cm.Parameters.Add("@Name", SqlDbType.NVarChar).Value = name;
+            cm.Parameters.Add("@Position", SqlDbType.NVarChar).Value = position;
+            cm.Parameters.Add("@Address", SqlDbType.NVarChar).Value = address;
+            cm.Parameters.Add("@Tel1", SqlDbType.NVarChar).Value = tel1;
+            cm.Parameters.Add("@Tel2", SqlDbType.NVarChar).Value = tel2;
+            cm.Parameters.Add("@Mobile", SqlDbType.NVarChar).Value = mobile;
+            cm.Parameters.Add("@Fax", SqlDbType.NVarChar).Value = fax;
+            cm.Parameters.Add("@Email", SqlDbType.NVarChar).Value = email;
+            cm.Parameters.Add("@Firstname", SqlDbType.NVarChar).Value = firstName;
+            cm.Parameters.Add("@MiddleName", SqlDbType.NVarChar).Value = middleName;
+            cm.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = lastName;
+            cm.Parameters.Add("@BlockComm", SqlDbType.NVarChar).Value = blockComm;
+            SPexecutor("procAppContactPersonInsert");
+        }
+
     }
 }

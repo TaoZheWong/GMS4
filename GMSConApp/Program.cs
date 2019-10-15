@@ -6,8 +6,8 @@ namespace GMSConApp
 {
     class Program
     {
-        //static string _DBConn = "server=gms\\gms;database=gms;user=sa;password=gms$628128lnox";
-        static string _DBConn = "server=(local)\\gmswms;database=gms;user=sa;password=gms71419$";
+        static string _DBConn = "server=gms\\gms;database=gms;user=sa;password=gms$628128lnox";
+        //static string _DBConn = "server=(local)\\GMSLMS;database=gms;user=sa;password=gms71419$";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
         static string _CMSDefaultURL = "http://10.1.1.21/CMS.WebServices/Recipe.asmx";
         static DAL oDAL = null;
@@ -1087,8 +1087,8 @@ namespace GMSConApp
                 SAPOperation sop = new SAPOperation();
                 sop.BaseAddress = SAPURI;
                 sop.SAPKey = SAPKEY;
-                sop.SAPDB = SAPDB;                
-
+                sop.SAPDB = SAPDB;
+                
                 if (execute)
                 {
                     //Retrieve Sales Person
@@ -1109,7 +1109,8 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
-                }
+                }   
+                
             }
         }
 
@@ -1486,7 +1487,7 @@ namespace GMSConApp
                 }
 
                 // Contact Person
-                
+
                 if (execute)
                 {
                     // Delete Contact Person
@@ -1497,26 +1498,47 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Contact Person Data data...");
                     query = "SELECT \"CardCode\", \"Name\", \"Position\", \"Address\",  \"Tel1\", \"Tel2\", \"Cellolar\", \"Fax\", \"E_MailL\", \"FirstName\", \"MiddleName\", \"LastName\",  \"BlockComm\" FROM OCPR WHERE \"Active\" = 'Y'";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "AccountCode", "Name", "Position", "Address", "Tel1", "Tel2", "Mobile", "Fax", "Email", "FirtName", "MiddleName", "LastName", "BlockComm", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "AccountCode", "Name", "Position", "Address", "Tel1", "Tel2", "Mobile", "Fax", "Email", "FirstName", "MiddleName", "LastName", "BlockComm", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                         "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-                    
-                    //"CoyID" , "AccountCode 10", "Name 50", "Position 90", "Address 100", "Tel1 20", "Tel2 20", "Mobile 50", "Fax 20", "Email 100", "FirtName 50", "MiddleName 50", "LastName 50", "BlockComm bit"
 
+                   
                     //Insert Contact Person data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Contact Person data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        /*
-                        oDAL.GMS_Insert_ContactPerson(CoyID,
+                        oDAL.GMS_Insert_ContactPerson(
+                            CoyID,
                         dr["AccountCode"].ToString(),
-                        dr["field2"].ToString()
+                        dr["Name"].ToString(),
+                        dr["Position"].ToString(),
+                        dr["Address"].ToString(),
+                        dr["Tel1"].ToString(),
+                        dr["Tel2"].ToString(),
+                        dr["Mobile"].ToString(),
+                        dr["Fax"].ToString(),
+                        dr["Email"].ToString(),
+                        dr["FirstName"].ToString(),
+                        dr["MiddleName"].ToString(),
+                        dr["LastName"].ToString(),
+                        dr["BlockComm"].ToString()
                         );
-                        */
+                        Console.WriteLine(dr["AccountCode"].ToString());
+                        Console.WriteLine(dr["Name"].ToString());
+                        Console.WriteLine(dr["Position"].ToString());
+                        Console.WriteLine(dr["Address"].ToString());
+                        Console.WriteLine(dr["Tel1"].ToString());
+                        Console.WriteLine(dr["Tel2"].ToString());
+                        Console.WriteLine(dr["Fax"].ToString());
+                        Console.WriteLine(dr["Email"].ToString());
+                        Console.WriteLine(dr["FirstName"].ToString());
+                        Console.WriteLine(dr["MiddleName"].ToString());
+                        Console.WriteLine(dr["LastName"].ToString());
+                        Console.WriteLine(dr["BlockComm"].ToString());
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Contact Person data insertion");
                     ds.Dispose();
                 }
-                
+
 
                 if (execute)
                 {
