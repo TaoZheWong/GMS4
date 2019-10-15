@@ -516,14 +516,14 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
-                    "<li class='has-sub recruitment-menu'>" +
+                    /*"<li class='has-sub recruitment-menu'>" +
                     "<a href='javascript:;'>" +
                     "<span>Recruitment</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                         "<li class='sub-resume'><a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx\">Recruitment</a></li>" +
                     "</ul>" +
-                    "</li>" +
+                    "</li>" +*/
 
                 //"<li class='has-sub'>" +
                 //"<a href='javascript:;'>" +

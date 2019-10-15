@@ -139,7 +139,7 @@
             <div id="data-table" class="table-responsive">
                 <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false"
                     GridLines="none" CellPadding="5" CellSpacing="5" CssClass="table table-condensed table-striped table-hover" AllowPaging="true"
-                    PageSize="20" OnPageIndexChanged="dgData_PageIndexChanged" EnableViewState="false">
+                    PageSize="20" OnPageIndexChanged="dgData_PageIndexChanged" EnableViewState="true">
                     <Columns>
                         <asp:TemplateColumn HeaderText="No" ItemStyle-Width="15px">
                             <ItemTemplate>

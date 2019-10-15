@@ -278,9 +278,11 @@ namespace GMSWeb.Debtors.Commentary
 					this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
 						ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
 
+                this.lblSearchSummary.Visible = true;
                 this.dgData.DataSource = ds;
                 this.dgData.DataBind();
-                
+                this.dgData.Visible = true;
+
             }
 			else
 				this.lblSearchSummary.Text = "No records.";
@@ -299,7 +301,7 @@ namespace GMSWeb.Debtors.Commentary
 		{
 			DataGrid dtg = (DataGrid)source;
 			dtg.CurrentPageIndex = e.NewPageIndex;
-			LoadData();
+            LoadData();
 		}
 		#endregion
 
