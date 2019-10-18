@@ -40,6 +40,60 @@ namespace GMSWeb.Sales.Sales {
         protected global::System.Web.UI.WebControls.Label lblPageHeader;
         
         /// <summary>
+        /// txtTeam control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTeam;
+        
+        /// <summary>
+        /// txtSalesPersonName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSalesPersonName;
+        
+        /// <summary>
+        /// txtShortName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtShortName;
+        
+        /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// MsgPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::GMSWeb.CustomCtrl.MessagePanelControl MsgPanel2;
+        
+        /// <summary>
         /// lblSearchSummary control.
         /// </summary>
         /// <remarks>
@@ -74,6 +128,15 @@ namespace GMSWeb.Sales.Sales {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::GMSWeb.CustomCtrl.MessagePanelControl MsgPanel1;
+        
+        /// <summary>
+        /// resultList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl resultList;
         
         /// <summary>
         /// Label1 control.

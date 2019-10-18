@@ -85,12 +85,23 @@ namespace GMSWeb.Sales.Sales
             lstEE = new SystemDataActivity().RetrieveTeamSetupSalesGroupTeam(session.CompanyId);
             this.dgData.DataSource = lstEE;
             this.dgData.DataBind();
-           
 
-            IList<GMSCore.Entity.SalesTeamSalesPerson> lstEE1 = null;
-            lstEE1 = new SystemDataActivity().RetrieveTeamSetupSalesTeamSalesPerson(session.CompanyId);
-            this.DataGrid1.DataSource = lstEE1;
+            GMSGeneralDALC ggdal = new GMSGeneralDALC();
+            DataSet ds = new DataSet();
+            ggdal.RetrieveTeamSetupSalesTeamSalesPerson(session.CompanyId, ref ds);
+            this.DataGrid1.DataSource = ds.Tables[0];
             this.DataGrid1.DataBind();
+        }
+        #endregion
+
+        #region LoadTeamData
+        private void LoadTeamData()
+        {
+            LogSession session = base.GetSessionInfo();
+            IList<GMSCore.Entity.SalesGroupTeam> lstEE = null;
+            lstEE = new SystemDataActivity().RetrieveTeamSetupSalesGroupTeam(session.CompanyId);
+            this.dgData.DataSource = lstEE;
+            this.dgData.DataBind();
         }
         #endregion
 
@@ -136,7 +147,7 @@ namespace GMSWeb.Sales.Sales
             else if (e.Item.ItemType == ListItemType.Footer)
             {
                 DropDownList ddlNewGroupName = (DropDownList)e.Item.FindControl("ddlNewGroupName");
-                //DropDownList ddlNewSalesPersonMasterName = (DropDownList)e.Item.FindControl("ddlNewSalesPersonMasterName");
+                
                 if (ddlNewGroupName != null)
                 {
                     SystemDataActivity sDataActivity = new SystemDataActivity();
@@ -156,7 +167,7 @@ namespace GMSWeb.Sales.Sales
                   
                 }
 
-                DropDownList ddlNewSalesPersonMasterName = (DropDownList)e.Item.FindControl("ddlNewSalesPersonMasterName");
+                /*DropDownList ddlNewSalesPersonMasterName = (DropDownList)e.Item.FindControl("ddlNewSalesPersonMasterName");
                 if (ddlNewSalesPersonMasterName != null)
                 {
                     SystemDataActivity sDataActivity = new SystemDataActivity();                
@@ -166,7 +177,7 @@ namespace GMSWeb.Sales.Sales
                     lstSalesPerson = sDataActivity.RetrieveAllSalesPersonByCompanyIDSortBySalesPersonID(GMSUtil.ToShort(session.CompanyId));
                     ddlNewSalesPersonMasterName.DataSource = lstSalesPerson;
                     ddlNewSalesPersonMasterName.DataBind();
-                }
+                }*/
 
                 DropDownList ddlNewTeamName = (DropDownList)e.Item.FindControl("ddlNewTeamName");
                 if (ddlNewTeamName != null)
@@ -350,8 +361,9 @@ namespace GMSWeb.Sales.Sales
         #region btnSearch_Click
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            this.dgData.CurrentPageIndex = 0;
-            LoadData();
+            this.DataGrid1.CurrentPageIndex = 0;
+            LoadTeamData();
+            RetrieveSalesPerson();
         }
         #endregion
 
@@ -369,7 +381,7 @@ namespace GMSWeb.Sales.Sales
         {
             LogSession session = base.GetSessionInfo();
 
-            if (e.Item.ItemType == ListItemType.EditItem)
+            /*if (e.Item.ItemType == ListItemType.EditItem)
             {
                 GMSCore.Entity.SalesTeamSalesPerson ee = (GMSCore.Entity.SalesTeamSalesPerson)e.Item.DataItem;
                 DropDownList ddlEditTeamName = (DropDownList)e.Item.FindControl("ddlEditTeamName");
@@ -385,20 +397,8 @@ namespace GMSWeb.Sales.Sales
                     ddlEditTeamName.SelectedValue = ee.TeamID.ToString();
                 }
             }
-            else if (e.Item.ItemType == ListItemType.Footer)
+            else*/ if (e.Item.ItemType == ListItemType.Footer)
             {
-                DropDownList ddlNewSalesPersonMasterName = (DropDownList)e.Item.FindControl("ddlNewSalesPersonMasterName");
-                if (ddlNewSalesPersonMasterName != null)
-                {
-                    SystemDataActivity sDataActivity = new SystemDataActivity();
-
-                    // fill in salespersonid dropdown list
-                    IList<SalesPerson> lstSalesPerson = null;
-                    lstSalesPerson = sDataActivity.RetrieveAllSalesPersonByCompanyIDSortBySalesPersonID(GMSUtil.ToShort(session.CompanyId));
-                    ddlNewSalesPersonMasterName.DataSource = lstSalesPerson;
-                    ddlNewSalesPersonMasterName.DataBind();
-                }
-
                 DropDownList ddlNewTeamName = (DropDownList)e.Item.FindControl("ddlNewTeamName");
                 if (ddlNewTeamName != null)
                 {
@@ -414,9 +414,27 @@ namespace GMSWeb.Sales.Sales
                     }
                     ddlNewTeamName.DataSource = lstSalesGroupTeam;
                     ddlNewTeamName.DataBind();
+                    //ddlNewTeamName.SelectedValue = lstSalesGroupTeam.
                 }
-            }
 
+                /*DropDownList ddlNewSalesPersonMasterName = (DropDownList)e.Item.FindControl("ddlNewSalesPersonMasterName");
+                if (ddlNewSalesPersonMasterName != null)
+                {
+                    //SystemDataActivity sDataActivity = new SystemDataActivity();
+                    // fill in salespersonid dropdown list
+                    IList<SalesPerson> lstSalesPerson = null;
+                    lstSalesPerson = sDataActivity.RetrieveAllSalesPersonByCompanyIDSortBySalesPersonID(GMSUtil.ToShort(session.CompanyId));
+                    ddlNewSalesPersonMasterName.DataSource = lstSalesPerson;
+
+                    GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                    DataSet dsTeam = new DataSet();
+                    ggdal.RetrieveTeamSetupSalesGroupWithNoShortName(session.CompanyId, 
+                        ref dsTeam);
+                    ddlNewSalesPersonMasterName.DataSource = dsTeam.Tables[0];
+                    ddlNewSalesPersonMasterName.DataBind();
+                }*/
+            }
+           
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete");
@@ -472,15 +490,21 @@ namespace GMSWeb.Sales.Sales
                 { 
                     try
                     {
-
+                        /*GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                        DataSet ds = new DataSet();
+                        DataSet ds1 = new DataSet();
+                        ggdal.RetrieveSalesPersonMasterNameByID(session.CompanyId, ddlNewSalesPersonMasterName.SelectedValue,
+                            ref ds1);
+                        string teamName = ds1.Tables[0].Rows[0]["DivisionID"].ToString();
+                        ggdal.RetrieveTeamSetupIDByTeamName(session.CompanyId, teamName, ref ds);
+                        short teamID = short.Parse(ds.Tables[0].Rows[0]["TeamID"].ToString());*/ 
                         GMSCore.Entity.SalesTeamSalesPerson sgt = new GMSCore.Entity.SalesTeamSalesPerson();
                         sgt.CoyID = session.CompanyId;
-                        sgt.TeamID = short.Parse(ddlNewTeamName.SelectedValue);
+                        sgt.TeamID = int.Parse(ddlNewTeamName.SelectedValue);
                         sgt.SalesPersonID = ddlNewSalesPersonMasterName.SelectedValue;
                         sgt.SalesPersonShortName = txtNewSalesPersonShortName.Text.Trim();
                         sgt.Save();
                         LoadData();
-
                     }
                 catch (Exception ex)
                     {
@@ -515,7 +539,7 @@ namespace GMSWeb.Sales.Sales
             {
 
                 GMSCore.Entity.SalesTeamSalesPerson ee = GMSCore.Entity.SalesTeamSalesPerson.RetrieveByKey(session.CompanyId , hidSalesPersonID.Value.ToString());
-                ee.TeamID = int.Parse(ddlEditTeamName.SelectedValue);
+                //ee.TeamID = int.Parse(ddlEditTeamName.SelectedValue);
                 ee.SalesPersonShortName = txtEditSalesPersonShortName.Text.Trim();
                 try
                 {
@@ -639,5 +663,85 @@ namespace GMSWeb.Sales.Sales
             }
         }
         #endregion
+        
+        #region RetrieveSalesPerson
+        private void RetrieveSalesPerson()
+        {
+
+            LogSession session = base.GetSessionInfo();
+            GMSGeneralDALC ggdal = new GMSGeneralDALC();
+            DataSet ds = new DataSet();
+
+            string TeamCode = "";
+            string SalesPersonName = "";
+            string SalesPersonShortName = "";
+            if (string.IsNullOrEmpty(txtTeam.Text.Trim()) && string.IsNullOrEmpty(txtSalesPersonName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()))
+            {
+                this.MsgPanel2.ShowMessage("Please input data to search", MessagePanelControl.MessageEnumType.Alert);
+                resultList.Visible = false;
+
+            }
+            else
+            {
+                TeamCode = "%" + txtTeam.Text.Trim() + "%";
+                SalesPersonName = "%" + txtSalesPersonName.Text.Trim() + "%";
+                SalesPersonShortName = "%" + txtShortName.Text.Trim() + "%";
+                resultList.Visible = true;
+            }
+            try
+            {
+                ggdal.GetSalesPersonWithShortName(session.CompanyId, TeamCode, SalesPersonName, SalesPersonShortName, ref ds);
+            }
+            catch (Exception ex)
+            {
+                this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+            }
+
+            int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
+            int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
+
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                if (endIndex < ds.Tables[0].Rows.Count)
+                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        endIndex.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
+                else
+                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
+
+                this.lblSearchSummary.Visible = true;
+                this.DataGrid1.DataSource = ds;
+                this.DataGrid1.DataBind();
+
+            }
+            else
+            {
+                this.lblSearchSummary.Text = "No records.";
+                this.lblSearchSummary.Visible = true;
+                this.DataGrid1.DataSource = null;
+                this.DataGrid1.DataBind();
+                return;
+
+            }
+        }
+        #endregion
+
+        protected void ddlNewTeamName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            DropDownList ddlNewTeamName = (DropDownList)sender;
+            string teamName = ddlNewTeamName.SelectedValue;
+
+            GMSGeneralDALC ggdac = new GMSGeneralDALC();
+            TableRow tr = (TableRow)ddlNewTeamName.Parent.Parent;
+            DropDownList ddlNewSalesPersonMasterName = (DropDownList)tr.FindControl("ddlNewSalesPersonMasterName");
+            if (ddlNewSalesPersonMasterName != null)
+            {
+                DataSet dsProducts = new DataSet();
+                ggdac.GetSalesPersonWithNoShortName(session.CompanyId, teamName, ref dsProducts);
+                ddlNewSalesPersonMasterName.DataSource = dsProducts.Tables[0];
+                ddlNewSalesPersonMasterName.DataBind();
+            }
+        }
     }
 }
