@@ -32,7 +32,7 @@ namespace GMSWeb.HR.Staff
             excelFilePath = AppDomain.CurrentDomain.BaseDirectory + GMSCoreBase.TEMP_DOC_PATH + Path.DirectorySeparatorChar + excelFileName;
             Response.ContentType = "text/html";
             if (type == "EmployeeInfo")
-                ParseExcelFile();
+                ParseExcelFileNew();
             else if (type == "Qualification")
                 ImportQualification();
             else if (type == "History")
@@ -69,6 +69,7 @@ namespace GMSWeb.HR.Staff
 
                         employee.CoyID = this.coyId;
                         employee.Name = dsExcel.Tables[0].Rows[i]["Name"].ToString();
+     
                         employee.Department = dsExcel.Tables[0].Rows[i]["Department"].ToString();
                         employee.DOB = GMSUtil.ToDate(dsExcel.Tables[0].Rows[i]["DOB"].ToString());
                         employee.DateJoined = GMSUtil.ToDate(dsExcel.Tables[0].Rows[i]["DateJoined"].ToString());
@@ -268,6 +269,10 @@ namespace GMSWeb.HR.Staff
                             employee.Race = dsExcel.Tables[0].Rows[i][18].ToString().Trim();
                             employee.Qualification = dsExcel.Tables[0].Rows[i][19].ToString().Trim();
                             employee.Grade = dsExcel.Tables[0].Rows[i][20].ToString().Trim();
+                            employee.Division = dsExcel.Tables[0].Rows[i][21].ToString().Trim();
+                            employee.Department2 = dsExcel.Tables[0].Rows[i][22].ToString().Trim();
+                            employee.Section = dsExcel.Tables[0].Rows[i][23].ToString().Trim();
+                            employee.Unit = dsExcel.Tables[0].Rows[i][24].ToString().Trim();
                             employee.ModifiedBy = sess.UserId;
                             employee.ModifiedDate = DateTime.Now;
 
@@ -338,6 +343,11 @@ namespace GMSWeb.HR.Staff
                             employee.Gender = dsExcel.Tables[0].Rows[i][17].ToString().Trim();
                             employee.Race = dsExcel.Tables[0].Rows[i][18].ToString().Trim();
                             employee.Qualification = dsExcel.Tables[0].Rows[i][19].ToString().Trim();
+                            employee.Grade = dsExcel.Tables[0].Rows[i][20].ToString().Trim();
+                            employee.Division = dsExcel.Tables[0].Rows[i][21].ToString().Trim();
+                            employee.Department2 = dsExcel.Tables[0].Rows[i][22].ToString().Trim();
+                            employee.Section = dsExcel.Tables[0].Rows[i][23].ToString().Trim();
+                            employee.Unit = dsExcel.Tables[0].Rows[i][24].ToString().Trim();
                             employee.CreatedBy = sess.UserId;
                             employee.CreatedDate = DateTime.Now;
 
