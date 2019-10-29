@@ -26,7 +26,7 @@
     
     <asp:Repeater ID="rppCategoryList" runat="server">
         <ItemTemplate>
-             <div class="panel panel-primary">
+             <div class="panel panel-primary" >
                     <div class="panel-heading">
                         <div class="panel-heading-btn">
                             <a data-init="true" title="" data-original-title="" href="javascript:;" class="btn" data-toggle="panel-collapse"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="panel-body no-padding">
                         <div class="table-responsive">
-                            <asp:Repeater ID="rppReportList" runat="server" OnItemCommand="rppReportList_ItemCommand" OnItemDataBound="rppReportList_ItemDataBound">
+                            <asp:Repeater ID="rppReportList" runat="server" OnItemCommand="rppReportList_ItemCommand" OnItemDataBound="rppReportList_ItemDataBound" >
                                 <HeaderTemplate>
                                     <table class="table table-condensed table-striped table-hover">
                                 </HeaderTemplate>
@@ -196,15 +196,17 @@
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-forms").addClass("active");
                     }
-                    else if (getParameterByName("DocumentCategoryID") == "35,29") {
+                    else if (getParameterByName("DocumentCategoryID") in ("40,35,29")) {
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-finance-seminar").addClass("active");
-                    }
-                    else if (getParameterByName("DocumentCategoryID") == "33,28") {
+                    }                   
+                    else if (getParameterByName("DocumentCategoryID") in ("39,33,28")) {
                         $(".resources-menu").addClass("active expand");
                         $(".sub-resource-guides").addClass("active");
-                    }                 
-                            
+                    }
+                    else if (getParameterByName("DocumentCategoryID") == "35") {
+                        $("#rppReportList").collapse("hide");
+                    }
                 }
                 else if (getParameterByName("ModuleCategoryID") == "4") {
                    if (getParameterByName("DocumentCategoryID") == "1") {

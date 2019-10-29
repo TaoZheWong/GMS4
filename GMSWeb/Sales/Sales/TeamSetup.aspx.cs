@@ -91,6 +91,12 @@ namespace GMSWeb.Sales.Sales
             ggdal.RetrieveTeamSetupSalesTeamSalesPerson(session.CompanyId, ref ds);
             this.DataGrid1.DataSource = ds.Tables[0];
             this.DataGrid1.DataBind();
+
+            SystemDataActivity sDataActivity = new SystemDataActivity();
+            IList<GMSCore.Entity.SalesGroupTeam> lstSalesGroupTeam = null;
+            lstSalesGroupTeam = sDataActivity.RetrieveTeamSetupSalesGroupTeam(session.CompanyId);
+            this.ddlSearchTeamName.DataSource = lstSalesGroupTeam;
+            this.ddlSearchTeamName.DataBind();
         }
         #endregion
 
@@ -675,7 +681,7 @@ namespace GMSWeb.Sales.Sales
             string TeamCode = "";
             string SalesPersonName = "";
             string SalesPersonShortName = "";
-            if (string.IsNullOrEmpty(txtTeam.Text.Trim()) && string.IsNullOrEmpty(txtSalesPersonName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()))
+            if (string.IsNullOrEmpty(ddlSearchTeamName.SelectedValue.Trim()) && string.IsNullOrEmpty(txtSalesPersonName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()))
             {
                 this.MsgPanel2.ShowMessage("Please input data to search", MessagePanelControl.MessageEnumType.Alert);
                 resultList.Visible = false;
@@ -683,7 +689,7 @@ namespace GMSWeb.Sales.Sales
             }
             else
             {
-                TeamCode = "%" + txtTeam.Text.Trim() + "%";
+                TeamCode = "%" + ddlSearchTeamName.SelectedValue.Trim() + "%";
                 SalesPersonName = "%" + txtSalesPersonName.Text.Trim() + "%";
                 SalesPersonShortName = "%" + txtShortName.Text.Trim() + "%";
                 resultList.Visible = true;
@@ -743,5 +749,7 @@ namespace GMSWeb.Sales.Sales
                 ddlNewSalesPersonMasterName.DataBind();
             }
         }
+
+        
     }
 }

@@ -263,6 +263,52 @@ namespace GMSCore.Entity
             }
         }
 
+
+        private string _brand;
+        ///<summary>Database mapping to column tbProduct.Brand</summary>       
+        public string Brand
+        {
+            get { return _brand; }
+            set
+            {
+                if (_brand != value)
+                {
+                    _brand = value;
+                    OnPropertyChanged("Brand");
+                }
+            }
+        }
+
+        private string _productCategory;
+        ///<summary>Database mapping to column tbProduct.ProductCategory</summary>       
+        public string ProductCategory
+        {
+            get { return _productCategory; }
+            set
+            {
+                if (_productCategory != value)
+                {
+                    _productCategory = value;
+                    OnPropertyChanged("ProductCategory");
+                }
+            }
+        }
+
+        private string _categorySN;
+        ///<summary>Database mapping to column tbProduct.CategorySN</summary>       
+        public string CategorySN
+        {
+            get { return _categorySN; }
+            set
+            {
+                if (_categorySN != value)
+                {
+                    _categorySN = value;
+                    OnPropertyChanged("CategorySN");
+                }
+            }
+        }
+
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -294,6 +340,9 @@ namespace GMSCore.Entity
 					case "_isNonTrackingTradingGas": return _isNonTrackingTradingGas;
 					case "_isOld": return _isOld;
                     case "_shortName": return _shortName;
+                    case "_brand": return _brand;
+                    case "_productCategory": return _productCategory;
+                    case "_categorySN": return _categorySN;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
@@ -320,6 +369,9 @@ namespace GMSCore.Entity
 					case "_isNonTrackingTradingGas": _isNonTrackingTradingGas = (bool)value; break;
 					case "_isOld": _isOld = (bool)value; break;
                     case "_shortName": _shortName = (string)value; break;
+                    case "_productCategory": _productCategory = (string)value; break;
+                    case "_categorySN": _categorySN = (string)value; break;
+
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -351,7 +403,9 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_isNonTrackingTradingGas={0}\n,", _isNonTrackingTradingGas.ToString() );
 			stb.AppendFormat("_isOld={0}\n,", _isOld.ToString() );
             stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
-
+            stb.AppendFormat("_brand={0}\n,", _brand.ToString());
+            stb.AppendFormat("_productCategory={0}\n,", _productCategory.ToString());
+            stb.AppendFormat("_categorySN={0}\n,", _categorySN.ToString());
 
             return stb.ToString();
 		}

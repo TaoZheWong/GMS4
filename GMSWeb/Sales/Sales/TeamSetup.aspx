@@ -29,7 +29,8 @@
                 <div class="form-horizontal m-t-20">
                <div class="form-group col-lg-4 col-md-6 col-sm-6">
                     <label class="control-label">Team</label>
-                        <asp:TextBox runat="server" ID="txtTeam" MaxLength="50" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. GAS"></asp:TextBox>
+                        <!--<asp:TextBox runat="server" ID="txtTeam" MaxLength="50" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. GAS"></asp:TextBox>-->
+                   <asp:DropDownList CssClass="form-control input-sm" ID="ddlSearchTeamName" runat="Server" DataTextField="TeamName" DataValueField="TeamName"/>
                 </div>
                 <div class="form-group col-lg-4 col-md-6 col-sm-6">
                     <label class="control-label">Sales Person Name</label>

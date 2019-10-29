@@ -89,7 +89,9 @@ namespace GMSWeb.UsefulResources.Resources
         protected void LoadDDLs()
         {
             IList<DocumentCategory> lstCategory = null;
-            if (this.hidDocumentCateogryID.Value!="")
+               
+
+                if (this.hidDocumentCateogryID.Value!="")
                 lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
             else
                 lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(short.Parse(this.hidModuleCategoryID.Value));
@@ -192,6 +194,7 @@ namespace GMSWeb.UsefulResources.Resources
                         rppReportList.DataSource = ds.Tables[0];
                         rppReportList.DataBind();
                     }
+         
 
                     /*
                     lstDocument = ds.Tables[0].
