@@ -119,7 +119,7 @@ namespace GMSWeb.Finance.Reports
             //    Response.Redirect("../../Unauthorized.htm");
 
             ClientScript.RegisterStartupScript(typeof(string), "Report",
-                string.Format("jsOpenOperationalReport('Reports/InlineReportViewer.aspx?REPORTID={0}&&TRNNO=1&&REPORT=1');",
+                string.Format("jsOpenOperationalReport('Reports/Report/FinanceReportViewer.aspx?REPORTID={0}&&TRNNO=1&&REPORT=1');",
                                     e.CommandArgument.ToString())
                                     , true);
             PopulateRepeater();
