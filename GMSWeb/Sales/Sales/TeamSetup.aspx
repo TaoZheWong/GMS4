@@ -64,7 +64,7 @@
             </div>
             <h4 class="panel-title">
                 <i class="ti-align-justify"></i>
-                <asp:Label ID="lblSearchSummary" Visible="false" runat="server" />
+                <asp:Label ID="lblSearchSummary1" Visible="false" runat="server" />
             </h4>
         </div>
         <div class="panel-body no-padding">
@@ -83,7 +83,7 @@
                             </ItemTemplate>
                         </asp:TemplateColumn>
 
-                        <asp:TemplateColumn HeaderText="Group" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Division" HeaderStyle-Wrap="false">
                             <ItemTemplate>                               
                                 <%# Eval( "SalesGroupObject.GroupName")%>
                             </ItemTemplate>
@@ -133,6 +133,23 @@
 									ID="rfvNewTeamShortName" runat="server" ControlToValidate="txtNewTeamShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewTeamName" />
                             </FooterTemplate>
                         </asp:TemplateColumn>
+                        <asp:TemplateColumn HeaderText="Sequence">
+                            <ItemTemplate>
+                                <asp:Label ID="lblSeq" runat="server">
+												       <%# Eval("SeqID")%>
+                                </asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtEditSeqID" runat="server" Columns="15" MaxLength="50" Text='<%# Eval("SeqID") %>' />
+                                  <asp:RequiredFieldValidator
+									ID="rfvEditSeqID" runat="server" ControlToValidate="txtEditSeqID" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpEditTeamName" />
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox CssClass="form-control input-sm" ID="txtNewSeqID" runat="server" Columns="15" MaxLength="50" />
+                                 <asp:RequiredFieldValidator
+									ID="rfvNewSeqID" runat="server" ControlToValidate="txtNewSeqID" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewTeamName" />
+                            </FooterTemplate>
+                        </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderStyle-HorizontalAlign="Center"
                             ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center" HeaderText="Function">
                             <ItemTemplate>
@@ -176,7 +193,7 @@
             </div>
             <h4 class="panel-title">
                 <i class="ti-align-justify"></i>
-                <asp:Label ID="Label1" Visible="false" runat="server" />
+                <asp:Label ID="lblSearchSummary" Visible="false" runat="server" />
             </h4>
         </div>
         <div class="panel-body no-padding">
@@ -214,14 +231,14 @@
                             <ItemTemplate>
                                      <asp:Label ID="lblTeamName" runat="server">
                                     <asp:LinkButton ID="lnkEdit" runat="server" CommandName="Edit" EnableViewState="true"
-                                                CausesValidation="false"><span><%# Eval( "SalesPersonName")%></span></asp:LinkButton>                            
+                                                CausesValidation="false"><span><%# Eval( "SalesPersonIDName")%></span></asp:LinkButton>                            
                                      </asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <%# Eval( "SalesPersonName")%>
+                                <%# Eval( "SalesPersonIDName")%>
                             </EditItemTemplate>
                             <FooterTemplate>
-                                <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewSalesPersonMasterName" runat="Server"  DataTextField="SalesPersonName"
+                                <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewSalesPersonMasterName" runat="Server"  DataTextField="SalesPersonIDName"
                                     DataValueField="SalesPersonID" />
                             </FooterTemplate>
                         </asp:TemplateColumn>
@@ -246,7 +263,7 @@
                         <asp:TemplateColumn HeaderStyle-HorizontalAlign="Center"
                             ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center" HeaderText="Function">
                             <ItemTemplate>
-                                <asp:LinkButton ID="lnkDelete" runat="server" CommandName="Delete" EnableViewState="false"
+                                <asp:LinkButton ID="lnkDelete2" runat="server" CommandName="Delete" EnableViewState="false"
                                     CausesValidation="false" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="ti-trash"></i> </asp:LinkButton>
                             </ItemTemplate>
                             <EditItemTemplate>

@@ -243,23 +243,26 @@ namespace GMSWeb.Sales.Sales
                 DropDownList ddlNewGroupName = (DropDownList)e.Item.FindControl("ddlNewGroupName");
                 TextBox txtNewTeamName = (TextBox)e.Item.FindControl("txtNewTeamName");
                 TextBox txtNewTeamShortName = (TextBox)e.Item.FindControl("txtNewTeamShortName");
+                TextBox txtNewSeqID = (TextBox)e.Item.FindControl("txtNewSeqID");
 
 
                 if (ddlNewGroupName != null && !string.IsNullOrEmpty(ddlNewGroupName.SelectedValue) &&
                    txtNewTeamName != null && !string.IsNullOrEmpty(txtNewTeamName.Text) &&
-                     txtNewTeamShortName != null && !string.IsNullOrEmpty(txtNewTeamShortName.Text))
+                     txtNewTeamShortName != null && !string.IsNullOrEmpty(txtNewTeamShortName.Text)&&
+                     txtNewSeqID != null && !string.IsNullOrEmpty(txtNewSeqID.Text))
                 { 
                     try
                     {
-
+                        GMSGeneralDALC ggdal = new GMSGeneralDALC();
                         GMSCore.Entity.SalesGroupTeam sgt = new GMSCore.Entity.SalesGroupTeam();
                         sgt.CoyID = session.CompanyId;
                         sgt.GroupID = short.Parse(ddlNewGroupName.SelectedValue);
                         sgt.TeamName = txtNewTeamName.Text.Trim();
                         sgt.TeamShortName = txtNewTeamShortName.Text.Trim();
+                        sgt.SeqID = int.Parse(txtNewSeqID.Text.Trim());
+                        ggdal.UpdateSalesGroupTeamSeqID(sgt.CoyID, sgt.SeqID);
                         sgt.Save();
                         LoadData();
-
                     }
                     catch (Exception ex)
                     {
@@ -288,18 +291,22 @@ namespace GMSWeb.Sales.Sales
             DropDownList ddlEditGroupName = (DropDownList)e.Item.FindControl("ddlEditGroupName");
             TextBox txtEditTeamName = (TextBox)e.Item.FindControl("txtEditTeamName");
             TextBox txtEditTeamShortName = (TextBox)e.Item.FindControl("txtEditTeamShortName");
+            TextBox txtEditSeqID = (TextBox)e.Item.FindControl("txtEditSeqID");
             HtmlInputHidden hidTeamID = (HtmlInputHidden)e.Item.FindControl("hidTeamID");
 
             if (txtEditTeamName != null && !string.IsNullOrEmpty(txtEditTeamName.Text) && hidTeamID != null &&
-                txtEditTeamShortName != null && !string.IsNullOrEmpty(txtEditTeamShortName.Text) && ddlEditGroupName != null )
+                txtEditTeamShortName != null && !string.IsNullOrEmpty(txtEditTeamShortName.Text) && ddlEditGroupName != null &&
+                txtEditSeqID != null && !string.IsNullOrEmpty(txtEditSeqID.Text))
             {
-
                 GMSCore.Entity.SalesGroupTeam ee = GMSCore.Entity.SalesGroupTeam.RetrieveByKey(int.Parse(hidTeamID.Value));
                 ee.GroupID = int.Parse(ddlEditGroupName.SelectedValue);
                 ee.TeamName = txtEditTeamName.Text.Trim();
                 ee.TeamShortName = txtEditTeamShortName.Text.Trim();
+                ee.SeqID = int.Parse(txtEditSeqID.Text.Trim());
                 try
                 {
+                    GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                    ggdal.UpdateSalesGroupTeamSeqIDAfterEdit(session.CompanyId, ee.SeqID,ee.TeamID);
                     ee.Save();
                     this.dgData.EditItemIndex = -1;
                     //chkSearchOthers.Checked = chkEditOthers.Checked;
@@ -337,7 +344,9 @@ namespace GMSWeb.Sales.Sales
                     try
                     {
                         SystemDataActivity sDataActivity = new SystemDataActivity();
+                        GMSGeneralDALC ggdal = new GMSGeneralDALC();                      
                         GMSCore.Entity.SalesGroupTeam ee = sDataActivity.RetrieveTeamSetupSalesGroupTeamByTeamID(session.CompanyId, short.Parse(hidTeamID.Value));
+                        ggdal.UpdateSalesGroupTeamSeqIDAfterDelete(session.CompanyId,ee.SeqID);
                         ee.Delete();
                         ee.Resync();
                         this.dgData.EditItemIndex = -1;
@@ -443,7 +452,7 @@ namespace GMSWeb.Sales.Sales
            
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete");
+                LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete2");
                 if (lnkDelete != null)
                     lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
             }

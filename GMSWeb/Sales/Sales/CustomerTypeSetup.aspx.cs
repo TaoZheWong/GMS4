@@ -254,11 +254,11 @@ namespace GMSWeb.Sales.Sales
                     ac.Save();
                     this.dgData.EditItemIndex = -1;
                     this.PageMsgPanel.ShowMessage("Customer Type has been updated successfully.", MessagePanelControl.MessageEnumType.Info);
-                        LoadData();
+                    LoadData();
 
-                        GMSGeneralDALC gg = new GMSGeneralDALC();
-                        gg.UpdateCustomerType(session.CompanyId, 2019);
-                    }
+                    //GMSGeneralDALC gg = new GMSGeneralDALC();
+                    //gg.UpdateCustomerType(session.CompanyId, 2019);
+                }
                 catch (Exception ex)
                 {
                     this.MsgPanel1.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
