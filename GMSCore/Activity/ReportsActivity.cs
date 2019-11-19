@@ -346,8 +346,11 @@ namespace GMSCore.Activity
             stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("VwReportListing.IsActive"),
                                                 helper.CleanValue(true));
 
+
+
             query = new ObjectQuery<VwReportListing>(stb.ToString(),
-                                            string.Format(" {0} ASC ",
+                                            string.Format(" {0} ASC ,{1} ASC",
+                                                helper.GetFieldName("VwReportListing.Sequence"),
                                                 helper.GetFieldName("VwReportListing.Description"))
                                             );
 

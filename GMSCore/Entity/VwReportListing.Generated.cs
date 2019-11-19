@@ -77,7 +77,15 @@ namespace GMSCore.Entity
         {
             get { return _isExternalReport; }
             set { _isExternalReport = value; }
-        }        
+        }
+
+        private int _sequence;
+        ///<summary>Database mapping to column vwReportListing.UserNumID</summary>
+        public int Sequence
+        {
+            get { return _sequence; }
+            set { _sequence = value; }
+        }
 
         #endregion
 
@@ -101,6 +109,7 @@ namespace GMSCore.Entity
 					case "_userNumID": return _userNumID;
 					case "_isActive": return _isActive;
                     case "_isExternalReport": return _isExternalReport;
+                    case "_sequence": return _sequence;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
@@ -118,6 +127,7 @@ namespace GMSCore.Entity
 					case "_userNumID": _userNumID = (short)value; break;
 					case "_isActive": _isActive = (Nullable<bool>)value; break;
                     case "_isExternalReport": _isExternalReport = (Nullable<bool>)value; break;
+                    case "_sequence": _sequence = (int)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -140,6 +150,7 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_userNumID={0}\n,", _userNumID.ToString() );
 			stb.AppendFormat("_isActive={0}\n,", _isActive.ToString() );
             stb.AppendFormat("_isExternalReport={0}\n,", _isExternalReport.ToString());
+            stb.AppendFormat("_sequence={0}\n,", _sequence.ToString());
 
             return stb.ToString();
 		}

@@ -103,13 +103,13 @@ namespace GMSWeb.Sales.Sales {
         protected global::GMSWeb.CustomCtrl.MessagePanelControl MsgPanel2;
         
         /// <summary>
-        /// lblSearchSummary control.
+        /// lblSearchSummary1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSearchSummary;
+        protected global::System.Web.UI.WebControls.Label lblSearchSummary1;
         
         /// <summary>
         /// dgData control.
@@ -148,13 +148,13 @@ namespace GMSWeb.Sales.Sales {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl resultList;
         
         /// <summary>
-        /// Label1 control.
+        /// lblSearchSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblSearchSummary;
         
         /// <summary>
         /// DataGrid1 control.

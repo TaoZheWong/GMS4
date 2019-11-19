@@ -11,17 +11,21 @@ using GMSCore.Entity;
 using GMSCore.Exceptions;
 
 using Wilson.ORMapper;
+using System.Data.SqlClient;
 
 namespace GMSCore.Activity
 {
     public class SystemDataActivity : ActivityBase
     {
+        private ConnectionManager cm;
+
         #region Constructor
         /// <summary>
         /// default constructor
         /// </summary>
         public SystemDataActivity()
         {
+            cm = new ConnectionManager();
         }
         #endregion
 
@@ -1983,7 +1987,7 @@ namespace GMSCore.Activity
                                 helper.CleanValue(companyID));
 
             stb.AppendFormat(" and {0} not like {1} ", helper.GetFieldName("SalesPerson.SalesPersonName"),
-                               helper.CleanValue("%DO NOT USE%"));   
+                               helper.CleanValue("%DO NOT%"));   
 
             return SalesPerson.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("SalesPerson.SalesPersonID")));
         }
@@ -2755,6 +2759,7 @@ namespace GMSCore.Activity
         }
         #endregion
 
+
         #region RetrieveTeamSetupSalesTeamByGroupID
         public IList<SalesGroupTeam> RetrieveTeamSetupSalesTeamByGroupID(short companyId, short groupId)
         {
@@ -2769,7 +2774,6 @@ namespace GMSCore.Activity
         }
         #endregion
 
-
         #region RetrieveTeamSetupSalesGroupTeam
         public IList<SalesGroupTeam> RetrieveTeamSetupSalesGroupTeam(short companyId)
         {
@@ -2777,6 +2781,7 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesGroupTeam.CoyID"),
                                 helper.CleanValue(companyId));
+            stb.AppendFormat("ORDER BY {0}", helper.GetFieldName("SalesGroupTeam.SeqID"));
 
             return SalesGroupTeam.RetrieveQuery(stb.ToString());
         }
@@ -2804,10 +2809,13 @@ namespace GMSCore.Activity
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("SalesTeamSalesPerson.CoyID"),
                                 helper.CleanValue(companyId));
 
+            stb.AppendFormat(" and SalesTeamSalesPerson.SalesPersonID IN (SELECT SalesPersonID FROM tbSalesPerson WHERE {0} like {1} ", helper.GetFieldName("SalesPersonName"),
+                                helper.CleanValue("%DO NOT%)"));
+
             return SalesTeamSalesPerson.RetrieveQuery(stb.ToString());
         }
-        #endregion
 
+        #endregion
 
         #region RetrieveTeamSetupSalesTeamSalesPersonByTeamID
         public SalesTeamSalesPerson RetrieveTeamSetupSalesTeamSalesPersonByTeamID(short companyId, string salespersonid)

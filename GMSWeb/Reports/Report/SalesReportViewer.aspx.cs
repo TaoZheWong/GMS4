@@ -661,6 +661,25 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+            if (crReportDocument.ParameterFields["Sales Person"] != null)
+            {
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Sales Person Name :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                TextBox txtSalesPersonName = new TextBox();
+                txtSalesPersonName.ID = "txtSalesPersonName";
+                txtSalesPersonName.Text = "";
+                txtSalesPersonName.CssClass = "form-control";
+                txtSalesPersonName.Attributes["placeholder"] = "e.g. Alex";
+                pnlParameter.Controls.Add(txtSalesPersonName);
+                if (ViewState["txtSalesPersonName"] == null)
+                    ViewState["txtSalesPersonName"] = "";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
 
             if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null)
             {
@@ -822,8 +841,15 @@ namespace GMSWeb.Reports.Report
                                 }
                                 ddlSectionID.Enabled = true;
                             }
+
                         }
+
+
+
                     }
+
+
+
                 }
                 if (ViewState["ddlProjectID"] == null)
                     ViewState["ddlProjectID"] = -1;
@@ -1196,6 +1222,30 @@ namespace GMSWeb.Reports.Report
                 pnlParameter.Controls.Add(ddlZcode);
                 if (ViewState["ddlZcode"] == null)
                     ViewState["ddlZcode"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+
+            }
+
+            if (crReportDocument.ParameterFields["@EC"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">EC Product Group:"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlEC = new DropDownList();
+                ddlEC.ID = "ddlEC";
+                ddlEC.CssClass = "form-control";
+                ddlEC.Items.Clear();
+                ddlEC.Items.Add(new ListItem("EXCLUDE", "EXCLUDE"));
+                ddlEC.Items.Add(new ListItem("INCLUDE", "INCLUDE"));
+
+                pnlParameter.Controls.Add(ddlEC);
+                if (ViewState["ddlEC"] == null)
+                    ViewState["ddlEC"] = "All";
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
 
@@ -2287,6 +2337,8 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlCategory"] = ((DropDownList)pnlParameter.FindControl("ddlCategory")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
                 ViewState["ddlZcode"] = ((DropDownList)pnlParameter.FindControl("ddlZcode")).SelectedValue.ToString();
+            if (crReportDocument.ParameterFields["@EC"] != null || crReportDocument.ParameterFields["EC"] != null)
+                ViewState["ddlEC"] = ((DropDownList)pnlParameter.FindControl("ddlEC")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@SalesPersonType"] != null || crReportDocument.ParameterFields["SalesPersonType"] != null)
                 ViewState["ddlSalesPersonType"] = ((DropDownList)pnlParameter.FindControl("ddlSalesPersonType")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@GroupBy"] != null || crReportDocument.ParameterFields["GroupBy"] != null)
@@ -2626,6 +2678,8 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("Category", ViewState["ddlCategory"].ToString());
                     if (crReportDocument.ParameterFields["@Zcode"] != null && ViewState["ddlZcode"] != null)
                         crReportDocument.SetParameterValue("@Zcode", ViewState["ddlZcode"].ToString());
+                    if (crReportDocument.ParameterFields["@EC"] != null && ViewState["ddlEC"] != null)
+                        crReportDocument.SetParameterValue("@EC", ViewState["ddlEC"].ToString());
 
                     if (crReportDocument.ParameterFields["@GroupBy"] != null && ViewState["ddlGroupBy"] != null)
                         crReportDocument.SetParameterValue("@GroupBy", ViewState["ddlGroupBy"].ToString());

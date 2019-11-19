@@ -99,6 +99,21 @@ namespace GMSCore.Entity
 			}
 		}
 
+        private int _seqID;
+        ///<summary>Database mapping to column tbSalesGroupTeam.CoyID</summary>
+        public int SeqID
+        {
+            get { return _seqID; }
+            set
+            {
+                if (_seqID != value)
+                {
+                    _seqID = value;
+                    OnPropertyChanged("SeqID");
+                }
+            }
+        }
+
         private ObjectHolder<SalesGroup> _tbSalesGroupObject;
         ///<summary>Instance of a SalesGroup object</summary>
         [DataObjectField(true, false)]
@@ -162,8 +177,9 @@ namespace GMSCore.Entity
 					case "_teamID": return _teamID;
 					case "_teamName": return _teamName;
 					case "_teamShortName": return _teamShortName;
+                    case "_seqID": return _seqID;
                     case "_tbSalesGroupObject": return _tbSalesGroupObject;
-
+                    
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
@@ -178,7 +194,8 @@ namespace GMSCore.Entity
 					case "_teamID": _teamID = (int)value; break;
 					case "_teamName": _teamName = (string)value; break;
 					case "_teamShortName": _teamShortName = (string)value; break;
-                    case "_tbSalesGroupObject": _tbSalesGroupObject = (ObjectHolder<SalesGroup>)value; break;
+                    case "_seqID": _seqID = (int)value; break;
+                    case "_tbSalesGroupObject": _tbSalesGroupObject = (ObjectHolder<SalesGroup>)value; break;                 
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -199,9 +216,9 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_teamID={0}\n,", _teamID.ToString() );
 			stb.AppendFormat("_teamName={0}\n,", _teamName.ToString() );
 			stb.AppendFormat("_teamShortName={0}\n,", _teamShortName.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_seqID={0}\n,", _seqID.ToString());
+
+            return stb.ToString();
 		}
 		#endregion
 

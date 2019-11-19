@@ -166,7 +166,153 @@ namespace GMSCore
         }
         #endregion
 
+        #region UpdateSalesGroupTeamSeqID
+        public void UpdateSalesGroupTeamSeqID(short companyId, int seqId)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppSalesGroupTeamSeqIDUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@SeqID", SqlDbType.Int).Value = seqId;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
 
+            return;
+        }
+        #endregion
+
+        #region UpdateSalesGroupTeamSeqIDAfterEdit
+        public void UpdateSalesGroupTeamSeqIDAfterEdit(short companyId, int seqId, int teamId)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppSalesGroupTeamSeqIDUpdateAfterEdit", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@SeqID", SqlDbType.Int).Value = seqId;
+                command.Parameters.Add("@TeamID", SqlDbType.Int).Value = teamId;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region UpdateSalesGroupTeamSeqIDAfterDelete
+        public void UpdateSalesGroupTeamSeqIDAfterDelete(short companyId, int seqId)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppSalesGroupTeamSeqIDUpdateAfterDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@SeqID", SqlDbType.Int).Value = seqId;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+            return;
+        }
+        #endregion
+
+        #region RetrieveTeamSetupSalesGroupWithNoShortName
+        public void RetrieveTeamSetupSalesGroupWithNoShortName(short companyId,  ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppTeamSetupSalesPersonWithNoShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            //command.Parameters.Add("@DivisionID", SqlDbType.NVarChar).Value = division;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveTeamSetupSalesTeamSalesPerson
+        public void RetrieveTeamSetupSalesTeamSalesPerson(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppTeamSetupSalesTeamSalesPersonWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+        #region GetSalesPersonWithShortName
+        public void GetSalesPersonWithShortName(short companyId, string TeamCode, string SalesPersonName, string SalesPersonShortName, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalesPersonWithShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Team", SqlDbType.NVarChar).Value = TeamCode;
+            command.Parameters.Add("@SalesPersonName", SqlDbType.NVarChar).Value = SalesPersonName;
+            command.Parameters.Add("@SalesPersonShortName", SqlDbType.NVarChar).Value = SalesPersonShortName;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+        #region GetSalesPersonWithNoShortName
+        public void GetSalesPersonWithNoShortName(short companyId, string team, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalesPersonWithNoShortNameSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Team", SqlDbType.NVarChar).Value = team;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+        
+
+        
         /// <summary>
         /// Retrieve a list of products for auto complete
         /// </summary>
@@ -677,6 +823,7 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
         public void GetCompanySection(short companyId, short DepartmentID, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -740,6 +887,18 @@ namespace GMSCore
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSalesmanAttachmentSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.NVarChar).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void GetResumeSelect(short companyId, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppResumeSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@UserNumID", SqlDbType.NVarChar).Value = userId;
@@ -4084,89 +4243,5 @@ namespace GMSCore
 
             return;
         }
-
-        public void UpdateCustomerType(short companyId, int year)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlDataReader rdr = null;
-            try
-            {
-                conn.Open();
-                SqlCommand command = new SqlCommand("procUpdateCustomerType", (SqlConnection)conn);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-                command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
-                rdr = command.ExecuteReader();
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-                if (rdr != null)
-                {
-                    rdr.Close();
-                }
-            }
-            return;
-        }
-
-        #region GetSalesPersonWithNoShortName
-        public void GetSalesPersonWithNoShortName(short companyId, string team, ref DataSet ds)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procAppSalesPersonWithNoShortNameSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@Team", SqlDbType.NVarChar).Value = team;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds);
-            return;
-        }
-        #endregion
-
-        #region RetrieveTeamSetupSalesGroupWithNoShortName
-        public void RetrieveTeamSetupSalesGroupWithNoShortName(short companyId, ref DataSet ds)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procAppTeamSetupSalesPersonWithNoShortNameSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            //command.Parameters.Add("@DivisionID", SqlDbType.NVarChar).Value = division;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds);
-            return;
-        }
-        #endregion
-
-        #region RetrieveTeamSetupSalesTeamSalesPerson
-        public void RetrieveTeamSetupSalesTeamSalesPerson(short companyId, ref DataSet ds)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procAppTeamSetupSalesTeamSalesPersonWithShortNameSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds);
-            return;
-        }
-        #endregion
-
-        #region GetSalesPersonWithShortName
-        public void GetSalesPersonWithShortName(short companyId, string TeamCode, string SalesPersonName, string SalesPersonShortName, ref DataSet ds)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procAppSalesPersonWithShortNameSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@Team", SqlDbType.NVarChar).Value = TeamCode;
-            command.Parameters.Add("@SalesPersonName", SqlDbType.NVarChar).Value = SalesPersonName;
-            command.Parameters.Add("@SalesPersonShortName", SqlDbType.NVarChar).Value = SalesPersonShortName;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds);
-            return;
-        }
-        #endregion
     }
 }

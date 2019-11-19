@@ -54,8 +54,10 @@ namespace GMSWeb.Finance.Reports
 
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             moduleID);
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                            moduleID);
 
-			if (uAccess == null)
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
 				Response.Redirect(base.UnauthorizedPage(currentLink));
 
 			PopulateRepeater();
@@ -103,25 +105,43 @@ namespace GMSWeb.Finance.Reports
 				rppCategoryList.DataBind();
 
 				int i = 0;
-				foreach (ReportCategory rCategory in lstCategory)
-				{
-					IList<VwReportListing> lstReport = null;
-					lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, session.UserId);
-					if (lstReport != null && lstReport.Count > 0)
-					{
-						// Bind Data to sub repeater
-						RepeaterItem item = this.rppCategoryList.Items[i];
-						Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
+                foreach (ReportCategory rCategory in lstCategory)
+                {
+                    IList<VwReportListingForCompany> lstCompanyReport = null;
+                    //retrieve company report de store prod
+                    lstCompanyReport = new ReportsActivity().RetrieveCompanyReportByCategoryIdUserAccessId(session.CompanyId, rCategory.ReportCategoryID, session.UserId);
+                    if (lstCompanyReport != null && lstCompanyReport.Count > 0)
+                    {
+                        // Bind Data to sub repeater
+                        RepeaterItem item = this.rppCategoryList.Items[i];
+                        Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
 
-						if (rppReportList != null)
-						{
-							rppReportList.DataSource = lstReport;
-							rppReportList.DataBind();
-						}
-					}
-					i++;
-				}
-			}
+                        if (rppReportList != null)
+                        {
+                            rppReportList.DataSource = lstCompanyReport;
+                            rppReportList.DataBind();
+                        }
+                    }
+                    else
+                    {
+                        IList<VwReportListing> lstReport = null;
+                        lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, session.UserId);
+                        if (lstReport != null && lstReport.Count > 0)
+                        {
+                            // Bind Data to sub repeater
+                            RepeaterItem item = this.rppCategoryList.Items[i];
+                            Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
+
+                            if (rppReportList != null)
+                            {
+                                rppReportList.DataSource = lstReport;
+                                rppReportList.DataBind();
+                            }
+                        }
+                    }
+                    i++;
+                }
+            }
 		}
 		#endregion
 
