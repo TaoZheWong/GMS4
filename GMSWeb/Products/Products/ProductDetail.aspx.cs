@@ -1330,7 +1330,7 @@ function ViewMultipleUOM()
                 if(session.StatusType.ToString() == "L")
                     dv.Sort = "TrnDate desc, TransNum desc, DocNo desc";
                 else
-                    dv.Sort = "DBVersion, TrnDate desc";                
+                    dv.Sort = "DBVersion, TrnDate desc, TrnNo desc";                
                 this.dgData2.DataSource = dv;
                 this.dgData2.DataBind();                
 

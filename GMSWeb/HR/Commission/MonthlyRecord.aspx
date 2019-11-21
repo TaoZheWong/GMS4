@@ -434,6 +434,7 @@
 				<%-- <asp:ListItem Value="SalesSpecialCommissions">Sales Special Continuous Commissions</asp:ListItem>--%>
 				<asp:ListItem Value="C06 - Yearly GP For Salesman">Yearly GP For Salesman</asp:ListItem>
 				<asp:ListItem Value="C07 - Monthly GP For Salesman">Monthly GP For Salesman</asp:ListItem>
+                <asp:ListItem Value="C08 - CommissionEntitlementReportforSGC">Commission Entitlement Report for SGC</asp:ListItem>
 			</asp:DropDownList>
         </div>
     </div>
