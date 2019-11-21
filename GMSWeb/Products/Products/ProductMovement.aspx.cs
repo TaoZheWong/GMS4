@@ -338,7 +338,7 @@ namespace GMSWeb.Products.Products
                     if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                         dv.Sort = "TrnDate desc, TransNum desc, DocNo desc";
                     else
-                        dv.Sort = "DBVersion, TrnDate desc";                    
+                        dv.Sort = "DBVersion, TrnDate desc, TrnNo desc";                    
 
                     this.lblSearchSummary.Visible = true;
                     this.dgData.DataSource = dv;
