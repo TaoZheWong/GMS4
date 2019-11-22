@@ -714,5 +714,16 @@ namespace GMSConApp
             SPexecutor("procAppContactPersonInsert");
         }
 
+        public void GMS_Insert_TaxCode(short CoyID, string taxcode, string taxName, decimal taxRate, string category)
+        {
+            CNCMGenerator();
+            cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
+            cm.Parameters.Add("@TaxTypeID", SqlDbType.NVarChar).Value = taxcode;
+            cm.Parameters.Add("@TaxName", SqlDbType.NVarChar).Value = taxName;
+            cm.Parameters.Add("@TaxRate", SqlDbType.Decimal).Value = taxRate;
+            cm.Parameters.Add("@Category", SqlDbType.NVarChar).Value = category;          
+            SPexecutor("procAppWSTaxTypeInsert");
+        }
+
     }
 }

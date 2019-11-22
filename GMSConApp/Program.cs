@@ -1486,6 +1486,34 @@ namespace GMSConApp
                     ds.Dispose();
                 }
 
+                // Tax Code
+                if(execute)
+                {
+                    //Retrieve Tax
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Tax Data...");
+                    query = "SELECT \"Code\", \"Name\", \"Rate\", \"Category\",  \"Inactive\" FROM OVTG WHERE \"Inactive\" = 'N'";
+                    ds = sop.GET_SAP_QueryData(CoyID, query,
+                        "TaxTypeID", "TaxName", "TaxRate", "Category", "Inactive", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    //Insert Tax data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Tax data into GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        oDAL.GMS_Insert_TaxCode(
+                            CoyID,
+                        dr["TaxTypeID"].ToString(),
+                        dr["TaxName"].ToString(),
+                        GMSUtil.ToDecimal(dr["TaxRate"].ToString()),
+                        dr["Category"].ToString()                      
+                        );
+
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Tax data insertion");
+                    ds.Dispose();
+
+                }
+
                 // Contact Person
 
                 if (execute)
@@ -1495,7 +1523,7 @@ namespace GMSConApp
                     oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteContactPerson");
 
                     //Retrieve Contact Person
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Contact Person Data data...");
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Contact Person Data...");
                     query = "SELECT \"CardCode\", \"Name\", \"Position\", \"Address\",  \"Tel1\", \"Tel2\", \"Cellolar\", \"Fax\", \"E_MailL\", \"FirstName\", \"MiddleName\", \"LastName\",  \"BlockComm\" FROM OCPR WHERE \"Active\" = 'Y'";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                         "AccountCode", "Name", "Position", "Address", "Tel1", "Tel2", "Mobile", "Fax", "Email", "FirstName", "MiddleName", "LastName", "BlockComm", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
@@ -1522,18 +1550,7 @@ namespace GMSConApp
                         dr["LastName"].ToString(),
                         dr["BlockComm"].ToString()
                         );
-                        Console.WriteLine(dr["AccountCode"].ToString());
-                        Console.WriteLine(dr["Name"].ToString());
-                        Console.WriteLine(dr["Position"].ToString());
-                        Console.WriteLine(dr["Address"].ToString());
-                        Console.WriteLine(dr["Tel1"].ToString());
-                        Console.WriteLine(dr["Tel2"].ToString());
-                        Console.WriteLine(dr["Fax"].ToString());
-                        Console.WriteLine(dr["Email"].ToString());
-                        Console.WriteLine(dr["FirstName"].ToString());
-                        Console.WriteLine(dr["MiddleName"].ToString());
-                        Console.WriteLine(dr["LastName"].ToString());
-                        Console.WriteLine(dr["BlockComm"].ToString());
+                      
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Contact Person data insertion");
                     ds.Dispose();
