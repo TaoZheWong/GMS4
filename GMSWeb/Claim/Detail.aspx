@@ -117,15 +117,23 @@
                         <label class="control-label">Claim No</label>
                         <input type="text" class="form-control" autocomplete="off" data-ng-model="claim.claimInfo.ClaimNo" id="Text7" disabled/>
                     </div>
-                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                     <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description!='Travel'">
                         <label class="control-label">Claim Date</label>
                         <input type="text" class="form-control" datepicker autocomplete="off" data-ng-model="claim.claimInfo.ClaimDate" data-ng-disabled="claim.claimInfo.Status != '0'"/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Departure Date</label>
+                        <input type="text" class="form-control" datepicker autocomplete="off" data-ng-model="claim.claimInfo.DepartureDate" data-ng-disabled="claim.claimInfo.Status != '0'"/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Return Date</label>
+                        <input type="text" class="form-control" datepicker autocomplete="off" data-ng-model="claim.claimInfo.ReturnDate" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">Claim Status</label>
                         <input type="text" class="form-control" autocomplete="off" data-ng-model="claim.claimInfo.StatusName" disabled />
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description!='Travel'">
                         <label class="control-label">Claim Purpose</label>
                         <select class="form-control" name="claim_desc" id="claim_desc" data-ng-model="claim.claimInfo.Description" data-ng-disabled="claim.claimInfo.Status != '0'">
                           <option data-ng-repeat="claimpurpose in claim.typeList | filter: {EntertainmentType: 'Purpose'}" value="{{claimpurpose.EntertainmentOptions}}">{{claimpurpose.EntertainmentOptions}}</option>
@@ -147,13 +155,19 @@
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">Sales Person ID</label>
-                        <select class="form-control" name="salespersonid" data-ng-model="claim.claimInfo.SalesPersonID" data-ng-disabled="claim.claimInfo.Status != '0'">
+                        <select class="form-control" name="salespersonid" data-ng-model="claim.claimInfo.SalesPersonID" data-ng-disabled="claim.claimInfo.Status != '0'||claim.claimInfo.Description=='Travel'">
                           <option value="">--</option>
                           <option data-ng-repeat="salespersonid in claim.salesPersonID" value="{{salespersonid.salespersonid}}">{{salespersonid.salespersonid}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Claim Purpose</label>
+                        <select class="form-control" name="claim_desc" id="claim_desc" data-ng-model="claim.claimInfo.Description" data-ng-disabled="claim.claimInfo.Status != '0'">
+                          <option data-ng-repeat="claimpurpose in claim.typeList | filter: {EntertainmentType: 'Purpose'}" value="{{claimpurpose.EntertainmentOptions}}" disabled>{{claimpurpose.EntertainmentOptions}}</option>
+                        </select>
+                    </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.allowCreateOnbehalf">
                         <label class="control-label">Create On Behalf</label>
                         <select class="form-control" name="createonbehalf" data-ng-model="claim.claimInfo.CreateOnBehalf" data-ng-disabled="claim.claimInfo.Status != '0'">
@@ -165,11 +179,15 @@
                         <label class="control-label">Designation</label>
                         <input type="text" class="form-control" autocomplete="off" id="Text4" data-ng-model="claim.claimInfo.ClaimantDesig" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description!='Travel'">
                         <label class="control-label">No of Customers</label>
                         <input type="text" class="form-control" autocomplete="off" id="Text5" data-ng-model="claim.claimInfo.NumPplEntertained" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Status=='2'">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Destination</label>
+                        <input type="text" class="form-control" autocomplete="off" id="TextDestination" data-ng-model="claim.claimInfo.Destination" data-ng-disabled="claim.claimInfo.Status != '0'"/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Status=='2'&&claim.claimInfo.Description=='Travel'">
                         <label class="control-label">Payment Voucher</label>
                         <input type="text" class="form-control" autocomplete="off" id="Text6" data-ng-model="claim.claimInfo.PaymentVoucher"  disabled/>
                     </div>
@@ -200,21 +218,32 @@
                         </select>
                     </div>
                 </div>
-               
                 <div class="row">
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description!='Travel'">
                         <label class="control-label">Customer Company Name</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Cust1"  data-ng-disabled="claim.claimInfo.Status != '0'"
                             custom-auto-complete data-src="claim.customerListSrc" data-keyword-length="3" 
                             data-search-object="{'CompanyID':claim.companyID,'Name':claim.claimInfo.Cust1}" />
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description!='Travel'">
                         <label class="control-label">Name Of Person</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Person1" data-ng-disabled="claim.claimInfo.Status != '0'" placeholder="Mr. Wong/Mr. Lim/..."/>
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description!='Travel'">
                         <label class="control-label">Designation</label>
                         <input type="text" class="form-control" data-ng-model="claim.claimInfo.Desig1" data-ng-disabled="claim.claimInfo.Status != '0'" />
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Project No./Name</label>
+                        <input type="text" class="form-control" data-ng-model="claim.claimInfo.ProjectName" data-ng-disabled="claim.claimInfo.Status != '0'"/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Travel With</label>
+                        <input type="text" class="form-control" data-ng-model="claim.claimInfo.TravelWith" data-ng-disabled="claim.claimInfo.Status != '0'"/>
+                    </div>
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Description=='Travel'">
+                        <label class="control-label">Purpose Of Travel</label>
+                        <input type="text" class="form-control" data-ng-model="claim.claimInfo.PurposeOfTravel" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
                     <div class="form-group col-lg-3 col-md-6 col-sm-12">
                         <label class="control-label">Phone</label>
@@ -356,9 +385,8 @@
                 <td class="p-0"><input type="text" data-input-field="date" data-ng-model="detail.date" datepicker class="form-control table-input" readonly required/></td>
                 <td class="p-0"><input type="text" data-input-field="receiptnumber" data-ng-model="detail.ReceiptNum" class="form-control table-input text-right" /></td>
                 <td class="p-0">
-                    <select class="form-control table-input" name="typeList" data-ng-model="detail.type" required custom-auto-complete">
+                    <select class="form-control table-input" name="typeList"  data-ng-model="detail.type" required custom-auto-complete">
                           <option data-ng-repeat="receipttype in claim.typeList | filter: {EntertainmentType: 'ReceiptType'}" value="{{receipttype.EntertainmentOptions}}">{{receipttype.EntertainmentOptions}}</option>
-
                     </select>
                 </td>
                 <td class="p-0"><input type="text" data-input-field="chargeto" data-ng-model="detail.chargeto" class="form-control table-input text-right" required /></td>
