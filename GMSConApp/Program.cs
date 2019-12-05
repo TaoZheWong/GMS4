@@ -6,7 +6,7 @@ namespace GMSConApp
 {
     class Program
     {
-        static string _DBConn = "server=gms\\gms;database=gms;user=sa;password=gms$628128lnox";
+        static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
         //static string _DBConn = "server=(local)\\GMSLMS;database=gms;user=sa;password=gms71419$";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
         static string _CMSDefaultURL = "http://10.1.1.21/CMS.WebServices/Recipe.asmx";
@@ -1019,12 +1019,12 @@ namespace GMSConApp
             {
                 if (!string.IsNullOrEmpty(dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim()) && !string.IsNullOrEmpty(dtCompany.Rows[0]["WSDLMSWebServiceAddress"].ToString().Trim()))
                 {
-                    Task_LMSImportData(CoyID, dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), true);
+                    Task_LMSImportData(CoyID, dtCompany.Rows[0]["GASLMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), true, Convert.ToBoolean(dtCompany.Rows[0]["ImplementedJobTraveller"].ToString()));
                     //Task_LMSImportData(CoyID, dtCompany.Rows[0]["WSDLMSWebServiceAddress"].ToString().Trim(), false, from, to);
                 }
                 else
                 {
-                    Task_LMSImportData(CoyID, dtCompany.Rows[0]["CMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), false);
+                    Task_LMSImportData(CoyID, dtCompany.Rows[0]["CMSWebServiceAddress"].ToString().Trim(), true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), false, Convert.ToBoolean(dtCompany.Rows[0]["ImplementedJobTraveller"].ToString()));
                 }
             }
         }
@@ -1109,12 +1109,53 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
-                }   
-                
+                }     
+
             }
         }
 
-        static void Task_LMSImportData(short CoyID, string url, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB, bool executeFX)
+        static void Task_ImportDataJobTraveller(short CoyID, string from, string to, SAPOperation sop)
+        {
+            DataSet ds = new DataSet();
+            string query = "";
+
+            Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Job Traveller data...");
+            query = "CALL \"AF_MFG_QRY_MFGCOST_WIP\" ('" + from + "' , '" + to + "', '', '' )";
+            ds = sop.GET_SAP_QueryData(CoyID, query,
+            "JobTravellerNo", "ProductionOrderNo", "FinalFG", "FinalFGDescription", "BOMTemplate", "BOMLevel", "BOMParent", "CompletionQty", "Category", "ChildCode", "ChildDescription", "BaseQuantity", "UOM", "Quantity", "GLCode", "Amount", "LastProductionIssueDate", "LastProductionReceiptDate", "Field19", "Field20",
+            "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+            //Insert JobTraveller data into GMS
+            Console.WriteLine(DateTime.Now.ToString() + " -- Inserting JobTraveller data into GMS...");
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                oDAL.GMS_Insert_JobTraveller(CoyID,
+                 GMSUtil.ToDate(to),
+                 GMSUtil.ToInt(dr["JobTravellerNo"].ToString()),
+                 dr["ProductionOrderNo"].ToString(),
+                 dr["FinalFG"].ToString(),
+                 dr["FinalFGDescription"].ToString(),
+                 dr["BOMTemplate"].ToString(),
+                 GMSUtil.ToInt(dr["BOMLevel"].ToString()),
+                 dr["BOMParent"].ToString(),
+                 GMSUtil.ToInt(dr["CompletionQty"].ToString()),
+                 dr["Category"].ToString(),
+                 dr["ChildCode"].ToString(),
+                 dr["ChildDescription"].ToString(),
+                 GMSUtil.ToDouble(dr["BaseQuantity"].ToString()),
+                 dr["UOM"].ToString(),
+                 GMSUtil.ToDouble(dr["Quantity"].ToString()),
+                 dr["GLCode"].ToString(),
+                 GMSUtil.ToDouble(dr["Amount"].ToString()),
+                 GMSUtil.ToDate(dr["LastProductionIssueDate"].ToString()),
+                 GMSUtil.ToDate(dr["LastProductionReceiptDate"].ToString())
+                );
+            }
+            Console.WriteLine(DateTime.Now.ToString() + " -- End Job Traveller data insertion");
+            ds.Dispose();
+        }
+
+        static void Task_LMSImportData(short CoyID, string url, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB, bool executeFX, bool implementedJobTraveller)
         {
             Console.WriteLine(DateTime.Now.ToString() + " -- Start Task : Close MR");
             oDAL.GMS_Update_MR_SAP(CoyID);
@@ -1394,7 +1435,6 @@ namespace GMSConApp
                 
                 if (execute)
                 {
-
                     //Retrieve Account
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Account data...");
                     //ds = ws.GetAccount("''");
@@ -1443,6 +1483,20 @@ namespace GMSConApp
                 // Delete Duplicate Account
                 Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Duplicate Account data in GMS...");
                 oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteDuplicateAccount");
+
+                if(implementedJobTraveller)
+                {
+                    // Start
+                    //Delete JobTraveller
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete JobTraveller data in GMS...");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteJobTraveller");
+                    string from1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
+                    string to1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-1).ToString("yyyy-MM-dd");
+                    string from2 = DateTime.Now.AddDays(1 - DateTime.Now.Day).ToString("yyyy-MM-dd");
+                    string to2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
+                    Task_ImportDataJobTraveller(CoyID, from1, to1, sop);
+                    Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
+                }                
                
                 if (execute)
                 {

@@ -725,5 +725,34 @@ namespace GMSConApp
             SPexecutor("procAppWSTaxTypeInsert");
         }
 
+        //DateTime trnDate, 
+        public void GMS_Insert_JobTraveller(short CoyID, DateTime trnDate, int jobTravellerNo, string productionOrderNo, string finalFG, string finalFGDescription, string bomTemplate, 
+            int bomLevel, string bomParent, int completionQty, string category, string childCode, string childDescription, double baseQuantity, string uom,
+            double quantity, string glCode, double amount, DateTime lastProductionIssueDate, DateTime lastProductionReceiptDate)
+        {          
+            CNCMGenerator();
+            cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
+            cm.Parameters.Add("@TrnDate", SqlDbType.DateTime).Value = trnDate;
+            cm.Parameters.Add("@JobTravellerNo", SqlDbType.Int).Value = jobTravellerNo;
+            cm.Parameters.Add("@ProductionOrderNo", SqlDbType.NVarChar).Value = productionOrderNo;
+            cm.Parameters.Add("@FinalFG", SqlDbType.NVarChar).Value = finalFG;
+            cm.Parameters.Add("@FinalFGDescription", SqlDbType.NVarChar).Value = finalFGDescription;
+            cm.Parameters.Add("@BOMTemplate", SqlDbType.NVarChar).Value = bomTemplate;
+            cm.Parameters.Add("@BOMLevel", SqlDbType.Int).Value = bomLevel;
+            cm.Parameters.Add("@BOMParent", SqlDbType.NVarChar).Value = bomParent;
+            cm.Parameters.Add("@CompletionQty", SqlDbType.Int).Value = completionQty;
+            cm.Parameters.Add("@Category", SqlDbType.NVarChar).Value = category;
+            cm.Parameters.Add("@ChildCode", SqlDbType.NVarChar).Value = childCode;
+            cm.Parameters.Add("@ChildDescription", SqlDbType.NVarChar).Value = childDescription;
+            cm.Parameters.Add("@BaseQuantity", SqlDbType.Float).Value = baseQuantity;
+            cm.Parameters.Add("@UOM", SqlDbType.NVarChar).Value = uom;
+            cm.Parameters.Add("@Quantity", SqlDbType.Float).Value = quantity;
+            cm.Parameters.Add("@GLCode", SqlDbType.NVarChar).Value = glCode;
+            cm.Parameters.Add("@Amount", SqlDbType.Decimal).Value = amount;
+            cm.Parameters.Add("@LastProductionIssueDate", SqlDbType.DateTime).Value = lastProductionIssueDate;
+            cm.Parameters.Add("@LastProductionReceiptDate", SqlDbType.DateTime).Value = lastProductionReceiptDate;
+            SPexecutor("procAppWSJobTravellerInsert");
+        }
+
     }
 }

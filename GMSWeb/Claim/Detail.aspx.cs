@@ -31,7 +31,6 @@ namespace GMSWeb.Claim
             if (Request.Params["CurrentLink"] != null)
             {
                 currentLink = Request.Params["CurrentLink"].ToString().Trim();
-
             }
 
             Master.setCurrentLink(currentLink);
@@ -101,7 +100,6 @@ namespace GMSWeb.Claim
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
 
             return m;
@@ -110,7 +108,6 @@ namespace GMSWeb.Claim
         public static ResponseModel SaveClaimAttachment(int ClaimAttachmentID, int ClaimDetailID, string data)
         {
             var m = new ResponseModel();
-
             try
             {
                 DataSet dsTemp = new DataSet();
@@ -121,9 +118,7 @@ namespace GMSWeb.Claim
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
-
             return m;
         }
         [WebMethod]
@@ -296,7 +291,9 @@ namespace GMSWeb.Claim
             string Cust1, string Cust2, string Cust3, 
             string Desig1, string Desig2, string Desig3, 
             string Person1, string Person2, string Person3,
-            string Phone1, string Phone2, string Phone3
+            string Phone1, string Phone2, string Phone3,
+            string DepartureDate, string ReturnDate, string Destination,
+            string ProjectName, string TravelWith, string PurposeOfTravel
             )
         {
             var m = new ResponseModel();
@@ -308,7 +305,9 @@ namespace GMSWeb.Claim
                     Cust1, Cust2, Cust3,
                     Desig1, Desig2, Desig3,
                     Person1, Person2, Person3,
-                    Phone1, Phone2, Phone3
+                    Phone1, Phone2, Phone3,
+                    DepartureDate, ReturnDate, Destination,
+                    ProjectName, TravelWith, PurposeOfTravel
                 );
 
                 m.Message = "Update Successfully";

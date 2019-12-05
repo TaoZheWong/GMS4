@@ -3567,7 +3567,6 @@ namespace GMSCore
         }
         public void GetClaimByID(int ClaimID, ref DataSet ds)
         {
-
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectEntertainmentClaimByID", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
@@ -3617,7 +3616,9 @@ namespace GMSCore
             string Cust1, string Cust2, string Cust3,
             string Desig1, string Desig2, string Desig3,
             string Person1, string Person2, string Person3,
-            string Phone1, string Phone2, string Phone3)
+            string Phone1, string Phone2, string Phone3,
+            string DepartureDate, string ReturnDate, string Destination, 
+            string ProjectName, string TravelWith, string PurposeOfTravel)
         {
 
             IDbConnection conn = cm.GetConnection();
@@ -3650,6 +3651,12 @@ namespace GMSCore
                 command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = SalesPersonID;
                 command.Parameters.Add("@NumPplEntertained", SqlDbType.NVarChar).Value = NumPplEntertained;
                 command.Parameters.Add("@CreateOnBehalf", SqlDbType.NVarChar).Value = CreateOnBehalf;
+                command.Parameters.Add("@DepartureDate", SqlDbType.NVarChar).Value = DepartureDate;
+                command.Parameters.Add("@ReturnDate", SqlDbType.NVarChar).Value = ReturnDate;
+                command.Parameters.Add("@Destination", SqlDbType.NVarChar).Value = Destination;
+                command.Parameters.Add("@ProjectName", SqlDbType.NVarChar).Value = ProjectName;
+                command.Parameters.Add("@TravelWith", SqlDbType.NVarChar).Value = TravelWith;
+                command.Parameters.Add("@PurposeOfTravel", SqlDbType.NVarChar).Value = PurposeOfTravel;
 
                 rdr = command.ExecuteReader();
             }
@@ -4188,6 +4195,37 @@ namespace GMSCore
                 command.Parameters.Add("@companyName", SqlDbType.NVarChar).Value = companyName;
                 command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
                 command.Parameters.Add("@linktopass", SqlDbType.NVarChar).Value = link;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+
+        public void SendResumeEmail(string email,string cc, string link,string hr, string subject)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procResumeEmailGenerator", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+                command.Parameters.Add("@linktopass", SqlDbType.NVarChar).Value = link;
+                command.Parameters.Add("@cc1", SqlDbType.NVarChar).Value = cc;
+                command.Parameters.Add("@hr", SqlDbType.NVarChar).Value = hr;
+                command.Parameters.Add("@emailSubject", SqlDbType.NVarChar).Value = subject;
                 rdr = command.ExecuteReader();
             }
             finally
