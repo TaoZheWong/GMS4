@@ -23,7 +23,7 @@ namespace GMSWeb.Claim
     public partial class Detail : GMSBasePage
     {
         protected short loginUserOrAlternateParty = 0;
-
+        private string destination;
         protected void Page_Load(object sender, EventArgs e)
         {
             string currentLink = "Sales";
@@ -207,7 +207,6 @@ namespace GMSWeb.Claim
         public static ResponseModel GetCompanyDepartmentListByCoyIDAndProjectID(short CompanyID, short ProjectID)
         {
             var m = new ResponseModel();
-
             try
             {
                 DataSet dsTemp = new DataSet();
@@ -238,7 +237,6 @@ namespace GMSWeb.Claim
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
 
             return m;
@@ -247,7 +245,6 @@ namespace GMSWeb.Claim
         public static ResponseModel GetCompanyUnitList(short CompanyID, short SectionID)
         {
             var m = new ResponseModel();
-
             try
             {
                 DataSet dsTemp = new DataSet();
@@ -258,7 +255,6 @@ namespace GMSWeb.Claim
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
 
             return m;
@@ -273,7 +269,7 @@ namespace GMSWeb.Claim
             {
                 DataSet dsTemp = new DataSet();
                 new GMSGeneralDALC().GetClaimByID(ClaimID, ref dsTemp);
-                m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
+                m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0)}};
             }
             catch (Exception e)
             {
@@ -340,6 +336,7 @@ namespace GMSWeb.Claim
             public string chargeto { get; set; }
             public float GST { get; set; }
             public string receiptNum { get; set; }
+            public string destination { get; set; }
         }
 
 
@@ -356,7 +353,7 @@ namespace GMSWeb.Claim
                 claimDetail.amount = 0;
                 claimDetail.amountSGD = 0;
                 claimDetail.GST = 0;
-
+                
                 m.Params = new Dictionary<string, object> { { "data",  JsonConvert.SerializeObject(claimDetail)} };
                 
             }
@@ -385,7 +382,6 @@ namespace GMSWeb.Claim
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
             return m;
         }
@@ -425,11 +421,11 @@ namespace GMSWeb.Claim
                     if (detailObj.id != null)
                     {
                         //Update
-                        new GMSGeneralDALC().UpdateClaimDetail(int.Parse(detailObj.id), detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum);
+                        new GMSGeneralDALC().UpdateClaimDetail(int.Parse(detailObj.id), detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum, detailObj.destination);
                     }
                     else {
                         //insert
-                        new GMSGeneralDALC().InsertNewClaimDetail(companyID, claimID, detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum);
+                        new GMSGeneralDALC().InsertNewClaimDetail(companyID, claimID, detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum, detailObj.destination);
                     }
                     
                 }

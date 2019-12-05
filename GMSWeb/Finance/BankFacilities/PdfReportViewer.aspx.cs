@@ -35,6 +35,9 @@ namespace GMSWeb.Finance.BankFacilities
         private int bankCOAID = 0;
         string fileName = "";
         private string isClaim = "";
+        private string isTravel = "";
+        private string date = "";
+        private string claimID = "";
         private string dateFrom = "";
         private string dateTo = "";
         protected short loginUserOrAlternateParty = 0;
@@ -100,7 +103,20 @@ namespace GMSWeb.Finance.BankFacilities
                 }
             }else
             {
-                fileName = "EntertainmentClaimForm.rpt";
+                if (!string.IsNullOrEmpty(Request.QueryString["ISTRAVEL"])&& !string.IsNullOrEmpty(Request.QueryString["ID"]))
+                {
+                    this.isTravel = Request.QueryString["ISTRAVEL"].Trim();
+                    if(isTravel == "YES")
+                    {
+                        fileName = "EntertainmentClaimForm(Travel).rpt";
+                        this.date = GMSUtil.ToStr(Request.QueryString["DATE"]);
+                        this.claimID = GMSUtil.ToStr(Request.QueryString["ID"]);
+                    }
+                }else
+                {
+                    fileName = "EntertainmentClaimForm.rpt";
+                }
+                
                 this.dateFrom = GMSUtil.ToStr(Request.QueryString["DATEFROM"]);
                 this.dateTo = GMSUtil.ToStr(Request.QueryString["DATETO"]);
                 //hardcoded to not to use alternate party usernumid
@@ -172,9 +188,6 @@ namespace GMSWeb.Finance.BankFacilities
                         crReportDocument.SetParameterValue("TransactionNo", trnNo);
                     }
                    
-
-
-
                     crReportDocument.SetParameterValue("@CoyID", session.CompanyId);
                     crReportDocument.SetParameterValue("CoyID", session.CompanyId);
 
@@ -261,6 +274,11 @@ namespace GMSWeb.Finance.BankFacilities
                         crReportDocument.SetParameterValue("@DateFrom", GMSUtil.ToDate(dateFrom));
                     if (crReportDocument.ParameterFields["@DateTo"] != null)
                         crReportDocument.SetParameterValue("@DateTo", GMSUtil.ToDate(dateTo));
+
+                    if (crReportDocument.ParameterFields["@Date"] != null)
+                        crReportDocument.SetParameterValue("@Date", GMSUtil.ToDate(date));
+                    if (crReportDocument.ParameterFields["@ClaimID"] != null)
+                        crReportDocument.SetParameterValue("@ClaimID", claimID);
 
                     cyReportViewer.ReportSource = crReportDocument;
                 }

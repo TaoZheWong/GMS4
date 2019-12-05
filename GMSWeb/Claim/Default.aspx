@@ -186,10 +186,18 @@
                     "className": "all",
                     "render": function (data, type, row) {
                         var viewButton = "<a class='btn btn-primary btn-xs' href='Detail.aspx?CurrentLink=" + CurrentLink.selector + "#!?id=" + row.ClaimID + "' name='Edit' onclick=\"\">View</a>";
+                        var viewButton2 = "<div class='btn-group'><button type='button' class='btn btn-primary btn-xs dropdown-toggle' data-toggle='dropdown'>Action</button><ul class='dropdown-menu' role='menu'><li><a class='btn-xs' href='Detail.aspx?CurrentLink=" + CurrentLink.selector + "#!?id=" + row.ClaimID + "' name='Edit' onclick=\"\">View</a></li><li ><a class='btn-xs' href='/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&ISTRAVEL=YES&DATE=" + row.ClaimDate + "&ID=" + row.ClaimID + "'  rel='noopener noreferrer' target='_blank'>Print</a></li></ul></div>";
                         var editButton = "<a class='btn btn-primary btn-xs' href='Detail.aspx?CurrentLink=" + CurrentLink.selector + "#!?id=" + row.ClaimID + "' name='Edit' onclick=\"\">Edit</a>";
-
                         if (row.Status > 0)
-                            return viewButton;
+                            if(row.Description =="Travel"){
+                                if (row.Status == 1) {
+                                    return viewButton2;
+                                } else {
+                                    return viewButton;
+                                }
+                            }else{
+                                return viewButton;
+                            }
                         else
                             return editButton;
                     }
@@ -246,6 +254,10 @@
             } else {
                 jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&DATEFROM=' + $("#claim-date-from").val() + '&DATETO=' + $("#claim-date-to").val());
             }
+        }
+
+        function printTravelClaim(id,date) {
+            jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&ISTRAVEL=YES&DATE=' + date + '&ID=' + id);
         }
 
         $(document).ready(function () {

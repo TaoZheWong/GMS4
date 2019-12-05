@@ -2000,7 +2000,7 @@ namespace GMSCore
             return;
         }
 
-        public void InsertProductPrice(short companyId, string ProductCode, string Country, float WeigthedCost, float DealerPrice,
+        public void InsertProductPrice(short companyId, string ProductCode, string Country, float WeightedCost, float DealerPrice,
             float UserPrice, float RetailPrice, int userid, string Remarks)
         {
             IDbConnection conn = cm.GetConnection();
@@ -2013,7 +2013,7 @@ namespace GMSCore
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
                 command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = ProductCode;
                 command.Parameters.Add("@Country", SqlDbType.NVarChar).Value = Country;
-                command.Parameters.Add("@WeigthedCost", SqlDbType.Float).Value = WeigthedCost;
+                command.Parameters.Add("@WeightedCost", SqlDbType.Float).Value = WeightedCost;
                 command.Parameters.Add("@DealerPrice", SqlDbType.Float).Value = DealerPrice;
                 command.Parameters.Add("@UserPrice", SqlDbType.Float).Value = UserPrice;
                 command.Parameters.Add("@RetailPrice", SqlDbType.Float).Value = RetailPrice;
@@ -3676,7 +3676,7 @@ namespace GMSCore
         }
 
         public void InsertNewClaimDetail(short companyID, short ClaimID, string type, string date, string remark, string currencyCode,
-            float currencyRate, float amount, string chargeto, float GST, string receiptNum)
+            float currencyRate, float amount, string chargeto, float GST, string receiptNum, string destination)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3696,6 +3696,7 @@ namespace GMSCore
                 command.Parameters.Add("@chargeto", SqlDbType.NVarChar).Value = chargeto;
                 command.Parameters.Add("@gst", SqlDbType.Decimal).Value = GST;
                 command.Parameters.Add("@receiptNum", SqlDbType.NVarChar).Value = receiptNum;
+                command.Parameters.Add("@destination", SqlDbType.NVarChar).Value = destination;
 
                 rdr = command.ExecuteReader();
             }
@@ -3716,7 +3717,7 @@ namespace GMSCore
 
         public void UpdateClaimDetail(int ClaimDetailID, string type, string date, 
             string remark, string currencyCode, float currencyRate, float amount, string chargeto,
-            float GST, string receiptNum)
+            float GST, string receiptNum,string destination)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3735,6 +3736,7 @@ namespace GMSCore
                 command.Parameters.Add("@chargeto", SqlDbType.NVarChar).Value = chargeto;
                 command.Parameters.Add("@gst", SqlDbType.Decimal).Value = GST;
                 command.Parameters.Add("@receiptNum", SqlDbType.NVarChar).Value = receiptNum;
+                command.Parameters.Add("@destination", SqlDbType.NVarChar).Value = destination;
 
                 rdr = command.ExecuteReader();
             }
@@ -4281,5 +4283,43 @@ namespace GMSCore
 
             return;
         }
+
+        #region RetrievePriceList
+        public void RetrievePriceList(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procSelectPricelist", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductCategoryByCoyID
+        public void RetrieveProductCategoryByCoyID(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procSelectProductCategorylistByCoyID", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductBrand
+        public void RetrieveProductBrand(ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procSelectProductBrand", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
     }
 }
