@@ -2181,6 +2181,7 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("DocumentCategory.ModuleCategoryID"),
                                 helper.CleanValue(moduleCategoryID));
+            stb.AppendFormat("AND {0} = 1 ", helper.GetFieldName("DocumentCategory.IsActive"));
 
             return DocumentCategory.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("DocumentCategory.SeqID")));
         }

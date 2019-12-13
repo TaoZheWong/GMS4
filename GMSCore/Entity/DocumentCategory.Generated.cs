@@ -68,8 +68,23 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-			
-		private short _moduleCategoryID = 0;
+
+        private bool _isActive = false;
+        ///<summary>Database mapping to column tbDocumentCategory.IsActive</summary>
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set
+            {
+                if (_isActive != value)
+                {
+                    _isActive = value;
+                    OnPropertyChanged("IsActive");
+                }
+            }
+        }
+
+        private short _moduleCategoryID = 0;
 		///<summary>Database mapping to column tbDocumentCategory.ModuleCategoryID</summary>
 		public short ModuleCategoryID
 		{
@@ -151,7 +166,8 @@ namespace GMSCore.Entity
 					case "_documentCategoryID": return _documentCategoryID;
 					case "_categoryName": return _categoryName;
 					case "_seqID": return _seqID;
-					case "_moduleCategoryID": return _moduleCategoryID;
+                    case "_isActive": return _isActive;
+                    case "_moduleCategoryID": return _moduleCategoryID;
 					case "_tbModuleCategoryObject": return _tbModuleCategoryObject;
 					case "_tbDocumentList": return _tbDocumentList;
 									
@@ -167,7 +183,8 @@ namespace GMSCore.Entity
 					case "_documentCategoryID": _documentCategoryID = (short)value; break;
 					case "_categoryName": _categoryName = (string)value; break;
 					case "_seqID": _seqID = (short)value; break;
-					case "_moduleCategoryID": _moduleCategoryID = (short)value; break;
+                    case "_isActive": _isActive = (bool)value; break;
+                    case "_moduleCategoryID": _moduleCategoryID = (short)value; break;
 					case "_tbModuleCategoryObject": _tbModuleCategoryObject = (ObjectHolder<ModuleCategory>)value; break;
 					case "_tbDocumentList": _tbDocumentList = (IList<Document>)value; break;
 				
@@ -188,7 +205,8 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_documentCategoryID={0}\n,", _documentCategoryID.ToString() );
 			stb.AppendFormat("_categoryName={0}\n,", _categoryName.ToString() );
 			stb.AppendFormat("_seqID={0}\n,", _seqID.ToString() );
-			stb.AppendFormat("_moduleCategoryID={0}\n,", _moduleCategoryID.ToString() );
+            stb.AppendFormat("_isActive={0}\n,", _isActive.ToString());
+            stb.AppendFormat("_moduleCategoryID={0}\n,", _moduleCategoryID.ToString() );
 							
 			
 			return stb.ToString();
