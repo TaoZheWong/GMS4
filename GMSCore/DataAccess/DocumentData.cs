@@ -39,6 +39,17 @@ namespace GMSCore
         }
         #endregion
 
+        public void GetActivePriceList(short documentCategoryID, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppPriceListDocumentSelectByDocumentCategoryID", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@DocumentCategoryID", SqlDbType.SmallInt).Value = documentCategoryID;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
         #region
         /// <summary>
         /// Retrieve archived documents

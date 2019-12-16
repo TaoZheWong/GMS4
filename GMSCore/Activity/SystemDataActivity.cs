@@ -2182,6 +2182,22 @@ namespace GMSCore.Activity
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("DocumentCategory.ModuleCategoryID"),
                                 helper.CleanValue(moduleCategoryID));
             stb.AppendFormat("AND {0} = 1 ", helper.GetFieldName("DocumentCategory.IsActive"));
+            stb.AppendFormat(" and {0} != {1} ", helper.GetFieldName("DocumentCategory.CategoryName"),
+                               helper.CleanValue("Latest Price List"));
+
+            return DocumentCategory.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("DocumentCategory.SeqID")));
+        }
+        #endregion
+
+        #region RetrievePriceListDocumentCategory
+        public IList<DocumentCategory> RetrievePriceListDocumentCategory(short moduleCategoryID)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("DocumentCategory.ModuleCategoryID"),
+                                helper.CleanValue(moduleCategoryID));
+            stb.AppendFormat(" and {0} = {1} ", helper.GetFieldName("DocumentCategory.CategoryName"),
+                               helper.CleanValue("Latest Price List"));
 
             return DocumentCategory.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("DocumentCategory.SeqID")));
         }

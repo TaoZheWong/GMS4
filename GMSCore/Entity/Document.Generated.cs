@@ -113,8 +113,38 @@ namespace GMSCore.Entity
                 }
             }
         }
-			
-		private ObjectHolder<DocumentCategory> _tbDocumentCategoryObject;
+
+        private short _brandID = 0;
+        ///<summary>Database mapping to column tbDocument.SeqID</summary>
+        public short BrandID
+        {
+            get { return _brandID; }
+            set
+            {
+                if (_brandID != value)
+                {
+                    _brandID = value;
+                    OnPropertyChanged("BrandID");
+                }
+            }
+        }
+
+        private string _inputBy = "";
+        ///<summary>Database mapping to column tbDocument.SeqID</summary>
+        public string InputBy
+        {
+            get { return _inputBy; }
+            set
+            {
+                if (_inputBy != value)
+                {
+                    _inputBy = value;
+                    OnPropertyChanged("InputBy");
+                }
+            }
+        }
+
+        private ObjectHolder<DocumentCategory> _tbDocumentCategoryObject;
 		///<summary>Instance of a DocumentCategory object</summary>
 		public DocumentCategory DocumentCategoryObject
 		{
@@ -178,8 +208,10 @@ namespace GMSCore.Entity
 					case "_seqID": return _seqID;
 					case "_tbDocumentCategoryObject": return _tbDocumentCategoryObject;
                     case "_dateUploaded": return _dateUploaded;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_brandID": return _brandID;
+                    case "_inputBy": return _inputBy;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -195,8 +227,10 @@ namespace GMSCore.Entity
 					case "_seqID": _seqID = (short)value; break;
 					case "_tbDocumentCategoryObject": _tbDocumentCategoryObject = (ObjectHolder<DocumentCategory>)value; break;
                     case "_dateUploaded": _dateUploaded = (DateTime)value; break;
+                    case "_brandID": _brandID = (short)value; break;
+                    case "_inputBy": _inputBy = (string)value; break;
 
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -216,8 +250,10 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_fileName={0}\n,", _fileName.ToString() );
 			stb.AppendFormat("_seqID={0}\n,", _seqID.ToString() );
             stb.AppendFormat("_dateUploaded={0}\n,", _dateUploaded.ToString());
-			
-			return stb.ToString();
+			stb.AppendFormat("_brandID={0}\n,", _brandID.ToString() );
+            stb.AppendFormat("_inputBy={0}\n,", _inputBy.ToString());
+
+            return stb.ToString();
 		}
 		#endregion
 
