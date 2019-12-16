@@ -1211,6 +1211,7 @@
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
     <Content Include="Sales\Sales\CustomerTypeSetup.aspx" />
+    <Content Include="Sales\Sales\LatestPriceList.aspx" />
     <Content Include="Sales\Sales\TeamSetup.aspx" />
     <Content Include="scripts\Common.js" />
     <Content Include="SiteHeader.ascx" />
@@ -2225,6 +2226,13 @@
     </Compile>
     <Compile Include="Sales\Sales\Invoice.aspx.designer.cs">
       <DependentUpon>Invoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Sales\LatestPriceList.aspx.cs">
+      <DependentUpon>LatestPriceList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Sales\LatestPriceList.aspx.designer.cs">
+      <DependentUpon>LatestPriceList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Sales\ParsingCustomerlist.aspx.cs">
       <DependentUpon>ParsingCustomerlist.aspx</DependentUpon>

@@ -4284,34 +4284,8 @@ namespace GMSCore
             return;
         }
 
-        #region RetrievePriceList
-        public void RetrievePriceList(short companyId, ref DataSet ds)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procSelectPricelist", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds);
-            return;
-        }
-        #endregion
-
-        #region RetrieveProductCategoryByCoyID
-        public void RetrieveProductCategoryByCoyID(short companyId, ref DataSet ds)
-        {
-            IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procSelectProductCategorylistByCoyID", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            adapter.Fill(ds);
-            return;
-        }
-        #endregion
-
         #region RetrieveProductBrand
-        public void RetrieveProductBrand(ref DataSet ds)
+        public void RetrieveProductBrand( ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procSelectProductBrand", (SqlConnection)conn);
@@ -4321,5 +4295,6 @@ namespace GMSCore
             return;
         }
         #endregion
+
     }
 }
