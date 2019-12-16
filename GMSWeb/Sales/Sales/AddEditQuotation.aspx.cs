@@ -2114,7 +2114,11 @@ namespace GMSWeb.Sales.Sales
 					txtOfficePhone.Text = ds.Tables[0].Rows[0]["OfficePhone"].ToString();
 					txtFax.Text = ds.Tables[0].Rows[0]["Fax"].ToString();
 					txtEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
-				}
+                    ddlTaxType.SelectedValue = ds.Tables[0].Rows[0]["GSTType"].ToString();
+                    TaxType rate = TaxType.RetrieveByKey(session.CompanyId, ddlTaxType.SelectedValue);
+                    txtTaxRate.Text = (rate.TaxRate.Value * 100).ToString("#0.00") + "%";
+                    CalculateTotal();
+                }
 				else
 				{
 					ScriptManager.RegisterClientScriptBlock(updatePanel2, this.GetType(), "click", "alert('Account is not found!')", true);
@@ -5761,14 +5765,13 @@ namespace GMSWeb.Sales.Sales
 					if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
 					{
                         string accountCode = txtAccountCode.Text.Trim();
-
                         sc.Url = session.CMSWebServiceAddress.Trim();
-                        if (session.CompanyId == 18 || session.CompanyId == 104)
-                        {
-                            if (accountCode != "")
-                                if (accountCode.Substring(1, 1) == "1")
-                                    sc.Url = session.CMSWebServiceAddress.Trim().Replace("CMS", "CMS_NIT");
-                        }
+                        //if (session.CompanyId == 18 || session.CompanyId == 104)
+                        //{
+                        //    if (accountCode != "")
+                        //        if (accountCode.Substring(1, 1) == "1")
+                        //            sc.Url = session.CMSWebServiceAddress.Trim().Replace("CMS", "CMS_NIT");
+                        //}
 
 
                     }
@@ -6016,12 +6019,12 @@ namespace GMSWeb.Sales.Sales
                         //if ((session.CompanyId == 18 || session.CompanyId == 104) && accountCode.Substring(1, 1) == "1")
                         //    sc.Url = session.CMSWebServiceAddress.Trim().Replace("CMS", "CMS_NIT");
 
-                        if (session.CompanyId == 18 || session.CompanyId == 104)
-                        {
-                            if (accountCode != "")
-                                if (accountCode.Substring(1, 1) == "1")
-                                    sc.Url = session.CMSWebServiceAddress.Trim().Replace("CMS", "CMS_NIT");
-                        }
+                        //if (session.CompanyId == 18 || session.CompanyId == 104)
+                        //{
+                        //    if (accountCode != "")
+                        //        if (accountCode.Substring(1, 1) == "1")
+                        //            sc.Url = session.CMSWebServiceAddress.Trim().Replace("CMS", "CMS_NIT");
+                        //}
                     }
 					else
 						sc.Url = "http://localhost/CMS.WebServices/Recipe.asmx";
