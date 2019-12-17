@@ -1412,6 +1412,7 @@ namespace GMSWeb.Reports.Report
                 if (session.DivisionId.ToString() == "4")
                 {
                     ddlRental.Items.Add(new ListItem("WITH RENTAL", "WITH RENTAL"));
+                    ddlRental.Items.Add(new ListItem("WITHOUT ZL", "WITHOUT ZL"));
                 }
 
                 pnlParameter.Controls.Add(ddlRental);

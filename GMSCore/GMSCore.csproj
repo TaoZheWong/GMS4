@@ -52,7 +52,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\GMSWeb\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -62,7 +62,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WilsonORMapper, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="WilsonORMapper, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\GMSWeb\bin\WilsonORMapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\AccountAttachmentActivity.cs" />
@@ -176,7 +178,7 @@
     <Compile Include="Entity\AuditForModuleAccess.cs" />
     <Compile Include="Entity\AuditForModuleAccess.Generated.cs">
       <DependentUpon>AuditForModuleAccess.cs</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Entity\AuditForReportAccess.cs" />
     <Compile Include="Entity\AuditForReportAccess.Generated.cs">
       <DependentUpon>AuditForReportAccess.cs</DependentUpon>
