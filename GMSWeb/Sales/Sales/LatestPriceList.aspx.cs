@@ -109,12 +109,6 @@ namespace GMSWeb.Sales.Sales
         #region PopulateDocument
         protected void PopulateDocument()
         {
-            //IList<Document> lstDocument = new SystemDataActivity().RetrieveAllDocumentByDocumentCategoryID(short.Parse(this.ddlDocumentCategory.SelectedValue));
-            //if (lstDocument != null && lstDocument.Count > 0)
-            //{
-            //this.ddlDocument.DataSource = lstDocument;
-            //this.ddlDocument.DataBind();
-            //}
 
             DocumentDataDALC dalc = new DocumentDataDALC();
             DataSet ds = new DataSet();
@@ -154,7 +148,7 @@ namespace GMSWeb.Sales.Sales
             LogSession session = base.GetSessionInfo();
 
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            162);
+                                                                           162);
             if (uAccess == null)
                 Response.Redirect(base.UnauthorizedPage(this.hidModuleCategoryName.Value));
 
@@ -369,7 +363,7 @@ namespace GMSWeb.Sales.Sales
                             //update new filename
                             doc.FileName = fileName;
                         }
-                        doc.SeqID = short.Parse(ddlSequence.SelectedValue);
+                        //doc.SeqID = short.Parse(ddlSequence.SelectedValue);
                         doc.DateUploaded = DateTime.Now;
                         doc.BrandID = short.Parse(ddlBrand.SelectedValue);
                         doc.InputBy = session.UserRealName;
@@ -394,7 +388,7 @@ namespace GMSWeb.Sales.Sales
                         doc.DocumentCategoryID = short.Parse(this.ddlDocumentCategory.SelectedValue);
                         doc.DocumentName = documentName;
                         doc.FileName = fileName;
-                        doc.SeqID = short.Parse(ddlSequence.SelectedValue);
+                        //doc.SeqID = short.Parse(ddlSequence.SelectedValue);
                         doc.DateUploaded = DateTime.Now;
                         doc.BrandID = short.Parse(ddlBrand.SelectedValue);
                         doc.InputBy = session.UserRealName;
@@ -421,11 +415,10 @@ namespace GMSWeb.Sales.Sales
         protected void ddlDocumentCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateDocument();
-
         }
         #endregion
 
-        #region ddlDocument_SelectedIndexChanged
+        /*#region ddlDocument_SelectedIndexChanged
         protected void ddlDocument_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlDocument.SelectedValue == "0") return;
@@ -436,6 +429,6 @@ namespace GMSWeb.Sales.Sales
                 ddlSequence.SelectedValue = doc.SeqID.ToString();
 
         }
-        #endregion
+        #endregion*/
     }
 }

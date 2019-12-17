@@ -136,7 +136,7 @@
                         </label>
                         <div class="col-sm-6">
                             <asp:DropDownList CssClass="form-control" ID="ddlDocument" runat="server"
-                                DataTextField="DocumentName" DataValueField="DocumentID" AutoPostBack="true" OnSelectedIndexChanged="ddlDocument_SelectedIndexChanged" />
+                                DataTextField="DocumentName" DataValueField="DocumentID"/>
                         </div>
                     </div>
                     <div class="form-group col-lg-4 col-sm-6">
@@ -163,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6">
+                    <!--<div class="form-group col-lg-4 col-sm-6" >
                         <label class="col-sm-6 control-label text-left">
                             <asp:Label CssClass="tbLabel" ID="lblSequence" runat="server">Sequence</asp:Label>
                         </label>
@@ -171,7 +171,7 @@
                             <asp:DropDownList CssClass="form-control" ID="ddlSequence" runat="server"
                                 DataTextField="SeqID" DataValueField="SeqID" />
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group col-lg-4 col-sm-6">
                         <label class="col-sm-6 control-label text-left">
                             <asp:Label CssClass="tbLabel" ID="lblBrand" runat="server">Brand</asp:Label>
