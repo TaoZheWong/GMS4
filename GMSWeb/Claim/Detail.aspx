@@ -187,7 +187,7 @@
                         <label class="control-label">Destination</label>
                         <input type="text" class="form-control" autocomplete="off" id="TextDestination" data-ng-model="claim.claimInfo.Destination" data-ng-disabled="claim.claimInfo.Status != '0'"/>
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Status=='2'&&claim.claimInfo.Description=='Travel'">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12" data-ng-if="claim.claimInfo.Status=='2' && claim.claimInfo.Description != 'Travel'">
                         <label class="control-label">Payment Voucher</label>
                         <input type="text" class="form-control" autocomplete="off" id="Text6" data-ng-model="claim.claimInfo.PaymentVoucher"  disabled/>
                     </div>
