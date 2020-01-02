@@ -87,8 +87,8 @@
             <a href="#" class="btn btn-default pull-right m-r-10" data-toggle="modal" data-target="#claimForm" >New Claim</a>
         </div>
         <div data-ng-if="claim.allowApproveReject" class="panel-footer clearfix">
-            <a href="#" class="btn btn-success pull-right m-r-10" data-ng-if="claim.allowApproveReject" onclick="javascript:searchResult('1')">Approve Claim</a>
-            <a href="#" class="btn btn-default pull-right m-r-10" data-ng-if="claim.allowApproveReject" onclick="javascript:searchResult('2')">View Approved Claim</a>
+            <a href="#" class="btn btn-success pull-right m-r-10" data-ng-if="claim.allowApproveReject" onclick="javascript:searchResult('1')">Pending Claim</a>
+            <a href="#" class="btn btn-default pull-right m-r-10" data-ng-if="claim.allowApproveReject" onclick="javascript:searchResult('2')">Search Claim (Finance)</a>
         </div>
     </div>
 

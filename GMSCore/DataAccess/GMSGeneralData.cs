@@ -3481,7 +3481,6 @@ namespace GMSCore
 
         }
 
-
         public void GetClaimDetails(int claimID, int CompanyID, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
