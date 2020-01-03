@@ -406,7 +406,7 @@ namespace GMSCore
         /// <summary>
         /// Retrieve a list of products code, short name for search
         /// </summary>
-        public void GetProductCodeWithShortName(short companyId, string ProductCode, string ProductName, string ShortName, ref DataSet dsProducts)
+        public void GetProductCodeWithShortName(short companyId, string ProductCode, string ProductName, string ShortName, string Brand, ref DataSet dsProducts)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppProductCodeWithShortNameSelect", (SqlConnection)conn);
@@ -415,6 +415,7 @@ namespace GMSCore
             command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = ProductCode;
             command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = ProductName;
             command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = ShortName;
+            command.Parameters.Add("@Brand", SqlDbType.NVarChar).Value = Brand;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(dsProducts);
             return;

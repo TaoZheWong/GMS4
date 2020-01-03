@@ -90,6 +90,7 @@
     <Compile Include="Activity\MRFormApprovalActivity.cs" />
     <Compile Include="Activity\MRRoleActivity.cs" />
     <Compile Include="Activity\QuotationActivity.cs" />
+    <Compile Include="Activity\ResumeActivity.cs" />
     <Compile Include="Activity\SalesmanUploadActivity.cs" />
     <Compile Include="Activity\SystemParameterActivity.cs" />
     <Compile Include="Activity\UserSalesPersonActivity.cs" />
@@ -826,6 +827,10 @@
     </Compile>
     <Compile Include="WorkFlow.cs" />
     <Compile Include="WorkFlowRouting.cs" />
+    <Compile Include="Entity\ResumeUpload.cs" />
+    <Compile Include="Entity\ResumeUpload.Generated.cs">
+      <DependentUpon>ResumeUpload.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>

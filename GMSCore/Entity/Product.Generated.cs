@@ -309,6 +309,20 @@ namespace GMSCore.Entity
             }
         }
 
+        private short _brandID;
+        ///<summary>Database mapping to column tbProduct.Brand</summary>       
+        public short BrandID
+        {
+            get { return _brandID; }
+            set
+            {
+                if (_brandID != value)
+                {
+                    _brandID = value;
+                    OnPropertyChanged("BrandID");
+                }
+            }
+        }
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -343,6 +357,7 @@ namespace GMSCore.Entity
                     case "_brand": return _brand;
                     case "_productCategory": return _productCategory;
                     case "_categorySN": return _categorySN;
+                    case "_brandID": return _brandID;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
@@ -371,7 +386,7 @@ namespace GMSCore.Entity
                     case "_shortName": _shortName = (string)value; break;
                     case "_productCategory": _productCategory = (string)value; break;
                     case "_categorySN": _categorySN = (string)value; break;
-
+                    case "_brandID": _brandID = (short)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -406,6 +421,7 @@ namespace GMSCore.Entity
             stb.AppendFormat("_brand={0}\n,", _brand.ToString());
             stb.AppendFormat("_productCategory={0}\n,", _productCategory.ToString());
             stb.AppendFormat("_categorySN={0}\n,", _categorySN.ToString());
+            stb.AppendFormat("_brandID={0}\n,", _brandID.ToString());
 
             return stb.ToString();
 		}

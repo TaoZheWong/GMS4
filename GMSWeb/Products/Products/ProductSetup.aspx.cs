@@ -102,6 +102,20 @@ namespace GMSWeb.Products.Products
         {
             LogSession session = base.GetSessionInfo();
 
+            if (e.Item.ItemType == ListItemType.EditItem)
+            {
+                DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+                DropDownList ddlEditBrand = (DropDownList)e.Item.FindControl("ddlEditBrand");
+                GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                if (ddlEditBrand != null)
+                {
+                    DataSet dsBrand = new DataSet();
+                    ggdal.RetrieveProductBrand(ref dsBrand);
+                    ddlEditBrand.DataSource = dsBrand;
+                    ddlEditBrand.DataBind();
+                    ddlEditBrand.SelectedValue = dataItem1.Row["BrandID"].ToString();
+                }
+            }
             if (e.Item.ItemType == ListItemType.Footer)
             {
                 ProductsDataDALC proddacl = new ProductsDataDALC();
@@ -112,7 +126,16 @@ namespace GMSWeb.Products.Products
                     proddacl.GetProductGroupInProduct(session.CompanyId, ref dsProductGroup);
                     ddlNewProductGroup.DataSource = dsProductGroup.Tables[0];
                     ddlNewProductGroup.DataBind();
-                }                
+                }
+                GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                DropDownList ddlNewBrand = (DropDownList)e.Item.FindControl("ddlNewBrand");
+                if (ddlNewBrand != null)
+                {
+                    DataSet dsBrand = new DataSet();
+                    ggdal.RetrieveProductBrand(ref dsBrand);
+                    ddlNewBrand.DataSource = dsBrand.Tables[0];
+                    ddlNewBrand.DataBind();
+                }
             }
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -162,13 +185,15 @@ namespace GMSWeb.Products.Products
 
                 DropDownList ddlNewProduct = (DropDownList)e.Item.FindControl("ddlNewProduct");
                 TextBox txtNewShortName = (TextBox)e.Item.FindControl("txtNewShortName");
+                DropDownList ddlNewbrand = (DropDownList)e.Item.FindControl("ddlNewBrand");
 
                 if (ddlNewProduct != null && !string.IsNullOrEmpty(ddlNewProduct.SelectedValue) &&
-                   txtNewShortName != null && !string.IsNullOrEmpty(txtNewShortName.Text))
+                   txtNewShortName != null && !string.IsNullOrEmpty(txtNewShortName.Text) &&
+                   ddlNewbrand != null && !string.IsNullOrEmpty(ddlNewbrand.SelectedValue))
                 { 
                     try
                     {
-                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, ddlNewProduct.SelectedValue, txtNewShortName.Text.Trim());     
+                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, ddlNewProduct.SelectedValue, txtNewShortName.Text.Trim(),ddlNewbrand.SelectedValue);     
                         this.dgData.EditItemIndex = -1;
                         LoadData();
                     }
@@ -198,14 +223,15 @@ namespace GMSWeb.Products.Products
 
             HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
             TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName");
-
+            DropDownList ddlEditBrand = (DropDownList)e.Item.FindControl("ddlEditBrand");
 
             if (hidProductCode != null &&
-                txtEditShortName != null && !string.IsNullOrEmpty(txtEditShortName.Text))
+                txtEditShortName != null && !string.IsNullOrEmpty(txtEditShortName.Text) &&
+                ddlEditBrand != null && !string.IsNullOrEmpty(ddlEditBrand.SelectedValue))
             {
                 try
                 {
-                    new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, txtEditShortName.Text.Trim());
+                    new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, txtEditShortName.Text.Trim(),ddlEditBrand.SelectedValue);
                     this.dgData.EditItemIndex = -1;
                     LoadData();
                 }
@@ -240,7 +266,7 @@ namespace GMSWeb.Products.Products
                 {
                     try
                     {
-                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, "");                    
+                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, "","0");                    
                         this.dgData.EditItemIndex = -1;
                         this.dgData.CurrentPageIndex = 0;
                         LoadData();
@@ -274,22 +300,23 @@ namespace GMSWeb.Products.Products
             string ProductCode = "";
             string ProductName = "";
             string ShortName = "";
-            if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()))
+            string Brand = "";
+            if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()) && string.IsNullOrEmpty(txtBrand.Text.Trim()))
             {
                 this.MsgPanel2.ShowMessage("Please input product to search", MessagePanelControl.MessageEnumType.Alert);
                 resultList.Visible = false;
-
             }
             else
             {
                 ProductCode = "%" + txtProductCode.Text.Trim() + "%";
                 ProductName = "%" + txtProductName.Text.Trim() + "%";
                 ShortName = "%" + txtShortName.Text.Trim() + "%";
+                Brand = "%" + txtBrand.Text.Trim() + "%";
                 resultList.Visible = true;
             }
             try
             {
-                proddacl.GetProductCodeWithShortName(session.CompanyId, ProductCode, ProductName, ShortName, ref dsProducts);
+                proddacl.GetProductCodeWithShortName(session.CompanyId, ProductCode, ProductName, ShortName, Brand, ref dsProducts);
             }
             catch (Exception ex)
             {

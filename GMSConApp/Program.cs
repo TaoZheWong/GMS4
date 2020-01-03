@@ -1109,6 +1109,21 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
+
+                    /*
+                    string from3 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-2).ToString("yyyy-MM-dd");
+                    string to3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-2).ToString("yyyy-MM-dd");
+
+                    string from1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
+                    string to1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-1).ToString("yyyy-MM-dd");
+                    string from2 = DateTime.Now.AddDays(1 - DateTime.Now.Day).ToString("yyyy-MM-dd");
+                    string to2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
+                                        
+                    Task_ImportDataJobTraveller(CoyID, from3, to3, sop);
+                    Task_ImportDataJobTraveller(CoyID, from1, to1, sop);
+                    Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
+                    */
+
                 }     
 
             }
@@ -1119,10 +1134,12 @@ namespace GMSConApp
             DataSet ds = new DataSet();
             string query = "";
 
+            Console.WriteLine(from + " -- " + to);
+
             Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Job Traveller data...");
             query = "CALL \"AF_MFG_QRY_MFGCOST_WIP\" ('" + from + "' , '" + to + "', '', '' )";
             ds = sop.GET_SAP_QueryData(CoyID, query,
-            "JobTravellerNo", "ProductionOrderNo", "FinalFG", "FinalFGDescription", "BOMTemplate", "BOMLevel", "BOMParent", "CompletionQty", "Category", "ChildCode", "ChildDescription", "BaseQuantity", "UOM", "Quantity", "GLCode", "Amount", "LastProductionIssueDate", "LastProductionReceiptDate", "Field19", "Field20",
+            "JobTravellerNo", "ProductionOrderNo", "FinalFG", "FinalFGDescription", "BOMTemplate", "BOMLevel", "BOMParent", "CompletionQty", "Category", "ChildCode", "ChildDescription", "BaseQuantity", "UOM", "Quantity", "GLCode", "Amount", "LastProductionIssueDate", "LastProductionReceiptDate", "PlannedQty", "JobTravellerStatus",
             "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
             //Insert JobTraveller data into GMS
@@ -1148,7 +1165,9 @@ namespace GMSConApp
                  dr["GLCode"].ToString(),
                  GMSUtil.ToDouble(dr["Amount"].ToString()),
                  GMSUtil.ToDate(dr["LastProductionIssueDate"].ToString()),
-                 GMSUtil.ToDate(dr["LastProductionReceiptDate"].ToString())
+                 GMSUtil.ToDate(dr["LastProductionReceiptDate"].ToString()),
+                 GMSUtil.ToDouble(dr["PlannedQty"].ToString()),
+                 dr["JobTravellerStatus"].ToString()
                 );
             }
             Console.WriteLine(DateTime.Now.ToString() + " -- End Job Traveller data insertion");

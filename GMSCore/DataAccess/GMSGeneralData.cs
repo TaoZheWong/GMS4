@@ -3481,6 +3481,7 @@ namespace GMSCore
 
         }
 
+
         public void GetClaimDetails(int claimID, int CompanyID, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -4254,7 +4255,7 @@ namespace GMSCore
             return;
         }
 
-        public void UpdateProductShortName(short companyId, string productCode, string shortName)
+        public void UpdateProductShortName(short companyId, string productCode, string shortName, string brandid)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -4265,7 +4266,8 @@ namespace GMSCore
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
                 command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
-                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;  
+                command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+                command.Parameters.Add("@BrandID", SqlDbType.SmallInt).Value = brandid;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -4295,5 +4297,18 @@ namespace GMSCore
         }
         #endregion
 
+        #region RetrieveCompanyList
+        public void RetrieveCompanyList(ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSelectCompanyList", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        
     }
 }
