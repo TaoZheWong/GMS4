@@ -728,7 +728,7 @@ namespace GMSConApp
         //DateTime trnDate, 
         public void GMS_Insert_JobTraveller(short CoyID, DateTime trnDate, int jobTravellerNo, string productionOrderNo, string finalFG, string finalFGDescription, string bomTemplate, 
             int bomLevel, string bomParent, int completionQty, string category, string childCode, string childDescription, double baseQuantity, string uom,
-            double quantity, string glCode, double amount, DateTime lastProductionIssueDate, DateTime lastProductionReceiptDate)
+            double quantity, string glCode, double amount, DateTime lastProductionIssueDate, DateTime lastProductionReceiptDate, double plannedQty, string jobTravellerStatus)
         {          
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
@@ -751,6 +751,9 @@ namespace GMSConApp
             cm.Parameters.Add("@Amount", SqlDbType.Decimal).Value = amount;
             cm.Parameters.Add("@LastProductionIssueDate", SqlDbType.DateTime).Value = lastProductionIssueDate;
             cm.Parameters.Add("@LastProductionReceiptDate", SqlDbType.DateTime).Value = lastProductionReceiptDate;
+            cm.Parameters.Add("@PlannedQty", SqlDbType.Float).Value = plannedQty;
+            cm.Parameters.Add("@JobTravellerStatus", SqlDbType.NVarChar).Value = jobTravellerStatus;
+
             SPexecutor("procAppWSJobTravellerInsert");
         }
 

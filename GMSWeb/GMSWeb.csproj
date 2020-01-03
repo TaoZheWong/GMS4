@@ -56,6 +56,11 @@
     <Content Include="Finance\Reports\FinanceManufactureAccount.aspx" />
     <Content Include="Finance\Reports\FinancePurchaseCreditor.aspx" />
     <Content Include="Finance\Upload\DimensionSetup.aspx" />
+    <Content Include="Ghostscript\gsdll32.dll" />
+    <Content Include="HR\Recruitment\EmailResume.aspx" />
+    <Content Include="HR\Recruitment\getPDF.aspx" />
+    <Content Include="HR\Recruitment\Recruitment.aspx" />
+    <Content Include="HR\Recruitment\ViewPage.aspx" />
     <Content Include="News\Feeds.js" />
     <Content Include="News\GMS3.png" />
     <Content Include="HR\Training\Course.aspx" />
@@ -1210,6 +1215,7 @@
     <Content Include="Products\Products\ProductSetup.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
+    <Content Include="Sales\Reports\SalesBudgetReport.aspx" />
     <Content Include="Sales\Sales\CustomerTypeSetup.aspx" />
     <Content Include="Sales\Sales\LatestPriceList.aspx" />
     <Content Include="Sales\Sales\TeamSetup.aspx" />
@@ -1224,6 +1230,7 @@
     <Content Include="new_assets\plugins\summernote\font\summernote.eot" />
     <Content Include="new_assets\plugins\summernote\font\summernote.ttf" />
     <Content Include="new_assets\plugins\summernote\font\summernote.woff" />
+    <Content Include="packages.config" />
     <None Include="web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1587,6 +1594,34 @@
     </Compile>
     <Compile Include="HR\PMP\PMPHome.aspx.designer.cs">
       <DependentUpon>PMPHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\Recruitment\EmailResume.aspx.cs">
+      <DependentUpon>EmailResume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\Recruitment\EmailResume.aspx.designer.cs">
+      <DependentUpon>EmailResume.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\Recruitment\getPDF.aspx.cs">
+      <DependentUpon>getPDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\Recruitment\getPDF.aspx.designer.cs">
+      <DependentUpon>getPDF.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\Recruitment\Recruitment.aspx.cs">
+      <DependentUpon>Recruitment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\Recruitment\Recruitment.aspx.designer.cs">
+      <DependentUpon>Recruitment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\Recruitment\ViewPage.aspx.cs">
+      <DependentUpon>ViewPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\Recruitment\ViewPage.aspx.designer.cs">
+      <DependentUpon>ViewPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\Training\Course.aspx.cs">
       <DependentUpon>Course.aspx</DependentUpon>
@@ -2198,6 +2233,13 @@
     </Compile>
     <Compile Include="Sales\Engineering\Project\ProjectSearch.aspx.designer.cs">
       <DependentUpon>ProjectSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Reports\SalesBudgetReport.aspx.cs">
+      <DependentUpon>SalesBudgetReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Reports\SalesBudgetReport.aspx.designer.cs">
+      <DependentUpon>SalesBudgetReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Sales\AddressSearch.aspx.cs">
       <DependentUpon>AddressSearch.aspx</DependentUpon>
@@ -3261,6 +3303,9 @@
       <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="FreeTextBox, Version=3.3.0.22914, Culture=neutral, PublicKeyToken=5962a4e684a48b87, processorArchitecture=MSIL" />
+    <Reference Include="GhostscriptSharp">
+      <HintPath>..\packages\GhostScriptSharp.1.3.1\lib\net40\GhostscriptSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AtlasControlExtender, Version=1.0.60726.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Atlas, Version=2.0.50727.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -9995,4 +10040,8 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+if not exist "$(TargetDir)\gsdll32.dll" xcopy /Y "$(ProjectDir)\Ghostscript\gsdll32.dll" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

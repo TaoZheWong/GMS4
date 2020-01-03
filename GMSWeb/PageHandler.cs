@@ -423,7 +423,7 @@ namespace GMSWeb
                     "</li>" +
 
                     "<li class='has-sub budget-menu'>" +
-                    "<a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx?CurrentLink=Sales\">" +
+                    "<a href=\"" + appPath + "/Sales/Reports/SalesBudgetReport.aspx\">" +
                     "<i class='ti-receipt'></i>" +
                     "<span>Budget</span>" +
                     "</a>" +
@@ -523,14 +523,21 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
-                    /*"<li class='has-sub recruitment-menu'>" +
-                    "<a href='javascript:;'>" +
+                    "<li class='has-sub recruitment-menu'>" +
+                    "<a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx?CurrentLink=CompanyHR\">" +
+                    "<i class='ti-user'></i>" +
                     "<span>Recruitment</span>" +
                     "</a>" +
-                    "<ul class=\"sub-menu\">" +
-                        "<li class='sub-resume'><a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx\">Recruitment</a></li>" +
-                    "</ul>" +
-                    "</li>" +*/
+                    "</li>" +
+
+                /*"<li class='has-sub recruitment-menu'>" +
+                "<a href='javascript:;'>" +
+                "<span>Recruitment</span>" +
+                "</a>" +
+                "<ul class=\"sub-menu\">" +
+                    "<li class='sub-resume'><a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx\">Recruitment</a></li>" +
+                "</ul>" +
+                "</li>" +*/
 
                 //"<li class='has-sub'>" +
                 //"<a href='javascript:;'>" +
@@ -888,7 +895,7 @@ namespace GMSWeb
                     "<li class='sub-resource-company-information'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Company Information&PageTitle=Finance - Resources&ModuleCategoryID=4&ModuleCategoryName=CompanyFinance&DocumentCategoryID=1\">Company Information</a></li>" +
                     "<li class='sub-resource-listing-of-codes'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Listing of Codes&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=14\">Listing of Codes</a></li>" +
                     "<li class='sub-resource-forms'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Forms&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=15\">Forms</a></li>" +
-                    "<li class='sub-resource-finance-seminar'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Finance Seminar&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=40,35,29\">Finance Seminar</a></li>" +
+                    "<li class='sub-resource-finance-seminar'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Finance Seminar&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=40,45,35,29\">Finance Seminar</a></li>" +
                     "<li class='sub-resource-guides'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Guides&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance&DocumentCategoryID=39,33,28\">Guides</a></li>" +
                     "<li class='sub-resource-currency-exchange-rate'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Resources &gt; Foreign Currency Exchange Rate&PageTitle=Finance - Resources&ModuleCategoryID=4&ModuleCategoryName=CompanyFinance&DocumentCategoryID=18\">FX Rate</a></li>";
                 sideMenu += "</ul>" +

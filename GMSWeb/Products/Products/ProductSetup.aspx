@@ -29,21 +29,25 @@
         <div class="panel-body row">
             <div class="form-horizontal m-t-20">
                 <div class="form-horizontal m-t-20">
-               <div class="form-group col-lg-4 col-md-6 col-sm-6">
+               <div class="form-group col-lg-3 col-md-6 col-sm-6">
                     <label class="control-label">Product Code</label>
                         <asp:TextBox runat="server" ID="txtProductCode" MaxLength="50" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. B1110535616"></asp:TextBox>
                 </div>
-                <div class="form-group col-lg-4 col-md-6 col-sm-6">
+                <div class="form-group col-lg-3 col-md-6 col-sm-6">
                     <label class="control-label">Product Name</label>
                         <asp:TextBox runat="server" ID="txtProductName" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                 </div>
-                <div class="form-group col-lg-4 col-md-6 col-sm-6">
-                    <label class="control-label">Short Name</label>
+                <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                    <label class="control-label">Modal Type</label>
                         <asp:TextBox runat="server" ID="txtShortName" MaxLength="50" Columns="20" onfocus="select();"
                                     CssClass="form-control" ></asp:TextBox>
                 </div>
-               
+               <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                    <label class="control-label">Brand</label>
+                        <asp:TextBox runat="server" ID="txtBrand" MaxLength="50" Columns="20" onfocus="select();"
+                                    CssClass="form-control" ></asp:TextBox>
+                </div>
             </div>
         </div>
        </div>
@@ -107,7 +111,7 @@
                             </FooterTemplate>
                         </asp:TemplateColumn>                        
                        
-                         <asp:TemplateColumn HeaderText="Short Name">
+                         <asp:TemplateColumn HeaderText="Modal Type">
                             <ItemTemplate>
                                 <asp:Label ID="lblShortName" runat="server"><%# Eval("ShortName")%></asp:Label>
                             </ItemTemplate>
@@ -120,6 +124,18 @@
                                 <asp:TextBox CssClass="form-control input-sm" ID="txtNewShortName" runat="server" Columns="100" MaxLength="100" />
                                  <asp:RequiredFieldValidator
 									ID="rfvNewEditShortName" runat="server" ControlToValidate="txtNewShortName" ErrorMessage="*" Display="dynamic" ValidationGroup="valGrpNewTeamName" />
+                            </FooterTemplate>
+                        </asp:TemplateColumn>
+                        <asp:TemplateColumn HeaderText="Brand">
+                            <ItemTemplate>
+                                <asp:Label ID="lblFullName" runat="server"><%# Eval("FullName")%></asp:Label>
+                                <input type="hidden" id="hidBrandID" runat="server" value='<%# Eval("BrandID")%>' />   
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:DropDownList CssClass="form-control input-sm" ID="ddlEditBrand" runat="Server" DataTextField="Brand" DataValueField="BrandID" Width="100%"  />
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewBrand" runat="Server" DataTextField="Brand" DataValueField="BrandID" Width="100%"  />
                             </FooterTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderStyle-HorizontalAlign="Center"
