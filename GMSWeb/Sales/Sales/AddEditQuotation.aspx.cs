@@ -6059,29 +6059,29 @@ namespace GMSWeb.Sales.Sales
 
 					if (recipeNo != "" && txtAccountCode.Text.Trim() != "" && RecipeNotFoundMessage == "")
 					{
-						DataSet ds1 = new DataSet();
-						ProductsDataDALC dalc = new ProductsDataDALC();
-						dalc.GetRecipeGasPrice(session.CompanyId, recipeNo, txtAccountCode.Text.Trim(), ref ds1);
+                        //DataSet ds1 = new DataSet();
+                        //ProductsDataDALC dalc = new ProductsDataDALC();
+                        //dalc.GetRecipeGasPrice(session.CompanyId, recipeNo, txtAccountCode.Text.Trim(), ref ds1);
 
-						TableRow tr = (TableRow)txtEditRecipeNo.Parent.Parent;
-						TextBox txtEditUnitPrice = (TextBox)tr.FindControl("txtEditUnitPrice");
-						TextBox txtEditTagNo = (TextBox)tr.FindControl("txtEditTagNo");
+                        TableRow tr = (TableRow)txtEditRecipeNo.Parent.Parent;
+                        //TextBox txtEditUnitPrice = (TextBox)tr.FindControl("txtEditUnitPrice");
+                        TextBox txtEditTagNo = (TextBox)tr.FindControl("txtEditTagNo");
 
-						if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
-						{
-							if (GMSUtil.ToDecimal(ds1.Tables[0].Rows[0]["UnitPrice"].ToString()) > GasPrice)                             
-								txtEditUnitPrice.Text = (GMSUtil.ToDecimal(ds1.Tables[0].Rows[0]["UnitPrice"].ToString())).ToString("#0.00");
-							else
-								txtEditUnitPrice.Text = GMSUtil.ToDecimal(GasPrice).ToString("#0.00");
+                        //if (ds1 != null && ds1.Tables.Count > 0 && ds1.Tables[0].Rows.Count > 0)
+                        //{
+                        //	if (GMSUtil.ToDecimal(ds1.Tables[0].Rows[0]["UnitPrice"].ToString()) > GasPrice)                             
+                        //		txtEditUnitPrice.Text = (GMSUtil.ToDecimal(ds1.Tables[0].Rows[0]["UnitPrice"].ToString())).ToString("#0.00");
+                        //	else
+                        //		txtEditUnitPrice.Text = GMSUtil.ToDecimal(GasPrice).ToString("#0.00");
 
-							TextBox txtEditQuantity = (TextBox)tr.FindControl("txtEditQuantity");                            
-						}
-						else
-						{
-							txtEditUnitPrice.Text = GMSUtil.ToDecimal(GasPrice).ToString("#0.00");
+                        //	TextBox txtEditQuantity = (TextBox)tr.FindControl("txtEditQuantity");                            
+                        //}
+                        //else
+                        //{
+                        //	txtEditUnitPrice.Text = GMSUtil.ToDecimal(GasPrice).ToString("#0.00");
 
-						}
-						ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+                        //}
+                        ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
 						scriptManager.SetFocus(txtEditTagNo);
 
 					}

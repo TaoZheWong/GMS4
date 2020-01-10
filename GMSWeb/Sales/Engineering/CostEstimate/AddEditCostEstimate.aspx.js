@@ -1306,6 +1306,10 @@ function CEDetail(first, status, revision){
                     "data": "TotalAmount", 
                     "title":"Total Amount"
                 },
+                {
+                    "data": "TotalAmountInDocCurr",
+                    "title": "Total Amount (*Rate)"
+                },
                 { 
                     "data": "Remarks", 
                     "title":"Remarks"
