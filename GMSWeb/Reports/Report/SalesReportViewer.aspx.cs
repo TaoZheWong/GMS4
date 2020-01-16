@@ -841,19 +841,11 @@ namespace GMSWeb.Reports.Report
                                 }
                                 ddlSectionID.Enabled = true;
                             }
-
                         }
-
-
-
                     }
-
-
-
                 }
                 if (ViewState["ddlProjectID"] == null)
                     ViewState["ddlProjectID"] = -1;
-
             }
             #endregion
 
@@ -1250,7 +1242,6 @@ namespace GMSWeb.Reports.Report
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
 
                 controlCount = controlCount + 1;
-
             }
 
             if (crReportDocument.ParameterFields["@RentalType"] != null)
@@ -2199,6 +2190,29 @@ namespace GMSWeb.Reports.Report
 
             }
 
+            if (crReportDocument.ParameterFields["@TransactionType"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Transaction Type:"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlTT = new DropDownList();
+                ddlTT.ID = "ddlTT";
+                ddlTT.CssClass = "form-control";
+                ddlTT.Items.Clear();
+                ddlTT.Items.Add(new ListItem("Product", "Product"));
+                ddlTT.Items.Add(new ListItem("Invoice", "Invoice"));
+
+                pnlParameter.Controls.Add(ddlTT);
+                if (ViewState["ddlTT"] == null)
+                    ViewState["ddlTT"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+            }
+
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
             dynamicbutton.Text = "Submit";
@@ -2489,6 +2503,9 @@ namespace GMSWeb.Reports.Report
                 ViewState["txtBudgetCode"] = ((TextBox)pnlParameter.FindControl("txtBudgetCode")).Text.ToString();
             if (crReportDocument.ParameterFields["MRStatus"] != null)
                 ViewState["txtMRStatus"] = ((TextBox)pnlParameter.FindControl("txtMRStatus")).Text.ToString();
+
+            if (crReportDocument.ParameterFields["@TransactionType"] != null)
+                ViewState["ddlTT"] = ((DropDownList)pnlParameter.FindControl("ddlTT")).SelectedValue.ToString();
 
             if (crReportDocument.ParameterFields["Brand 1"] != null)
             {
@@ -2946,6 +2963,9 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("BudgetCode", ViewState["txtBudgetCode"].ToString());
                     if (crReportDocument.ParameterFields["MRStatus"] != null && ViewState["txtMRStatus"] != null)
                         crReportDocument.SetParameterValue("MRStatus", ViewState["txtMRStatus"].ToString());
+
+                    if (crReportDocument.ParameterFields["@TransactionType"] != null && ViewState["ddlTT"] != null)
+                        crReportDocument.SetParameterValue("@TransactionType", ViewState["ddlTT"].ToString());
 
                     cyReportViewer.ReportSource = crReportDocument;
 
