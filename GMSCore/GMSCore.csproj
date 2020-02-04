@@ -802,6 +802,10 @@
     <Compile Include="Entity\VwReportListingForCompany.Generated.cs">
       <DependentUpon>VwReportListingForCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\ProductPrice.cs" />
+    <Compile Include="Entity\ProductPrice.Generated.cs">
+      <DependentUpon>ProductPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\NullSessionException.cs" />
     <Compile Include="Exceptions\SecurityException.cs" />
     <Compile Include="GMSBasePage.cs">

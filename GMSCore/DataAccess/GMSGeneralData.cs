@@ -4309,6 +4309,67 @@ namespace GMSCore
         }
         #endregion
 
-        
+
+        #region RetrieveProductPrice
+        public void RetrieveProductPrice(short companyId, int brand, string productCode, string productName,string productGroupCode, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Brand", SqlDbType.SmallInt).Value = brand;
+            command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+            command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = productName;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductPriceProductGroup
+        public void RetrieveProductPriceProductGroup(short companyId, int brand,ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceProductGroupSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Brand", SqlDbType.SmallInt).Value = brand;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateProductPriceOrder
+        public void UpdateProductPriceOrder(string productCode, int sortOrder)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppProductPriceSortOrderUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+                command.Parameters.Add("@SortOrder", SqlDbType.NVarChar).Value = sortOrder;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+            return;
+        }
+        #endregion
+ 
     }
+
 }
