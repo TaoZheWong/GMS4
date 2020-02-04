@@ -438,5 +438,16 @@ namespace GMSCore
             return;
         }
 
+        public void GetProductByBrand(short companyId, int brand, ref DataSet dsProducts)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductCodeNameSelectByBrand", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Brand", SqlDbType.SmallInt).Value = brand;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dsProducts);
+            return;
+        }
     }
 }
