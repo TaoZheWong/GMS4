@@ -2,10 +2,13 @@
 using GMSCore.Activity;
 using GMSCore.Entity;
 using GMSWeb.CustomCtrl;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -16,7 +19,7 @@ namespace GMSWeb.Sales.Sales
 {
     public partial class NewPriceList : GMSBasePage
     {
-        
+        private HSSFWorkbook hssfworkbook;
         protected void Page_Load(object sender, EventArgs e)
         {
             string currentLink = "Sales";
@@ -79,9 +82,124 @@ namespace GMSWeb.Sales.Sales
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.DataGrid1.CurrentPageIndex = 0;
+            this.btnExport.Visible = true;
             RetrieveProduct();
         }
         #endregion
+
+        #region btnExport_Click
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            string fileName = "PriceList_" + DateTime.Now.Date.ToShortDateString() + ".xls";
+            hssfworkbook = new HSSFWorkbook();
+            ISheet sheet1 = hssfworkbook.CreateSheet("Sheet1");
+            IRow row;
+            //create header in excel
+            row = sheet1.CreateRow(0);
+            row.CreateCell(0).SetCellValue("SN");
+            row.CreateCell(1).SetCellValue("Model No");
+            row.CreateCell(2).SetCellValue("Product Type");
+            row.CreateCell(3).SetCellValue("Product Description");
+            row.CreateCell(4).SetCellValue("Product Code ");
+            
+            
+            //exclude for sales person
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+                                                                                163);
+            if (uAccess != null){
+                row.CreateCell(5).SetCellValue("Average Cost");
+                row.CreateCell(6).SetCellValue("Dealer Price");
+                row.CreateCell(7).SetCellValue("D Percentage");
+                row.CreateCell(8).SetCellValue("User Price");
+                row.CreateCell(9).SetCellValue("U Percentage");
+                row.CreateCell(10).SetCellValue("Retail Price");
+                row.CreateCell(11).SetCellValue("R Percentage");
+                row.CreateCell(12).SetCellValue("Avg Selling Price (12 mths)");
+                row.CreateCell(13).SetCellValue("Sales LTM (in 000s)");
+                row.CreateCell(14).SetCellValue("Stock Balance");
+                row.CreateCell(15).SetCellValue("Updated On");
+            }else{
+                row.CreateCell(5).SetCellValue("Dealer Price");
+                row.CreateCell(6).SetCellValue("User Price");
+                row.CreateCell(7).SetCellValue("Retail Price");
+            }
+            DataSet ds = new DataSet();
+            GMSGeneralDALC ggdal = new GMSGeneralDALC();
+            string ProductCode = "";
+            string ProductName = "";
+            string ProductGroupCode = "";
+            int Brand = 0;
+            if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) &&
+                string.IsNullOrEmpty(ddlSearchBrandName.SelectedValue))
+            {
+                this.MsgPanel2.ShowMessage("Please input product to export", MessagePanelControl.MessageEnumType.Alert);
+            }else{
+                ProductCode = "%" + txtProductCode.Text.Trim() + "%";
+                ProductName = "%" + txtProductName.Text.Trim() + "%";
+                ProductGroupCode = "%" + ddlSearchProductGroup.SelectedValue + "%";
+                Brand = int.Parse(ddlSearchBrandName.SelectedValue);
+            }
+            try
+            {
+                ggdal.RetrieveProductPrice(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds);
+                if ((ds != null))
+                {
+                    int i = 1;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        row = sheet1.CreateRow(i);
+                        string si = (i + 1).ToString();
+
+                        row.CreateCell(0).SetCellValue(i);
+                        row.CreateCell(1).SetCellValue(dr["ModelNo"].ToString());
+                        row.CreateCell(2).SetCellValue(dr["FullName"].ToString());
+                        row.CreateCell(3).SetCellValue(dr["ProductName"].ToString());
+                        row.CreateCell(4).SetCellValue(dr["ProductCode"].ToString());
+                        
+                        if (uAccess != null)
+                        {
+                            string stockBalance;
+                            stockBalance = getLiveStockBalance(dr["ProductCode"].ToString());//get live stock balance
+                            row.CreateCell(5).SetCellValue(dr["WeightedCost"].ToString() == "" ? 0 : Double.Parse(dr["WeightedCost"].ToString()));
+                            row.CreateCell(6).SetCellValue(dr["DealerPrice"].ToString() == "" ? 0 : Double.Parse(dr["DealerPrice"].ToString()));
+                            row.CreateCell(7).SetCellValue(dr["DPercent"].ToString() == "" ? 0 : Double.Parse(dr["DPercent"].ToString()));
+                            row.CreateCell(8).SetCellValue(dr["UserPrice"].ToString() == "" ? 0 : Double.Parse(dr["UserPrice"].ToString()));
+                            row.CreateCell(9).SetCellValue(dr["UPercent"].ToString() == "" ? 0 : Double.Parse(dr["UPercent"].ToString()));
+                            row.CreateCell(10).SetCellValue(dr["RetailPrice"].ToString() == "" ? 0 : Double.Parse(dr["RetailPrice"].ToString()));
+                            row.CreateCell(11).SetCellValue(dr["RPercent"].ToString() == "" ? 0 : Double.Parse(dr["RPercent"].ToString()));
+                            row.CreateCell(12).SetCellValue(dr["averagePrice"].ToString() == "" ? 0 : Double.Parse(dr["averagePrice"].ToString()));
+                            row.CreateCell(13).SetCellValue(dr["LTMamount"].ToString() == "" ? 0 : Double.Parse(dr["LTMamount"].ToString()));
+                            row.CreateCell(14).SetCellValue(stockBalance.ToString() == "" ? 0 : Double.Parse(stockBalance.ToString()));
+                            row.CreateCell(15).SetCellValue(dr["UpdatedDate"].ToString());
+                        }else{
+                            row.CreateCell(5).SetCellValue(dr["DealerPrice"].ToString() == "" ? 0 : Double.Parse(dr["DealerPrice"].ToString()));
+                            row.CreateCell(6).SetCellValue(dr["UserPrice"].ToString() == "" ? 0 : Double.Parse(dr["UserPrice"].ToString()));
+                            row.CreateCell(7).SetCellValue(dr["RetailPrice"].ToString() == "" ? 0 : Double.Parse(dr["RetailPrice"].ToString()));
+                        }
+                        i++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+            }
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + fileName);
+            Response.ContentType = "application/vnd.ms-excel";
+            GetExcelStream().WriteTo(Response.OutputStream);
+            Response.Flush();
+            Response.End();
+        }
+        #endregion
+
+        MemoryStream GetExcelStream()
+        {
+            //Write the stream data of workbook to the root directory
+            MemoryStream file = new MemoryStream();
+            hssfworkbook.Write(file);
+            return file;
+        }
 
         #region DataGrid1 PageIndexChanged event handling
         protected void DataGrid1_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
@@ -114,87 +232,7 @@ namespace GMSWeb.Sales.Sales
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Label lblStockStatus = (Label)e.Item.FindControl("lblStockStatus");
                 HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
-
-                #region Retrieve live stock balance
-                bool isGasDivision = false;
-                bool isWeldingDivision = false;
-                bool canAccessProductStatus = false;
-                DataSet ds_lms = new DataSet();
-                DataSet ds = new DataSet();
-                try
-                {
-                    if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
-                    {
-                        GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
-                        if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
-                        {
-                            sc.Url = session.WebServiceAddress.Trim();
-                        }
-                        else
-                            sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
-                        ds = sc.GetProductStockStatus(session.CompanyId, hidProductCode.Value.Trim());
-                    }
-                    else if (session.StatusType.ToString() == "L")
-                    {
-                        CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
-                        if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
-                        {
-                            sc1.Url = session.CMSWebServiceAddress.Trim();
-                        }
-                        else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        ds = sc1.GetProductWarehouse(hidProductCode.Value.Trim());
-                    }
-                    else if (session.StatusType.ToString() == "S")
-                    {
-
-                        string query = "CALL \"AF_API_GET_SAP_STOCK_STATUS\" ('" + hidProductCode.Value.Trim() + "', '', '', '', '', '2099-12-31', 'Y')";
-                        SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
-                        ds = sop.GET_SAP_QueryData(session.CompanyId, query,
-                        "ItemCode", "Warehouse", "OnHand", "Committed", "Quantity", "WarehouseName", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
-                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    this.JScriptAlertMsg(ex.Message);
-                }
-                DivisionUser du = DivisionUser.RetrieveByKey(session.CompanyId, session.UserId);
-                if (du != null)
-                {
-                    if (du.DivisionID == "GAS" && isGasDivision)
-                    {
-                        canAccessProductStatus = true;
-                    }
-                    else if (du.DivisionID == "WSD" && isWeldingDivision)
-                    {
-                        canAccessProductStatus = true;
-                    }
-                }
-                else
-                    canAccessProductStatus = true;
-
-                if (canAccessProductStatus && ((ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)))
-                {
-
-                    if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in ds.Tables[0].Rows)
-                        {
-                            if (dr["Quantity"].ToString() != "0" && Decimal.Round(Convert.ToDecimal(dr["Quantity"]), 6).ToString() != "0.000000")
-                                lblStockStatus.Text = lblStockStatus.Text +  Decimal.Round(Convert.ToDecimal(dr["Quantity"]), 6).ToString() + "<br>";
-                        }
-                    }
-                    
-                    if (lblStockStatus.Text.Length >= 4)
-                        lblStockStatus.Text = lblStockStatus.Text.Substring(0, lblStockStatus.Text.Length - 4);
-
-                    if(string.IsNullOrEmpty(lblStockStatus.Text))
-                        lblStockStatus.Text = "0";
-                }
-                #endregion
 
                 foreach (DataGridItem item in DataGrid1.Items)
                 {   //add id for each row for drag & drop to save order
@@ -211,6 +249,7 @@ namespace GMSWeb.Sales.Sales
                 {   //disable column & edit function for sales person
                     this.DataGrid1.ShowFooter = false;
                     this.DataGrid1.Attributes.Add("style","pointer-events: none");
+                    this.DataGrid1.Columns[5].Visible = false;
                     this.DataGrid1.Columns[7].Visible = false;
                     this.DataGrid1.Columns[9].Visible = false;
                     this.DataGrid1.Columns[11].Visible = false;
@@ -219,6 +258,10 @@ namespace GMSWeb.Sales.Sales
                     this.DataGrid1.Columns[14].Visible = false;
                     this.DataGrid1.Columns[15].Visible = false;
                     this.DataGrid1.Columns[16].Visible = false;
+                }else
+                {   //get live stock balance only when needed
+                    Label lblStockStatus = (Label)e.Item.FindControl("lblStockStatus");
+                    lblStockStatus.Text = getLiveStockBalance(hidProductCode.Value.Trim());
                 }
             }
         }
@@ -511,6 +554,88 @@ namespace GMSWeb.Sales.Sales
                     ggdal.UpdateProductPriceOrder(ListID[i], i+1);
                 }
             }
+        }
+        #endregion
+
+        #region GetProductLiveStockBalance
+        private string getLiveStockBalance(string productCode)
+        {
+            LogSession session = base.GetSessionInfo();
+            string stockBalanceText = "";
+            DataSet ds = new DataSet();
+            DataSet ds1 = new DataSet();
+            try
+            {
+                if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
+                {
+                    GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
+                    if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
+                    {
+                        sc.Url = session.WebServiceAddress.Trim();
+                    }
+                    else
+                        sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
+
+                    ds = sc.GetProductFullDetail(session.CompanyId, productCode, "%%", "%%", "%%");
+                }
+                else if (session.StatusType.ToString() == "L")
+                {
+                    CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
+                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.CMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L")
+                        ds = sc1.GetProductFullDetail(productCode, "%%", "%%", "%%", "%%");
+
+                    if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.GASLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L" && session.GASLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetail(productCode, "%%", "%%", "%%", "%%");
+
+                    if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.WSDLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L" && session.WSDLMSWebServiceAddress.Trim() != "")
+                        ds1 = sc1.GetProductFullDetail(productCode, "%%", "%%", "%%", "%%");
+                }
+                else if (session.StatusType.ToString() == "S")
+                {
+                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode + "', '', '', '', '', '')";
+                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    DataView dvOri = new DataView(ds.Tables[0]);
+                    dvOri.RowFilter = "ProductName NOT LIKE '%DO NOT USE%'";
+                    DataTable dtOri = dvOri.ToTable();
+                    ds.Reset();
+                    ds.Tables.Add(dtOri);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.JScriptAlertMsg(ex.Message);
+            }
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (dr["OnHandQuantity"].ToString() != "0" && Decimal.Round(Convert.ToDecimal(dr["OnHandQuantity"]), 6).ToString() != "0.000000")
+                        stockBalanceText = stockBalanceText + Decimal.Round(Convert.ToDecimal(dr["OnHandQuantity"]), 6).ToString() + "<br>";
+                }
+
+                if (stockBalanceText.Length >= 4)
+                    stockBalanceText = stockBalanceText.Substring(0, stockBalanceText.Length - 4);
+
+                if (string.IsNullOrEmpty(stockBalanceText))
+                    stockBalanceText = "0";
+            }
+            return stockBalanceText;
         }
         #endregion
     }

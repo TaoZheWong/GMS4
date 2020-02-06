@@ -182,11 +182,15 @@ function ViewMultipleUOM()
 				try
 				{
 					new GMSGeneralDALC().GetProductPriceByProductCode(session.CompanyId, productCode, ref dsProductPrice);
-					if ((dsProductPrice != null))
+                    this.dgData4.Columns[1].HeaderText = "Dealer Price (" + session.DefaultCurrency + ")";
+                    this.dgData4.Columns[2].HeaderText = "User Price (" + session.DefaultCurrency + ")";
+                    this.dgData4.Columns[3].HeaderText = "Retail Price (" + session.DefaultCurrency + ")";
+                    if ((dsProductPrice != null))
 					{
 						this.dgData4.DataSource = dsProductPrice.Tables[0];
 						this.dgData4.DataBind();
-					}
+                       
+                    }
 				}
 				catch (Exception ex)
 				{
@@ -967,10 +971,10 @@ function ViewMultipleUOM()
 			}
 
 		}
-		#endregion
+        #endregion
 
-		#region dgData3_CreateCommand
-		protected void dgData3_CreateCommand(object sender, DataGridCommandEventArgs e)
+        #region dgData3_CreateCommand
+        protected void dgData3_CreateCommand(object sender, DataGridCommandEventArgs e)
 		{
 			if (e.CommandName == "Create")
 			{

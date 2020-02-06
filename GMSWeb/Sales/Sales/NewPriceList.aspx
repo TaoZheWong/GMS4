@@ -46,13 +46,15 @@
                             <asp:TextBox runat="server" ID="txtProductName" MaxLength="50" Columns="20" onfocus="select();"
                                 CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                     </div>
+                </div>
             </div>
         </div>
-       </div>
-        </div>
+    </div>
     <div class="panel-footer clearfix">
         <asp:Button ID="btnSearch" Text="Search" EnableViewState="False" runat="server" CssClass="pull-right btn btn-primary m-l-5" OnClick="btnSearch_Click"></asp:Button> 
+        <asp:Button ID="btnExport" Text="Export To Excel" EnableViewState="False" runat="server" CssClass="pull-right btn btn-success m-l-5" OnClick="btnExport_Click" Visible="false"></asp:Button> 
     </div>
+
      <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
         <ContentTemplate>
             <uctrl:MsgPanel ID="MsgPanel2" runat="server" EnableViewState="false" />
@@ -86,7 +88,7 @@
                             </ItemTemplate>
                         </asp:TemplateColumn>
 
-                        <asp:TemplateColumn HeaderText="Model No." HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Model No" HeaderStyle-Wrap="false">
                             <ItemTemplate>                             
                                 <%# Eval( "ModelNo")%>
                             </ItemTemplate>
