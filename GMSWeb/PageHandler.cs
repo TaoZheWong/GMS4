@@ -395,7 +395,7 @@ namespace GMSWeb
                     "</a>" +
                     "</li>" +
 
-                    "<li class='sub-latestpricelist'>" +
+                    "<li class='sub-newpricelist'>" +
                     "<a href=\"" + appPath + "/Sales/Sales/NewPriceList.aspx?CurrentLink=Sales\">" +
                     "<i class='ti-shopping-cart-full'></i>" +
                     "<span>New Price List</span>" +
