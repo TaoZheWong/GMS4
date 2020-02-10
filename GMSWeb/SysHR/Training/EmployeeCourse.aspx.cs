@@ -72,33 +72,27 @@ namespace GMSWeb.SysHR.Training
         {
             LogSession session = base.GetSessionInfo();
             IList<GMSCore.Entity.EmployeeCourse> lstECourse = null;
-
             string course = "%";
             if (!string.IsNullOrEmpty(txtSearchCourse.Text))
                 course = "%" + txtSearchCourse.Text.Trim() + "%";
-
             string employee = "%";
             if (!string.IsNullOrEmpty(txtSearchName.Text))
                 employee = "%" + txtSearchName.Text.Trim() + "%";
-
             string RegistrationStatus = "%";
             if (rbRegistrationStatusPending.Checked)
                 RegistrationStatus = "P";
             if (rbRegistrationStatusApproved.Checked)
                 RegistrationStatus = "A";
-
             string TEFStatus = "%";
             if (rbTEFStatusPending.Checked)
                 TEFStatus = "P";
             if (rbTEFStatusCompleted.Checked)
                 TEFStatus = "C";
-
             string PTEFStatus = "%";
             if (rbPTEFStatusPending.Checked)
                 PTEFStatus = "P";
             if (rbPTEFStatusCompleted.Checked)
                 PTEFStatus = "R";
-
             DateTime dFrom = GMSCoreBase.DEFAULT_NO_DATE.AddYears(3);
             DateTime dTo = GMSCoreBase.DEFAULT_NO_DATE.AddYears(3);
             if (GMSUtil.ToDate(dateFrom.Text) != GMSCore.GMSCoreBase.DEFAULT_NO_DATE || GMSUtil.ToDate(dateTo.Text) != GMSCore.GMSCoreBase.DEFAULT_NO_DATE)

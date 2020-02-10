@@ -107,14 +107,6 @@
                     </asp:Label>
                 </ItemTemplate>
             </asp:TemplateColumn>
-            <asp:TemplateColumn HeaderText="QR Code">
-                <ItemTemplate>
-                    <asp:Label ID="lblQR" runat="server">
-                        <asp:HyperLink ID="lnkTEF" runat="server" Target="_blank" NavigateUrl="TEFsignin.aspx" Visible='<%# (Eval("TEFList.Count").ToString() != "0") ? true : false %>'  CssClass="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="View">
-                            <i class="ti-search"></i> </asp:HyperLink>
-                    </asp:Label>
-                </ItemTemplate>
-            </asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Date From" >
                 <ItemTemplate>
                     <asp:Label ID="lblDateFrom" runat="server">
