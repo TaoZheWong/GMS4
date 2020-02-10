@@ -602,7 +602,7 @@ namespace GMSWeb.Reports.Report {
                     //ddlCurrency.SelectedIndexChanged += DropDownListCurrency_SelectedIndexChanged;
                     ddlCurrency.Items.Clear();
 
-                    ddlCurrency.Items.Add(new ListItem("DEFAULT", "1"));
+                    ddlCurrency.Items.Add(new ListItem("DEFAULT","1"));
                     ddlCurrency.Items.Add(new ListItem("SGD", "2"));
 
                     pnlParameter.Controls.Add(ddlCurrency);
@@ -876,7 +876,7 @@ namespace GMSWeb.Reports.Report {
                     txtStartDate.ID = "txtStartDate";
                     txtStartDate.Columns = 15;
                     txtStartDate.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
-                    txtStartDate.CssClass = "textbox";
+                    txtStartDate.CssClass = "form-control datepicker";
                     pnlParameter.Controls.Add(txtStartDate);
                     if (ViewState["txtStartDate"] == null)
                         ViewState["txtStartDate"] = txtStartDate.Text;
@@ -1022,6 +1022,7 @@ namespace GMSWeb.Reports.Report {
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
                     controlCount = controlCount + 1;
                 }
+
 
                 if (crReportDocument.ParameterFields["Currency"] != null && session.DefaultCurrency != "SGD") {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -1808,9 +1809,43 @@ namespace GMSWeb.Reports.Report {
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
                     controlCount = controlCount + 1;
                 }
+
+                if (crReportDocument.ParameterFields["ParentCode"] != null)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Parent Code :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    TextBox txtParentCode = new TextBox();
+                    txtParentCode.ID = "txtParentCode";
+                    txtParentCode.CssClass = "form-control";
+                    txtParentCode.Attributes["placeholder"] = "e.g. 21CYL-261-0";
+                    pnlParameter.Controls.Add(txtParentCode);
+                    if (ViewState["txtParentCode"] == null)
+                        ViewState["txtParentCode"] = "";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+                if (crReportDocument.ParameterFields["ProductGroup"] != null)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Group :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    TextBox txtProductGroup = new TextBox();
+                    txtProductGroup.ID = "txtProductGroup";
+                    txtProductGroup.CssClass = "form-control";
+                    txtProductGroup.Attributes["placeholder"] = "e.g. 21NEC-101";
+                    pnlParameter.Controls.Add(txtProductGroup);
+                    if (ViewState["txtProductGroup"] == null)
+                        ViewState["txtProductGroup"] = "";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
             }
-
-
 
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
@@ -2073,6 +2108,11 @@ namespace GMSWeb.Reports.Report {
                 if (crReportDocument.ParameterFields["Course Title"] != null)
                     ViewState["txtCourseTitle"] = ((TextBox)pnlParameter.FindControl("txtCourseTitle")).Text.ToString();
 
+                if (crReportDocument.ParameterFields["ParentCode"] != null)
+                    ViewState["txtParentCode"] = ((TextBox)pnlParameter.FindControl("txtParentCode")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["ProductGroup"] != null)
+                    ViewState["txtProductGroup"] = ((TextBox)pnlParameter.FindControl("txtProductGroup")).Text.ToString();
 
                 if (crReportDocument.ParameterFields["Invoice No"] != null)
                     ViewState["txtInvoiceNo"] = ((TextBox)pnlParameter.FindControl("txtInvoiceNo")).Text.ToString();
@@ -2434,6 +2474,12 @@ namespace GMSWeb.Reports.Report {
 
                     if (crReportDocument.ParameterFields["Course Title"] != null && ViewState["txtCourseTitle"] != null)
                         crReportDocument.SetParameterValue("Course Title", ViewState["txtCourseTitle"].ToString());
+
+                    if (crReportDocument.ParameterFields["ParentCode"] != null && ViewState["txtParentCode"] != null)
+                        crReportDocument.SetParameterValue("ParentCode", ViewState["txtParentCode"].ToString());
+
+                    if (crReportDocument.ParameterFields["ProductGroup"] != null && ViewState["txtProductGroup"] != null)
+                        crReportDocument.SetParameterValue("ProductGroup", ViewState["txtProductGroup"].ToString());
 
                     if (crReportDocument.ParameterFields["Invoice No"] != null && ViewState["txtInvoiceNo"] != null)
                         crReportDocument.SetParameterValue("Invoice No", ViewState["txtInvoiceNo"].ToString());
