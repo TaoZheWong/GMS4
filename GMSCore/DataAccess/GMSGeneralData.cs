@@ -4310,11 +4310,28 @@ namespace GMSCore
         #endregion
 
 
-        #region RetrieveProductPrice
-        public void RetrieveProductPrice(short companyId, int brand, string productCode, string productName,string productGroupCode, ref DataSet ds)
+        #region RetrieveProductPriceWithoutAgeingStock
+        public void RetrieveProductPriceWithoutAgeingStock(short companyId, int brand, string productCode, string productName,string productGroupCode, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
-            SqlCommand command = new SqlCommand("procAppProductPriceSelect", (SqlConnection)conn);
+            SqlCommand command = new SqlCommand("procAppProductPriceSelectExcludeAgeingStock", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Brand", SqlDbType.SmallInt).Value = brand;
+            command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+            command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = productName;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductPriceAgeingStock
+        public void RetrieveProductPriceAgeingStock(short companyId, int brand, string productCode, string productName, string productGroupCode, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceSelectAgeingStock", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@Brand", SqlDbType.SmallInt).Value = brand;

@@ -1109,18 +1109,29 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
-
                     /*
+                    string from4 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-3).ToString("yyyy-MM-dd");
+                    //string to4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-3).ToString("yyyy-MM-dd");
+                    string to4 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-2).AddDays(-1).ToString("yyyy-MM-dd");
+
                     string from3 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-2).ToString("yyyy-MM-dd");
-                    string to3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-2).ToString("yyyy-MM-dd");
+                    //string to3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-2).ToString("yyyy-MM-dd");
+                    string to3 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).AddDays(-1).ToString("yyyy-MM-dd");
 
                     string from1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
-                    string to1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-1).ToString("yyyy-MM-dd");
+                    //string to1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-1).ToString("yyyy-MM-dd");
+                    string to1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddDays(-1).ToString("yyyy-MM-dd");
+
                     string from2 = DateTime.Now.AddDays(1 - DateTime.Now.Day).ToString("yyyy-MM-dd");
                     string to2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
-                                        
+
+                    Console.WriteLine(from4 + " " + to4);
+                    Task_ImportDataJobTraveller(CoyID, from4, to4, sop);
+                    Console.WriteLine(from3 + " " + to3);
                     Task_ImportDataJobTraveller(CoyID, from3, to3, sop);
+                    Console.WriteLine(from1 + " " + to1);
                     Task_ImportDataJobTraveller(CoyID, from1, to1, sop);
+                    Console.WriteLine(from2 + " " + to2);
                     Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
                     */
 
@@ -1510,9 +1521,14 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete JobTraveller data in GMS...");
                     oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteJobTraveller");
                     string from1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
-                    string to1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-1).ToString("yyyy-MM-dd");
+                    string to1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddDays(-1).ToString("yyyy-MM-dd");
                     string from2 = DateTime.Now.AddDays(1 - DateTime.Now.Day).ToString("yyyy-MM-dd");
                     string to2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
+
+                    
+
+                  
+
                     Task_ImportDataJobTraveller(CoyID, from1, to1, sop);
                     Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
                 }                

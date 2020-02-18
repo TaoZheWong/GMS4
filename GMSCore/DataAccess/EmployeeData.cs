@@ -106,6 +106,18 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        public void GetEmployeeDataByNRIC(string nric,int courseSessionID ,ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppEmployeeSelectByNRIC", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@NRIC", SqlDbType.NVarChar).Value = nric;
+            command.Parameters.Add("@CourseSessionID", SqlDbType.SmallInt).Value = courseSessionID;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
         #endregion
     }
 }

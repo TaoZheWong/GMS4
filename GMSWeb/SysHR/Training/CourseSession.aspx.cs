@@ -181,5 +181,17 @@ namespace GMSWeb.SysHR.Training
             }
         }
         #endregion
+
+        protected void btnQRCode_Click(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            LinkButton btn = (LinkButton)sender;
+            DataGrid dg = (DataGrid)btn.Parent.Parent;
+            HtmlInputHidden hidCourseID = (HtmlInputHidden)dg.FindControl("CourseSessionID");
+
+           
+        }
+
+
     }
 }

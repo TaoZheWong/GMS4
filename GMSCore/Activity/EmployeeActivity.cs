@@ -36,7 +36,6 @@ namespace GMSCore.Activity
             return Employee.RetrieveFirst(stb.ToString());
         }
 
-       
         public Employee RetrieveEmployeeByCoyIDEmployeeID(short coyid, short ID)
         {
             QueryHelper helper = base.GetHelper();
@@ -55,6 +54,8 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Employee.Name"),
                                 helper.CleanValue(name));
+            stb.AppendFormat(" AND ({0} is null OR {0} <> {1}) ", helper.GetFieldName("Employee.IsInactive"),
+                                helper.CleanValue(true));
 
             return Employee.RetrieveFirst(stb.ToString());
         }
