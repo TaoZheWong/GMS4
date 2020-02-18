@@ -1269,6 +1269,33 @@ namespace GMSWeb.Reports.Report
 
             }
 
+            if (crReportDocument.ParameterFields["@DeliveryStatus"] != null || crReportDocument.ParameterFields["DeliveryStatus"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Delivery Status :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlDeliveryStatus = new DropDownList();
+                ddlDeliveryStatus.ID = "ddlDeliveryStatus";
+                ddlDeliveryStatus.CssClass = "form-control";
+                ddlDeliveryStatus.Items.Clear();
+
+                ddlDeliveryStatus.Items.Add(new ListItem("ALL", "ALL"));
+                ddlDeliveryStatus.Items.Add(new ListItem("ON TIME", "ON TIME"));
+                ddlDeliveryStatus.Items.Add(new ListItem("EXPEDITE", "EXPEDITE"));
+                ddlDeliveryStatus.Items.Add(new ListItem("LATE", "LATE"));
+                ddlDeliveryStatus.Items.Add(new ListItem("CLOSED", "CLOSED"));
+
+
+                pnlParameter.Controls.Add(ddlDeliveryStatus);
+                if (ViewState["ddlDeliveryStatus"] == null)
+                    ViewState["ddlDeliveryStatus"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
             if (crReportDocument.ParameterFields["@Doctype"] != null || crReportDocument.ParameterFields["DocType"] != null)
             {
 
@@ -2348,6 +2375,8 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlDocument"] = ((DropDownList)pnlParameter.FindControl("ddlDocument")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@TopNumber"] != null || crReportDocument.ParameterFields["TopNumber"] != null)
                 ViewState["ddlTopNumber"] = ((DropDownList)pnlParameter.FindControl("ddlTopNumber")).SelectedValue.ToString();
+            if (crReportDocument.ParameterFields["@DeliveryStatus"] != null || crReportDocument.ParameterFields["DeliveryStatus"] != null)
+                ViewState["ddlDeliveryStatus"] = ((DropDownList)pnlParameter.FindControl("ddlDeliveryStatus")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Category"] != null || crReportDocument.ParameterFields["Category"] != null)
                 ViewState["ddlCategory"] = ((DropDownList)pnlParameter.FindControl("ddlCategory")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
@@ -2690,6 +2719,10 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@TopNumber", ViewState["ddlTopNumber"].ToString());
                     if (crReportDocument.ParameterFields["TopNumber"] != null && ViewState["ddlTopNumber"] != null)
                         crReportDocument.SetParameterValue("TopNumber", ViewState["ddlTopNumber"].ToString());
+                    if (crReportDocument.ParameterFields["@DeliveryStatus"] != null && ViewState["ddlDeliveryStatus"] != null)
+                        crReportDocument.SetParameterValue("@DeliveryStatus", ViewState["ddlDeliveryStatus"].ToString());
+                    if (crReportDocument.ParameterFields["DeliveryStatus"] != null && ViewState["ddlDeliveryStatus"] != null)
+                        crReportDocument.SetParameterValue("DeliveryStatus", ViewState["ddlDeliveryStatus"].ToString());
                     if (crReportDocument.ParameterFields["@Category"] != null && ViewState["ddlCategory"] != null)
                         crReportDocument.SetParameterValue("@Category", ViewState["ddlCategory"].ToString());
                     if (crReportDocument.ParameterFields["Category"] != null && ViewState["ddlCategory"] != null)

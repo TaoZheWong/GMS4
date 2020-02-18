@@ -147,8 +147,8 @@
                 </div>
                 <div class="panel-body">
                     <table class="table table-condensed m-t-20">
-                        <tr>
-                            <td width="30%">
+                        <tr >
+                            <td width="30%" >
                             </td>
                             <td width="10%" align="center">
                                 Strongly Disagree

@@ -107,6 +107,16 @@
                     </asp:Label>
                 </ItemTemplate>
             </asp:TemplateColumn>
+            <asp:TemplateColumn HeaderText="QR Code">
+                <ItemTemplate>
+                    <asp:Label ID="lblView" runat="server">
+						<asp:Label ID="lblTEF" runat="server">
+                            <asp:HyperLink ID="lnkTEF" runat="server" Target="_blank" NavigateUrl='<%#"QRCode.aspx?COURSESESSIONID="+Eval("CourseSessionID")%>' CssClass="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="View QR Code">
+                                <i class="ti-search"></i> </asp:HyperLink>
+                        </asp:Label>	
+                    </asp:Label>
+                </ItemTemplate>
+            </asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Date From" >
                 <ItemTemplate>
                     <asp:Label ID="lblDateFrom" runat="server">

@@ -1828,19 +1828,19 @@ namespace GMSWeb.Reports.Report {
                     controlCount = controlCount + 1;
                 }
 
-                if (crReportDocument.ParameterFields["ProductGroup"] != null)
+                if (crReportDocument.ParameterFields["DirectMaterial"] != null)
                 {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Group :"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Direct Material/Resource Code :"));
                     pnlParameter.Controls.Add(new LiteralControl("</label>"));
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                    TextBox txtProductGroup = new TextBox();
-                    txtProductGroup.ID = "txtProductGroup";
-                    txtProductGroup.CssClass = "form-control";
-                    txtProductGroup.Attributes["placeholder"] = "e.g. 21NEC-101";
-                    pnlParameter.Controls.Add(txtProductGroup);
-                    if (ViewState["txtProductGroup"] == null)
-                        ViewState["txtProductGroup"] = "";
+                    TextBox txtDirectMaterial = new TextBox();
+                    txtDirectMaterial.ID = "txtDirectMaterial";
+                    txtDirectMaterial.CssClass = "form-control";
+                    txtDirectMaterial.Attributes["placeholder"] = "e.g. 21NEC-101";
+                    pnlParameter.Controls.Add(txtDirectMaterial);
+                    if (ViewState["txtDirectMaterial"] == null)
+                        ViewState["txtDirectMaterial"] = "";
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
                     controlCount = controlCount + 1;
@@ -2111,8 +2111,8 @@ namespace GMSWeb.Reports.Report {
                 if (crReportDocument.ParameterFields["ParentCode"] != null)
                     ViewState["txtParentCode"] = ((TextBox)pnlParameter.FindControl("txtParentCode")).Text.ToString();
 
-                if (crReportDocument.ParameterFields["ProductGroup"] != null)
-                    ViewState["txtProductGroup"] = ((TextBox)pnlParameter.FindControl("txtProductGroup")).Text.ToString();
+                if (crReportDocument.ParameterFields["DirectMaterial"] != null)
+                    ViewState["txtDirectMaterial"] = ((TextBox)pnlParameter.FindControl("txtDirectMaterial")).Text.ToString();
 
                 if (crReportDocument.ParameterFields["Invoice No"] != null)
                     ViewState["txtInvoiceNo"] = ((TextBox)pnlParameter.FindControl("txtInvoiceNo")).Text.ToString();
@@ -2478,8 +2478,8 @@ namespace GMSWeb.Reports.Report {
                     if (crReportDocument.ParameterFields["ParentCode"] != null && ViewState["txtParentCode"] != null)
                         crReportDocument.SetParameterValue("ParentCode", ViewState["txtParentCode"].ToString());
 
-                    if (crReportDocument.ParameterFields["ProductGroup"] != null && ViewState["txtProductGroup"] != null)
-                        crReportDocument.SetParameterValue("ProductGroup", ViewState["txtProductGroup"].ToString());
+                    if (crReportDocument.ParameterFields["DirectMaterial"] != null && ViewState["txtDirectMaterial"] != null)
+                        crReportDocument.SetParameterValue("DirectMaterial", ViewState["txtDirectMaterial"].ToString());
 
                     if (crReportDocument.ParameterFields["Invoice No"] != null && ViewState["txtInvoiceNo"] != null)
                         crReportDocument.SetParameterValue("Invoice No", ViewState["txtInvoiceNo"].ToString());

@@ -199,7 +199,7 @@ namespace GMSWeb.SysHR.Training
                     if (courseSession.Remarks != null)
                         txtRemarks.Text = courseSession.Remarks;
                     lnkCourseRegistration.NavigateUrl = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/CourseRegistration.aspx?COURSESESSIONID=" + courseSession.CourseSessionID;
-                    lnkCourseRegistration.Text = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/CourseRegistration.aspx?COURSESESSIONID=" + courseSession.CourseSessionID;
+                    lnkCourseRegistration.Text = "Click here to register new participants";
                 }
                 btnDuplicate.Visible = true;
                 btnAttendee.Visible = true;
@@ -472,7 +472,7 @@ namespace GMSWeb.SysHR.Training
                 txtOverseasMealCost.Text = "";
                 txtOverseasOthers.Text = "";
                 txtOverseasSDF.Text = "";
-                base.JScriptAlertMsg("Course cannot be found in database. Please check your course title or create the course first");
+                base.JScriptAlertMsg("Course cannot be found in database. Please check your course title or create the course first.");
                 return;
             }
         }

@@ -282,17 +282,7 @@ namespace GMSWeb.SysHR.Training
             #region Load By EmployeeCourseID
             if (hidEmployeeCourseID.Value != "")
             {
-                LogSession session = base.GetSessionInfo();
-                if (session == null)
-                {
-                    Response.Redirect("../../SessionTimeout.htm");
-                    return;
-                }
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                86);
-                if (uAccess == null)
-                    Response.Redirect("../../Unauthorized.htm");
-
+                
                 GMSCore.Entity.EmployeeCourse eCourse = GMSCore.Entity.EmployeeCourse.RetrieveByKey(GMSUtil.ToInt(hidEmployeeCourseID.Value));
                 if (eCourse != null && eCourse.TEFList != null && eCourse.TEFList.Count > 0)
                 {
@@ -712,17 +702,7 @@ namespace GMSWeb.SysHR.Training
         #region btnUpdate_Click
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            LogSession session = base.GetSessionInfo();
-            if (session == null)
-            {
-                Response.Redirect("../../SessionTimeout.htm");
-                return;
-            }
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            86);
-            if (uAccess == null)
-                Response.Redirect("../../Unauthorized.htm");
-
+           
             GMSCore.Entity.EmployeeCourse eCourse = GMSCore.Entity.EmployeeCourse.RetrieveByKey(GMSUtil.ToInt(hidEmployeeCourseID.Value));
             if (eCourse != null && eCourse.TEFList != null && eCourse.TEFList.Count > 0)
             {
