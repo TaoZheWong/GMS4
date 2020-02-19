@@ -1464,6 +1464,19 @@ namespace GMSCore.Activity
         }
         #endregion
 
+        #region RetrieveEmployeeListByEmployeeNo
+        public IList<Employee> RetrieveEmployeeListByEmployeeNo(string employeeNo)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} like {1} ", helper.GetFieldName("Employee.EmployeeNo"),
+                            helper.CleanValue("%" + employeeNo + "%"));
+            stb.AppendFormat(" AND ({0} is null OR {0} <> {1}) ", helper.GetFieldName("Employee.IsInactive"),
+                                helper.CleanValue(true));
+            return Employee.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC", helper.GetFieldName("Employee.EmployeeNo")));
+        }
+        #endregion
+
         #region RetrieveEmployeeListByEmployeeIDSortByEmployeeName
 
         public IList<Employee> RetrieveEmployeeListByEmployeeIDSortByEmployeeName(short employeeID)

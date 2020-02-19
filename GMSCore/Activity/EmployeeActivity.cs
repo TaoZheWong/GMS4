@@ -177,5 +177,17 @@ namespace GMSCore.Activity
             return ResultType.Ok;
         }
         #endregion
+
+        public Employee RetrieveEmployeeByEmployeeNo(string name)
+        {
+            QueryHelper helper = base.GetHelper();
+            StringBuilder stb = new StringBuilder(200);
+            stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("Employee.EmployeeNo"),
+                                helper.CleanValue(name));
+            stb.AppendFormat(" AND ({0} is null OR {0} <> {1}) ", helper.GetFieldName("Employee.IsInactive"),
+                                helper.CleanValue(true));
+
+            return Employee.RetrieveFirst(stb.ToString());
+        }
     }
 }
