@@ -482,6 +482,7 @@ namespace GMSWeb
                 "<li class='sub-hr'><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=HR Organisation &gt; Organisation Chart&PageTitle=Staff - Organisation Chart&ModuleCategoryID=18&ModuleCategoryName=CompanyHR\">Org Chart</a></li>" +
                 "<li class='sub-staff'><a href=\"" + appPath + "/SysHR/Staff/Staff.aspx?TYPE=CompanyHR\">Employee List</a></li>" +
                 "<li class='sub-add-staff'><a href=\"" + appPath + "/SysHR/Staff/AddNewStaff.aspx?TYPE=CompanyHR\">Add Employee</a></li>" +
+                "<li class='sub-update-photo'><a href=\"" + appPath + "/SysHR/Staff/PhotoIDUpdate.aspx?TYPE=CompanyHR\">Photo ID Update</a></li>" +
                 "</ul>" +
                 "</li>" +
 

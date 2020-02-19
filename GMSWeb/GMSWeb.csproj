@@ -1222,6 +1222,8 @@
     <Content Include="Sales\Sales\TeamSetup.aspx" />
     <Content Include="scripts\Common.js" />
     <Content Include="SiteHeader.ascx" />
+    <Content Include="SysHR\Staff\AutoCompleteEmployeeNo.asmx" />
+    <Content Include="SysHR\Staff\PhotoIDUpdate.aspx" />
     <Content Include="SysHR\Training\QRCode.aspx" />
     <Content Include="SysHR\Training\TEFsignin.aspx" />
     <Content Include="UsefulResources\Resources\ViewUsefulResources.aspx" />
@@ -2362,6 +2364,17 @@
     </Compile>
     <Compile Include="SysFinance\Administration\Exporter.aspx.designer.cs">
       <DependentUpon>Exporter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysHR\Staff\AutoCompleteEmployeeNo.asmx.cs">
+      <DependentUpon>AutoCompleteEmployeeNo.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SysHR\Staff\PhotoIDUpdate.aspx.cs">
+      <DependentUpon>PhotoIDUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysHR\Staff\PhotoIDUpdate.aspx.designer.cs">
+      <DependentUpon>PhotoIDUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysHR\Training\QRCode.aspx.cs">
       <DependentUpon>QRCode.aspx</DependentUpon>
