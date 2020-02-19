@@ -34,9 +34,6 @@
             padding: 25px 0;
             background: #eeeeee;
         }
-
-       
-
     </style>
 <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="udpEmpCourseUpdater">
 <ContentTemplate>
@@ -85,7 +82,7 @@
                         <div class="col-lg-12 panel-body p-t-20" style="background:#fff;">
                             <div class=" col-lg-6 col-sm-12 p-t-20 text-center">
                                 <div class="image-thumbnail-wrapper">
-                                     <asp:Image ID="Photo1" runat="server" CssClass="img-thumbnail" ImageUrl='<%#"MakeThumbnail.aspx?size=large&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"&t=" + new Random().NextDouble().ToString()  %>' /><br />
+                                     <asp:Image ID="Photo1" runat="server" height="350px" Width="263px" CssClass="img-thumbnail" ImageUrl='<%#"MakeThumbnail.aspx?size=small&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"&t=" + new Random().NextDouble().ToString()  %>' /><br />
                                 </div>
                             </div>
                             <div class=" col-lg-6 col-sm-12 text-center">

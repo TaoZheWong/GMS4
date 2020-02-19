@@ -20,7 +20,7 @@ namespace GMSWeb.SysHR.Staff
 {
     public partial class Staff : GMSBasePage
     {
-        protected int PageSize = 8;
+        protected int PageSize = 9;
 
         protected void Page_Load(object sender, EventArgs e)
         {

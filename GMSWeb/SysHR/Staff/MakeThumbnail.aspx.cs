@@ -21,20 +21,20 @@ namespace GMSWeb.SysHR.Staff
             System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath(path));
             int widthOrig = image.Width;
             int heightOrig = image.Height;
-            double fx = widthOrig / 85;
-            double fy = heightOrig / 108; // subsampling factors
+            double fx = widthOrig / 263;
+            double fy = heightOrig / 350; // subsampling factors
             if (Request.QueryString["size"] == "large")
             {
-                fx = widthOrig / 190;
-                fy = heightOrig / 220;
+                fx = widthOrig / 450;
+                fy = heightOrig / 600;
             }
             // must fit in thumbnail size
-            double f = Math.Max(fx, fy); if (f < 1) f = 1;
+            double f = Math.Min(fx, fy); if (f < 1) f = 1;
             int widthTh = (int)(widthOrig / f); int heightTh = (int)(heightOrig / f);
 
             System.Drawing.Image thumbnailImage = image.GetThumbnailImage(widthTh, heightTh, new System.Drawing.Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero);
             MemoryStream imageStream = new MemoryStream();
-            thumbnailImage.Save(imageStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            thumbnailImage.Save(imageStream, ImageFormat.Jpeg);
             byte[] imageContent = new Byte[imageStream.Length];
             imageStream.Position = 0;
             imageStream.Read(imageContent, 0, (int)imageStream.Length);

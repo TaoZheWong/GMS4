@@ -12,6 +12,28 @@
 		Staff <small>List of employees.</small>
 	</h1>
 <asp:ScriptManager ID="sriptmgr1" runat="server" />
+    <style>
+        .photoGrid {
+               height:175px;
+            }
+        .photoGridHead {
+               height:175px;
+            }
+        @media (max-width: 768px) {
+            .photoGrid {
+               height:225px;
+            }
+            .photoGridHead {
+               height:175px;
+            }
+        }
+        @media (max-width: 468px) {
+            .photoGridHead {
+               height:100px;
+            }
+        }
+
+    </style>
 <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="udpEmpCourseUpdater">
 <ContentTemplate>
     
@@ -104,12 +126,11 @@
             </FooterTemplate>
             <FooterStyle />
             <ItemTemplate>
-              
                 <div class="widget widget-card dynamic text-center" onclick='<%# "viewEmployeeDetail(" +Eval("EmployeeID")+");return false;" %>'>
                     <div class="widget-card-cover">
                         <div class="cover-bg"></div>
                     </div>
-                    <div class="widget-card-content inverse-mode profile-header-content">
+                    <div class="widget-card-content inverse-mode profile-header-content photoGridHead">
                         <div class="m-b-10 m-t-10 profile-header-img">
                              <asp:Image ID="Photo1" runat="server" ImageUrl='<%#"MakeThumbnail.aspx?size=small&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG"+"&t=" + new Random().NextDouble().ToString() %>' />
                         </div>
@@ -119,7 +140,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="widget-card-content bg-gray p-10">
+                    <div class="widget-card-content bg-gray p-10 photoGrid" >
                         <div class="row">
                              <div class="col-md-6 p-10">
                                 <div class="widget-title"><%# Eval("Designation") %></div>
@@ -144,12 +165,10 @@
                     </div>
                 </div>
 
-                <%#(Container.ItemIndex +1)%3 == 0 ? "<span class='clearfix'></span>":""%>
+                <%#(Container.ItemIndex+1)%3 == 0 ? "<span class='clearfix'></span>":""%>
                      
-
             </ItemTemplate>
         </asp:DataList>
-
     </div>
 </div>
 

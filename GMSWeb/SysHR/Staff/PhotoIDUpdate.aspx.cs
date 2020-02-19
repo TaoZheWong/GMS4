@@ -82,7 +82,7 @@ namespace GMSWeb.SysHR.Staff
                 Employee employee = null;
                 try
                 {
-                    employee = new EmployeeActivity().RetrieveEmployeeByEmployeeNo(this.txtEmployeeNo.Text.Trim());
+                    employee = new EmployeeActivity().RetrieveEmployeeByEmployeeNo(this.txtEmployeeNo.Text.Trim(),session.CompanyId.ToString());
                 }
                 catch (Exception ex)
                 {
