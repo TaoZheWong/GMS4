@@ -178,7 +178,7 @@ namespace GMSCore.Activity
         }
         #endregion
 
-        public Employee RetrieveEmployeeByEmployeeNo(string name)
+        public Employee RetrieveEmployeeByEmployeeNo(string name,string coyid)
         {
             QueryHelper helper = base.GetHelper();
             StringBuilder stb = new StringBuilder(200);
@@ -186,6 +186,8 @@ namespace GMSCore.Activity
                                 helper.CleanValue(name));
             stb.AppendFormat(" AND ({0} is null OR {0} <> {1}) ", helper.GetFieldName("Employee.IsInactive"),
                                 helper.CleanValue(true));
+            stb.AppendFormat(" AND {0} = {1} ", helper.GetFieldName("Employee.CoyID"),
+                                helper.CleanValue(coyid));
 
             return Employee.RetrieveFirst(stb.ToString());
         }
