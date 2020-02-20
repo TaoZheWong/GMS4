@@ -107,7 +107,7 @@
                                 <div class="image-thumbnail-wrapper">
                                     <a style="height: 200px; width: 200px;" href='<%#"../../Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"?t=" + new Random().NextDouble().ToString() %>'
                                         target="_blank">
-                                        <asp:Image ID="Photo1" runat="server" CssClass="img-thumbnail" ImageUrl='<%#"MakeThumbnail.aspx?size=large&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"&t=" + new Random().NextDouble().ToString()  %>' /></a>
+                                        <asp:Image ID="Photo1" runat="server" height="300px" Width="225px" CssClass="img-thumbnail" ImageUrl='<%#"MakeThumbnail.aspx?size=large&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"&t=" + new Random().NextDouble().ToString()  %>' /></a>
                                 </div>
                             </div>
                             <div class=" col-lg-9 col-sm-12">
@@ -245,7 +245,7 @@
                             <input type="hidden" id="hidCoyID" runat="server" value='<%# Eval("CoyID")%>' />
                             <div class=" col-lg-3 col-sm-12 no-padding text-center">
                                 <div class="image-thumbnail-wrapper">
-                                    <asp:Image ID="Photo1" runat="server" CssClass="img-thumbnail" ImageUrl='<%#"MakeThumbnail.aspx?size=large&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"&t=" + new Random().NextDouble().ToString()  %>' /><br />
+                                    <asp:Image ID="Photo1" runat="server" CssClass="img-thumbnail" height="300px" Width="225px" ImageUrl='<%#"MakeThumbnail.aspx?size=large&path=" + Request.ApplicationPath + "/Data/HR/Photo/"+Eval("EmployeeID")+".JPG" +"&t=" + new Random().NextDouble().ToString()  %>' /><br />
                                 </div>
                                 <div class="input-group" style="border: none">
                                     <input type="text" class="form-control" readonly  style="border-radius: 0 ; border:none;" placeholder="Select a photo"/>
