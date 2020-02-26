@@ -31,6 +31,7 @@
 		        <asp:TemplateColumn HeaderText="Trn Date">
 				    <ItemTemplate>       
                    <%# hidStatusType.Value == "S" ? DateTime.ParseExact(Eval("TrnDate").ToString(), "M/d/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture).ToString("dd-MMM-yyyy"):DateTime.Parse(Eval("TrnDate").ToString()).ToString("dd-MMM-yyyy")%> 
+                    
 			    </ItemTemplate>
 			    </asp:TemplateColumn>
 			    
