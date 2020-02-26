@@ -61,13 +61,15 @@ namespace GMSWeb.Products.Products
 
             LoadData();
  
-            hidStatusType.Value = session.StatusType.ToString();
+            //hidStatusType.Value = session.StatusType.ToString();
 
         }
 
         protected void LoadData()
         {
             LogSession session = base.GetSessionInfo();
+
+            hidStatusType.Value = session.StatusType.ToString();
 
             DataSet ds = new DataSet();
             DataSet ds1 = new DataSet();

@@ -1296,6 +1296,87 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+            if (crReportDocument.ParameterFields["@TrnDateType"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Credit Term :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlTrnDateType = new DropDownList();
+                ddlTrnDateType.ID = "ddlTrnDateType";
+                ddlTrnDateType.CssClass = "form-control";
+                ddlTrnDateType.Items.Clear();
+                ddlTrnDateType.Items.Add(new ListItem("Default (Without Credit Term)", "Default"));
+                ddlTrnDateType.Items.Add(new ListItem("With Credit Term", "CreditDate"));
+
+                pnlParameter.Controls.Add(ddlTrnDateType);
+                if (ViewState["ddlTrnDateType"] == null)
+                    ViewState["ddlTrnDateType"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+            }
+
+            if (crReportDocument.ParameterFields["@DivisionType"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Division :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlDivision = new DropDownList();
+                ddlDivision.ID = "ddlDivision";
+                ddlDivision.CssClass = "form-control";
+                ddlDivision.Items.Clear();
+                short coyid = session.CompanyId;
+                if (coyid == 120)
+                {
+                    ddlDivision.Items.Add(new ListItem("Default", "GAS & WSD"));
+                    ddlDivision.Items.Add(new ListItem("GAS", "GAS"));
+                    ddlDivision.Items.Add(new ListItem("WSD", "WSD"));
+                }else if (coyid == 104)
+                {
+                    ddlDivision.Items.Add(new ListItem("Default", "LGS & NIT"));
+                    ddlDivision.Items.Add(new ListItem("LGS", "LGS"));
+                    ddlDivision.Items.Add(new ListItem("NIT", "NIT"));
+                }else if (coyid == 17)
+                {
+                    ddlDivision.Items.Add(new ListItem("Default", "AS,SP,BM,BS,IP,TI,SA,JB,KY,LSBMT,LSBM & RW"));
+                    ddlDivision.Items.Add(new ListItem("AS", "AS"));
+                    ddlDivision.Items.Add(new ListItem("SP", "SP"));
+                    ddlDivision.Items.Add(new ListItem("BM", "BM"));
+                    ddlDivision.Items.Add(new ListItem("BS", "BS"));
+                    ddlDivision.Items.Add(new ListItem("IP", "IP"));
+                    ddlDivision.Items.Add(new ListItem("TI", "TI"));
+                    ddlDivision.Items.Add(new ListItem("SA", "SA"));
+                    ddlDivision.Items.Add(new ListItem("JB", "JB"));
+                    ddlDivision.Items.Add(new ListItem("KT", "KT"));
+                    ddlDivision.Items.Add(new ListItem("LSBMT", "LSBMT"));
+                    ddlDivision.Items.Add(new ListItem("LSBM", "LSBM"));
+                    ddlDivision.Items.Add(new ListItem("RW", "RW"));
+                }
+                else if (coyid == 20)
+                {
+                    ddlDivision.Items.Add(new ListItem("Default", "MMI & MALACCA"));
+                    ddlDivision.Items.Add(new ListItem("MMI", "MMI"));
+                    ddlDivision.Items.Add(new ListItem("MALACCA", "MALACCA"));
+                }else
+                {
+                    ddlDivision.Items.Add(new ListItem("Default", "Default"));
+                }
+
+
+                pnlParameter.Controls.Add(ddlDivision);
+                if (ViewState["ddlDivision"] == null)
+                    ViewState["ddlDivision"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+            }
+
             if (crReportDocument.ParameterFields["@Doctype"] != null || crReportDocument.ParameterFields["DocType"] != null)
             {
 
@@ -2536,6 +2617,12 @@ namespace GMSWeb.Reports.Report
             if (crReportDocument.ParameterFields["@TransactionType"] != null)
                 ViewState["ddlTT"] = ((DropDownList)pnlParameter.FindControl("ddlTT")).SelectedValue.ToString();
 
+            if (crReportDocument.ParameterFields["@TrnDateType"] != null)
+                ViewState["ddlTrnDateType"] = ((DropDownList)pnlParameter.FindControl("ddlTrnDateType")).SelectedValue.ToString();
+
+            if (crReportDocument.ParameterFields["@DivisionType"] != null)
+                ViewState["ddlDivision"] = ((DropDownList)pnlParameter.FindControl("ddlDivision")).SelectedValue.ToString();
+
             if (crReportDocument.ParameterFields["Brand 1"] != null)
             {
 
@@ -2926,6 +3013,12 @@ namespace GMSWeb.Reports.Report
 
                     if (crReportDocument.ParameterFields["@CompanyCode"] != null)
                         crReportDocument.SetParameterValue("@CompanyCode", ViewState["ddlCompanyCode"].ToString());
+
+                    if (crReportDocument.ParameterFields["@TrnDateType"] != null && ViewState["ddlTrnDateType"] != null)
+                        crReportDocument.SetParameterValue("@TrnDateType", ViewState["ddlTrnDateType"].ToString());
+
+                    if (crReportDocument.ParameterFields["@DivisionType"] != null && ViewState["ddlDivision"] != null)
+                        crReportDocument.SetParameterValue("@DivisionType", ViewState["ddlDivision"].ToString());
 
                     if (crReportDocument.ParameterFields["Brand 1"] != null)
                     {
