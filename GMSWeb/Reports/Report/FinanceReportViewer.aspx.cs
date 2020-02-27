@@ -413,6 +413,89 @@ namespace GMSWeb.Reports.Report {
 
             }
             else if (fileDescription == "F" && !IsCOA2016) {
+
+                if (crReportDocument.ParameterFields["@StartDate"] != null || crReportDocument.ParameterFields["@StartDate"] != null)
+                {
+
+                    // add new control
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Start Date :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"input-group date\">"));
+                    TextBox txtStartDate = new TextBox();
+                    txtStartDate.ID = "txtStartDate";
+                    txtStartDate.Columns = 15;
+                    txtStartDate.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
+                    txtStartDate.CssClass = "form-control datepicker";
+                    pnlParameter.Controls.Add(txtStartDate);
+                    if (ViewState["txtStartDate"] == null)
+                        ViewState["txtStartDate"] = txtStartDate.Text;
+                    pnlParameter.Controls.Add(new LiteralControl("<span class=\"input-group-addon\"><i class=\"ti-calendar\"></i></span>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+                if (crReportDocument.ParameterFields["@EndDate"] != null || crReportDocument.ParameterFields["@EndDate"] != null)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">End Date :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"input-group date\">"));
+                    TextBox txtEndDate = new TextBox();
+                    txtEndDate.ID = "txtEndDate";
+                    txtEndDate.Columns = 15;
+                    txtEndDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                    txtEndDate.CssClass = "form-control datepicker";
+                    pnlParameter.Controls.Add(txtEndDate);
+                    if (ViewState["txtEndDate"] == null)
+                        ViewState["txtEndDate"] = txtEndDate.Text;
+                    pnlParameter.Controls.Add(new LiteralControl("<span class=\"input-group-addon\"><i class=\"ti-calendar\"></i></span>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+                if (crReportDocument.ParameterFields["ParentCode"] != null)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Parent Code :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    TextBox txtParentCode = new TextBox();
+                    txtParentCode.ID = "txtParentCode";
+                    txtParentCode.CssClass = "form-control";
+                    txtParentCode.Attributes["placeholder"] = "e.g. 21CYL-261-0";
+                    pnlParameter.Controls.Add(txtParentCode);
+                    if (ViewState["txtParentCode"] == null)
+                        ViewState["txtParentCode"] = "";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+                if (crReportDocument.ParameterFields["DirectMaterial"] != null)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Direct Material/Resource Code :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    TextBox txtDirectMaterial = new TextBox();
+                    txtDirectMaterial.ID = "txtDirectMaterial";
+                    txtDirectMaterial.CssClass = "form-control";
+                    txtDirectMaterial.Attributes["placeholder"] = "e.g. 21NEC-101";
+                    pnlParameter.Controls.Add(txtDirectMaterial);
+                    if (ViewState["txtDirectMaterial"] == null)
+                        ViewState["txtDirectMaterial"] = "";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
                 if (crReportDocument.ParameterFields["@Date"] != null || crReportDocument.ParameterFields["@AsOfDate"] != null) {
                     // add new control
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -2001,6 +2084,18 @@ namespace GMSWeb.Reports.Report {
 
                 if (crReportDocument.ParameterFields["@CompanyCode"] != null)
                     ViewState["ddlCompanyCode"] = ((DropDownList)pnlParameter.FindControl("ddlCompanyCode")).SelectedValue.ToString();
+
+                if (crReportDocument.ParameterFields["ParentCode"] != null)
+                    ViewState["txtParentCode"] = ((TextBox)pnlParameter.FindControl("txtParentCode")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["DirectMaterial"] != null)
+                    ViewState["txtDirectMaterial"] = ((TextBox)pnlParameter.FindControl("txtDirectMaterial")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["@StartDate"] != null)
+                    ViewState["txtStartDate"] = ((TextBox)pnlParameter.FindControl("txtStartDate")).Text.ToString();
+
+                if (crReportDocument.ParameterFields["@EndDate"] != null)
+                    ViewState["txtEndDate"] = ((TextBox)pnlParameter.FindControl("txtEndDate")).Text.ToString();
             }
             else {
                 if (crReportDocument.ParameterFields["@Year"] != null)
@@ -2306,6 +2401,18 @@ namespace GMSWeb.Reports.Report {
 
                     if (crReportDocument.ParameterFields["@CompanyCode"] != null)
                         crReportDocument.SetParameterValue("@CompanyCode", ViewState["ddlCompanyCode"].ToString());
+
+                    if (crReportDocument.ParameterFields["@StartDate"] != null && ViewState["txtStartDate"] != null)
+                        crReportDocument.SetParameterValue("@StartDate", GMSUtil.ToDate(ViewState["txtStartDate"]));
+
+                    if (crReportDocument.ParameterFields["@EndDate"] != null && ViewState["txtEndDate"] != null)
+                        crReportDocument.SetParameterValue("@EndDate", GMSUtil.ToDate(ViewState["txtEndDate"]));
+
+                    if (crReportDocument.ParameterFields["ParentCode"] != null && ViewState["txtParentCode"] != null)
+                        crReportDocument.SetParameterValue("ParentCode", ViewState["txtParentCode"].ToString());
+
+                    if (crReportDocument.ParameterFields["DirectMaterial"] != null && ViewState["txtDirectMaterial"] != null)
+                        crReportDocument.SetParameterValue("DirectMaterial", ViewState["txtDirectMaterial"].ToString());
                 }
                 else {
                     if (crReportDocument.ParameterFields["@Year"] != null && ViewState["ddlYear"] != null)
