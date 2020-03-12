@@ -20,8 +20,10 @@
         <p>If data has been existed for the year specified below, it will be overwritten. See the following files for examples:</p>
         <br />
         <ul>
-            <li><a href="<%= Request.ApplicationPath %>/Documents/Audit_BalanceSheet.xls">Audit_BalanceSheet.xls</a></li>
             <li><a href="<%= Request.ApplicationPath %>/Documents/Audit_P&L_Company.xls">Audit_P&L_Company.xls</a></li>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/Audit_P&L_Detailed_Company.xls">Audit_P&L_Detailed_Company.xls</a></li>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/Audit_BalanceSheet.xls">Audit_BalanceSheet.xls</a></li>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/Audit_BalanceSheet_Detailed.xls">Audit_BalanceSheet_Detailed.xls</a></li>     
         </ul>
     </div>
     

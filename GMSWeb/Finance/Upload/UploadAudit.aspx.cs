@@ -64,8 +64,11 @@ namespace GMSWeb.Finance.Upload
                        
             this.ddlPurpose.DataSource = lstPurpose;
             this.ddlPurpose.DataBind();
-            this.ddlPurpose.Items.Insert(0, new ListItem("Balance Sheet", "4"));
-            this.ddlPurpose.Items.Insert(0, new ListItem("P & L", "1"));
+            this.ddlPurpose.Items.Insert(0, new ListItem("Balance Sheet Detailed", "4"));
+            this.ddlPurpose.Items.Insert(0, new ListItem("Balance Sheet", "3")); 
+            this.ddlPurpose.Items.Insert(0, new ListItem("P & L Detailed", "2"));
+            this.ddlPurpose.Items.Insert(0, new ListItem("P & L", "1"));                 
+
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)

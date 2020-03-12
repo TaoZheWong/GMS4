@@ -1000,17 +1000,33 @@ namespace GMSWeb.Organization.Upload
                             ResultType result = new AuditActivity().DeleteAuditByYearItemID(this.year, item.ItemID, sess.CompanyId);
                             if (result == ResultType.Ok)
                             {
+                                
                                 #region insert for each row
                                 FinanceAuditData audit = new FinanceAuditData();
-                                audit.CoyID = sess.CompanyId;
-                                audit.TbYear = this.year; 
-                                audit.ItemID = item.ItemID; 
-                                audit.Total = GMSUtil.ToFloat(dsExcel.Tables[0].Rows[i]["Total"].ToString());
 
+                                IList<ItemPurpose> lstPurpose = new List<ItemPurpose>();
+                                if (itemPurposeId == 1 || itemPurposeId == 2)
+                                {
+
+                                    audit.CoyID = sess.CompanyId;
+                                    audit.TbYear = this.year;
+                                    audit.ItemID = item.ItemID;
+                                    audit.Total = GMSUtil.ToFloat(dsExcel.Tables[0].Rows[i]["MTD"].ToString());
+                                    audit.YTD = GMSUtil.ToFloat(dsExcel.Tables[0].Rows[i]["YTD"].ToString());
+                                }
+                                else {
+                                    audit.CoyID = sess.CompanyId;
+                                    audit.TbYear = this.year;
+                                    audit.ItemID = item.ItemID;
+                                    audit.YTD = GMSUtil.ToFloat(dsExcel.Tables[0].Rows[i]["YTD"].ToString());
+                                }
+                            
                                 Response.Output.Write("Inserting Audit detail for Item Name: '" + item.ItemName + "' ...<br>");
                                 Response.Flush();
 
-                                if (audit.Total != 0)
+
+
+                                if (audit.Total != 0 || audit.YTD != 0)
                                 {
                                     try
                                     {
