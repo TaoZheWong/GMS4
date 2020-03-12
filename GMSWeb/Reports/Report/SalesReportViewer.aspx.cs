@@ -184,7 +184,6 @@ namespace GMSWeb.Reports.Report
                     ddlSalesPersonID.Items.Add(new ListItem(dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString() + " - " + dsSalesPerson.Tables[0].Rows[j]["SalesPersonName"].ToString(), dsSalesPerson.Tables[0].Rows[j]["SalesPersonID"].ToString()));
                 }
             }
-
             ViewState["ddlDepartment"] = dept;
         }
 
@@ -997,7 +996,6 @@ namespace GMSWeb.Reports.Report
 
             if (crReportDocument.ParameterFields["Customer Account Code"] != null || crReportDocument.ParameterFields["@AccountCode"] != null)
             {
-
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                 pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Customer Code :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
@@ -1017,7 +1015,6 @@ namespace GMSWeb.Reports.Report
 
             if (crReportDocument.ParameterFields["Customer Account Name"] != null || crReportDocument.ParameterFields["Customer Name"] != null)
             {
-
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                 pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Customer Name :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
@@ -1330,20 +1327,18 @@ namespace GMSWeb.Reports.Report
                 ddlDivision.ID = "ddlDivision";
                 ddlDivision.CssClass = "form-control";
                 ddlDivision.Items.Clear();
+                ddlDivision.Items.Add(new ListItem("Default", "Default"));
                 short coyid = session.CompanyId;
                 if (coyid == 120)
                 {
-                    ddlDivision.Items.Add(new ListItem("Default", "GAS & WSD"));
                     ddlDivision.Items.Add(new ListItem("GAS", "GAS"));
                     ddlDivision.Items.Add(new ListItem("WSD", "WSD"));
                 }else if (coyid == 104)
                 {
-                    ddlDivision.Items.Add(new ListItem("Default", "LGS & NIT"));
                     ddlDivision.Items.Add(new ListItem("LGS", "LGS"));
                     ddlDivision.Items.Add(new ListItem("NIT", "NIT"));
                 }else if (coyid == 17)
                 {
-                    ddlDivision.Items.Add(new ListItem("Default", "AS,SP,BM,BS,IP,TI,SA,JB,KY,LSBMT,LSBM & RW"));
                     ddlDivision.Items.Add(new ListItem("AS", "AS"));
                     ddlDivision.Items.Add(new ListItem("SP", "SP"));
                     ddlDivision.Items.Add(new ListItem("BM", "BM"));
@@ -1359,14 +1354,9 @@ namespace GMSWeb.Reports.Report
                 }
                 else if (coyid == 20)
                 {
-                    ddlDivision.Items.Add(new ListItem("Default", "MMI & MALACCA"));
                     ddlDivision.Items.Add(new ListItem("MMI", "MMI"));
                     ddlDivision.Items.Add(new ListItem("MALACCA", "MALACCA"));
-                }else
-                {
-                    ddlDivision.Items.Add(new ListItem("Default", "Default"));
                 }
-
 
                 pnlParameter.Controls.Add(ddlDivision);
                 if (ViewState["ddlDivision"] == null)

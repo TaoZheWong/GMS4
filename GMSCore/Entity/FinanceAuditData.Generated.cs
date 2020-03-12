@@ -85,11 +85,26 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-		
-		#endregion
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public FinanceAuditData() : base()
+
+        private Nullable<double> _yTD;
+        ///<summary>Database mapping to column tbFinanceAuditData.Total</summary>
+        public Nullable<double> YTD
+        {
+            get { return _yTD; }
+            set
+            {
+                if (_yTD != value)
+                {
+                    _yTD = value;
+                    OnPropertyChanged("YTD");
+                }
+            }
+        }
+
+        #endregion
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public FinanceAuditData() : base()
 		{
 			// Default Constructor
 		}
@@ -149,8 +164,9 @@ namespace GMSCore.Entity
 					case "_tbYear": return _tbYear;
 					case "_itemID": return _itemID;
 					case "_total": return _total;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_yTD": return _yTD;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -163,8 +179,9 @@ namespace GMSCore.Entity
 					case "_tbYear": _tbYear = (Nullable<short>)value; break;
 					case "_itemID": _itemID = (Nullable<short>)value; break;
 					case "_total": _total = (Nullable<double>)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_yTD": _yTD = (Nullable<double>)value; break;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -182,9 +199,10 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_tbYear={0}\n,", _tbYear.ToString() );
 			stb.AppendFormat("_itemID={0}\n,", _itemID.ToString() );
 			stb.AppendFormat("_total={0}\n,", _total.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_yTD={0}\n,", _yTD.ToString());
+
+
+            return stb.ToString();
 		}
 		#endregion
 
