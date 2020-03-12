@@ -623,7 +623,7 @@ namespace GMSConApp
                         oDAL.GMS_Insert_SalesPerson(CoyID,
                         dr["salespersonid"].ToString(),
                         dr["salespersonname"].ToString(),
-                        ""
+                        "","",""
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person data insertion for " + i.ToString());
@@ -1103,7 +1103,7 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         if (dr["field15"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString());
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
                         else if (dr["field15"].ToString() == "B")
                             oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
                     }
@@ -1264,7 +1264,7 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         if (dr["field15"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString());
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
                         else if (dr["field15"].ToString() == "B")
                             oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
                     }
