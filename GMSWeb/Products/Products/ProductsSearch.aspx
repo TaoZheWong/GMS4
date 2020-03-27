@@ -7,11 +7,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 
     <ul class="breadcrumb pull-right">
-        <li><a href="#">Products</a></li>
+        <li><a href="#"><asp:Label ID="lblPageHeader" runat="server" /></a></li>
         <li class="active">Product Search</li>
     </ul>
     <h1 class="page-header">Product Search <br />
-        <small>Search existing product status in real time. This module directly linked to A21 system.</small></h1>
+        <small>Search existing product status in real time. This module directly linked to SAP/A21 system.</small></h1>
 
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -33,7 +33,20 @@
         </div>
         <div class="panel-body row">
             <div class="m-t-20">
-
+                <div class="form-group col-lg-4 col-md-6 col-sm-6 hidden">
+                    <label class="control-label">Category</label>
+                        <asp:TextBox runat="server" ID="TextBox1" MaxLength="20" Columns="20" onfocus="select();" CssClass="form-control" placeholder=""></asp:TextBox>
+                </div>
+                <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                    <label class="control-label">Brand Code</label>
+                        <asp:TextBox runat="server" ID="txtProductGroupCode" MaxLength="4" Columns="20" onfocus="select();"
+                            CssClass="form-control" placeholder="e.g. B11"></asp:TextBox>
+                </div>
+                <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                    <label class="control-label">Brand Name</label>
+                        <asp:TextBox runat="server" ID="txtProductGroup" MaxLength="50" Columns="20" onfocus="select();"
+                            CssClass="form-control" placeholder="e.g. BLUEMETALS"></asp:TextBox>
+                </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-6">
                     <label class="control-label">Product Code</label>
                         <asp:TextBox runat="server" ID="txtProductCode" MaxLength="20" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. B1110535616"></asp:TextBox>
@@ -43,22 +56,18 @@
                         <asp:TextBox runat="server" ID="txtProductName" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                 </div>
-                <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                <div class="form-group col-lg-4 col-md-6 col-sm-6 hidden">
+                    <label class="control-label">Product Manager</label>
+                        <asp:TextBox runat="server" ID="txtProductManager" MaxLength="50" Columns="20" onfocus="select();"
+                            CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="form-group col-lg-3 col-md-6 col-sm-6" hidden>
                     <label class="control-label">Product Foreign Name</label>
                         <asp:TextBox runat="server" ID="txtProductForeignName" MaxLength="50" Columns="20" onfocus="select();"
                                     CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                 </div>
-                <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Product Group Code</label>
-                        <asp:TextBox runat="server" ID="txtProductGroupCode" MaxLength="4" Columns="20" onfocus="select();"
-                            CssClass="form-control" placeholder="e.g. B11"></asp:TextBox>
-                </div>
-                <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Product Group Name</label>
-                        <asp:TextBox runat="server" ID="txtProductGroup" MaxLength="50" Columns="20" onfocus="select();"
-                            CssClass="form-control" placeholder="e.g. BLUEMETALS"></asp:TextBox>
-                </div>
-                <div class="form-group col-lg-3 col-md-6 col-sm-6">
+                
+                <div class="form-group col-lg-3 col-md-6 col-sm-6 hidden">
                     <label class="control-label">Warehouse</label>
                         <asp:TextBox runat="server" ID="txtWarehouse" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. 02"></asp:TextBox>
@@ -104,7 +113,7 @@
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Product Group" SortExpression="ProductGroupName" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Brand" SortExpression="ProductGroupName" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblProductGroup" runat="server">
                                                         <%# Eval("ProductGroupName")%>
@@ -128,37 +137,64 @@
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="On SO" HeaderStyle-Wrap="false" SortExpression="OnOrderQuantity">
                             <ItemTemplate>
-                                <asp:Label ID="lblOnSO" runat="server" Text="">
-                                                        <%# Eval("OnOrderQuantity")%>
+                                <asp:Label ID="lblOnSO" runat="server">
+                                    <asp:LinkButton ID="lnkViewSO" runat="server" OnCommand="lnkViewSO_Click" CommandArgument='<%#Eval("ProductCode")%>'>
+                                        <%# Eval("OnOrderQuantity")%>
+                                    </asp:LinkButton>
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="On BO" HeaderStyle-Wrap="false" SortExpression="OnBOQuantity">
                             <ItemTemplate>
-                                <asp:Label ID="lblOnBO" runat="server" Text="">
-                                                        <%# Eval("OnBOQuantity")%>
+                               <asp:Label ID="lblOnBO" runat="server">
+                                    <asp:LinkButton ID="lnkViewBO" runat="server" OnCommand="lnkViewBO_Click" CommandArgument='<%#Eval("ProductCode")%>' CssClass="btn-link btn-xs no-padding">
+                                        <%# Eval("OnBOQuantity")%>
+                                    </asp:LinkButton>
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="On PO" HeaderStyle-Wrap="false" SortExpression="OnPOQuantity">
                             <ItemTemplate>
                                 <asp:Label ID="lblOnPO" runat="server">
-                                                        <%# Eval("OnPOQuantity")%>
+                                    <asp:LinkButton ID="lnkViewPO" runat="server" OnCommand="lnkViewPO_Click" CommandArgument='<%#Eval("ProductCode")%>' CssClass="btn-link btn-xs no-padding">
+                                        <%# Eval("OnPOQuantity")%>
+                                    </asp:LinkButton>
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Available" HeaderStyle-Wrap="false" SortExpression="AvailableQuantity">
                             <ItemTemplate>
                                 <asp:Label ID="lblAvailable" runat="server">
-                                                        <%# Eval("AvailableQuantity")%>
+                                    <%# Eval("AvailableQuantity")%>
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Active" HeaderStyle-Wrap="false" SortExpression="IsActive">
+                        <asp:TemplateColumn HeaderText="Dealer Price" HeaderStyle-Wrap="true" SortExpression="DealerPrice">
+                            <ItemTemplate>
+                                <asp:Label ID="lblDealerPrice" runat="server">
+                                    <%# Eval("DealerPrice")%>
+                                </asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateColumn>
+                        <asp:TemplateColumn HeaderText="User Price" HeaderStyle-Wrap="true" SortExpression="UserPrice">
+                            <ItemTemplate>
+                                <asp:Label ID="lblUserPrice" runat="server">
+                                    <%# Eval("UserPrice")%>
+                                </asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateColumn>
+                        <asp:TemplateColumn HeaderText="Retail Price" HeaderStyle-Wrap="true" SortExpression="RetailPrice">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRetailPrice" runat="server">
+                                    <%# Eval("RetailPrice")%>
+                                </asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateColumn>
+                        <%--<asp:TemplateColumn HeaderText="Active" HeaderStyle-Wrap="false" SortExpression="IsActive">
                             <ItemTemplate>                                
                                 <asp:CheckBox Enabled="false" runat="server" Checked='<%# Convert.ToBoolean(Eval("IsActive"))%>'></asp:CheckBox>
                             </ItemTemplate>
-                        </asp:TemplateColumn>
+                        </asp:TemplateColumn>--%>
                     </Columns>
                     <HeaderStyle CssClass="tHeader" />
                     <PagerStyle Mode="NumericPages" CssClass="grid_pagination" />

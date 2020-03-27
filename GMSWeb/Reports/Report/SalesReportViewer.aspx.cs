@@ -1278,16 +1278,39 @@ namespace GMSWeb.Reports.Report
                 ddlDeliveryStatus.CssClass = "form-control";
                 ddlDeliveryStatus.Items.Clear();
 
-                ddlDeliveryStatus.Items.Add(new ListItem("ALL", "ALL"));
-                ddlDeliveryStatus.Items.Add(new ListItem("ON TIME", "ON TIME"));
-                ddlDeliveryStatus.Items.Add(new ListItem("EXPEDITE", "EXPEDITE"));
-                ddlDeliveryStatus.Items.Add(new ListItem("LATE", "LATE"));
-                ddlDeliveryStatus.Items.Add(new ListItem("CLOSED", "CLOSED"));
-
+                ddlDeliveryStatus.Items.Add(new ListItem("PARTIAL DELIVERED", "PARTIAL DELIVERED"));
+                ddlDeliveryStatus.Items.Add(new ListItem("FULLY DELIVERED", "FULLY DELIVERED"));
 
                 pnlParameter.Controls.Add(ddlDeliveryStatus);
                 if (ViewState["ddlDeliveryStatus"] == null)
                     ViewState["ddlDeliveryStatus"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
+            if (crReportDocument.ParameterFields["@Action"] != null || crReportDocument.ParameterFields["Action"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Action :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlAction = new DropDownList();
+                ddlAction.ID = "ddlAction";
+                ddlAction.CssClass = "form-control";
+                ddlAction.Items.Clear();
+
+                ddlAction.Items.Add(new ListItem("ALL", "ALL"));
+                ddlAction.Items.Add(new ListItem("ON TIME", "ON TIME"));
+                ddlAction.Items.Add(new ListItem("EXPEDITE", "EXPEDITE"));
+                ddlAction.Items.Add(new ListItem("LATE", "LATE"));
+                ddlAction.Items.Add(new ListItem("CLOSED", "CLOSED"));
+
+
+                pnlParameter.Controls.Add(ddlAction);
+                if (ViewState["ddlAction"] == null)
+                    ViewState["ddlAction"] = "All";
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
@@ -1315,6 +1338,7 @@ namespace GMSWeb.Reports.Report
 
                 controlCount = controlCount + 1;
             }
+         
 
             if (crReportDocument.ParameterFields["@DivisionType"] != null)
             {
@@ -2042,20 +2066,19 @@ namespace GMSWeb.Reports.Report
 
             if (crReportDocument.ParameterFields["Status"] != null)
             {
-                pnlParameter.Controls.Add(new LiteralControl("<tr>"));
-                pnlParameter.Controls.Add(new LiteralControl("<td class=\"tbLabel\" valign=\"top\">Enter Status"));
-                pnlParameter.Controls.Add(new LiteralControl("</td>"));
-                pnlParameter.Controls.Add(new LiteralControl("<td valign=\"top\">:</td>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Enter Status :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 
-                pnlParameter.Controls.Add(new LiteralControl("<tr>"));
-                pnlParameter.Controls.Add(new LiteralControl("<td class=\"tbLabel\" valign=\"top\">"));
-                pnlParameter.Controls.Add(new LiteralControl("</td>"));
-                pnlParameter.Controls.Add(new LiteralControl("<td valign=\"top\"></td>"));
-                pnlParameter.Controls.Add(new LiteralControl("<td>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"tbLabel\" valign=\"top\">"));
+                //pnlParameter.Controls.Add(new LiteralControl("</td>"));
+                //pnlParameter.Controls.Add(new LiteralControl("<td valign=\"top\"></td>"));
+                //pnlParameter.Controls.Add(new LiteralControl("<td>"));
                 ListBox lbStatus = new ListBox();
                 lbStatus.ID = "lbStatus";
-                lbStatus.Width = 200;
-                lbStatus.Height = 200;
+                lbStatus.Rows = 15;
+                lbStatus.Height = 150;
                 lbStatus.CssClass = "form-control";
                 lbStatus.SelectionMode = ListSelectionMode.Multiple;
 
@@ -2076,7 +2099,13 @@ namespace GMSWeb.Reports.Report
                 pnlParameter.Controls.Add(lbStatus);
                 if (ViewState["lbStatus"] == null)
                     ViewState["lbStatus"] = "";
-                pnlParameter.Controls.Add(new LiteralControl("</td>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+        
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\" align=\"middle\" valign=\"middle\">"));
                 pnlParameter.Controls.Add(new LiteralControl("<td>"));
                 ImageButton ImgbtnRight = new ImageButton();
                 ImgbtnRight.Click += new ImageClickEventHandler(btnRight_Click);
@@ -2088,16 +2117,20 @@ namespace GMSWeb.Reports.Report
                 ImgbtnLeft.ImageUrl = "../../images/image2.jpg";
                 ImgbtnLeft.ImageAlign = ImageAlign.Middle;
 
+                pnlParameter.Controls.Add(new LiteralControl("<br /><br />"));
                 pnlParameter.Controls.Add(ImgbtnRight);
-                pnlParameter.Controls.Add(new LiteralControl("<br /><br /><br />"));
+                pnlParameter.Controls.Add(new LiteralControl("<br /><br />"));
                 pnlParameter.Controls.Add(ImgbtnLeft);
 
+
                 pnlParameter.Controls.Add(new LiteralControl("</td>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 pnlParameter.Controls.Add(new LiteralControl("<td>"));
                 ListBox lbStatusSelected = new ListBox();
                 lbStatusSelected.ID = "lbStatusSelected";
-                lbStatusSelected.Width = 200;
-                lbStatusSelected.Height = 200;
+                lbStatusSelected.Rows = 15;
+                lbStatusSelected.Height= 150;
                 lbStatusSelected.AutoPostBack = false;
                 lbStatusSelected.CssClass = "form-control";
                 lbStatusSelected.SelectionMode = ListSelectionMode.Multiple;
@@ -2109,6 +2142,8 @@ namespace GMSWeb.Reports.Report
 
                 pnlParameter.Controls.Add(new LiteralControl("</td>"));
                 pnlParameter.Controls.Add(new LiteralControl("</tr>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
             }
 
@@ -2288,6 +2323,30 @@ namespace GMSWeb.Reports.Report
 
             }
 
+            if (crReportDocument.ParameterFields["@FilterBy"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Filter By :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlFilterBy = new DropDownList();
+                ddlFilterBy.ID = "ddlFilterBy";
+                ddlFilterBy.CssClass = "form-control";
+                ddlFilterBy.Items.Clear();
+                ddlFilterBy.Items.Add(new ListItem("Creation Date", "CreationDate"));
+                ddlFilterBy.Items.Add(new ListItem("Date based on Status", "OtherDate"));
+
+                pnlParameter.Controls.Add(ddlFilterBy);
+                if (ViewState["ddlFilterBy"] == null)
+                    ViewState["ddlFilterBy"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                controlCount = controlCount + 1;
+            }
+
+
             if (crReportDocument.ParameterFields["@TransactionType"] != null)
             {
 
@@ -2448,6 +2507,8 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlTopNumber"] = ((DropDownList)pnlParameter.FindControl("ddlTopNumber")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@DeliveryStatus"] != null || crReportDocument.ParameterFields["DeliveryStatus"] != null)
                 ViewState["ddlDeliveryStatus"] = ((DropDownList)pnlParameter.FindControl("ddlDeliveryStatus")).SelectedValue.ToString();
+            if (crReportDocument.ParameterFields["@Action"] != null || crReportDocument.ParameterFields["Action"] != null)
+                ViewState["ddlAction"] = ((DropDownList)pnlParameter.FindControl("ddlAction")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Category"] != null || crReportDocument.ParameterFields["Category"] != null)
                 ViewState["ddlCategory"] = ((DropDownList)pnlParameter.FindControl("ddlCategory")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
@@ -2609,6 +2670,9 @@ namespace GMSWeb.Reports.Report
 
             if (crReportDocument.ParameterFields["@TrnDateType"] != null)
                 ViewState["ddlTrnDateType"] = ((DropDownList)pnlParameter.FindControl("ddlTrnDateType")).SelectedValue.ToString();
+
+            if (crReportDocument.ParameterFields["@FilterBy"] != null)
+                ViewState["ddlFilterBy"] = ((DropDownList)pnlParameter.FindControl("ddlFilterBy")).SelectedValue.ToString();
 
             if (crReportDocument.ParameterFields["@DivisionType"] != null)
                 ViewState["ddlDivision"] = ((DropDownList)pnlParameter.FindControl("ddlDivision")).SelectedValue.ToString();
@@ -2800,6 +2864,10 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@DeliveryStatus", ViewState["ddlDeliveryStatus"].ToString());
                     if (crReportDocument.ParameterFields["DeliveryStatus"] != null && ViewState["ddlDeliveryStatus"] != null)
                         crReportDocument.SetParameterValue("DeliveryStatus", ViewState["ddlDeliveryStatus"].ToString());
+                    if (crReportDocument.ParameterFields["@Action"] != null && ViewState["ddlAction"] != null)
+                        crReportDocument.SetParameterValue("@Action", ViewState["ddlAction"].ToString());
+                    if (crReportDocument.ParameterFields["Action"] != null && ViewState["Action"] != null)
+                        crReportDocument.SetParameterValue("Action", ViewState["ddlAction"].ToString());
                     if (crReportDocument.ParameterFields["@Category"] != null && ViewState["ddlCategory"] != null)
                         crReportDocument.SetParameterValue("@Category", ViewState["ddlCategory"].ToString());
                     if (crReportDocument.ParameterFields["Category"] != null && ViewState["ddlCategory"] != null)
@@ -3006,6 +3074,9 @@ namespace GMSWeb.Reports.Report
 
                     if (crReportDocument.ParameterFields["@TrnDateType"] != null && ViewState["ddlTrnDateType"] != null)
                         crReportDocument.SetParameterValue("@TrnDateType", ViewState["ddlTrnDateType"].ToString());
+
+                    if (crReportDocument.ParameterFields["@FilterBy"] != null && ViewState["ddlFilterBy"] != null)
+                        crReportDocument.SetParameterValue("@FilterBy", ViewState["ddlFilterBy"].ToString());
 
                     if (crReportDocument.ParameterFields["@DivisionType"] != null && ViewState["ddlDivision"] != null)
                         crReportDocument.SetParameterValue("@DivisionType", ViewState["ddlDivision"].ToString());

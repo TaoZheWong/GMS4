@@ -464,7 +464,7 @@ namespace GMSConApp
 
         public void GMS_Insert_SalesDetail(short CoyID, string salesTrnType, string salesTrnNo, DateTime salesTrnDate, short srNo, string accountCode, string accountName,
                                         string productCode, string productName, string productGroupCode, string productGroupName, double quantity, double unitCost, double unitAmount,
-                                        double cost, double amount, double gpAmount, string currency, double exchangeRate, double taxRate, string doNo, string location, string customerSalesPersonID, 
+                                        double cost, double amount, double gpAmount, string currency, double exchangeRate, double taxRate, string doNo, string location, string customerSalesPersonID,
                                         string trnSalesPersonID, DateTime salesdocdate)
         {
             CNCMGenerator();
@@ -723,15 +723,15 @@ namespace GMSConApp
             cm.Parameters.Add("@TaxTypeID", SqlDbType.NVarChar).Value = taxcode;
             cm.Parameters.Add("@TaxName", SqlDbType.NVarChar).Value = taxName;
             cm.Parameters.Add("@TaxRate", SqlDbType.Decimal).Value = taxRate;
-            cm.Parameters.Add("@Category", SqlDbType.NVarChar).Value = category;          
+            cm.Parameters.Add("@Category", SqlDbType.NVarChar).Value = category;
             SPexecutor("procAppWSTaxTypeInsert");
         }
 
         //DateTime trnDate, 
-        public void GMS_Insert_JobTraveller(short CoyID, DateTime trnDate, int jobTravellerNo, string productionOrderNo, string finalFG, string finalFGDescription, string bomTemplate, 
+        public void GMS_Insert_JobTraveller(short CoyID, DateTime trnDate, int jobTravellerNo, string productionOrderNo, string finalFG, string finalFGDescription, string bomTemplate,
             int bomLevel, string bomParent, int completionQty, string category, string childCode, string childDescription, double baseQuantity, string uom,
             double quantity, string glCode, double amount, DateTime lastProductionIssueDate, DateTime lastProductionReceiptDate, double plannedQty, string jobTravellerStatus)
-        {          
+        {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
             cm.Parameters.Add("@TrnDate", SqlDbType.DateTime).Value = trnDate;
@@ -757,6 +757,14 @@ namespace GMSConApp
             cm.Parameters.Add("@JobTravellerStatus", SqlDbType.NVarChar).Value = jobTravellerStatus;
 
             SPexecutor("procAppWSJobTravellerInsert");
+        }
+
+        public void GMS_Insert_Country(string country, string shortName)
+        {
+            CNCMGenerator();
+            cm.Parameters.Add("@Name", SqlDbType.NVarChar).Value = country;
+            cm.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
+            SPexecutor("procAppWSCountryInsert");
         }
 
     }
