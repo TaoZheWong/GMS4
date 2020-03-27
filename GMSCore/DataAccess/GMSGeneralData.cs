@@ -4309,7 +4309,6 @@ namespace GMSCore
         }
         #endregion
 
-
         #region RetrieveProductPriceWithoutAgeingStock
         public void RetrieveProductPriceWithoutAgeingStock(short companyId, int brand, string productCode, string productName,string productGroupCode, ref DataSet ds)
         {
@@ -4386,7 +4385,22 @@ namespace GMSCore
             return;
         }
         #endregion
- 
+
+        public void SelectProductPriceByProductCode(short companyId, string productCode, string productName, string productGroupCode, string productGroupName, string prodNameSQL, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceByProductCodeSelect2", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+            command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = productName;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+            command.Parameters.Add("@ProductGroupName", SqlDbType.NVarChar).Value = productGroupName;
+            command.Parameters.Add("@ProdNameSQL", SqlDbType.NVarChar).Value = prodNameSQL;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
     }
 
 }

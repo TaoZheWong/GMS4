@@ -163,25 +163,25 @@ namespace GMSWeb.Procurement.Forms
             if (vendor1 != null)
             {
 
-                if (vendorapplicationform.PoliciesManagementSystem != null)
-                {
+                //if (vendorapplicationform.PoliciesManagementSystem != null)
+                //{
 
-                    string tempPolicies= vendorapplicationform.PoliciesManagementSystem;
+                //    string tempPolicies= vendorapplicationform.PoliciesManagementSystem;
 
-                    string[] policies = tempPolicies.Split(',');
+                //    string[] policies = tempPolicies.Split(',');
 
-                    foreach (string policy in policies)
-                    {
-                        switch (policy)
-                        {
-                            //default: throw new ApplicationException("Unknown checkbox: " + type);
-                            case "Safety": chkSafety.Checked = true; break;
-                            case "Food Safety": chkFoodSafety.Checked = true; break;
-                            case "Health and environment": chkHealthEnvironmental.Checked = true; break;
-                   
-                        }
-                    }
-                }
+                //    foreach (string policy in policies)
+                //    {
+                //        switch (policy)
+                //        {
+                //            //default: throw new ApplicationException("Unknown checkbox: " + type);
+                //            case "Safety": chkSafety.Checked = true; break;
+                //            case "Food Safety": chkFoodSafety.Checked = true; break;
+                //            case "Health and environment": chkHealthEnvironmental.Checked = true; break;
+
+                //        }
+                //    }
+                //}
 
                 //chkPoliciesNo.Checked = vendor1.PoliciesManagementSystem;
                 //chkPoliciesNA.Checked = vendor1.PoliciesManagementSystem;
@@ -225,12 +225,12 @@ namespace GMSWeb.Procurement.Forms
           
                 var tempPolicies = "";
 
-                if (chkSafety.Checked)
-                    tempPolicies = string.Concat(tempPolicies, "Safety,");
-                if (chkFoodSafety.Checked)
-                    tempPolicies = string.Concat(tempPolicies, "Food Safety,");
-                if (chkHealthEnvironmental.Checked)
-                    tempPolicies = string.Concat(tempPolicies, "Health and Environment,");
+                //if (chkSafety.Checked)
+                //    tempPolicies = string.Concat(tempPolicies, "Safety,");
+                //if (chkFoodSafety.Checked)
+                //    tempPolicies = string.Concat(tempPolicies, "Food Safety,");
+                //if (chkHealthEnvironmental.Checked)
+                //    tempPolicies = string.Concat(tempPolicies, "Health and Environment,");
          
                 //vendorApplicationForm.PoliciesManagementSystem = chkPoliciesNo.Checked;
                 //vendorApplicationForm.PoliciesManagementSystem = chkPoliciesNA.Checked;

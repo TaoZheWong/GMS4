@@ -67,13 +67,13 @@ namespace GMSWeb.Procurement.Forms {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidVendorID4;
         
         /// <summary>
-        /// hidRandomID  control.
+        /// hidRandomID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidRandomID ;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidRandomID;
         
         /// <summary>
         /// lblVendorName1 control.
@@ -128,33 +128,6 @@ namespace GMSWeb.Procurement.Forms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkPoliciesNA;
-        
-        /// <summary>
-        /// chkSafety control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSafety;
-        
-        /// <summary>
-        /// chkFoodSafety control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkFoodSafety;
-        
-        /// <summary>
-        /// chkHealthEnvironmental control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHealthEnvironmental;
         
         /// <summary>
         /// txtVendorComment1 control.

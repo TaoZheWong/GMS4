@@ -80,7 +80,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Type of Ownership (Please tick appropriately)
+                        Type of Ownership <span class="text-muted" style="font-size:smaller">(Please tick appropriately)</span>
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -179,7 +179,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        Nature of Business (Please tick appropriately)
+                        Nature of Business <span class="text-muted" style="font-size:smaller">(Please tick appropriately)</span>
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -210,7 +210,7 @@
                       </div>
                     </div>
 
-                       <div class="form-group col-lg-12">
+                          <div class="form-group col-lg-12">
                          <label class="col-sm-9 control-label text-left">
                              Agent/Distributor 
                          </label>
@@ -223,7 +223,50 @@
         
                       </div>
                     </div>
-
+                   
+                 
+              <div class="panel-body row">
+                <div class="form-horizontal m-t-20">  
+                    <div class="form-group col-lg-12">
+                            <label class="col-sm-12 control-label text-left">
+                               <p class="text-muted"> (If Yes, please attach a copy of the appointment letter from brand that you are representing) </p>
+                            </label>                            
+                        </div>   
+                    <div class="form-group col-lg-6 col-sm-6">
+                        <label class="col-sm-6 control-label text-left">
+                            <asp:Label CssClass="tbLabel" ID="Label1" runat="server">Document Name</asp:Label>
+                        </label>
+                        <div class="col-sm-6">
+                            <asp:TextBox CssClass="form-control" ID="txtDocumentName" runat="server"  />
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-sm-6">
+                        <label class="col-sm-6 control-label text-left">
+                            <asp:Label CssClass="tbLabel" ID="lblLocation" runat="server">File Location</asp:Label>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" readonly/>
+                                <label class="input-group-btn">
+                                    <span class="btn btn-primary btn-upload" style="font-size:20px">
+                                        <i class="ti-files" data-toggle="tooltip" data-placement="top" title="Upload"></i>
+                                        <asp:FileUpload CssClass="form-control hidden" ID="FileUpload1" runat="server" />
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>              
+            <div class="form-group col-lg-12">  
+                <div class="form-group col-lg-12 col-sm-12">
+                    <asp:LinkButton ID="linkfileName" runat="server" OnClick = "btnDownload_Click"></asp:LinkButton>            
+                   <small class="pull-left"><asp:Label ID="lblMsg" runat="server" ForeColor="red" ></asp:Label></small>
+                  <%-- <asp:LinkButton ID="linkName" runat="server" Text='<%# Eval("AgentDistributorDocumentName")%>' CommandName="Load" ForeColor="#005DAA" CommandArgument='<%#Eval("AgentDistributorFileName")%>'></asp:LinkButton>--%>
+                <asp:Button ID="btnUpload" runat="server" CausesValidation="true" Text="Upload or Update" CssClass="btn btn-warning pull-right"
+                    OnClick="btnUpload_Click" OnClientClick="this.disabled=true; this.value='Updating ...';" UseSubmitBehavior="false" />
+                </div>
+            </div>
+          </div>    
+      </div>
                     <div class="form-group col-lg-12">
                          <label class="col-sm-9 control-label text-left">
                             Stockiest
@@ -263,9 +306,9 @@
                         </div>
         
                       </div>
-                    </div>  
-
-                         <div class="form-group col-lg-12">
+                    </div>                     
+                   
+                       <div class="form-group col-lg-12">
                          <label class="col-sm-9 control-label text-left">
                              Others (Please specify)
                          </label>       
@@ -283,55 +326,14 @@
                                     CssClass="form-control" />
                             </div>
                         </div>
-                   
-                   </div>
-                      <div class="panel-body row">
-                <div class="form-horizontal m-t-20">  
-                    <div class="form-group col-lg-12">
-                            <label class="col-sm-12 control-label text-left">
-                               <p class="text-muted"> (If Yes, please attach a copy of the appointment letter from brand that you are representing) </p>
-                            </label>                            
-                        </div>   
-                    <div class="form-group col-lg-6 col-sm-6">
-                        <label class="col-sm-6 control-label text-left">
-                            <asp:Label CssClass="tbLabel" ID="Label1" runat="server">Document Name</asp:Label>
-                        </label>
-                        <div class="col-sm-6">
-                            <asp:TextBox CssClass="form-control" ID="txtDocumentName" runat="server"  />
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-6 col-sm-6">
-                        <label class="col-sm-6 control-label text-left">
-                            <asp:Label CssClass="tbLabel" ID="lblLocation" runat="server">File Location</asp:Label>
-                        </label>
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control" readonly/>
-                                <label class="input-group-btn">
-                                    <span class="btn btn-primary btn-upload" style="font-size:20px">
-                                        <i class="ti-files" data-toggle="tooltip" data-placement="top" title="Upload"></i>
-                                        <asp:FileUpload CssClass="form-control hidden" ID="FileUpload1" runat="server" />
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>              
-                </div>
-            </div>
-            <div class="panel-footer clearfix">  
-                    <asp:LinkButton ID="linkfileName" runat="server" OnClick = "btnDownload_Click"></asp:LinkButton>            
-                   <small class="pull-left"><asp:Label ID="lblMsg" runat="server" ForeColor="red" ></asp:Label></small>
-                  <%-- <asp:LinkButton ID="linkName" runat="server" Text='<%# Eval("AgentDistributorDocumentName")%>' CommandName="Load" ForeColor="#005DAA" CommandArgument='<%#Eval("AgentDistributorFileName")%>'></asp:LinkButton>--%>
-                <asp:Button ID="btnUpload" runat="server" CausesValidation="true" Text="Upload or Update" CssClass="btn btn-warning pull-right"
-                    OnClick="btnUpload_Click" OnClientClick="this.disabled=true; this.value='Updating ...';" UseSubmitBehavior="false" />
-            </div>
                 </div>
         </div>
+              </div>
 
             <div class="panel panel-primary">
               <div class="panel-heading">
                     <h4 class="panel-title">
-                        Scope of work provide to Leeden NOX (Please tick appropriately)
+                        Scope of work provide to Leeden NOX <span class="text-muted" style="font-size:smaller">(Please tick appropriately)</span>
                     </h4>
                 </div>
                 <div class="panel-body">

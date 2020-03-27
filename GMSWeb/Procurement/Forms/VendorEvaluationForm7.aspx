@@ -83,16 +83,22 @@
                  <div class="panel-heading">
                     <h4 class="panel-title">
                         SECTION G: HEALTH, SAFETY AND ENVIRONMENT
-                    </h4>
-                     <p>
-                         HSE Questionnaire
-                     </p>
-              </div>       
+                    </h4>               
+              </div>      
+                 <div class="panel-heading col-lg-12"><b> HSE Questionnaire </b></div> 
                 <div class="panel-body">
                     <div class="form-horizontal m-t-20">
-                         <label class="col-sm-12 control-label text-left">A. Does your organization have the following policies or management system? </label>
+                         <label class="col-sm-12 control-label text-left">A. Does your organization have the following policies or management system?</label>
                          <div class="form-group col-lg-12"> </div>
-                    
+                    <div class="form-group col-lg-12"> 
+                        <div class="col-sm-4">
+                        <ul>
+                            <li>Safety</li></br>
+                            <li>Food Safety</li></br>
+                            <li>Health And Environmental</li>
+                        </ul>
+                        </div>
+                    </div>
                          <div class="form-group col-lg-12">       
                          <div class="col-sm-4">
                             <div class="checkbox">
@@ -119,40 +125,7 @@
                             </div>
                         </div>                             
                        </div>
-                   </div>
-                </div>
-            </div>
-
-               <div class="panel panel-primary">                  
-                <div class="panel-body">
-                    <div class="form-horizontal m-t-20">
-                         <div class="form-group col-lg-12">       
-                         <div class="col-sm-4">
-                            <div class="checkbox">
-                            <asp:CheckBox ID="chkSafety" runat="server" Checked="false" />
-                            <label for="<%=chkSafety.ClientID %>">Safety</label>
-                            </div>
-                        </div>                             
-                       </div>
-
-                         <div class="form-group col-lg-12">       
-                         <div class="col-sm-4">
-                            <div class="checkbox">
-                            <asp:CheckBox ID="chkFoodSafety" runat="server" Checked="false" />
-                            <label for="<%=chkFoodSafety.ClientID %>">Food Safety</label>
-                            </div>
-                        </div>                             
-                       </div>
-
-
-                        <div class="form-group col-lg-12">       
-                         <div class="col-sm-4">
-                            <div class="checkbox">
-                            <asp:CheckBox ID="chkHealthEnvironmental" runat="server" Checked="false" />
-                            <label for="<%=chkHealthEnvironmental.ClientID %>">Health And Environmental</label>
-                            </div>
-                        </div>                             
-                       </div>
+                        
                         <div class="form-horizontal m-t-20">
                          <label class="col-sm-12 control-label text-left"> Comments by Vendor </label>                      
                          <div class="form-group col-lg-12">       
@@ -162,8 +135,10 @@
                        </div>
                    </div>
                    </div>
+                </div>
+                      
 
-                    <div class="panel-body row">
+             <div class="panel-body row">
                 <div class="form-horizontal m-t-20">  
                     <div class="form-group col-lg-12">
                             <label class="col-sm-12 control-label text-left">
@@ -202,8 +177,7 @@
                     <asp:Label ID="lblMsg" runat="server" ForeColor="red"></asp:Label></small>
                 <asp:Button ID="btnUpload" runat="server" CausesValidation="true" Text="Upload or Update" CssClass="btn btn-warning pull-right"
                     OnClick="btnUpload_Click" OnClientClick="this.disabled=true; this.value='Updating ...';" UseSubmitBehavior="false" />
-            </div>
-                </div>
+            </div>           
             </div>
 
              <div class="panel panel-primary">                
