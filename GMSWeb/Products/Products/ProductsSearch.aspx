@@ -38,21 +38,21 @@
                         <asp:TextBox runat="server" ID="TextBox1" MaxLength="20" Columns="20" onfocus="select();" CssClass="form-control" placeholder=""></asp:TextBox>
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Brand Code</label>
+                    <label class="control-label">Brand/Product Code</label>
                         <asp:TextBox runat="server" ID="txtProductGroupCode" MaxLength="4" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. B11"></asp:TextBox>
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Brand Name</label>
+                    <label class="control-label">Brand/Product Name</label>
                         <asp:TextBox runat="server" ID="txtProductGroup" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. BLUEMETALS"></asp:TextBox>
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Product Code</label>
+                    <label class="control-label">Item Code</label>
                         <asp:TextBox runat="server" ID="txtProductCode" MaxLength="20" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. B1110535616"></asp:TextBox>
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Product Name</label>
+                    <label class="control-label">Item Name</label>
                         <asp:TextBox runat="server" ID="txtProductName" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                 </div>
@@ -101,19 +101,19 @@
                                 <%# (Container.ItemIndex + 1) + ((dgData.CurrentPageIndex) * dgData.PageSize)  %>
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Product Code" SortExpression="ProductCode" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Item Code" SortExpression="ProductCode" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "ProductDetail.aspx?ProductCode="+Eval("ProductCode")+"&CurrentLink="+Request.Params["CurrentLink"].ToString().Trim()%>'><%# Eval("ProductCode")%></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Product Name" SortExpression="ProductName" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Item Name" SortExpression="ProductName" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblProductName" runat="server">
                                                         <%# Eval("ProductName")%>
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Brand" SortExpression="ProductGroupName" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Brand/Product" SortExpression="ProductGroupName" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblProductGroup" runat="server">
                                                         <%# Eval("ProductGroupName")%>

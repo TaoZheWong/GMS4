@@ -287,7 +287,14 @@ namespace GMSWeb.Products.Products
                     ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
 
                 DataView dv = ds.Tables[0].DefaultView;
-                dv.RowFilter = "IsActive=1";
+                if (session.StatusType == "S")
+                {
+                    dv.RowFilter = "IsActive = 'true'";
+                }else
+                {
+                    dv.RowFilter = "IsActive = 1";
+                }
+                
                 this.lblSearchSummary.Visible = true;
                 this.dgData.DataSource = dv;
                 this.dgData.DataBind();
@@ -356,6 +363,8 @@ namespace GMSWeb.Products.Products
                             ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
                         else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "")
                             ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+
+                      
                     }
                     if(session.CompanyId == 120 && userDivision == "GAS")
                     {
@@ -422,20 +431,21 @@ namespace GMSWeb.Products.Products
                 ds.Tables[0].Columns.Add("DealerPrice", typeof(string));
                 ds.Tables[0].Columns.Add("UserPrice", typeof(string));
                 ds.Tables[0].Columns.Add("RetailPrice", typeof(string));
-                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                {
-                    ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
-                    ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
-                    ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
-                }
+                
 
                 if (session.StatusType.ToString()=="S")
                 {
                     for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                     {
+                        ds.Tables[0].Rows[j]["OnHandQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnHandQuantity"].ToString()), 0);
+                        ds.Tables[0].Rows[j]["AvailableQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["AvailableQuantity"].ToString()), 0);
                         ds.Tables[0].Rows[j]["OnOrderQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnOrderQuantity"].ToString()), 0); // SO
-                        ds.Tables[0].Rows[j]["OnPOQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnPOQuantity"].ToString()), 0); // BO    
+                        ds.Tables[0].Rows[j]["OnPOQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnPOQuantity"].ToString()), 0); // BO 
+                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
                     }
+     
                     DataSet ds2 = new DataSet();
                     new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
 
@@ -466,14 +476,22 @@ namespace GMSWeb.Products.Products
                             if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                             {
                                 ds.Tables[0].Rows[j][4] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][4].ToString());
-                                ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString()), 0);
-                                ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString()), 0);
+                                ds.Tables[0].Rows[j][5] = GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString());
+                                ds.Tables[0].Rows[j][6] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString());
                                 ds.Tables[0].Rows[j][7] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][7].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][7].ToString());
                                 ds.Tables[0].Rows[j][8] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]), 0);
                                 ds.Tables[0].Rows[j][10] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][10].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][10].ToString());
                                 break;
                             }
                         }
+                    }
+                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                    {
+                        ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
+                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
+                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
                     }
 
                     DataSet ds2 = new DataSet();
@@ -501,10 +519,13 @@ namespace GMSWeb.Products.Products
                     for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                     {
                         ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
-                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO                               
+                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO                             
                         ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
+                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
                     }
-
+                   
                     DataSet ds2 = new DataSet();
                     new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
 
@@ -525,34 +546,48 @@ namespace GMSWeb.Products.Products
                         }
                     }
                 }
-                if ((session.StatusType.ToString() == "L") && ds1 != null && ds1.Tables.Count > 0 && userDivision == "ALL")
+                if (session.StatusType.ToString() == "L"  && userDivision == "ALL")
                 {
-                    for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                    if(ds1 != null && ds1.Tables.Count > 0)
                     {
-                        for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                        {
-                            if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
+                        for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
                             {
-                                ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString()), 0); // SO
-                                ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString()), 0); // BO                               
-                                ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
-                                /*string x = "";
-                                foreach (DataColumn clmn in ds.Tables[0].Columns)
+                                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                                 {
-                                    x = x + "," + clmn.ColumnName;
-                                }
-                                foreach (DataRow row in ds.Tables[0].Rows)
-                                {
-                                    foreach (var item in row.ItemArray)
+                                    if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                                     {
-                                        x = x + "," + item;
+                                        ds.Tables[0].Rows[j][5] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString()); // SO
+                                        ds.Tables[0].Rows[j][6] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString()); // BO                               
+                               
+                                        /*string x = "";
+                                        foreach (DataColumn clmn in ds.Tables[0].Columns)
+                                        {
+                                            x = x + "," + clmn.ColumnName;
+                                        }
+                                        foreach (DataRow row in ds.Tables[0].Rows)
+                                        {
+                                            foreach (var item in row.ItemArray)
+                                            {
+                                                x = x + "," + item;
+                                            }
+                                            break;
+                                        }
+                                        this.PageMsgPanel.ShowMessage(x, MessagePanelControl.MessageEnumType.Alert);*/
+                                        break;
                                     }
-                                    break;
                                 }
-                                this.PageMsgPanel.ShowMessage(x, MessagePanelControl.MessageEnumType.Alert);*/
-                                break;
+
                             }
-                        }
+                    }
+                    
+                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                    {
+                        ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
+                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
+                        ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
+                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
                     }
                     DataSet ds2 = new DataSet();
                     new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
@@ -573,11 +608,6 @@ namespace GMSWeb.Products.Products
                             }
                         }
                     }
-                }
-				for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                {
-					ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
-					ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
                 }
             }
             catch (Exception ex)
