@@ -286,6 +286,7 @@ namespace GMSWeb.Products.Products
                     this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
                     ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
 
+                ds.Tables[0].DefaultView.Sort = "ProductCode ASC";
                 DataView dv = ds.Tables[0].DefaultView;
                 if (session.StatusType == "S")
                 {
