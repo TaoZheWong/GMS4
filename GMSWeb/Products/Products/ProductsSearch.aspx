@@ -67,7 +67,7 @@
                                     CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                 </div>
                 
-                <div class="form-group col-lg-3 col-md-6 col-sm-6 hidden">
+                <div class="form-group col-lg-3 col-md-6 col-sm-6">
                     <label class="control-label">Warehouse</label>
                         <asp:TextBox runat="server" ID="txtWarehouse" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. 02"></asp:TextBox>

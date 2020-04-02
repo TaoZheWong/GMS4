@@ -198,6 +198,9 @@
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
+                        </div>
+                    </div>
+                </div>
         </ItemTemplate>
     </asp:Repeater>
     
