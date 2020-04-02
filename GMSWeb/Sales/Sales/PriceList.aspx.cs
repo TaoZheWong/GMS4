@@ -65,7 +65,10 @@ namespace GMSWeb.Sales.Sales
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(loginUserOrAlternateParty,
                                                                             moduleID);
 
-            if (uAccess == null)
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, loginUserOrAlternateParty,
+                                                                            moduleID);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
                 Response.Redirect(base.UnauthorizedPage(currentLink));
         }
 
