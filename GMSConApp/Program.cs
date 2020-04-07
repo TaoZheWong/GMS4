@@ -7,7 +7,7 @@ namespace GMSConApp
     class Program
     {
         static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
-        //static string _DBConn = "server=(local)\\GMSLMS;database=gms;user=sa;password=gms71419$";
+        //static string _DBConn = "server=ldlnb17;database=GMS_20200204;user=sa;password=eason";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
         static string _CMSDefaultURL = "http://10.1.1.21/CMS.WebServices/Recipe.asmx";
         static DAL oDAL = null;
@@ -521,7 +521,7 @@ namespace GMSConApp
                 {
                     oDAL.GMS_Insert_ProductGroup(CoyID,
                         dr["ProductGroupCode"].ToString(),
-                        dr["ProductGroupName"].ToString()
+                        dr["ProductGroupName"].ToString(),"","",""
                         );
                 }
                 Console.WriteLine(DateTime.Now.ToString() + " -- End Product Group data insertion for " + CoyID.ToString());
@@ -1091,6 +1091,7 @@ namespace GMSConApp
 
                 if (execute)
                 {
+
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
@@ -1433,14 +1434,14 @@ namespace GMSConApp
 
                 if (execute)
                 {
-
                     //Retrieve Product Group data
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product Group data...");
                     //ds = ws.GetProductGroup();
-                    query = "CALL \"AF_API_GET_SAP_PRODGROUP\" ()";
+                    //query = "CALL \"AF_API_GET_SAP_PRODGROUP\" ()";
+                    query = "SELECT * FROM \"@AF_PRODGRP\"";
 
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                    "ProductGroupCode", "ProductGroupName", "Field3", "Field4", "Field5", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "ProductGroupCode", "ProductGroupName", "Field3", "Field4", "Field5", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "ABCGrouping", "Team", "ProductCategory", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     //Insert Product Group data into GMS
@@ -1449,7 +1450,10 @@ namespace GMSConApp
                     {
                         oDAL.GMS_Insert_ProductGroup(CoyID,
                             dr["ProductGroupCode"].ToString(),
-                            dr["ProductGroupName"].ToString()
+                            dr["ProductGroupName"].ToString(),
+                            dr["ProductCategory"].ToString(),
+                            dr["Team"].ToString(),
+                            dr["ABCGrouping"].ToString()
                             );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Product Group data insertion for " + CoyID.ToString());

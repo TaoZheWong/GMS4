@@ -373,12 +373,15 @@ namespace GMSConApp
         }
 
 
-        public void GMS_Insert_ProductGroup(short CoyID, string productName, string productGroupCode)
+        public void GMS_Insert_ProductGroup(short CoyID, string productName, string productGroupCode, string productGroupCategory, string team, string abcGrouping)
         {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
             cm.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productName;
             cm.Parameters.Add("@ProductGroupName", SqlDbType.NVarChar).Value = productGroupCode;
+            cm.Parameters.Add("@ProductGroupCategory", SqlDbType.NVarChar).Value = productGroupCategory;
+            cm.Parameters.Add("@Team", SqlDbType.NVarChar).Value = team;
+            cm.Parameters.Add("@ABCGrouping", SqlDbType.NVarChar).Value = abcGrouping;
             SPexecutor("procAppWSProductGroupInsert");
         }
 
