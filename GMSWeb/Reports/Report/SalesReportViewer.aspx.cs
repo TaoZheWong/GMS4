@@ -1191,6 +1191,36 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+            if (crReportDocument.ParameterFields["@ProductCategory"] != null || crReportDocument.ParameterFields["ProductCategory"] != null)
+            {
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Category :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlProductCategory = new DropDownList();
+                ddlProductCategory.ID = "ddlProductCategory";
+                ddlProductCategory.CssClass = "form-control";
+                ddlProductCategory.Items.Clear();
+
+                GMSGeneralDALC GSdacl = new GMSGeneralDALC();
+                DataSet dsPC = new DataSet();
+                GSdacl.GetSAPProductCategoryForReport(ref dsPC);
+                if (dsPC.Tables != null && dsPC.Tables[0] != null)
+                {
+                    foreach (DataRow dr in dsPC.Tables[0].Rows)
+                    {
+                        ddlProductCategory.Items.Add(new ListItem(dr["SubCategoryName"].ToString(), dr["SubCategoryName"].ToString()));
+                    }
+                }
+
+                pnlParameter.Controls.Add(ddlProductCategory);
+                //if (ViewState["ddlCategory"] == null)
+                //    ViewState["ddlCategory"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
 
 
             if (crReportDocument.ParameterFields["@Zcode"] != null)
@@ -1357,30 +1387,31 @@ namespace GMSWeb.Reports.Report
                 {
                     ddlDivision.Items.Add(new ListItem("GAS", "GAS"));
                     ddlDivision.Items.Add(new ListItem("WSD", "WSD"));
-                }else if (coyid == 104)
-                {
-                    ddlDivision.Items.Add(new ListItem("LGS", "LGS"));
-                    ddlDivision.Items.Add(new ListItem("NIT", "NIT"));
-                }else if (coyid == 17)
-                {
-                    ddlDivision.Items.Add(new ListItem("AS", "AS"));
-                    ddlDivision.Items.Add(new ListItem("SP", "SP"));
-                    ddlDivision.Items.Add(new ListItem("BM", "BM"));
-                    ddlDivision.Items.Add(new ListItem("BS", "BS"));
-                    ddlDivision.Items.Add(new ListItem("IP", "IP"));
-                    ddlDivision.Items.Add(new ListItem("TI", "TI"));
-                    ddlDivision.Items.Add(new ListItem("SA", "SA"));
-                    ddlDivision.Items.Add(new ListItem("JB", "JB"));
-                    ddlDivision.Items.Add(new ListItem("KT", "KT"));
-                    ddlDivision.Items.Add(new ListItem("LSBMT", "LSBMT"));
-                    ddlDivision.Items.Add(new ListItem("LSBM", "LSBM"));
-                    ddlDivision.Items.Add(new ListItem("RW", "RW"));
                 }
-                else if (coyid == 20)
-                {
-                    ddlDivision.Items.Add(new ListItem("MMI", "MMI"));
-                    ddlDivision.Items.Add(new ListItem("MALACCA", "MALACCA"));
-                }
+                //else if (coyid == 104)
+                //{
+                //    ddlDivision.Items.Add(new ListItem("LGS", "LGS"));
+                //    ddlDivision.Items.Add(new ListItem("NIT", "NIT"));
+                //}else if (coyid == 17)
+                //{
+                //    ddlDivision.Items.Add(new ListItem("AS", "AS"));
+                //    ddlDivision.Items.Add(new ListItem("SP", "SP"));
+                //    ddlDivision.Items.Add(new ListItem("BM", "BM"));
+                //    ddlDivision.Items.Add(new ListItem("BS", "BS"));
+                //    ddlDivision.Items.Add(new ListItem("IP", "IP"));
+                //    ddlDivision.Items.Add(new ListItem("TI", "TI"));
+                //    ddlDivision.Items.Add(new ListItem("SA", "SA"));
+                //    ddlDivision.Items.Add(new ListItem("JB", "JB"));
+                //    ddlDivision.Items.Add(new ListItem("KT", "KT"));
+                //    ddlDivision.Items.Add(new ListItem("LSBMT", "LSBMT"));
+                //    ddlDivision.Items.Add(new ListItem("LSBM", "LSBM"));
+                //    ddlDivision.Items.Add(new ListItem("RW", "RW"));
+                //}
+                //else if (coyid == 20)
+                //{
+                //    ddlDivision.Items.Add(new ListItem("MMI", "MMI"));
+                //    ddlDivision.Items.Add(new ListItem("MALACCA", "MALACCA"));
+                //}
 
                 pnlParameter.Controls.Add(ddlDivision);
                 if (ViewState["ddlDivision"] == null)
@@ -2511,6 +2542,8 @@ namespace GMSWeb.Reports.Report
                 ViewState["ddlAction"] = ((DropDownList)pnlParameter.FindControl("ddlAction")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Category"] != null || crReportDocument.ParameterFields["Category"] != null)
                 ViewState["ddlCategory"] = ((DropDownList)pnlParameter.FindControl("ddlCategory")).SelectedValue.ToString();
+            if (crReportDocument.ParameterFields["@ProductCategory"] != null || crReportDocument.ParameterFields["ProductCategory"] != null)
+                ViewState["ddlProductCategory"] = ((DropDownList)pnlParameter.FindControl("ddlProductCategory")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
                 ViewState["ddlZcode"] = ((DropDownList)pnlParameter.FindControl("ddlZcode")).SelectedValue.ToString();
             if (crReportDocument.ParameterFields["@EC"] != null || crReportDocument.ParameterFields["EC"] != null)
@@ -2872,6 +2905,10 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@Category", ViewState["ddlCategory"].ToString());
                     if (crReportDocument.ParameterFields["Category"] != null && ViewState["ddlCategory"] != null)
                         crReportDocument.SetParameterValue("Category", ViewState["ddlCategory"].ToString());
+                    if (crReportDocument.ParameterFields["@ProductCategory"] != null && ViewState["ddlProductCategory"] != null)
+                        crReportDocument.SetParameterValue("@ProductCategory", ViewState["ddlProductCategory"].ToString());
+                    if (crReportDocument.ParameterFields["ProductCategory"] != null && ViewState["ddlProductCategory"] != null)
+                        crReportDocument.SetParameterValue("ProductCategory", ViewState["ddlProductCategory"].ToString());
                     if (crReportDocument.ParameterFields["@Zcode"] != null && ViewState["ddlZcode"] != null)
                         crReportDocument.SetParameterValue("@Zcode", ViewState["ddlZcode"].ToString());
                     if (crReportDocument.ParameterFields["@EC"] != null && ViewState["ddlEC"] != null)
