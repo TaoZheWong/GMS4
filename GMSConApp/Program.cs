@@ -753,7 +753,7 @@ namespace GMSConApp
                         dr["location"].ToString(),
                         dr["customersalespersonid"].ToString(),
                         dr["transactionsalespersonid"].ToString(),
-                        GMSUtil.ToDate("")
+                        GMSUtil.ToDate(""), GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion for " + i.ToString());
@@ -1762,7 +1762,8 @@ namespace GMSConApp
                         dr["Warehouse"].ToString(),
                         dr["CustomerSalesPersonID"].ToString(),
                         dr["TrnSalesPersonID"].ToString(),
-                        GMSUtil.ToDate(dr["SalesDocDate"].ToString())
+                        GMSUtil.ToDate(dr["SalesDocDate"].ToString()),
+                        GMSUtil.ToDate(dr["DueDate"].ToString())
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion");
