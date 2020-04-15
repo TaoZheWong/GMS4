@@ -193,7 +193,7 @@ namespace GMSWeb
                     "<li class=\"has-sub administration-menu \">" +
                     "<a href='javascript:;'> " +
                         "<i class='ti-ruler-pencil'></i> " +
-                        "<span>Administration</span>" +
+                        "<span>Admin</span>" +
                         "<ul class=\"sub-menu\">" +
                             "<li class='sub-exporter'><a href=\"" + appPath + "/SysFinance/Administration/Exporter.aspx\">Exporter</a></li>" +
                             "<li class='sub-bank-info'><a href=\"" + appPath + "/SysFinance/BankFacilities/BankInfo.aspx\">Bank Info</a></li>" +
@@ -347,7 +347,7 @@ namespace GMSWeb
                     "<li class='has-sub sale-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-bar-chart'></i>" +
-                    "<span>Sales Transactions</span>" +
+                    "<span>Transactions</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                     "<li class='sub-quotation'><a href=\"" + appPath + "/Sales/Sales/QuotationSearch.aspx\">Quotation</a></li>" +
@@ -361,7 +361,7 @@ namespace GMSWeb
                      "<li class='has-sub customer-info-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-id-badge'></i>" +
-                    "<span>Customer Information</span>" +
+                    "<span>Customer Info</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                     "<li class='sub-debtors-search'><a href=\"" + appPath + "/Debtors/Debtors/DebtorsSearch.aspx\">Customer Detail</a></li>" +
@@ -374,7 +374,7 @@ namespace GMSWeb
                      "<li class='has-sub products-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-layout-grid2'></i>" +
-                    "<span>Products Information</span>" +
+                    "<span>Products Info</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                     "<li class='sub-product-search-sale'><a href=\"" + appPath +
@@ -439,7 +439,7 @@ namespace GMSWeb
                     "<li class='has-sub administration-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-ruler-pencil'></i>" +
-                    "<span>Administration</span>" +
+                    "<span>Admin</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                     // "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Sales\">Upload</a></li>" +
@@ -524,7 +524,7 @@ namespace GMSWeb
                     "<li class='has-sub administration-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-ruler-pencil'></i>" +
-                    "<span>Administration</span>" +
+                    "<span>Admin</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                         "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=CompanyHR\">Claim</a></li>" +
@@ -647,7 +647,7 @@ namespace GMSWeb
                     "<li class='has-sub administration-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-ruler-pencil'></i>" +
-                    "<span>Administration</span>" +
+                    "<span>Admin</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
                         "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Products\">Upload</a></li>" +
@@ -871,7 +871,7 @@ namespace GMSWeb
                 "<li class='has-sub administration-menu'>" +
                 "<a href='javascript:;'>" +
                 "<i class='ti-ruler-pencil'></i>" +
-                "<span>Administration</span>" +
+                "<span>Admin</span>" +
                 "</a>" +
                 "<ul class=\"sub-menu\">" +
                     //"<li><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Resources&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance\">Resources</a></li>" +

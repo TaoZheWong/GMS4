@@ -522,7 +522,8 @@ namespace GMSWeb.Debtors.Debtors
 			{
 				this.txtAccountCode.ReadOnly = true;
 				this.txtAccountName.ReadOnly = true;
-				this.ddlSalesman.Enabled = false;
+                this.txtAccountGroup.ReadOnly = true;
+                this.ddlSalesman.Enabled = false;
 				this.ddlTerritory.Enabled = false;
 				this.txtCreditTerm.ReadOnly = true;
 				this.txtCreditLimit.ReadOnly = true;
@@ -683,9 +684,9 @@ namespace GMSWeb.Debtors.Debtors
 				this.lblAccountName.Text = ds.Tables[0].Rows[0]["AccountName"].ToString();
 				this.txtAccountCode.Text = ds.Tables[0].Rows[0]["AccountCode"].ToString();
 				this.txtAccountName.Text = ds.Tables[0].Rows[0]["AccountName"].ToString();
+                this.txtAccountGroup.Text = ds.Tables[0].Rows[0]["AccountGroup"].ToString();
 
-			   
-				double CreditUsedOnDO = GMSUtil.ToDouble(ds.Tables[0].Rows[0]["CreditUsedOnDO"].ToString());
+                double CreditUsedOnDO = GMSUtil.ToDouble(ds.Tables[0].Rows[0]["CreditUsedOnDO"].ToString());
 				if (CreditUsedOnDO > 0)
 					this.lblCreditUsedOnDO.Text = String.Format("{0:0.00}", CreditUsedOnDO);
 				else
@@ -768,15 +769,15 @@ namespace GMSWeb.Debtors.Debtors
 				else
 					ddlType.SelectedValue = "-";
 
-				IList<GMSCore.Entity.AccountGroup> lstAccGroup = null;
+				//IList<GMSCore.Entity.AccountGroup> lstAccGroup = null;
 
-				lstAccGroup = sDataActivity.RetrieveAllAccountGroup();
-				ddlGroup.DataSource = lstAccGroup;
-				ddlGroup.DataBind();
-				if (ds.Tables[0].Rows[0]["AccountGroup"].ToString() != "")
-					ddlGroup.SelectedValue = ds.Tables[0].Rows[0]["AccountGroup"].ToString();
-				else
-					ddlGroup.SelectedValue = "-";
+				//lstAccGroup = sDataActivity.RetrieveAllAccountGroup();
+				//ddlGroup.DataSource = lstAccGroup;
+				//ddlGroup.DataBind();
+				//if (ds.Tables[0].Rows[0]["AccountGroup"].ToString() != "")
+				//	ddlGroup.SelectedValue = ds.Tables[0].Rows[0]["AccountGroup"].ToString();
+				//else
+				//	ddlGroup.SelectedValue = "-";
 
 			   
 
@@ -1863,7 +1864,7 @@ namespace GMSWeb.Debtors.Debtors
 				newaccountInfo.CoyID = session.CompanyId;
 				newaccountInfo.AccountCode = this.hidAccountCode.Value.Trim();
 				newaccountInfo.GradeCode = this.ddlGrade.SelectedValue;
-				newaccountInfo.AccountGroup = this.ddlGroup.SelectedValue;
+				newaccountInfo.AccountGroup = this.txtAccountGroup.Text.Trim();
 				newaccountInfo.Website = txtWebsite.Text.Trim();
 				newaccountInfo.Facebook = txtFacebook.Text.Trim();
 				newaccountInfo.AccountClass = this.ddlType.SelectedValue;
@@ -1907,7 +1908,7 @@ namespace GMSWeb.Debtors.Debtors
 			{
 				accountInfo.GradeCode = this.ddlGrade.SelectedValue;
 				accountInfo.AccountClass = this.ddlType.SelectedValue;
-				accountInfo.AccountGroup = this.ddlGroup.SelectedValue;
+				accountInfo.AccountGroup = this.txtAccountGroup.Text.Trim();
 				accountInfo.Website = txtWebsite.Text.Trim();
 				accountInfo.Facebook = txtFacebook.Text.Trim();
 				accountInfo.Remarks = txtRemarks.Text.Trim();

@@ -645,7 +645,7 @@ namespace GMSWeb.Reports.Report
             if (crReportDocument.ParameterFields["Brand Code"] != null || crReportDocument.ParameterFields["BrandCode"] != null)
             {
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Group Code :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Brand/Product Code :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 TextBox txtBrandCode = new TextBox();
@@ -683,7 +683,7 @@ namespace GMSWeb.Reports.Report
             if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null)
             {
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Group Name :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Brand/Product Name :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 TextBox txtBrand = new TextBox();
@@ -702,7 +702,7 @@ namespace GMSWeb.Reports.Report
             {
 
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Code :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Item Code :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 TextBox txtProductCode = new TextBox();
@@ -979,7 +979,7 @@ namespace GMSWeb.Reports.Report
             {
 
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Product Name :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Item Name :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 TextBox txtProductDescription = new TextBox();

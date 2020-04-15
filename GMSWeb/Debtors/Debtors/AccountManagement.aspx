@@ -130,7 +130,16 @@
                                                 CssClass="form-control"></asp:TextBox>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-6 col-sm-6">
+                                     <div class="form-group col-lg-6 col-sm-6">
+                                        <label class="col-sm-4 control-label text-left">
+                                            Group
+                                        </label>
+                                        <div class="col-sm-8 control-label text-left">
+                                              <asp:TextBox runat="server" ID="txtAccountGroup" MaxLength="50" Columns="30" onfocus="select();"
+                                                CssClass="form-control"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                   <%-- <div class="form-group col-lg-6 col-sm-6">
                                         <label class="col-sm-4 control-label text-left">
                                             Group
                                         </label>
@@ -138,7 +147,7 @@
                                             <asp:DropDownList CssClass="form-control" ID="ddlGroup" runat="Server"
                                                 DataTextField="AccountGroupName" DataValueField="AccountGroupCode" />
                                         </div>
-                                    </div>
+                                    </div>--%>
                                     <div class="form-group col-lg-6 col-sm-6">
                                         <label class="col-sm-4 control-label text-left">
                                             Type
