@@ -617,7 +617,7 @@ function ViewMultipleUOM()
                                 }
 
 								DataView dv = new DataView(ds3.Tables[0]);                                
-                                if (session.StatusType.ToString() == "L")
+                                if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                     dv.Sort = "TrnDate desc, TransNum desc, DocNo desc";
                                 else
                                     dv.Sort = "DBVersion, TrnDate desc";
@@ -903,7 +903,7 @@ function ViewMultipleUOM()
                             }
 
                             DataView dv = new DataView(ds3.Tables[0]);
-                            if (session.StatusType.ToString() == "L")
+                            if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                 dv.Sort = "TrnDate desc, TransNum desc, DocNo desc";
                             else
                                 dv.Sort = "DBVersion, TrnDate desc";
@@ -1331,7 +1331,7 @@ function ViewMultipleUOM()
                 }
                 
                 DataView dv = new DataView(ds3.Tables[0]);
-                if(session.StatusType.ToString() == "L")
+                if(session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                     dv.Sort = "TrnDate desc, TransNum desc, DocNo desc";
                 else
                     dv.Sort = "DBVersion, TrnDate desc, TrnNo desc";                
