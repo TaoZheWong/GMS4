@@ -6,8 +6,8 @@ namespace GMSConApp
 {
     class Program
     {
-        //static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
-        static string _DBConn = "server=ldlnb17;database=GMS_20200204;user=sa;password=eason";
+        static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
+        //static string _DBConn = "server=ldlnb17;database=GMS_20200204;user=sa;password=eason";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
         static string _CMSDefaultURL = "http://10.1.1.21/CMS.WebServices/Recipe.asmx";
         static DAL oDAL = null;
@@ -1054,7 +1054,7 @@ namespace GMSConApp
         static void Task_LMSImportSalesPerson(short CoyID)
         {
 
-            string from = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-12).ToString("yyyy-MM-dd");
+            string from = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
             string to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
 
             DataTable dtCompany = oDAL.GMS_Get_CompanyByCoyID(CoyID);
@@ -1091,78 +1091,26 @@ namespace GMSConApp
 
                 if (execute)
                 {
-                    //Delete Sales Detail
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Sales Detail data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSalesDetail");
 
-                    //Retrieve Sales Detail
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Detail data...");
-                    query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '" + from + "', '" + to + "')";
-                    //query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '', '')";
+
+                    //Retrieve Sales Person
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
+                    query = "SELECT * FROM OSLP";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                    "SalesTrnType", "SalesTrnNo", "SalesTrnDate", "SrNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitCost", "UnitAmount", "Cost", "Amount", "GPAmount", "Currency", "ExchangeRate", "TaxRate", "LMSDONo",
-                    "Warehouse", "CustomerSalesPersonID", "TrnSalesPersonID", "SalesDocDate", "DueDate", "Field26", "Field27", "Field28", "Field29", "Field30");
+                        "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
-                    string tempProductName = "";
-                    //Insert Sales Detail data into GMS
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Detail data into GMS...");
+                    //Insert Sales Person data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        tempProductName = dr["ProductName"].ToString().Replace("'", "''");
-
-                        oDAL.GMS_Insert_SalesDetail(CoyID,
-                        dr["SalesTrnType"].ToString(),
-                        dr["SalesTrnNo"].ToString(),
-                        GMSUtil.ToDate(dr["SalesTrnDate"].ToString()),
-                        GMSUtil.ToShort(dr["SrNo"].ToString()),
-                        dr["AccountCode"].ToString(),
-                        dr["AccountName"].ToString(),
-                        dr["ProductCode"].ToString(),
-                        tempProductName,
-                        dr["ProductGroupCode"].ToString(),
-                        dr["ProductGroupName"].ToString(),
-                        GMSUtil.ToDouble(dr["Quantity"].ToString()),
-                        GMSUtil.ToDouble(dr["UnitCost"].ToString()),
-                        GMSUtil.ToDouble(dr["UnitAmount"].ToString()) * GMSUtil.ToFloat(dr["ExchangeRate"].ToString()),
-                        GMSUtil.ToDouble(dr["Cost"].ToString()),
-                        GMSUtil.ToDouble(dr["Amount"].ToString()) * GMSUtil.ToFloat(dr["ExchangeRate"].ToString()),
-                        GMSUtil.ToDouble(dr["GPAmount"].ToString()),
-                        dr["Currency"].ToString(),
-                        GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
-                        dr["LMSDONo"].ToString(),
-                        dr["Warehouse"].ToString(),
-                        dr["CustomerSalesPersonID"].ToString(),
-                        dr["TrnSalesPersonID"].ToString(),
-                        GMSUtil.ToDate(dr["SalesDocDate"].ToString()),
-                        GMSUtil.ToDate(dr["DueDate"].ToString())
-                        );
+                        if (dr["field15"].ToString() == "S")
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
+                        else if (dr["field15"].ToString() == "B")
+                            oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
                     }
-                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion");
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
-
-                    // Update Sales Trn Type CCAmount
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Update Sales Trn Type CC Amount in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "UpdateSalesTrnTypeCCAmount");
-
-                    ////Retrieve Sales Person
-                    //Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
-                    //query = "SELECT * FROM OSLP";
-                    //ds = sop.GET_SAP_QueryData(CoyID, query,
-                    //    "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
-                    //    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-
-                    ////Insert Sales Person data into GMS
-                    //Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
-                    //foreach (DataRow dr in ds.Tables[0].Rows)
-                    //{
-                    //    if (dr["field15"].ToString() == "S")
-                    //        oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
-                    //    else if (dr["field15"].ToString() == "B")
-                    //        oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
-                    //}
-                    //Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
-                    //ds.Dispose();
                     /*
                     string from4 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-3).ToString("yyyy-MM-dd");
                     //string to4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-3).ToString("yyyy-MM-dd");
