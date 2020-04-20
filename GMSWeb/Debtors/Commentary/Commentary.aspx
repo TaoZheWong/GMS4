@@ -83,8 +83,10 @@
                         </div>
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                    <label class="control-label">Salesperson</label>
-                        <asp:DropDownList ID="ddlSalesperson" runat="Server" CssClass="form-control" />
+                    <label class="control-label">Salesperson ID</label>
+                        <%--<asp:DropDownList ID="ddlSalesperson" runat="Server" CssClass="form-control" />--%>
+                        <asp:TextBox runat="server" ID="txtSalespersonID" MaxLength="50" Columns="50" onfocus="select();"
+                                CssClass="form-control" placeholder="e.g. S10188"></asp:TextBox>       
                         <input type="hidden" id="hidSalesperson" runat="server" />
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
@@ -151,6 +153,7 @@
                                 <asp:Label ID="lblAccountCode" runat="server">
                                     <%# Eval("AccountCode")%>
                                     <input type="hidden" id="hidAccountCode" runat="server" value='<%# Eval("AccountCode")%>' />
+                                   
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateColumn>
@@ -186,7 +189,8 @@
                                             <%# Eval("Fr1To30", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(1, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(1, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"1"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="31 - 60 Days" HeaderStyle-Wrap="false">
@@ -196,7 +200,8 @@
                                             <%# Eval("Fr31To60", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(2, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(2, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView2" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"2"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="61 - 90 Days" HeaderStyle-Wrap="false">
@@ -206,7 +211,8 @@
                                             <%# Eval("Fr61To90", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(3, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(3, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView3" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"3"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="91 - 120 Days" HeaderStyle-Wrap="false">
@@ -216,7 +222,8 @@
                                             <%# Eval("Fr91To120", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(4, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(4, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView4" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"4"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="121 - 180 Days" HeaderStyle-Wrap="false">
@@ -226,7 +233,8 @@
                                             <%# Eval("Fr121To180", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(5, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(5, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView5" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"5"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="181 - 365 Days" HeaderStyle-Wrap="false">
@@ -236,7 +244,8 @@
                                             <%# Eval("Fr181To365", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(6, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(6, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView6" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"6"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="> 365 Days" HeaderStyle-Wrap="false">
@@ -246,7 +255,8 @@
                                             <%# Eval("Fr365", "{0:C}")%>
                                     </asp:Label>
                                 </div>
-                                <a href="#" title="Detail1" onclick='viewDetail(7, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>
+                                <%--<a href="#" title="Detail1" onclick='viewDetail(7, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>");return false;'>Detail</a>--%>
+                                <asp:LinkButton ID="lnkView7" runat="server" OnCommand="lnkViewDetail_Click" CommandArgument='<%#"7"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Total Debts" HeaderStyle-Wrap="false">
@@ -275,13 +285,15 @@
                                 <div><%# Eval("PaymentRefNo")%></div>
                                 <div><%# Eval("PaymentDate","{0: dd-MMM-yyyy}")%></div>
                                 <div><%# Eval("PaymentAmount", "{0:C}")%></div>
-                                <div><a href="#" title="Detail1" onclick='viewPaymentDetail(5, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>","<%# Eval("PaymentRefNo")%>");return false;'>Detail</a></div>
+                                <%--<div><a href="#" title="Detail1" onclick='viewPaymentDetail(5, "<%#  Eval("AccountCode")%>","<%# Eval("SALES_Currency")%>","<%# Eval("PaymentRefNo")%>");return false;'>Detail</a></div>--%>
+                                <asp:LinkButton ID="lnkView8" runat="server" OnCommand="lnkViewPaymentDetail_Click" CommandArgument='<%#"5"+";"+Eval("AccountCode")+";"+Eval("SALES_Currency")+";"+Eval("PaymentRefNo")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Last Invoice #" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <div><%# Eval("docno")%></div>
-                                <div><a href="#" title="Detail1" onclick='viewLastPaymentDetail("<%#  Eval("AccountCode")%>","<%# Eval("docno")%>");return false;'>Detail</a></div>
+                                <%--<div><a href="#" title="Detail1" onclick='viewLastPaymentDetail("<%#  Eval("AccountCode")%>","<%# Eval("docno")%>");return false;'>Detail</a></div>--%>
+                                <asp:LinkButton ID="lnkView9" runat="server" OnCommand="lnkViewLastPaymentDetail_Click" CommandArgument='<%#Eval("AccountCode")+";"+Eval("docno")+";"+Eval("SalesPersonID")%>'><span>Detail</span></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Previous Month Comment" HeaderStyle-Wrap="false">
@@ -398,7 +410,7 @@
         $.fn.overflown = function () { var e = this[0]; return e.scrollHeight > e.clientHeight || e.scrollWidth > e.clientWidth; };
 
         $(document).ready(function () {
-            $(".customer-info-menu").addClass("active expand");
+            $(".debtors-menu").addClass("active expand");
             $(".sub-commentary").addClass("active");
 
            

@@ -133,8 +133,9 @@ namespace GMSWeb.Debtors.Commentary
 	{			
 		var CoyID = document.getElementById('"; javaScript += hidCoyID.ClientID; javaScript += @"').value;	
 		var AsOfDate = document.getElementById('"; javaScript += hidAsOfDate.ClientID; javaScript += @"').value;	
-        var SalesPersonType = document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').selectedIndex].value;	
-        var SalesPersonID = document.getElementById('"; javaScript += ddlSalesperson.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesperson.ClientID; javaScript += @"').selectedIndex].value;	
+        var SalesPersonType = document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').selectedIndex].value;
+        //"" is removed	as comment Eason 2020/04/20 
+        var SalesPersonID = document.getElementById('; javaScript += ddlSalesperson.ClientID; javaScript += @').options[document.getElementById('; javaScript += ddlSalesperson.ClientID; javaScript += @').selectedIndex].value;	
        	
 		var url = ""DebtorDetails.aspx?CoyID="" + CoyID + ""&AccountCode="" + 
 					AccountCode + ""&CurrencyCode="" + Currency + ""&Type="" + Type + ""&AsOfDate="" + AsOfDate + ""&SalesPersonType=""+ SalesPersonType + ""&SalesPersonID=""+ SalesPersonID ; 
@@ -148,7 +149,8 @@ namespace GMSWeb.Debtors.Commentary
 		var CoyID = document.getElementById('"; javaScript += hidCoyID.ClientID; javaScript += @"').value;	
 		var AsOfDate = document.getElementById('"; javaScript += hidAsOfDate.ClientID; javaScript += @"').value;					
 		var SalesPersonType = document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').selectedIndex].value;	
-        var SalesPersonID = document.getElementById('"; javaScript += ddlSalesperson.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesperson.ClientID; javaScript += @"').selectedIndex].value;       	
+        //"" is removed	to ignore error - Eason 2020/04/20 
+        var SalesPersonID = document.getElementById('; javaScript += ddlSalesperson.ClientID; javaScript += @').options[document.getElementById('; javaScript += ddlSalesperson.ClientID; javaScript += @').selectedIndex].value;       	
         var url = ""DebtorPaymentDetails.aspx?CoyID="" + CoyID + ""&AccountCode="" + 
 					AccountCode + ""&CurrencyCode="" + Currency + ""&Type="" + Type + ""&AsOfDate="" + AsOfDate + ""&PaymentRefNo=""+PaymentRefNo+ ""&SalesPersonType=""+ SalesPersonType + ""&SalesPersonID=""+ SalesPersonID ; ; 
 		//window.open(url,window,""dialogWidth:35;dialogHeight:40"");	
@@ -161,7 +163,8 @@ namespace GMSWeb.Debtors.Commentary
 		var CoyID = document.getElementById('"; javaScript += hidCoyID.ClientID; javaScript += @"').value;	
 		var AsOfDate = document.getElementById('"; javaScript += hidAsOfDate.ClientID; javaScript += @"').value;					
 		var SalesPersonType = document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesPersonType.ClientID; javaScript += @"').selectedIndex].value;	
-        var SalesPersonID = document.getElementById('"; javaScript += ddlSalesperson.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlSalesperson.ClientID; javaScript += @"').selectedIndex].value;	
+       //"" is removed	to ignore error - Eason 2020/04/20 
+        var SalesPersonID = document.getElementById('; javaScript += ddlSalesperson.ClientID; javaScript += @').options[document.getElementById('; javaScript += ddlSalesperson.ClientID; javaScript += @').selectedIndex].value;	
         var url = ""DebtorLastPaymentDetails.aspx?CoyID="" + CoyID + ""&AccountCode="" + 
 					AccountCode + ""&DocNo="" + DocNo+ ""&SalesPersonType=""+ SalesPersonType + ""&SalesPersonID=""+ SalesPersonID ; ; 
 		//window.open(url,window,""dialogWidth:35;dialogHeight:40"");	
@@ -169,8 +172,6 @@ namespace GMSWeb.Debtors.Commentary
 		return false;
 	}	
 
-	
-	
 	function print()
 	{
 		var reportID = document.getElementById('"; javaScript += ddlReport.ClientID; javaScript += @"').options[document.getElementById('"; javaScript += ddlReport.ClientID; javaScript += @"').selectedIndex].value;
@@ -192,10 +193,79 @@ namespace GMSWeb.Debtors.Commentary
 ";
 			Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
 		}
-		#endregion
+        #endregion
 
-		#region PopulateSalesperson
-		private void PopulateSalesperson()
+        public void lnkViewDetail_Click(object sender, CommandEventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            string[] arg = new string[4];
+            arg = e.CommandArgument.ToString().Split(';');
+            string type = arg[0];
+            string accountCode = arg[1];
+            string salesCurrency = arg[2];
+            string salespersonID = arg[3];
+            string coyID = session.CompanyId.ToString();
+            string asOfDate = txtAsOfDate.Text.Trim();
+            string salespersonType = ddlSalesPersonType.SelectedValue.Trim();
+
+            string url = "DebtorDetails.aspx?CoyID=" + coyID + "&AccountCode=" + accountCode + "&CurrencyCode=" + salesCurrency
+           + "&Type=" + type + "&AsOfDate=" + asOfDate + "&SalesPersonType=" + salespersonType + "&SalesPersonID=" + salespersonID;
+
+            string strPopup = "<script language='javascript' ID='script1'>"
+           + "window.open('"+url
+          + "','new window', ' width=600, height=600, dependant=no, location=0,  resizeable=no, scrollbars=no, toolbar=no, status=yes')"
+           + "</script>";
+            ScriptManager.RegisterStartupScript((Page)HttpContext.Current.Handler, typeof(Page), "Script1", strPopup, false);
+        }
+
+        public void lnkViewPaymentDetail_Click(object sender, CommandEventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            string[] arg = new string[5];
+            arg = e.CommandArgument.ToString().Split(';');
+            string type = arg[0];
+            string accountCode = arg[1];
+            string salesCurrency = arg[2];
+            string paymentRefNo = arg[3];
+            string salespersonID = arg[4];
+            string coyID = session.CompanyId.ToString();
+            string asOfDate = txtAsOfDate.Text.Trim();
+            string salespersonType = ddlSalesPersonType.SelectedValue.Trim();
+
+            string url = "DebtorPaymentDetails.aspx?CoyID=" + coyID + "&AccountCode=" + accountCode + "&CurrencyCode=" + salesCurrency
+           + "&Type=" + type + "&AsOfDate=" + asOfDate + "&PaymentRefNo=" + paymentRefNo +"&SalesPersonType=" + salespersonType + "&SalesPersonID=" + salespersonID;
+
+            string strPopup = "<script language='javascript' ID='script1'>"
+           + "window.open('" + url
+          + "','new window', ' width=600, height=600, dependant=no, location=0,  resizeable=no, scrollbars=no, toolbar=no, status=yes')"
+           + "</script>";
+            ScriptManager.RegisterStartupScript((Page)HttpContext.Current.Handler, typeof(Page), "Script1", strPopup, false);
+        }
+
+        public void lnkViewLastPaymentDetail_Click(object sender, CommandEventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            string[] arg = new string[3];
+            arg = e.CommandArgument.ToString().Split(';');
+            string accountCode = arg[0];
+            string docNo = arg[1];
+            string salespersonID = arg[2];
+            string coyID = session.CompanyId.ToString();
+            string asOfDate = txtAsOfDate.Text.Trim();
+            string salespersonType = ddlSalesPersonType.SelectedValue.Trim();
+
+            string url = "DebtorLastPaymentDetails.aspx?CoyID=" + coyID + "&AccountCode=" + accountCode + "&DocNo=" + docNo
+          + "&SalesPersonType=" + salespersonType + "&SalesPersonID=" + salespersonID;
+
+            string strPopup = "<script language='javascript' ID='script1'>"
+           + "window.open('" + url
+          + "','new window', ' width=600, height=600, dependant=no, location=0,  resizeable=no, scrollbars=no, toolbar=no, status=yes')"
+           + "</script>";
+            ScriptManager.RegisterStartupScript((Page)HttpContext.Current.Handler, typeof(Page), "Script1", strPopup, false);
+        }
+
+        #region PopulateSalesperson
+        private void PopulateSalesperson()
 		{
 			LogSession session = base.GetSessionInfo();
 			DataSet lstSalesPerson = new DataSet();
@@ -203,10 +273,10 @@ namespace GMSWeb.Debtors.Commentary
 
 			if (lstSalesPerson != null && lstSalesPerson.Tables[0].Rows.Count > 0)
 			{
-				this.ddlSalesperson.DataSource = lstSalesPerson;
-				this.ddlSalesperson.DataValueField = "SalesPersonID";
-				this.ddlSalesperson.DataTextField = "SalesPersonNameID";
-				this.ddlSalesperson.DataBind();
+				//this.ddlSalesperson.DataSource = lstSalesPerson;
+				//this.ddlSalesperson.DataValueField = "SalesPersonID";
+				//this.ddlSalesperson.DataTextField = "SalesPersonNameID";
+				//this.ddlSalesperson.DataBind();
 			}
 		}
 		#endregion
@@ -216,7 +286,7 @@ namespace GMSWeb.Debtors.Commentary
 		{
 			LogSession session = base.GetSessionInfo();
 			DateTime asOfDate = GMSUtil.ToDate(txtAsOfDate.Text.ToString());
-			string salesPersonID = ddlSalesperson.SelectedValue.Trim();
+			string salesPersonID = "%" + txtSalespersonID.Text.Trim() + "%";
             string salesPersonType = ddlSalesPersonType.SelectedValue.Trim();
             short days = GMSUtil.ToShort(ddlPeriod.SelectedValue.Trim());
             string accountCode = "%" + txtAccountCode.Text.Trim() + "%";
@@ -238,7 +308,6 @@ namespace GMSWeb.Debtors.Commentary
 
 			if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
 			{
-
 				dgData.Columns[5].ItemStyle.CssClass = "apacity_100";
 				dgData.Columns[6].ItemStyle.CssClass = "apacity_100";
 				dgData.Columns[7].ItemStyle.CssClass = "apacity_100";
@@ -246,7 +315,6 @@ namespace GMSWeb.Debtors.Commentary
 				dgData.Columns[9].ItemStyle.CssClass = "apacity_100";
 				dgData.Columns[10].ItemStyle.CssClass = "apacity_100";
 				dgData.Columns[11].ItemStyle.CssClass = "apacity_100";
-
 
 				if (days == 90)
 				{
@@ -288,7 +356,8 @@ namespace GMSWeb.Debtors.Commentary
 				this.lblSearchSummary.Text = "No records.";
 
             hidAsOfDate.Value = txtAsOfDate.Text.ToString();
-            hidSalesperson.Value = ddlSalesperson.SelectedValue.Trim();
+            //hidSalesperson.Value = txtSalespersonID.Text.Trim();
+            //hidSalesperson.Value = ddlSalesperson.SelectedValue.Trim();
             hidCoyID.Value = session.CompanyId.ToString();
 
             this.lblSearchSummary.Visible = true;
@@ -310,12 +379,13 @@ namespace GMSWeb.Debtors.Commentary
 		{
 			this.dgData.CurrentPageIndex = 0;
 			btnSearch.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FAA634");
-            if(ddlSalesperson.SelectedValue.Trim() != "")
+            if(txtAccountCode.Text.Trim() != ""|| txtAccountName.Text.Trim() != ""|| txtSalespersonID.Text.Trim() != "")
 			    LoadData();
-		}
+            else
+                this.PageMsgPanel.ShowMessage("Please input Customer Info or Salesperson ID.", MessagePanelControl.MessageEnumType.Alert);
+        }
 		#endregion
-
-		
+	
 		#region EditCommentCommand
 		protected void EditCommentCommand(object sender, CommandEventArgs e)
 		{

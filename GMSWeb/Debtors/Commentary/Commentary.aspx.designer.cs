@@ -58,13 +58,13 @@ namespace GMSWeb.Debtors.Commentary {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCoyID;
         
         /// <summary>
-        /// ddlSalesperson control.
+        /// txtSalespersonID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSalesperson;
+        protected global::System.Web.UI.WebControls.TextBox txtSalespersonID;
         
         /// <summary>
         /// hidSalesperson control.
