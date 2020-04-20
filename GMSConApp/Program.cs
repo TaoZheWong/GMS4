@@ -1092,6 +1092,7 @@ namespace GMSConApp
                 if (execute)
                 {
 
+
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
