@@ -4411,6 +4411,73 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+
+        #region RetrieveProductGroup
+        public void RetrieveProductGroup(short coyid, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSelectProductGroup", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductPrice
+        public void RetrieveProductPrice(short companyId, string productGroupCode, string productGroupName, string productCode, string productName, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+            command.Parameters.Add("@ProductGroupName", SqlDbType.NVarChar).Value = productGroupName;
+            command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+            command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = productName;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateProductDetail
+        public void UpdateProductDetail(string productCode, Boolean tradingStock, int reorderLevel, string productType, string modelNo, DateTime effectiveDate, Boolean inactive)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppUpdateProductDetail", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
+                command.Parameters.Add("@TradingStock", SqlDbType.Bit).Value = tradingStock;
+                command.Parameters.Add("@ReorderLevel", SqlDbType.Int).Value = reorderLevel;
+                command.Parameters.Add("@ProductType", SqlDbType.NVarChar).Value = productType;
+                command.Parameters.Add("@ModelNo", SqlDbType.NVarChar).Value = modelNo;
+                command.Parameters.Add("@EffectiveDate", SqlDbType.DateTime).Value = effectiveDate;
+                command.Parameters.Add("@Inactive", SqlDbType.Bit).Value = inactive;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
     }
 
 }

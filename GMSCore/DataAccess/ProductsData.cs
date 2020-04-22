@@ -449,5 +449,17 @@ namespace GMSCore
             adapter.Fill(dsProducts);
             return;
         }
+
+        public void GetProductByProductGroup(short companyId, string productGroup, ref DataSet dsProducts)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductCodeNameSelectByProductGroup", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductGroup", SqlDbType.NVarChar).Value = productGroup;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(dsProducts);
+            return;
+        }
     }
 }
