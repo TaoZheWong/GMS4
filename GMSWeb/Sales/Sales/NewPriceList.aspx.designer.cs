@@ -49,6 +49,24 @@ namespace GMSWeb.Sales.Sales {
         protected global::System.Web.UI.WebControls.DropDownList ddlSearchBrandName;
         
         /// <summary>
+        /// txtProductGroupCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProductGroupCode;
+        
+        /// <summary>
+        /// txtProductGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProductGroup;
+        
+        /// <summary>
         /// hiddenLabel control.
         /// </summary>
         /// <remarks>
@@ -164,51 +182,6 @@ namespace GMSWeb.Sales.Sales {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::GMSWeb.CustomCtrl.MessagePanelControl PageMsgPanel;
-        
-        /// <summary>
-        /// resultList2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl resultList2;
-        
-        /// <summary>
-        /// lblSearchSummary2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSearchSummary2;
-        
-        /// <summary>
-        /// DataGrid2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid DataGrid2;
-        
-        /// <summary>
-        /// UpdatePanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
-        /// <summary>
-        /// PageMsgPanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::GMSWeb.CustomCtrl.MessagePanelControl PageMsgPanel2;
         
         /// <summary>
         /// Master property.

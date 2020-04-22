@@ -1352,10 +1352,10 @@ function CalculateTotal(){
      var markup = $("#MarkUpPrice").val();
      
      if (markup > 0){
-        var total = qty*rate*markup;
+        var total = qty*markup;
      }
      else{
-        var total = qty*rate*unitprice;
+        var total = qty*unitprice;
      }
      $("#TotalAmount").val(total);
 }

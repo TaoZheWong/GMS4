@@ -55,7 +55,6 @@ namespace GMSWeb.Sales.Sales
             {
                 for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
                 {
-
                     loginUserOrAlternateParty = GMSUtil.ToShort(lstAlterParty.Tables[0].Rows[i]["OnBehalfUserNumID"].ToString());
                 }
             }

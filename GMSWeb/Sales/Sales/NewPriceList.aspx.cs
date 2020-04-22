@@ -19,10 +19,10 @@ namespace GMSWeb.Sales.Sales
 {
     public partial class NewPriceList : GMSBasePage
     {
+        string currentLink = "Products";
         private HSSFWorkbook hssfworkbook;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentLink = "Sales";
             lblPageHeader.Text = "Sales";
 
             if (Request.Params["CurrentLink"] != null)
@@ -41,9 +41,14 @@ namespace GMSWeb.Sales.Sales
                 return;
             }
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            162);
-            if (uAccess == null)
+                                                                            163);
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                           163);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
                 Response.Redirect(base.UnauthorizedPage(currentLink));
+            
 
             if (!IsPostBack)
             {
@@ -82,7 +87,7 @@ namespace GMSWeb.Sales.Sales
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.DataGrid1.CurrentPageIndex = 0;
-            this.btnExport.Visible = true;
+            //this.btnExport.Visible = true;
             RetrieveProduct();
         }
         #endregion
@@ -147,8 +152,8 @@ namespace GMSWeb.Sales.Sales
             }
             try
             {
-                ggdal.RetrieveProductPriceWithoutAgeingStock(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds);
-                ggdal.RetrieveProductPriceAgeingStock(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds2);
+                //ggdal.RetrieveProductPriceWithoutAgeingStock(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds);
+                //ggdal.RetrieveProductPriceAgeingStock(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds2);
                 if (ds != null)
                 {
                     int i = 2;
@@ -243,6 +248,15 @@ namespace GMSWeb.Sales.Sales
             return file;
         }
 
+        #region DataGrid1 PageIndexChanged event handling
+        protected void DataGrid1_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+        {
+            DataGrid dtg = (DataGrid)source;
+            dtg.CurrentPageIndex = e.NewPageIndex;
+            RetrieveProduct();
+        }
+        #endregion
+
         #region DataGrid1_ItemDataBound
         protected void DataGrid1_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
@@ -250,15 +264,14 @@ namespace GMSWeb.Sales.Sales
 
             if (e.Item.ItemType == ListItemType.Footer)
             {
-                DropDownList ddlNewBrand = (DropDownList)e.Item.FindControl("ddlNewBrand");
-                if (ddlNewBrand != null)
+                DropDownList ddlNewProductGroup = (DropDownList)e.Item.FindControl("ddlNewProductGroup");
+                if (ddlNewProductGroup != null)
                 {
                     GMSGeneralDALC ggdal = new GMSGeneralDALC();
                     DataSet ds1 = new DataSet();
-                    ggdal.RetrieveProductBrand(ref ds1);
-                    ds1.Tables[0].Rows.Add(0, "OthWS", "OthWS");
-                    ddlNewBrand.DataSource = ds1.Tables[0];
-                    ddlNewBrand.DataBind();
+                    ggdal.RetrieveProductGroup(session.CompanyId, session.UserId, ref ds1);
+                    ddlNewProductGroup.DataSource = ds1.Tables[0];
+                    ddlNewProductGroup.DataBind();
                     //ddlNewTeamName.SelectedValue = lstSalesGroupTeam.
                 }
             }
@@ -267,39 +280,39 @@ namespace GMSWeb.Sales.Sales
             {
                 HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
 
-                foreach (DataGridItem item in DataGrid1.Items)
-                {   //add id for each row for drag & drop to save order
-                    hidProductCode = (HtmlInputHidden)item.FindControl("hidProductCode");
-                    item.Attributes.Add("id", hidProductCode.Value.ToString());
-                }
+                //foreach (DataGridItem item in DataGrid1.Items)
+                //{   //add id for each row for drag & drop to save order
+                //    hidProductCode = (HtmlInputHidden)item.FindControl("hidProductCode");
+                //    item.Attributes.Add("id", hidProductCode.Value.ToString());
+                //}
                 LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete2");
                 if (lnkDelete != null)
                     lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
 
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                163);
+                //UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+                //                                                                163);
                 
-                if (uAccess == null)
-                {   //disable column & edit function for sales person
-                    this.DataGrid1.ShowFooter = false;
-                    this.DataGrid1.Attributes.Add("style", "pointer-events: none");
-                    this.DataGrid1.Columns[5].Visible = false;
-                    this.DataGrid1.Columns[6].Visible = false;
-                    this.DataGrid1.Columns[7].Visible = false;
-                    this.DataGrid1.Columns[9].Visible = false;
-                    this.DataGrid1.Columns[10].Visible = false;
-                    this.DataGrid1.Columns[11].Visible = false;
-                    this.DataGrid1.Columns[12].Visible = false;
-                    this.DataGrid1.Columns[13].Visible = false;
-                    this.DataGrid1.Columns[14].Visible = false;
-                    this.DataGrid1.Columns[15].Visible = false;
-                    this.DataGrid1.Columns[16].Visible = false;
-                }
-                else
-                {   //get live stock balance only when needed
-                    Label lblStockStatus = (Label)e.Item.FindControl("lblStockStatus");
-                    lblStockStatus.Text = getLiveStockBalance(hidProductCode.Value.Trim());
-                }
+                //if (uAccess == null)
+                //{   //disable column & edit function for sales person
+                //    this.DataGrid1.ShowFooter = false;
+                //   this.DataGrid1.Attributes.Add("style", "pointer-events: none");
+                //    this.DataGrid1.Columns[5].Visible = false;
+                //    this.DataGrid1.Columns[6].Visible = false;
+                //    this.DataGrid1.Columns[7].Visible = false;
+                //    this.DataGrid1.Columns[9].Visible = false;
+                //    this.DataGrid1.Columns[10].Visible = false;
+                //    this.DataGrid1.Columns[11].Visible = false;
+                //    this.DataGrid1.Columns[12].Visible = false;
+                //    this.DataGrid1.Columns[13].Visible = false;
+                //    this.DataGrid1.Columns[14].Visible = false;
+                //    this.DataGrid1.Columns[15].Visible = false;
+                //    this.DataGrid1.Columns[16].Visible = false;
+                //}
+                //else
+                //{   //get live stock balance only when needed
+                //    Label lblStockStatus = (Label)e.Item.FindControl("lblStockStatus");
+                //    lblStockStatus.Text = getLiveStockBalance(hidProductCode.Value.Trim());
+                //}
             }
         }
         #endregion
@@ -328,15 +341,7 @@ namespace GMSWeb.Sales.Sales
                 LogSession session = base.GetSessionInfo();
                 if (session == null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("Sales"));
-                    return;
-                }
-
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                163);
-                if (uAccess == null)
-                {
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
+                    Response.Redirect(base.SessionTimeOutPage(currentLink));
                     return;
                 }
 
@@ -344,6 +349,13 @@ namespace GMSWeb.Sales.Sales
                 TextBox txtNewDealerPrice = (TextBox)e.Item.FindControl("txtNewDealerPrice");
                 TextBox txtNewUserPrice = (TextBox)e.Item.FindControl("txtNewUserPrice");
                 TextBox txtNewRetailPrice = (TextBox)e.Item.FindControl("txtNewRetailPrice");
+
+                TextBox txtNewModelNo = (TextBox)e.Item.FindControl("txtNewModelNo");
+                TextBox txtNewProductType = (TextBox)e.Item.FindControl("txtNewProductType");
+                TextBox txtNewReorderLevel = (TextBox)e.Item.FindControl("txtNewReorderLevel");
+                TextBox txtNewEffectiveDate = (TextBox)e.Item.FindControl("txtNewEffectiveDate");
+                CheckBox chkbxNewTradingStock = (CheckBox)e.Item.FindControl("chkbxNewTradingStock");
+                CheckBox chkbxNewInactive = (CheckBox)e.Item.FindControl("chkbxNewInactive");
 
                 if (ddlNewProduct != null && !string.IsNullOrEmpty(ddlNewProduct.SelectedValue) &&
                      txtNewDealerPrice != null && !string.IsNullOrEmpty(txtNewDealerPrice.Text)&&
@@ -362,6 +374,7 @@ namespace GMSWeb.Sales.Sales
                         ProductPrice pp = new ProductPrice();
                         pp.CoyID = session.CompanyId;
                         pp.ProductCode = ddlNewProduct.SelectedValue;
+                        pp.ProductGroupCode = product.ProductGroupCode;
                         pp.WeightedCost = Decimal.Parse(product.WeightedCost.ToString());
                         pp.DealerPrice = decimal.Parse(txtNewDealerPrice.Text.Trim());
                         pp.UserPrice = decimal.Parse(txtNewUserPrice.Text.Trim());
@@ -369,7 +382,13 @@ namespace GMSWeb.Sales.Sales
                         pp.UpdatedBy = session.UserId;
                         pp.UpdatedDate = DateTime.Now;
                         pp.IsExpired = false;
+                       
+                        GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                        ggdal.UpdateProductDetail(ddlNewProduct.SelectedValue, chkbxNewTradingStock.Checked, Int32.Parse(txtNewReorderLevel.Text.Trim()),
+                            txtNewProductType.Text.Trim(), txtNewModelNo.Text.Trim(), DateTime.Parse(txtNewEffectiveDate.Text.Trim()), chkbxNewInactive.Checked);
+
                         pp.Save();
+                        this.PageMsgPanel.ShowMessage("New product price inserted.", MessagePanelControl.MessageEnumType.Alert);
                         RetrieveProduct();
                     }
                     catch (Exception ex)
@@ -388,34 +407,44 @@ namespace GMSWeb.Sales.Sales
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
-                Response.Redirect(base.SessionTimeOutPage("Sales"));
+                Response.Redirect(base.SessionTimeOutPage(currentLink));
                 return;
             }
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            153);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("Sales"));
 
+            TextBox txtEditModelNo = (TextBox)e.Item.FindControl("txtEditModelNo");
+            TextBox txtEditProductType = (TextBox)e.Item.FindControl("txtEditProductType");
             TextBox txtEditDealerPrice = (TextBox)e.Item.FindControl("txtEditDealerPrice");
             TextBox txtEditUserPrice = (TextBox)e.Item.FindControl("txtEditUserPrice");
             TextBox txtEditRetailPrice = (TextBox)e.Item.FindControl("txtEditRetailPrice");
+            TextBox txtEditReorderLevel = (TextBox)e.Item.FindControl("txtEditReorderLevel");
+            TextBox txtEditEffectiveDate = (TextBox)e.Item.FindControl("txtEditEffectiveDate");
+            CheckBox chkbxEditTradingStock = (CheckBox)e.Item.FindControl("chkbxEditTradingStock");
+            CheckBox chkbxEditInactive = (CheckBox)e.Item.FindControl("chkbxEditInactive");
             HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
             Label lblUpdatedDateEdit = (Label)e.Item.FindControl("lblUpdatedDateEdit");
 
             if (hidProductCode != null && txtEditDealerPrice != null && !string.IsNullOrEmpty(txtEditDealerPrice.Text)
                  && txtEditUserPrice != null && !string.IsNullOrEmpty(txtEditUserPrice.Text)
-                 && txtEditRetailPrice != null && !string.IsNullOrEmpty(txtEditRetailPrice.Text))
+                 && txtEditRetailPrice != null && !string.IsNullOrEmpty(txtEditRetailPrice.Text)
+                 && txtEditModelNo != null && !string.IsNullOrEmpty(txtEditModelNo.Text)
+                 && txtEditProductType != null && !string.IsNullOrEmpty(txtEditProductType.Text)
+                 && txtEditReorderLevel != null && !string.IsNullOrEmpty(txtEditReorderLevel.Text))
             {
-                Product product = Product.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
+                //Product product = Product.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
                 ProductPrice pp = ProductPrice.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
-                pp.WeightedCost = (Decimal)product.WeightedCost;
+                //pp.WeightedCost = (Decimal)product.WeightedCost;
                 pp.DealerPrice = decimal.Parse(txtEditDealerPrice.Text.Trim());
                 pp.UserPrice = decimal.Parse(txtEditUserPrice.Text.Trim());
                 pp.RetailPrice = decimal.Parse(txtEditRetailPrice.Text.Trim());
                 pp.UpdatedBy = session.UserId;
                 pp.UpdatedDate = DateTime.Now;
+
                 try
                 {
+                    GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                    ggdal.UpdateProductDetail(hidProductCode.Value.ToString(), chkbxEditTradingStock.Checked, Int32.Parse(txtEditReorderLevel.Text.Trim()),
+                        txtEditProductType.Text.Trim(), txtEditModelNo.Text.Trim(), DateTime.Parse(txtEditEffectiveDate.Text.Trim()), chkbxEditInactive.Checked);
+
                     pp.Save();
                     this.DataGrid1.EditItemIndex = -1;
                     RetrieveProduct();
@@ -437,13 +466,9 @@ namespace GMSWeb.Sales.Sales
                 LogSession session = base.GetSessionInfo();
                 if (session == null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("Sales"));
+                    Response.Redirect(base.SessionTimeOutPage(currentLink));
                     return;
                 }
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                153);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("Sales"));
 
                 HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
                 Label lblUpdatedDate = (Label)e.Item.FindControl("lblUpdatedDate");
@@ -492,26 +517,25 @@ namespace GMSWeb.Sales.Sales
             string ProductCode = "";
             string ProductName = "";
             string ProductGroupCode = "";
-            int Brand =0 ;
-            if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) && 
-                string.IsNullOrEmpty(ddlSearchBrandName.SelectedValue))
-            {
-                this.MsgPanel2.ShowMessage("Please input product to search", MessagePanelControl.MessageEnumType.Alert);
-                resultList.Visible = false;
-                resultList2.Visible = false;
-            }
-            else
-            {
+            string ProductGroup = "";
+            //int Brand =0 ;
+            
                 ProductCode = "%" + txtProductCode.Text.Trim() + "%";
                 ProductName = "%" + txtProductName.Text.Trim() + "%";
-                ProductGroupCode = "%" + ddlSearchProductGroup.SelectedValue + "%";
-                Brand = int.Parse(ddlSearchBrandName.SelectedValue);
+                ProductGroupCode = "%" + txtProductGroupCode.Text.Trim() + "%";
+                ProductGroup = "%" + txtProductGroup.Text.Trim() + "%";
                 resultList.Visible = true;
-                resultList2.Visible = true;
-            }
+                //Brand = int.Parse(ddlSearchBrandName.SelectedValue);
+                //resultList2.Visible = true;
+                if(string.IsNullOrEmpty(txtProductGroupCode.Text.Trim())&& string.IsNullOrEmpty(txtProductGroup.Text.Trim()))
+                {
+                    this.PageMsgPanel.ShowMessage("Please input brand/product code or name to search", MessagePanelControl.MessageEnumType.Alert);
+                    return;
+                }    
+
             try
             {
-                ggdal.RetrieveProductPriceWithoutAgeingStock(session.CompanyId, Brand, ProductCode, ProductName,ProductGroupCode,ref ds);
+                ggdal.RetrieveProductPrice(session.CompanyId, ProductGroupCode, ProductGroup, ProductCode, ProductName,session.UserId,ref ds);
             }
             catch (Exception ex)
             {
@@ -520,7 +544,7 @@ namespace GMSWeb.Sales.Sales
             
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                this.lblSearchSummary.Text = ds.Tables[0].Rows.Count.ToString()+ " Results (Product With Sales)";
+                this.lblSearchSummary.Text = ds.Tables[0].Rows.Count.ToString()+ " Results";
                 this.lblSearchSummary.Visible = true;
                 this.DataGrid1.Visible = true;
                 this.DataGrid1.DataSource = ds;
@@ -534,48 +558,48 @@ namespace GMSWeb.Sales.Sales
                 this.DataGrid1.DataSource = null;
                 this.DataGrid1.DataBind();
             }
-            try
-            {
-                ggdal.RetrieveProductPriceAgeingStock(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds2);
-            }
-            catch (Exception ex)
-            {
-                this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-            }
-            if (ds2 != null && ds2.Tables[0].Rows.Count > 0)
-            {
-                this.lblSearchSummary2.Text = ds2.Tables[0].Rows.Count.ToString() + " Results (Product No Sales)";
-                this.lblSearchSummary2.Visible = true;
-                this.DataGrid2.Visible = true;
-                this.DataGrid2.DataSource = ds2;
-                this.DataGrid2.DataBind();
-            }
-            else
-            {
-                this.lblSearchSummary2.Text = "No records.";
-                this.lblSearchSummary2.Visible = true;
-                this.DataGrid2.Visible = true;
-                this.DataGrid2.DataSource = null;
-                this.DataGrid2.DataBind();
-                return;
-            }
+            //try
+            //{
+            //    ggdal.RetrieveProductPriceAgeingStock(session.CompanyId, Brand, ProductCode, ProductName, ProductGroupCode, ref ds2);
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+            //}
+            //if (ds2 != null && ds2.Tables[0].Rows.Count > 0)
+            //{
+            //    this.lblSearchSummary2.Text = ds2.Tables[0].Rows.Count.ToString() + " Results (Product No Sales)";
+            //    this.lblSearchSummary2.Visible = true;
+            //    this.DataGrid2.Visible = true;
+            //    this.DataGrid2.DataSource = ds2;
+            //    this.DataGrid2.DataBind();
+            //}
+            //else
+            //{
+            //    this.lblSearchSummary2.Text = "No records.";
+            //    this.lblSearchSummary2.Visible = true;
+            //    this.DataGrid2.Visible = true;
+            //    this.DataGrid2.DataSource = null;
+            //    this.DataGrid2.DataBind();
+            //    return;
+            //}
         }
         #endregion
 
-        #region ddlNewBrand_SelectedIndexChanged
-        protected void ddlNewBrand_SelectedIndexChanged(object sender, EventArgs e)
+        #region ddlNewProductGroup_SelectedIndexChanged
+        protected void ddlNewProductGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
-            DropDownList ddlNewBrand = (DropDownList)sender;
-            int brand = int.Parse(ddlNewBrand.SelectedValue);
+            DropDownList ddlNewProductGroup = (DropDownList)sender;
+            string productGroup = ddlNewProductGroup.SelectedValue;
 
             ProductsDataDALC ppdac = new ProductsDataDALC();
-            TableRow tr = (TableRow)ddlNewBrand.Parent.Parent;
+            TableRow tr = (TableRow)ddlNewProductGroup.Parent.Parent;
             DropDownList ddlNewProduct = (DropDownList)tr.FindControl("ddlNewProduct");
             if (ddlNewProduct != null)
             {
                 DataSet dsProducts = new DataSet();
-                ppdac.GetProductByBrand(session.CompanyId, brand, ref dsProducts);
+                ppdac.GetProductByProductGroup(session.CompanyId, productGroup, ref dsProducts);
                 ddlNewProduct.DataSource = dsProducts.Tables[0];
                 ddlNewProduct.DataBind();
             }
@@ -703,237 +727,237 @@ namespace GMSWeb.Sales.Sales
         }
         #endregion
 
-        #region DataGrid2_ItemDataBound
-        protected void DataGrid2_ItemDataBound(object sender, DataGridItemEventArgs e)
-        {
-            LogSession session = base.GetSessionInfo();
+        //#region DataGrid2_ItemDataBound
+        //protected void DataGrid2_ItemDataBound(object sender, DataGridItemEventArgs e)
+        //{
+        //    LogSession session = base.GetSessionInfo();
 
-            if (e.Item.ItemType == ListItemType.Footer)
-            {
-                DropDownList ddlNewBrand = (DropDownList)e.Item.FindControl("ddlNewBrand");
-                if (ddlNewBrand != null)
-                {
-                    GMSGeneralDALC ggdal = new GMSGeneralDALC();
-                    DataSet ds1 = new DataSet();
-                    ggdal.RetrieveProductBrand(ref ds1);
-                    ds1.Tables[0].Rows.Add(0, "OthWS", "OthWS");
-                    ddlNewBrand.DataSource = ds1.Tables[0];
-                    ddlNewBrand.DataBind();
-                    //ddlNewTeamName.SelectedValue = lstSalesGroupTeam.
-                }
-            }
+        //    if (e.Item.ItemType == ListItemType.Footer)
+        //    {
+        //        DropDownList ddlNewBrand = (DropDownList)e.Item.FindControl("ddlNewBrand");
+        //        if (ddlNewBrand != null)
+        //        {
+        //            GMSGeneralDALC ggdal = new GMSGeneralDALC();
+        //            DataSet ds1 = new DataSet();
+        //            ggdal.RetrieveProductBrand(ref ds1);
+        //            ds1.Tables[0].Rows.Add(0, "OthWS", "OthWS");
+        //            ddlNewBrand.DataSource = ds1.Tables[0];
+        //            ddlNewBrand.DataBind();
+        //            //ddlNewTeamName.SelectedValue = lstSalesGroupTeam.
+        //        }
+        //    }
 
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
+        //    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        //    {
+        //        HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
 
-                foreach (DataGridItem item in DataGrid2.Items)
-                {   //add id for each row for drag & drop to save order
-                    hidProductCode = (HtmlInputHidden)item.FindControl("hidProductCode");
-                    item.Attributes.Add("id", hidProductCode.Value.ToString());
-                }
-                LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete2");
-                if (lnkDelete != null)
-                    lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
+        //        foreach (DataGridItem item in DataGrid2.Items)
+        //        {   //add id for each row for drag & drop to save order
+        //            hidProductCode = (HtmlInputHidden)item.FindControl("hidProductCode");
+        //            item.Attributes.Add("id", hidProductCode.Value.ToString());
+        //        }
+        //        LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete2");
+        //        if (lnkDelete != null)
+        //            lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
 
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                163);
+        //        UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+        //                                                                        163);
 
-                if (uAccess == null)
-                {   //disable column & edit function for sales person
-                    this.DataGrid2.ShowFooter = false;
-                    this.DataGrid2.Attributes.Add("style", "pointer-events: none");
-                    this.DataGrid2.Columns[5].Visible = false;
-                    this.DataGrid2.Columns[6].Visible = false;
-                    this.DataGrid2.Columns[7].Visible = false;
-                    this.DataGrid2.Columns[9].Visible = false;
-                    this.DataGrid2.Columns[10].Visible = false;
-                    this.DataGrid2.Columns[11].Visible = false;
-                    this.DataGrid2.Columns[12].Visible = false;
-                    this.DataGrid2.Columns[13].Visible = false;
-                    this.DataGrid2.Columns[14].Visible = false;
-                    this.DataGrid2.Columns[15].Visible = false;
-                    this.DataGrid2.Columns[16].Visible = false;
-                }
-            }
-        }
-        #endregion
+        //        if (uAccess == null)
+        //        {   //disable column & edit function for sales person
+        //            this.DataGrid2.ShowFooter = false;
+        //            this.DataGrid2.Attributes.Add("style", "pointer-events: none");
+        //            this.DataGrid2.Columns[5].Visible = false;
+        //            this.DataGrid2.Columns[6].Visible = false;
+        //            this.DataGrid2.Columns[7].Visible = false;
+        //            this.DataGrid2.Columns[9].Visible = false;
+        //            this.DataGrid2.Columns[10].Visible = false;
+        //            this.DataGrid2.Columns[11].Visible = false;
+        //            this.DataGrid2.Columns[12].Visible = false;
+        //            this.DataGrid2.Columns[13].Visible = false;
+        //            this.DataGrid2.Columns[14].Visible = false;
+        //            this.DataGrid2.Columns[15].Visible = false;
+        //            this.DataGrid2.Columns[16].Visible = false;
+        //        }
+        //    }
+        //}
+        //#endregion
 
-        #region DataGrid2_EditCommand
-        protected void DataGrid2_EditCommand(object sender, DataGridCommandEventArgs e)
-        {
-            this.DataGrid2.EditItemIndex = e.Item.ItemIndex;
-            RetrieveProduct();
-        }
-        #endregion
+        //#region DataGrid2_EditCommand
+        //protected void DataGrid2_EditCommand(object sender, DataGridCommandEventArgs e)
+        //{
+        //    this.DataGrid2.EditItemIndex = e.Item.ItemIndex;
+        //    RetrieveProduct();
+        //}
+        //#endregion
 
-        #region DataGrid2_CancelCommand
-        protected void DataGrid2_CancelCommand(object sender, DataGridCommandEventArgs e)
-        {
-            this.DataGrid2.EditItemIndex = -1;
-            RetrieveProduct();
-        }
-        #endregion
+        //#region DataGrid2_CancelCommand
+        //protected void DataGrid2_CancelCommand(object sender, DataGridCommandEventArgs e)
+        //{
+        //    this.DataGrid2.EditItemIndex = -1;
+        //    RetrieveProduct();
+        //}
+        //#endregion
 
-        #region DataGrid2_CreateCommand
-        protected void DataGrid2_CreateCommand(object sender, DataGridCommandEventArgs e)
-        {
-            if (e.CommandName == "Create")
-            {
-                LogSession session = base.GetSessionInfo();
-                if (session == null)
-                {
-                    Response.Redirect(base.SessionTimeOutPage("Sales"));
-                    return;
-                }
+        //#region DataGrid2_CreateCommand
+        //protected void DataGrid2_CreateCommand(object sender, DataGridCommandEventArgs e)
+        //{
+        //    if (e.CommandName == "Create")
+        //    {
+        //        LogSession session = base.GetSessionInfo();
+        //        if (session == null)
+        //        {
+        //            Response.Redirect(base.SessionTimeOutPage("Sales"));
+        //            return;
+        //        }
 
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                163);
-                if (uAccess == null)
-                {
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
-                    return;
-                }
+        //        UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+        //                                                                        163);
+        //        if (uAccess == null)
+        //        {
+        //            System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
+        //            return;
+        //        }
 
-                DropDownList ddlNewProduct = (DropDownList)e.Item.FindControl("ddlNewProduct");
-                TextBox txtNewDealerPrice = (TextBox)e.Item.FindControl("txtNewDealerPrice");
-                TextBox txtNewUserPrice = (TextBox)e.Item.FindControl("txtNewUserPrice");
-                TextBox txtNewRetailPrice = (TextBox)e.Item.FindControl("txtNewRetailPrice");
+        //        DropDownList ddlNewProduct = (DropDownList)e.Item.FindControl("ddlNewProduct");
+        //        TextBox txtNewDealerPrice = (TextBox)e.Item.FindControl("txtNewDealerPrice");
+        //        TextBox txtNewUserPrice = (TextBox)e.Item.FindControl("txtNewUserPrice");
+        //        TextBox txtNewRetailPrice = (TextBox)e.Item.FindControl("txtNewRetailPrice");
 
-                if (ddlNewProduct != null && !string.IsNullOrEmpty(ddlNewProduct.SelectedValue) &&
-                     txtNewDealerPrice != null && !string.IsNullOrEmpty(txtNewDealerPrice.Text) &&
-                     txtNewUserPrice != null && !string.IsNullOrEmpty(txtNewUserPrice.Text) &&
-                     txtNewRetailPrice != null && !string.IsNullOrEmpty(txtNewRetailPrice.Text))
-                {
-                    try
-                    {
-                        Product product = Product.RetrieveByKey(session.CompanyId, ddlNewProduct.SelectedValue);
-                        ProductPrice pp_old = ProductPrice.RetrieveByKey(session.CompanyId, ddlNewProduct.SelectedValue);
-                        if (pp_old != null)
-                        {
-                            pp_old.IsExpired = true;
-                            pp_old.Save();
-                        }
-                        ProductPrice pp = new ProductPrice();
-                        pp.CoyID = session.CompanyId;
-                        pp.ProductCode = ddlNewProduct.SelectedValue;
-                        pp.WeightedCost = Decimal.Parse(product.WeightedCost.ToString());
-                        pp.DealerPrice = decimal.Parse(txtNewDealerPrice.Text.Trim());
-                        pp.UserPrice = decimal.Parse(txtNewUserPrice.Text.Trim());
-                        pp.RetailPrice = decimal.Parse(txtNewRetailPrice.Text.Trim());
-                        pp.UpdatedBy = session.UserId;
-                        pp.UpdatedDate = DateTime.Now;
-                        pp.IsExpired = false;
-                        pp.Save();
-                        RetrieveProduct();
-                    }
-                    catch (Exception ex)
-                    {
-                        this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-                        return;
-                    }
-                }
-            }
-        }
-        #endregion
+        //        if (ddlNewProduct != null && !string.IsNullOrEmpty(ddlNewProduct.SelectedValue) &&
+        //             txtNewDealerPrice != null && !string.IsNullOrEmpty(txtNewDealerPrice.Text) &&
+        //             txtNewUserPrice != null && !string.IsNullOrEmpty(txtNewUserPrice.Text) &&
+        //             txtNewRetailPrice != null && !string.IsNullOrEmpty(txtNewRetailPrice.Text))
+        //        {
+        //            try
+        //            {
+        //                Product product = Product.RetrieveByKey(session.CompanyId, ddlNewProduct.SelectedValue);
+        //                ProductPrice pp_old = ProductPrice.RetrieveByKey(session.CompanyId, ddlNewProduct.SelectedValue);
+        //                if (pp_old != null)
+        //                {
+        //                    pp_old.IsExpired = true;
+        //                    pp_old.Save();
+        //                }
+        //                ProductPrice pp = new ProductPrice();
+        //                pp.CoyID = session.CompanyId;
+        //                pp.ProductCode = ddlNewProduct.SelectedValue;
+        //                pp.WeightedCost = Decimal.Parse(product.WeightedCost.ToString());
+        //                pp.DealerPrice = decimal.Parse(txtNewDealerPrice.Text.Trim());
+        //                pp.UserPrice = decimal.Parse(txtNewUserPrice.Text.Trim());
+        //                pp.RetailPrice = decimal.Parse(txtNewRetailPrice.Text.Trim());
+        //                pp.UpdatedBy = session.UserId;
+        //                pp.UpdatedDate = DateTime.Now;
+        //                pp.IsExpired = false;
+        //                pp.Save();
+        //                RetrieveProduct();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
+        //#endregion
 
-        #region DataGrid2_UpdateCommand
-        protected void DataGrid2_UpdateCommand(object sender, DataGridCommandEventArgs e)
-        {
-            LogSession session = base.GetSessionInfo();
-            if (session == null)
-            {
-                Response.Redirect(base.SessionTimeOutPage("Sales"));
-                return;
-            }
-            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                            153);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("Sales"));
+        //#region DataGrid2_UpdateCommand
+        //protected void DataGrid2_UpdateCommand(object sender, DataGridCommandEventArgs e)
+        //{
+        //    LogSession session = base.GetSessionInfo();
+        //    if (session == null)
+        //    {
+        //        Response.Redirect(base.SessionTimeOutPage("Sales"));
+        //        return;
+        //    }
+        //    UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+        //                                                                    153);
+        //    if (uAccess == null)
+        //        Response.Redirect(base.UnauthorizedPage("Sales"));
 
-            TextBox txtEditDealerPrice = (TextBox)e.Item.FindControl("txtEditDealerPrice");
-            TextBox txtEditUserPrice = (TextBox)e.Item.FindControl("txtEditUserPrice");
-            TextBox txtEditRetailPrice = (TextBox)e.Item.FindControl("txtEditRetailPrice");
-            HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
-            Label lblUpdatedDateEdit = (Label)e.Item.FindControl("lblUpdatedDateEdit");
+        //    TextBox txtEditDealerPrice = (TextBox)e.Item.FindControl("txtEditDealerPrice");
+        //    TextBox txtEditUserPrice = (TextBox)e.Item.FindControl("txtEditUserPrice");
+        //    TextBox txtEditRetailPrice = (TextBox)e.Item.FindControl("txtEditRetailPrice");
+        //    HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
+        //    Label lblUpdatedDateEdit = (Label)e.Item.FindControl("lblUpdatedDateEdit");
 
-            if (hidProductCode != null && txtEditDealerPrice != null && !string.IsNullOrEmpty(txtEditDealerPrice.Text)
-                 && txtEditUserPrice != null && !string.IsNullOrEmpty(txtEditUserPrice.Text)
-                 && txtEditRetailPrice != null && !string.IsNullOrEmpty(txtEditRetailPrice.Text))
-            {
-                Product product = Product.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
-                ProductPrice pp = ProductPrice.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
-                pp.WeightedCost = (Decimal)product.WeightedCost;
-                pp.DealerPrice = decimal.Parse(txtEditDealerPrice.Text.Trim());
-                pp.UserPrice = decimal.Parse(txtEditUserPrice.Text.Trim());
-                pp.RetailPrice = decimal.Parse(txtEditRetailPrice.Text.Trim());
-                pp.UpdatedBy = session.UserId;
-                pp.UpdatedDate = DateTime.Now;
-                try
-                {
-                    pp.Save();
-                    this.DataGrid2.EditItemIndex = -1;
-                    RetrieveProduct();
-                }
-                catch (Exception ex)
-                {
-                    this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-                    return;
-                }
-            }
-        }
-        #endregion
+        //    if (hidProductCode != null && txtEditDealerPrice != null && !string.IsNullOrEmpty(txtEditDealerPrice.Text)
+        //         && txtEditUserPrice != null && !string.IsNullOrEmpty(txtEditUserPrice.Text)
+        //         && txtEditRetailPrice != null && !string.IsNullOrEmpty(txtEditRetailPrice.Text))
+        //    {
+        //        Product product = Product.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
+        //        ProductPrice pp = ProductPrice.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
+        //        pp.WeightedCost = (Decimal)product.WeightedCost;
+        //        pp.DealerPrice = decimal.Parse(txtEditDealerPrice.Text.Trim());
+        //        pp.UserPrice = decimal.Parse(txtEditUserPrice.Text.Trim());
+        //        pp.RetailPrice = decimal.Parse(txtEditRetailPrice.Text.Trim());
+        //        pp.UpdatedBy = session.UserId;
+        //        pp.UpdatedDate = DateTime.Now;
+        //        try
+        //        {
+        //            pp.Save();
+        //            this.DataGrid2.EditItemIndex = -1;
+        //            RetrieveProduct();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+        //            return;
+        //        }
+        //    }
+        //}
+        //#endregion
 
-        #region DataGrid2_DeleteCommand
-        protected void DataGrid2_DeleteCommand(object sender, DataGridCommandEventArgs e)
-        {
-            if (e.CommandName == "Delete")
-            {
-                LogSession session = base.GetSessionInfo();
-                if (session == null)
-                {
-                    Response.Redirect(base.SessionTimeOutPage("Sales"));
-                    return;
-                }
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                153);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("Sales"));
+        //#region DataGrid2_DeleteCommand
+        //protected void DataGrid2_DeleteCommand(object sender, DataGridCommandEventArgs e)
+        //{
+        //    if (e.CommandName == "Delete")
+        //    {
+        //        LogSession session = base.GetSessionInfo();
+        //        if (session == null)
+        //        {
+        //            Response.Redirect(base.SessionTimeOutPage("Sales"));
+        //            return;
+        //        }
+        //        UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+        //                                                                        153);
+        //        if (uAccess == null)
+        //            Response.Redirect(base.UnauthorizedPage("Sales"));
 
-                HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
-                Label lblUpdatedDate = (Label)e.Item.FindControl("lblUpdatedDate");
+        //        HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
+        //        Label lblUpdatedDate = (Label)e.Item.FindControl("lblUpdatedDate");
 
-                if (hidProductCode != null)
-                {
-                    try
-                    {
-                        ProductPrice pp = ProductPrice.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
-                        pp.Delete();
-                        pp.Resync();
-                        ProductPrice pp_old = ProductPrice.RetrieveByKeyExpired(session.CompanyId, hidProductCode.Value.ToString());
-                        if (pp_old != null)
-                        {
-                            pp_old.IsExpired = false;
-                            pp_old.Save();
-                        }
-                        this.DataGrid2.EditItemIndex = -1;
-                        RetrieveProduct();
-                    }
-                    catch (SqlException exSql)
-                    {
-                        this.PageMsgPanel2.ShowMessage(exSql.Message, MessagePanelControl.MessageEnumType.Alert);
-                        RetrieveProduct();
-                        return;
-                    }
-                    catch (Exception ex)
-                    {
-                        this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-                        RetrieveProduct();
-                        return;
-                    }
-                }
-            }
-        }
-        #endregion
+        //        if (hidProductCode != null)
+        //        {
+        //            try
+        //            {
+        //                ProductPrice pp = ProductPrice.RetrieveByKey(session.CompanyId, hidProductCode.Value.ToString());
+        //                pp.Delete();
+        //                pp.Resync();
+        //                ProductPrice pp_old = ProductPrice.RetrieveByKeyExpired(session.CompanyId, hidProductCode.Value.ToString());
+        //                if (pp_old != null)
+        //                {
+        //                    pp_old.IsExpired = false;
+        //                    pp_old.Save();
+        //                }
+        //                this.DataGrid2.EditItemIndex = -1;
+        //                RetrieveProduct();
+        //            }
+        //            catch (SqlException exSql)
+        //            {
+        //                this.PageMsgPanel2.ShowMessage(exSql.Message, MessagePanelControl.MessageEnumType.Alert);
+        //                RetrieveProduct();
+        //                return;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                this.PageMsgPanel2.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+        //                RetrieveProduct();
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
+        //#endregion
     }
 }

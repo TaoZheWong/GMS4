@@ -82,7 +82,7 @@ var counter = 1;
                     "title": "Curr Rate"
                 },
                 {
-                    "data": "TotalAmount",
+                    "data": "TotalAmountExchanged",
                     "title": "Curr Amt"
                 },
                 { 
