@@ -229,6 +229,7 @@ namespace GMSWeb.Sales.Sales
                     {
                         ddlReport.Items.Add(new ListItem("Sales Quotation With Letter Head", "SalesQuotationWithLetterHead_" + session.CompanyId.ToString()));
                         ddlReport.Items.Add(new ListItem("Sales Quotation With Letter Head Without Price", "SalesQuotationWithLetterHeadWithoutPrice_" + session.CompanyId.ToString()));
+                        ddlReport.Items.Add(new ListItem("Sales Quotation With Letter Head Without Charges Details", "SalesQuotationWithLetterHeadWithoutChargersDetails_" + session.CompanyId.ToString()));
                     } 
 					
 					if (session.DivisionId == 4)
