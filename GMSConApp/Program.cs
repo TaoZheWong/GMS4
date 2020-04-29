@@ -689,7 +689,7 @@ namespace GMSConApp
                         GMSUtil.ToFloat(dr["taxrate"].ToString()),
                         dr["customersalespersonid"].ToString(),
                         dr["transactionsalespersonid"].ToString(),
-                        GMSUtil.ToDate("")
+                        GMSUtil.ToDate(""), GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion for " + i.ToString());
@@ -716,7 +716,7 @@ namespace GMSConApp
                         GMSUtil.ToFloat(dr["taxrate"].ToString()),
                         dr["customersalespersonid"].ToString(),
                         dr["transactionsalespersonid"].ToString(),
-                        GMSUtil.ToDate("")
+                        GMSUtil.ToDate(""), GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales II data insertion for " + i.ToString());
@@ -1092,25 +1092,63 @@ namespace GMSConApp
                 if (execute)
                 {
 
+                    //Delete Sales
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Sales data in GMS...");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSales");
 
-                    //Retrieve Sales Person
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
-                    query = "SELECT * FROM OSLP";
+                    //Retrieve Sales I
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales I data...");
+                    query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from + "', '" + to + "')";
+                    //query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
-                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "TrnSalesPersonID", "DocDate", "DueDate", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
-                    //Insert Sales Person data into GMS
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
+                    string lmsDoc = "";
+                    //Insert Sales I data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales I data into GMS...");
+
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        if (dr["field15"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
-                        else if (dr["field15"].ToString() == "B")
-                            oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
+                        lmsDoc = dr["LMSDocNo"].ToString().Replace("'", "''");
+                        oDAL.GMS_Insert_Sales(CoyID,
+                        dr["TrnType"].ToString(),
+                        dr["TrnNo"].ToString(),
+                        GMSUtil.ToDate(dr["TrnDate"].ToString()),
+                        dr["AccountCode"].ToString(),
+                        dr["AccountName"].ToString(),
+                        lmsDoc,
+                        dr["PONo"].ToString(),
+                        GMSUtil.ToDouble(dr["Amount"].ToString()),
+                        dr["Currency"].ToString(),
+                        GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
+                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
+                        dr["CustomerSalesPersonID"].ToString(),
+                        dr["TrnSalesPersonID"].ToString(),
+                        GMSUtil.ToDate(dr["DocDate"].ToString()),
+                        GMSUtil.ToDate(dr["DueDate"].ToString())
+                        );
                     }
-                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
                     ds.Dispose();
+                    ////Retrieve Sales Person
+                    //Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
+                    //query = "SELECT * FROM OSLP";
+                    //ds = sop.GET_SAP_QueryData(CoyID, query,
+                    //    "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    //    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    ////Insert Sales Person data into GMS
+                    //Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
+                    //foreach (DataRow dr in ds.Tables[0].Rows)
+                    //{
+                    //    if (dr["field15"].ToString() == "S")
+                    //        oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
+                    //    else if (dr["field15"].ToString() == "B")
+                    //        oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
+                    //}
+                    //Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
+                    //ds.Dispose();
                     /*
                     string from4 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-3).ToString("yyyy-MM-dd");
                     //string to4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-3).ToString("yyyy-MM-dd");
@@ -1810,7 +1848,8 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                         dr["CustomerSalesPersonID"].ToString(),
                         dr["TrnSalesPersonID"].ToString(),
-                        GMSUtil.ToDate(dr["DocDate"].ToString())
+                        GMSUtil.ToDate(dr["DocDate"].ToString()),
+                        GMSUtil.ToDate(dr["DueDate"].ToString())
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
@@ -1894,7 +1933,7 @@ namespace GMSConApp
                             GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                             dr["CustomerSalesPersonID"].ToString(),
                             "",
-                            GMSUtil.ToDate(dr["DocDate"].ToString())
+                            GMSUtil.ToDate(dr["DocDate"].ToString()), GMSUtil.ToDate(dr["DueDate"].ToString())
                         );
 
 
@@ -1965,7 +2004,7 @@ namespace GMSConApp
                                 GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                                 dr["CustomerSalesPersonID"].ToString(),
                                 "",
-                                GMSUtil.ToDate(dr["DocDate"].ToString())
+                                GMSUtil.ToDate(dr["DocDate"].ToString()), GMSUtil.ToDate(dr["DueDate"].ToString())
                             );
 
                             if (dr["ReconNum"].ToString() != "")

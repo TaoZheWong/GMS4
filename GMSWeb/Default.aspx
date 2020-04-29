@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head id="Head1" runat="server">
-    <title>Leeden Group Management System</title>
+    <title>GMS</title>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta name="theme-color" content="#007ee5">
