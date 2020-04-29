@@ -689,7 +689,7 @@ namespace GMSConApp
                         GMSUtil.ToFloat(dr["taxrate"].ToString()),
                         dr["customersalespersonid"].ToString(),
                         dr["transactionsalespersonid"].ToString(),
-                        GMSUtil.ToDate("")
+                        GMSUtil.ToDate(""), GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion for " + i.ToString());
@@ -716,7 +716,7 @@ namespace GMSConApp
                         GMSUtil.ToFloat(dr["taxrate"].ToString()),
                         dr["customersalespersonid"].ToString(),
                         dr["transactionsalespersonid"].ToString(),
-                        GMSUtil.ToDate("")
+                        GMSUtil.ToDate(""), GMSUtil.ToDate("")
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales II data insertion for " + i.ToString());
@@ -1810,7 +1810,8 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                         dr["CustomerSalesPersonID"].ToString(),
                         dr["TrnSalesPersonID"].ToString(),
-                        GMSUtil.ToDate(dr["DocDate"].ToString())
+                        GMSUtil.ToDate(dr["DocDate"].ToString()),
+                        GMSUtil.ToDate(dr["DueDate"].ToString())
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
@@ -1894,7 +1895,7 @@ namespace GMSConApp
                             GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                             dr["CustomerSalesPersonID"].ToString(),
                             "",
-                            GMSUtil.ToDate(dr["DocDate"].ToString())
+                            GMSUtil.ToDate(dr["DocDate"].ToString()), GMSUtil.ToDate(dr["DueDate"].ToString())
                         );
 
 
@@ -1965,7 +1966,7 @@ namespace GMSConApp
                                 GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                                 dr["CustomerSalesPersonID"].ToString(),
                                 "",
-                                GMSUtil.ToDate(dr["DocDate"].ToString())
+                                GMSUtil.ToDate(dr["DocDate"].ToString()), GMSUtil.ToDate(dr["DueDate"].ToString())
                             );
 
                             if (dr["ReconNum"].ToString() != "")

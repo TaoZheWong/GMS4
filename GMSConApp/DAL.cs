@@ -444,7 +444,7 @@ namespace GMSConApp
         }
 
         public void GMS_Insert_Sales(short CoyID, string trnType, string trnNo, DateTime trnDate, string accountCode, string accountName, string docNo, string poNo, double amount,
-            string currency, double exchangeRate, double taxRate, string customerSalesPersonID, string trnSalesPersonID, DateTime docdate)
+            string currency, double exchangeRate, double taxRate, string customerSalesPersonID, string trnSalesPersonID, DateTime docdate, DateTime duedate)
         {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
@@ -462,6 +462,7 @@ namespace GMSConApp
             cm.Parameters.Add("@CustomerSalesPersonID", SqlDbType.NVarChar).Value = customerSalesPersonID;
             cm.Parameters.Add("@TrnSalesPersonID", SqlDbType.NVarChar).Value = trnSalesPersonID;
             cm.Parameters.Add("@DocDate", SqlDbType.DateTime).Value = docdate;
+            cm.Parameters.Add("@DueDate", SqlDbType.DateTime).Value = duedate;
             SPexecutor("procAppWSSalesInsert");
         }
 
