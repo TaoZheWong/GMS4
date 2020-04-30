@@ -52,7 +52,7 @@
                         <asp:TextBox runat="server" ID="txtProductCode" MaxLength="20" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. B1110535616"></asp:TextBox>
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-6">
-                    <label class="control-label">Item Name</label>
+                    <label class="control-label">Item Description</label>
                         <asp:TextBox runat="server" ID="txtProductName" MaxLength="50" Columns="20" onfocus="select();"
                             CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
                 </div>
@@ -106,7 +106,7 @@
                                 <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "ProductDetail.aspx?ProductCode="+Eval("ProductCode")+"&CurrentLink="+Request.Params["CurrentLink"].ToString().Trim()%>'><%# Eval("ProductCode")%></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="Item Name" SortExpression="ProductName" HeaderStyle-Wrap="false">
+                        <asp:TemplateColumn HeaderText="Item Description" SortExpression="ProductName" HeaderStyle-Wrap="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblProductName" runat="server">
                                                         <%# Eval("ProductName")%>

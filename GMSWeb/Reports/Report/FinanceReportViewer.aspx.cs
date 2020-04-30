@@ -145,7 +145,10 @@ namespace GMSWeb.Reports.Report {
                 LogSession session = base.GetSessionInfo();
                 GMSGeneralDALC dacl = new GMSGeneralDALC();
                 DataSet dsDepartments = new DataSet();
-                dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, ref dsDepartments);
+
+                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, year, month, ref dsDepartments);
                 foreach (DataRow dr in dsDepartments.Tables[0].Rows) {
                     ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
                 }
@@ -306,6 +309,7 @@ namespace GMSWeb.Reports.Report {
                         pnlParameter.Controls.Add(new LiteralControl("</div>"));
                         pnlParameter.Controls.Add(new LiteralControl("</div>"));
                         controlCount = controlCount + 1;
+              
 
                         if (crReportDocument.ParameterFields["@DepartmentID"] != null) {
                             //Add in Department DropDown
@@ -378,9 +382,12 @@ namespace GMSWeb.Reports.Report {
 
                             //Bind Department if Project > 0
                             if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0 && !IsPostBack) {
+                                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+
                                 ddlDepartmentID.Enabled = true;
                                 DataSet dsDepartments = new DataSet();
-                                dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, ref dsDepartments);
+                                dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
 
                                 foreach (DataRow dr in dsDepartments.Tables[0].Rows) {
                                     ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));

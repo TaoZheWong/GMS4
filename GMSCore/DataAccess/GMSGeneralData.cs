@@ -783,7 +783,7 @@ namespace GMSCore
             return;
         }
 
-        public void GetCompanyDepartment(short companyId, short ProjectID, short ReportID, short UserID, ref DataSet ds)
+        public void GetCompanyDepartment(short companyId, short ProjectID, short ReportID, short UserID, short year, short month, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectCompanyDepartment", (SqlConnection)conn);
@@ -792,6 +792,8 @@ namespace GMSCore
             command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = ProjectID;
             command.Parameters.Add("@ReportID", SqlDbType.SmallInt).Value = ReportID;
             command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = UserID;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
