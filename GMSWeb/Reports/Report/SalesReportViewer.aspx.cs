@@ -274,7 +274,9 @@ namespace GMSWeb.Reports.Report
                 LogSession session = base.GetSessionInfo();
                 GMSGeneralDALC dacl = new GMSGeneralDALC();
                 DataSet dsDepartments = new DataSet();
-                dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, ref dsDepartments);
+                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, year, month, ref dsDepartments);
                 foreach (DataRow dr in dsDepartments.Tables[0].Rows)
                 {
                     ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
@@ -822,7 +824,9 @@ namespace GMSWeb.Reports.Report
                         {
                             ddlDepartmentID.Enabled = true;
                             DataSet dsDepartments = new DataSet();
-                            dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, ref dsDepartments);
+                            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                            short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                            dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
 
                             foreach (DataRow dr in dsDepartments.Tables[0].Rows)
                             {
@@ -2209,6 +2213,7 @@ namespace GMSWeb.Reports.Report
                 ddlDepartment.ID = "ddlDepartment";
                 ddlDepartment.CssClass = "form-control";              
                 ddlDepartment.Items.Clear();
+
 
                 DataSet dsDepartment = new DataSet();
                 new GMSGeneralDALC().GetDepartmentForReport(session.CompanyId, reportId, loginUserOrAlternateParty, ref dsDepartment);
