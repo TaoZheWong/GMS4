@@ -50,7 +50,7 @@ namespace GMSCore
         //    return;
         //}
 
-        public void GetDebtorsRecordsWithDays(short companyId, short days, DateTime asOfDate, string salesPersonID, short userId, string salesPersonType, string accountCode, string accountName, ref DataSet ds)
+        public void GetDebtorsRecordsWithDays(short companyId, short days, DateTime asOfDate, string salesPersonID, short userId, string salesPersonType, string accountCode, string accountName,string salespersonName, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppDebtorRecordsWithDaysSelect", (SqlConnection)conn);
@@ -59,6 +59,7 @@ namespace GMSCore
             command.Parameters.Add("@Days", SqlDbType.SmallInt).Value = days;
             command.Parameters.Add("@AsOfDate", SqlDbType.SmallDateTime).Value = asOfDate;
             command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salesPersonID;
+            command.Parameters.Add("@SalesPersonName", SqlDbType.NVarChar).Value = salespersonName;
             command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = userId;
             command.Parameters.Add("@SalesPersonType", SqlDbType.NVarChar).Value = salesPersonType;
             command.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountCode;
@@ -247,6 +248,21 @@ namespace GMSCore
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@AccountName", SqlDbType.NVarChar).Value = accountName;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void GetCustomerBySalesPerson(short coyid, string division, string team, string salesperonid, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppDebtorsSelectByDivisionByTeamBySalesPerson", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
+            command.Parameters.Add("@Division", SqlDbType.NVarChar).Value = division;
+            command.Parameters.Add("@Team", SqlDbType.NVarChar).Value = team;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salesperonid;
+            command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = userId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;

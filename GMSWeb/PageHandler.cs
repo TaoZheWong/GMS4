@@ -387,7 +387,6 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
-
                      "<li class='sub-pricelist'>" +
                     "<a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Sales\">" +
                     "<i class='ti-money'></i>" +
@@ -646,7 +645,7 @@ namespace GMSWeb
                         "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Products\">Upload</a></li>" +
                         "<li class='sub-forms'><a href=\"" + appPath +
                         "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Products - Forms&ModuleCategoryID=7&ModuleCategoryName=Products\">Forms</a></li>" +
-                        "<li class='sub-newpricelist'><a href=\"" + appPath + "/Sales/Sales/NewPriceList.aspx?CurrentLink=Products\">Price List</a></li>" +
+                        "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Price List</a></li>" +
                         "<li class='sub-sales-package'><a href=\"" + appPath + "/Sales/Sales/SalesPackage.aspx\">Sales Package</a></li>" +
                         "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=Products\">Claim</a></li>" +
                         "<li class='sub-productgroup-setup'><a href=\"" + appPath + "/Products/Products/ProductGroupSetup.aspx\">Product Group Setup</a></li>" +

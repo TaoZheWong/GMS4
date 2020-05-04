@@ -76,6 +76,24 @@ namespace GMSWeb.Debtors.Commentary {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidSalesperson;
         
         /// <summary>
+        /// txtSalesPersonName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSalesPersonName;
+        
+        /// <summary>
+        /// Hidden1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden Hidden1;
+        
+        /// <summary>
         /// ddlPeriod control.
         /// </summary>
         /// <remarks>
@@ -119,6 +137,15 @@ namespace GMSWeb.Debtors.Commentary {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
+        
+        /// <summary>
+        /// MsgPanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::GMSWeb.CustomCtrl.MessagePanelControl MsgPanel2;
         
         /// <summary>
         /// lblSearchSummary control.

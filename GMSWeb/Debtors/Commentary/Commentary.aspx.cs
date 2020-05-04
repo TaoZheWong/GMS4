@@ -287,6 +287,7 @@ namespace GMSWeb.Debtors.Commentary
 			LogSession session = base.GetSessionInfo();
 			DateTime asOfDate = GMSUtil.ToDate(txtAsOfDate.Text.ToString());
 			string salesPersonID = "%" + txtSalespersonID.Text.Trim() + "%";
+            string salespersonName = "%" + txtSalesPersonName.Text.Trim() + "%";
             string salesPersonType = ddlSalesPersonType.SelectedValue.Trim();
             short days = GMSUtil.ToShort(ddlPeriod.SelectedValue.Trim());
             string accountCode = "%" + txtAccountCode.Text.Trim() + "%";
@@ -296,7 +297,7 @@ namespace GMSWeb.Debtors.Commentary
 			DataSet ds = new DataSet();
 			try
 			{
-				dcDALC.GetDebtorsRecordsWithDays(session.CompanyId, days, asOfDate, salesPersonID, loginUserOrAlternateParty, salesPersonType , accountCode, accountName, ref ds);
+				dcDALC.GetDebtorsRecordsWithDays(session.CompanyId, days, asOfDate, salesPersonID, loginUserOrAlternateParty, salesPersonType , accountCode, accountName,salespersonName, ref ds);
 			}
 			catch (Exception ex)
 			{
@@ -352,8 +353,12 @@ namespace GMSWeb.Debtors.Commentary
                 this.dgData.Visible = true;
 
             }
-			else
-				this.lblSearchSummary.Text = "No records.";
+            else
+            {
+                this.lblSearchSummary.Text = "No records.";
+                this.dgData.Visible = false;
+            }
+				
 
             hidAsOfDate.Value = txtAsOfDate.Text.ToString();
             //hidSalesperson.Value = txtSalespersonID.Text.Trim();
@@ -379,10 +384,15 @@ namespace GMSWeb.Debtors.Commentary
 		{
 			this.dgData.CurrentPageIndex = 0;
 			btnSearch.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FAA634");
-            if(txtAccountCode.Text.Trim() != ""|| txtAccountName.Text.Trim() != ""|| txtSalespersonID.Text.Trim() != "")
+            if(txtAccountCode.Text.Trim() != ""|| txtAccountName.Text.Trim() != ""|| txtSalespersonID.Text.Trim() != "" || txtSalesPersonName.Text.Trim() != "")
 			    LoadData();
             else
-                this.PageMsgPanel.ShowMessage("Please input Customer Info or Salesperson ID.", MessagePanelControl.MessageEnumType.Alert);
+            {
+                this.MsgPanel2.ShowMessage("Please input Customer Info or Salesperson Info.", MessagePanelControl.MessageEnumType.Alert);
+                this.dgData.Visible = false;
+                this.lblSearchSummary.Visible = false;
+            }
+                
         }
 		#endregion
 	
