@@ -90,6 +90,13 @@
                         <input type="hidden" id="hidSalesperson" runat="server" />
                 </div>
                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                    <label class="control-label">Salesperson Name</label>
+                        <%--<asp:DropDownList ID="ddlSalesperson" runat="Server" CssClass="form-control" />--%>
+                        <asp:TextBox runat="server" ID="txtSalesPersonName" MaxLength="50" Columns="50" onfocus="select();"
+                                CssClass="form-control" placeholder="e.g. ADRIAN LIN"></asp:TextBox>       
+                        <input type="hidden" id="Hidden1" runat="server" />
+                </div>
+                <div class="form-group col-lg-3 col-md-6 col-sm-12">
                     <label class="control-label">Overdue Period</label>
                         <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="form-control">
                             <asp:ListItem Value="90">> 90 Days</asp:ListItem>
@@ -122,6 +129,9 @@
             <asp:Button ID="btnSearch" Text="Search" EnableViewState="False" runat="server" CssClass="btn btn-primary pull-right"
                 OnClick="btnSearch_Click" OnClientClick="return btnSearch_OnClick();"></asp:Button>
         </div>
+        <ContentTemplate>
+                <uctrl:MsgPanel ID="MsgPanel2" runat="server" EnableViewState="false" />
+        </ContentTemplate>
     </div>
 
 
@@ -412,7 +422,6 @@
         $(document).ready(function () {
             $(".customer-info-menu").addClass("active expand");
             $(".sub-commentary").addClass("active");
-
            
             scrollButtonVisibleControl();
 
@@ -425,8 +434,6 @@
             scrollButtonVisibleControl();
         });
 
-
-
         function scrollButtonVisibleControl() {
                 if ($(".table-responsive").overflown())
                     $(".scrollBtn").removeClass("hidden")
@@ -434,13 +441,10 @@
                     if (!$(".scrollBtn").hasClass("hidden"))
                         $(".scrollBtn").addClass("hidden")
                 }
-                
                 //scroll left right appear control
                 $(".table-responsive").overflown() && $("#data-table").offset().top < 0 ? $(".scrollBtnBtm").addClass("in") : $(".scrollBtnBtm").removeClass("in")
               
         }
-
-
 
         var moveRight = function () {
             $(".table-responsive").animate({
