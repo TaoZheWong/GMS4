@@ -147,7 +147,17 @@ namespace GMSWeb.Reports.Report {
                 DataSet dsDepartments = new DataSet();
 
                 short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
-                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                short month = 0;
+
+                try
+                {
+                    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                }
+                catch (Exception ex)
+                {
+                    month = 4;
+                }
+
                 dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, year, month, ref dsDepartments);
                 foreach (DataRow dr in dsDepartments.Tables[0].Rows) {
                     ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
@@ -382,8 +392,26 @@ namespace GMSWeb.Reports.Report {
 
                             //Bind Department if Project > 0
                             if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0 && !IsPostBack) {
+                              
                                 short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
-                                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                                short month = 0;
+                                //if (((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue == null)
+                                //{
+                                //    month = 4;
+                                //}
+                                //else
+                                //{
+                                //    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                                //}
+
+                                try
+                                {
+                                    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                                }
+                                catch (Exception ex)
+                                {
+                                    month = 4;
+                                }
 
                                 ddlDepartmentID.Enabled = true;
                                 DataSet dsDepartments = new DataSet();
