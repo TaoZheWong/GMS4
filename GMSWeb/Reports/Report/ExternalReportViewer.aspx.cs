@@ -208,42 +208,112 @@ namespace GMSWeb.Reports.Report
                     controlCount = controlCount + 1;
                 
             }
-            /*
-            else if (reportId.ToString() == "222")
+           
+            else if (reportId.ToString() == "222" ||reportId.ToString() == "515")
             {
+               
+                string salesmanID = "'0'".ToString();
+                GMSGeneralDALC ggdal = new GMSGeneralDALC();
+                DataSet lstSalesPerson = new DataSet();
+               
+                try
+                {
+                    new DebtorCommentaryDALC().GetSalesPersonRecords(session.CompanyId, loginUserOrAlternateParty, ref lstSalesPerson);
+                }
+                catch (Exception ex)
+                {
+                    JScriptAlertMsg(ex.Message);
+                }
+                if (lstSalesPerson != null && lstSalesPerson.Tables[0].Rows.Count > 0)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Salesperson :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlSalesperson = new DropDownList();
+                    ddlSalesperson.ID = "ddlSalesperson";
+                    ddlSalesperson.CssClass = "form-control";
+                    ddlSalesperson.AutoPostBack = true;
+                    ddlSalesperson.Items.Clear();
+
+                    for (int j = 0; j < lstSalesPerson.Tables[0].Rows.Count; j++)
+                    {
+                        salesmanID += ",'" + lstSalesPerson.Tables[0].Rows[j]["salespersonid"].ToString() + "'";
+                        ddlSalesperson.Items.Add(new ListItem(lstSalesPerson.Tables[0].Rows[j]["salespersonname"].ToString(),"'"+ lstSalesPerson.Tables[0].Rows[j]["salespersonid"].ToString()+ "'"));
+                    }
+
+                    ddlSalesperson.Items.Insert(0,new ListItem("All", salesmanID));
+
+                    pnlParameter.Controls.Add(ddlSalesperson);
+                    if (ViewState["ddlSalesperson"] == null)
+                        ViewState["ddlSalesperson"] = "0";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+                
+                if (lstSalesPerson != null && lstSalesPerson.Tables.Count > 0 && lstSalesPerson.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in lstSalesPerson.Tables[0].Rows)
+                    {
+                        salesmanID += ",'" + dr["salespersonid"].ToString() + "'";
+                    }
+                }
+
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Customer Code :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">CS :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                TextBox txtAccountCode = new TextBox();
-                txtAccountCode.ID = "txtAccountCode";
-                txtAccountCode.Text = "";
-                txtAccountCode.Attributes["placeholder"] = "e.g. DLK690";
-                txtAccountCode.CssClass = "form-control";
-                pnlParameter.Controls.Add(txtAccountCode);
-                if (ViewState["txtAccountCode"] == null)
-                    ViewState["txtAccountCode"] = "";
+                TextBox txtCS = new TextBox();
+                txtCS.ID = "txtCS";
+                txtCS.Text = "";
+                //txtCS.Attributes["placeholder"] = "e.g. ";
+                txtCS.CssClass = "form-control";
+                pnlParameter.Controls.Add(txtCS);
+                if (ViewState["txtCS"] == null)
+                    ViewState["txtCS"] = " ";
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
 
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Customer Name :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Sort By :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                TextBox txtAccountName = new TextBox();
-                txtAccountName.ID = "txtAccountName";
-                txtAccountName.Text = "";
-                txtAccountName.Attributes["placeholder"] = "e.g. Keppel";
-                txtAccountName.CssClass = "form-control";
-                pnlParameter.Controls.Add(txtAccountName);
-                if (ViewState["txtAccountName"] == null)
-                    ViewState["txtAccountName"] = "";
+                DropDownList ddlSortBy = new DropDownList();
+                ddlSortBy.ID = "ddlSortBy";
+                ddlSortBy.CssClass = "form-control";
+                ddlSortBy.AutoPostBack = true;
+                ddlSortBy.Items.Clear();
+                ddlSortBy.Items.Add(new ListItem("Customer", "AccountName"));
+                ddlSortBy.Items.Add(new ListItem("Salesperson", "SalesPersonName"));
+                ddlSortBy.Items.Add(new ListItem("CS", "username"));
+                pnlParameter.Controls.Add(ddlSortBy);
+                if (ViewState["ddlSortBy"] == null)
+                    ViewState["ddlSortBy"] = "0";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Sorting Order :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlSortingOrder = new DropDownList();
+                ddlSortingOrder.ID = "ddlSortingOrder";
+                ddlSortingOrder.CssClass = "form-control";
+                ddlSortingOrder.AutoPostBack = true;
+                ddlSortingOrder.Items.Clear();
+                ddlSortingOrder.Items.Add(new ListItem("Ascending", "asc"));
+                ddlSortingOrder.Items.Add(new ListItem("Descending", "desc"));
+                pnlParameter.Controls.Add(ddlSortingOrder);
+                if (ViewState["ddlSortingOrder"] == null)
+                    ViewState["ddlSortingOrder"] = "0";
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 pnlParameter.Controls.Add(new LiteralControl("</div>"));
                 controlCount = controlCount + 1;
             }
-            */
+            
 
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
@@ -278,6 +348,13 @@ namespace GMSWeb.Reports.Report
                 {
                     ViewState["txtDocumentNo"] = ((TextBox)pnlParameter.FindControl("txtDocumentNo")).Text.ToString();
                     ViewState["txtBatchSerialNo"] = ((TextBox)pnlParameter.FindControl("txtBatchSerialNo")).Text.ToString();
+                }
+                else if (reportId.ToString() == "222"||reportId.ToString() == "515")
+                {
+                    ViewState["ddlSalesperson"] = ((DropDownList)pnlParameter.FindControl("ddlSalesperson")).SelectedValue.ToString();
+                    ViewState["txtCS"] = ((TextBox)pnlParameter.FindControl("txtCS")).Text.ToString();
+                    ViewState["ddlSortBy"] = ((DropDownList)pnlParameter.FindControl("ddlSortBy")).SelectedValue.ToString();
+                    ViewState["ddlSortingOrder"] = ((DropDownList)pnlParameter.FindControl("ddlSortingOrder")).SelectedValue.ToString();
                 }
             }
         }
@@ -496,49 +573,15 @@ namespace GMSWeb.Reports.Report
                     Response.Buffer = true;
                     Response.AddHeader("content-disposition", "attachment;filename=DeliveryOrderByDriver.xls");
                 }
-                /*
-                else if (reportId.ToString() == "222")
+              
+
+
+                else if (reportId.ToString() == "222"||reportId.ToString() == "515")
                 {
-                    string accountCode = "%" + ((TextBox)pnlParameter.FindControl("txtAccountCode")).Text.ToString() + "%";
-                    string accountName = "%" + ((TextBox)pnlParameter.FindControl("txtAccountName")).Text.ToString() + "%";
-
-                    DateTime LMSParallelRunEndDate = GMSUtil.ToDate(session.LMSParallelRunEndDate);
-                    
-                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
-                    {
-                        sc1.Url = session.CMSWebServiceAddress.Trim();
-                    }
-                    else
-                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                    ds = sc1.ReportGetProductOnSODetail(accountCode, accountName);
-
-                    Response.Clear();
-                    Response.Buffer = true;
-
-                    Response.AddHeader("content-disposition", "attachment;filename=PendingSO.xls");
-                }
-                */
-                else if (reportId.ToString() == "222" || reportId.ToString() == "515")
-                {
-                    string salesmanID = "'0'".ToString();
-                    GMSGeneralDALC dacl = new GMSGeneralDALC();
-                    DataSet dsSalesPerson = new DataSet();
-                    try
-                    {
-                        dacl.GetSalesPersonListSelect(session.CompanyId, loginUserOrAlternateParty, ref dsSalesPerson);
-                    }
-                    catch (Exception ex)
-                    {
-                        JScriptAlertMsg(ex.Message);
-                    }
-
-                    if (dsSalesPerson != null && dsSalesPerson.Tables.Count > 0 && dsSalesPerson.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in dsSalesPerson.Tables[0].Rows)
-                        {
-                            salesmanID += ",'" + dr["salespersonid"].ToString() + "'";
-                        }
-                    }
+                    string salesmanID = ((DropDownList)pnlParameter.FindControl("ddlSalesperson")).SelectedValue.ToString();
+                    string CS = ((TextBox)pnlParameter.FindControl("txtCS")).Text.ToString();
+                    string sortBy = ((DropDownList)pnlParameter.FindControl("ddlSortBy")).SelectedValue.ToString();
+                    string sortingOrder = ((DropDownList)pnlParameter.FindControl("ddlSortingOrder")).SelectedValue.ToString();
 
                     du = DivisionUser.RetrieveByKey(session.CompanyId, loginUserOrAlternateParty);
                     if (du != null)
@@ -549,7 +592,7 @@ namespace GMSWeb.Reports.Report
                                 sc1.Url = session.GASLMSWebServiceAddress.Trim();
                             else
                                 sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                            ds = sc1.GetPendingSO(session.UserRealName, salesmanID);
+                            ds = sc1.GetPendingSO(session.UserRealName, salesmanID, CS,sortBy,sortingOrder);
 
                         }
                         else if (du.DivisionID == "WSD")
@@ -558,7 +601,7 @@ namespace GMSWeb.Reports.Report
                                 sc1.Url = session.WSDLMSWebServiceAddress.Trim();
                             else
                                 sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                            ds_lms = sc1.GetPendingSO(session.UserRealName, salesmanID);
+                            ds_lms = sc1.GetPendingSO(session.UserRealName, salesmanID, CS, sortBy, sortingOrder);
 
                         }
 
@@ -583,8 +626,7 @@ namespace GMSWeb.Reports.Report
                         }
                         else
                             sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        ds = sc1.GetPendingSO(session.UserRealName, salesmanID);
-
+                        ds = sc1.GetPendingSO(session.UserRealName, salesmanID, CS, sortBy, sortingOrder);
                     }
 
                     Response.Clear();
@@ -655,6 +697,8 @@ namespace GMSWeb.Reports.Report
                 HtmlTextWriter hw = new HtmlTextWriter(sw);
                 DataTable copyDataTable;
                 copyDataTable = ds.Tables[0].Copy();
+                if (reportId.ToString() == "222" || reportId.ToString() == "515")
+                    copyDataTable.Columns["Total"].ColumnName = "Total("+session.DefaultCurrency+')';
 
                 GridView GridView1 = new GridView();
                 GridView1.AllowPaging = false;
@@ -697,6 +741,13 @@ namespace GMSWeb.Reports.Report
                 {
                     ViewState["txtDocumentNo"] = ((TextBox)pnlParameter.FindControl("txtDocumentNo")).Text.ToString();
                     ViewState["txtBatchSerialNo"] = ((TextBox)pnlParameter.FindControl("txtBatchSerialNo")).Text.ToString();
+                }
+                else if (reportId.ToString() == "222" || reportId.ToString() == "515")
+                {
+                    ViewState["ddlSalesperson"] = ((DropDownList)pnlParameter.FindControl("ddlSalesperson")).SelectedValue.ToString();
+                    ViewState["txtCS"] = ((TextBox)pnlParameter.FindControl("txtCS")).Text.ToString();
+                    ViewState["ddlSortBy"] = ((DropDownList)pnlParameter.FindControl("ddlSortBy")).SelectedValue.ToString();
+                    ViewState["ddlSortingOrder"] = ((DropDownList)pnlParameter.FindControl("ddlSortingOrder")).SelectedValue.ToString();
                 }
                 PrintReport();                
             }   
