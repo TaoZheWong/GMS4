@@ -1912,9 +1912,17 @@ namespace GMSWeb.Reports.Report
                 ddlCreditLimit.ID = "ddlCreditLimit";
                 ddlCreditLimit.CssClass = "form-control";
                 ddlCreditLimit.Items.Clear();
-                ddlCreditLimit.Items.Add(new ListItem("ALL", "A"));
-                ddlCreditLimit.Items.Add(new ListItem("5000 AND ABOVE", "G"));
-                ddlCreditLimit.Items.Add(new ListItem("BELOW 5000", "L"));
+                if (reportId.ToString() == "137")
+                {
+                    ddlCreditLimit.Items.Add(new ListItem("ALL", ""));
+                    ddlCreditLimit.Items.Add(new ListItem("0", "0"));
+                }
+                else
+                {
+                    ddlCreditLimit.Items.Add(new ListItem("ALL", "A"));
+                    ddlCreditLimit.Items.Add(new ListItem("5000 AND ABOVE", "G"));
+                    ddlCreditLimit.Items.Add(new ListItem("BELOW 5000", "L"));
+                }
 
                 pnlParameter.Controls.Add(ddlCreditLimit);
                 if (ViewState["ddlCreditLimit"] == null)
