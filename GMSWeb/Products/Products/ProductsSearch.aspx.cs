@@ -269,47 +269,53 @@ namespace GMSWeb.Products.Products
                 //construct productName conditions 
                 prodNameSQL += " and p.ProductName like '%" + word + "%'";
             }
-
-            ProductsDataDALC dacl = new ProductsDataDALC();
-            
+            try
+            {
                 getProduct(session, productCode, productName, productGroupCode, productGroup, productForeignName, prodNameSQL);
+            
+                int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
+                int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
 
-            int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
-            int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
-
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
-            {
-                if (endIndex < ds.Tables[0].Rows.Count)
-                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
-                    endIndex.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
-                else
-                    this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
-                    ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
-
-                ds.Tables[0].DefaultView.Sort = "ProductCode ASC";
-                DataView dv = ds.Tables[0].DefaultView;
-                if (session.StatusType == "S")
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    dv.RowFilter = "IsActive = 'true'";
-                }else
-                {
-                    dv.RowFilter = "IsActive = 1";
+                    if (endIndex < ds.Tables[0].Rows.Count)
+                        this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        endIndex.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
+                    else
+                        this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
+                        ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
+
+                    ds.Tables[0].DefaultView.Sort = "ProductCode ASC";
+                    DataView dv = ds.Tables[0].DefaultView;
+                    if (session.StatusType == "S")
+                    {
+                        dv.RowFilter = "IsActive = 'true'";
+                    }
+                    else
+                    {
+                        dv.RowFilter = "IsActive = 1";
+                    }
+
+                    this.lblSearchSummary.Visible = true;
+                    this.dgData.DataSource = dv;
+                    this.dgData.DataBind();
+                    this.btnExportToExcel.Visible = true;
                 }
-                
-                this.lblSearchSummary.Visible = true;
-                this.dgData.DataSource = dv;
-                this.dgData.DataBind();
-                this.btnExportToExcel.Visible = true;
+                else
+                {
+                    this.lblSearchSummary.Text = "No records.";
+                    this.lblSearchSummary.Visible = true;
+                    this.dgData.DataSource = null;
+                    this.dgData.DataBind();
+                    this.btnExportToExcel.Visible = false;
+                }
+                resultList.Visible = true;
             }
-            else
+            catch (Exception ex)
             {
-                this.lblSearchSummary.Text = "No records.";
-                this.lblSearchSummary.Visible = true;
-                this.dgData.DataSource = null;
-                this.dgData.DataBind();
-                this.btnExportToExcel.Visible = false;
+                //this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+                this.PageMsgPanel.ShowMessage("The connection to the server has failed! <br />For more information, please contact your System Administrator. ", MessagePanelControl.MessageEnumType.Alert);
             }
-            resultList.Visible = true;
         }
         #endregion
 
@@ -317,8 +323,6 @@ namespace GMSWeb.Products.Products
         private void getProduct(LogSession session,string productCode, string productName,string productGroupCode, string productGroupName,string productForeignName, string prodNameSQL)
         {
             #region getProductData
-            try
-            {
                 if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
                 {
                     GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
@@ -610,11 +614,7 @@ namespace GMSWeb.Products.Products
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-            }
+
             #endregion
         }
         #endregion
