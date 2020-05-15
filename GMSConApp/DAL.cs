@@ -419,7 +419,7 @@ namespace GMSConApp
             SPexecutor("procAppWSAccountInsert");
         }
 
-        public void GMS_Insert_SalesPerson(short CoyID, string salesPersonID, string salesPersonName, string divisionID, string shortName, string team)
+        public void GMS_Insert_SalesPerson(short CoyID, string salesPersonID, string salesPersonName, string divisionID, string shortName, string team,string active)
         {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
@@ -428,6 +428,7 @@ namespace GMSConApp
             cm.Parameters.Add("@DivisionID", SqlDbType.NVarChar).Value = divisionID;
             cm.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
             cm.Parameters.Add("@Team", SqlDbType.NVarChar).Value = team;
+            cm.Parameters.Add("@Active", SqlDbType.NVarChar).Value = active;
 
             SPexecutor("procAppWSSalesPersonInsert");
         }

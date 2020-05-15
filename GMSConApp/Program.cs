@@ -623,7 +623,7 @@ namespace GMSConApp
                         oDAL.GMS_Insert_SalesPerson(CoyID,
                         dr["salespersonid"].ToString(),
                         dr["salespersonname"].ToString(),
-                        "", "", ""
+                        "", "", "",""
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person data insertion for " + i.ToString());
@@ -1092,12 +1092,11 @@ namespace GMSConApp
                 if (execute)
                 {
 
-
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "field1", "SalespersonName", "SalespersonID", "field4", "field5", "field6", "field7", "field8", "field9", "Active", "field11", "field12", "Field13", "Field14", "Field15", "Division", "Field17", "ShortName", "Team", "Field20",
                         "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     //Insert Sales Person data into GMS
@@ -1105,9 +1104,9 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         if (dr["field15"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), dr["ShortName"].ToString(), dr["Team"].ToString(), dr["Active"].ToString());
                         else if (dr["field15"].ToString() == "B")
-                            oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
+                            oDAL.GMS_Insert_Purchaser(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), "");
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
@@ -1273,12 +1272,11 @@ namespace GMSConApp
 
                 if (execute)
                 {
-
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "field1", "field2", "field3", "field4", "field5", "field6", "field7", "field8", "field9", "field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "field1", "SalespersonName", "SalespersonID", "field4", "field5", "field6", "field7", "field8", "field9", "Active", "field11", "field12", "Field13", "Field14", "Field15", "Division", "Field17", "ShortName", "Team", "Field20",
                         "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     //Insert Sales Person data into GMS
@@ -1286,9 +1284,9 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         if (dr["field15"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), dr["field16"].ToString(), dr["field18"].ToString(), dr["field19"].ToString());
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), dr["ShortName"].ToString(), dr["Team"].ToString(), dr["Active"].ToString());
                         else if (dr["field15"].ToString() == "B")
-                            oDAL.GMS_Insert_Purchaser(CoyID, dr["field3"].ToString(), dr["field2"].ToString(), "");
+                            oDAL.GMS_Insert_Purchaser(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), "");
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
