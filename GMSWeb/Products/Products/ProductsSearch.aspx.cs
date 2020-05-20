@@ -287,6 +287,7 @@ namespace GMSWeb.Products.Products
 
                     ds.Tables[0].DefaultView.Sort = "ProductCode ASC";
                     DataView dv = ds.Tables[0].DefaultView;
+                    dv.Sort = ViewState["SortField"].ToString() + " " + ViewState["SortDirection"].ToString();
                     if (session.StatusType == "S")
                     {
                         dv.RowFilter = "IsActive = 'true'";
