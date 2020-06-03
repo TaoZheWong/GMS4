@@ -757,9 +757,17 @@ namespace GMSWeb.Finance.Upload
             GMSGeneralDALC dacl = new GMSGeneralDALC();
             DataSet dsSections = new DataSet();
 
+
+            this.ddlYear.SelectedValue = (Convert.ToInt16(DateTime.Now.Year)).ToString();
+
+            short year = short.Parse(this.ddlYear.SelectedValue);
+            short month = 4;
+            short reportId = 0;
+            short loginUserOrAlternateParty = 0;
+
             this.ddlDim3.Enabled = true;
             this.ddlDim3.Items.Clear();
-            dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(this.ddlDim2.SelectedValue), ref dsSections);
+            dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(this.ddlDim2.SelectedValue),reportId, loginUserOrAlternateParty, year, month, ref dsSections);
             foreach (DataRow dr in dsSections.Tables[0].Rows)
             {
                 this.ddlDim3.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));

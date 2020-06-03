@@ -223,14 +223,23 @@ namespace GMSWeb.Claim
             return m;
         }
         [WebMethod]
-        public static ResponseModel GetCompanySectionList(short CompanyID, short DepartmentID)
+        public static ResponseModel GetCompanySectionList(short CompanyID, short DepartmentID, string Date)
         {
             var m = new ResponseModel();
+            DateTime inputDate;
 
             try
             {
-                DataSet dsTemp = new DataSet();
-                new GMSGeneralDALC().GetCompanySection(CompanyID, DepartmentID, ref dsTemp);
+                if (!Date.Equals(String.Empty))
+                    inputDate = DateTime.ParseExact(Date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                else
+                    inputDate = new DateTime();
+
+               short reportId = 0;
+               short loginUserOrAlternateParty = 0;
+
+        DataSet dsTemp = new DataSet();
+                new GMSGeneralDALC().GetCompanySection(CompanyID, DepartmentID,reportId,loginUserOrAlternateParty, (short)inputDate.Year, (short)inputDate.Month, ref dsTemp);
                 m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
             }
             catch (Exception e)

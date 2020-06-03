@@ -59,6 +59,7 @@ namespace GMSWeb.Products.Products
                 Response.Redirect("MaterialRequisitionSearch.aspx?CurrentLink=" + currentLink);
             }
 
+            hidMRScheme.Value = session.MRScheme;
             string mrno = "";
             if (Request.Params["MRNo"] != null && Request.Params["MRNo"].ToString() != "")
             {
@@ -67,6 +68,12 @@ namespace GMSWeb.Products.Products
                 ds1 = CanUserAccessDocument(CompanyId, session.UserId, mrno);
                 if (!(Convert.ToBoolean(ds1.Tables[0].Rows[0]["result"])))
                     Response.Redirect(base.UnauthorizedPage(currentLink));
+
+                GMSCore.Entity.MR mr = GMSCore.Entity.MR.RetrieveByCoyAndMRNo(session.CompanyId, Request.Params["MRNo"].ToString());
+                if (string.IsNullOrEmpty(mr.MRScheme))
+                    hidMRScheme.Value = session.MRScheme;
+                else
+                    hidMRScheme.Value = mr.MRScheme;
             }
 
             hidUserID.Value = session.UserId.ToString();
@@ -75,7 +82,7 @@ namespace GMSWeb.Products.Products
             hidUserRole.Value = userRole;
             hidCurrentLink.Value = currentLink;
             short loginUserOrAlternateParty = GetloginUserOrAlternateParty(session.CompanyId, session.UserId);
-            hidMRScheme.Value = session.MRScheme;
+            
             hidDimensionL1.Value = session.DimensionL1;
             hidWarehouse.Value = session.DefaultWarehouse;
             //if (session.CompanyId.ToString() == "120")

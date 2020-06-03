@@ -183,7 +183,23 @@ namespace GMSWeb.Reports.Report {
                 LogSession session = base.GetSessionInfo();
                 GMSGeneralDALC dacl = new GMSGeneralDALC();
                 DataSet dsSections = new DataSet();
-                dacl.GetCompanySection(session.CompanyId, selectedvalue, ref dsSections);
+
+                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                short month = 0;
+                short reportId = 0;
+                short loginUserOrAlternateParty = 0;
+
+                try
+                {
+                    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                }
+                catch (Exception ex)
+                {
+                    month = 4;
+                }
+
+
+                dacl.GetCompanySection(session.CompanyId, selectedvalue, reportId, loginUserOrAlternateParty, year,month, ref dsSections);
                 foreach (DataRow dr in dsSections.Tables[0].Rows) {
                     ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
                 }
@@ -424,7 +440,7 @@ namespace GMSWeb.Reports.Report {
                                 //Bind Section if Department > 0
                                 if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack) {
                                     DataSet dsSections = new DataSet();
-                                    dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), ref dsSections);
+                                    dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
                                     foreach (DataRow dr in dsSections.Tables[0].Rows) {
                                         ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
                                     }
