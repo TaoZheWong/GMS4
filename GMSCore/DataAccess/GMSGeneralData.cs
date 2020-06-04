@@ -842,6 +842,18 @@ namespace GMSCore
             adapter.Fill(ds);
             return;
         }
+        public void GetCompanySection(short companyId, short DepartmentID, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSelectCompanySection_old", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = DepartmentID;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
         public void GetCompanyUnit(short companyId, short SectionID, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
