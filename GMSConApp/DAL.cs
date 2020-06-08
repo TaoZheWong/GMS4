@@ -620,7 +620,7 @@ namespace GMSConApp
 
         public void GMS_Insert_PurchaseDetail(short CoyID, DateTime trnDate, string refNo, string accountCode, string accountName,
                                         string productCode, string productName, string productGroupCode, string productGroupName, double quantity, double unitAmount,
-                                        double amount, string currency, double exchangeRate, double taxRate)
+                                        double amount, string currency, double exchangeRate, double taxRate, string transactionID)
         {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
@@ -638,6 +638,7 @@ namespace GMSConApp
             cm.Parameters.Add("@Currency", SqlDbType.NVarChar).Value = currency;
             cm.Parameters.Add("@ExchangeRate", SqlDbType.Float).Value = exchangeRate;
             cm.Parameters.Add("@TaxRate", SqlDbType.Float).Value = taxRate;
+            cm.Parameters.Add("@TransactionID", SqlDbType.NVarChar).Value = transactionID;
             SPexecutor("procAppWSPurchaseDetailInsert");
         }
 
