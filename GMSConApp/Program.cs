@@ -2045,7 +2045,8 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["Amount"].ToString()),
                         dr["Currency"].ToString(),
                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100
+                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
+                        dr["TransactionID"].ToString()
                         );
                     }
 
