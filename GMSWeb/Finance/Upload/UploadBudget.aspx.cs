@@ -45,8 +45,12 @@ namespace GMSWeb.Finance.Upload
 			}
 			UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
 																			14);
-			if (uAccess == null)
-				Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                           14);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
 
 
 			if (!Page.IsPostBack)
@@ -100,11 +104,6 @@ namespace GMSWeb.Finance.Upload
 					document.getElementById(prefix+""ddlCustomerType"").disabled = false;
 					document.getElementById(prefix+""ddlDepartment"").disabled = true;
 				}
-
-				
-				
-
-	
 			} 
 			 
 			</script>
