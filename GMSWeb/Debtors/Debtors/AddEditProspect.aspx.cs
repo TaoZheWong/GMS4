@@ -131,7 +131,6 @@ namespace GMSWeb.Debtors.Debtors
             ddlType.DataSource = lstAccClass;
             ddlType.DataBind();
             
-
             IList<GMSCore.Entity.AccountGroup> lstAccGroup = null;
 
             lstAccGroup = sDataActivity.RetrieveAllAccountGroup();
@@ -142,6 +141,11 @@ namespace GMSWeb.Debtors.Debtors
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(this.ddlGroup.SelectedValue))
+            {
+                this.PageMsgPanel.ShowMessage("Please select account group.", MessagePanelControl.MessageEnumType.Alert);
+                return;
+            }
             #region Add New Record.
             try
             {
@@ -224,7 +228,7 @@ namespace GMSWeb.Debtors.Debtors
 
                 StringBuilder str = new StringBuilder();
                 str.Append("<script language='javascript'>");
-                str.Append("var result = confirm('Record added successfully! Add another one?'); if (result) {window.location.href = \"../../Debtors/Debtors/AddProspect.aspx\";}");
+                str.Append("var result = confirm('Record added successfully! Add another one?'); if (result) {window.location.href = \"../../Debtors/Debtors/AddEditProspect.aspx\";}");
                 str.Append("</script>");
                 System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "add", str.ToString(), false);
             }

@@ -1153,7 +1153,20 @@ $(document).ready(function() {
             var tblAttachment = $('#tblAttachment').DataTable();
             var tblProduct = $('#tblProduct').DataTable();     
             
-            var message = "";  
+            var message = "";
+
+            var previous = "";
+
+            for (i = 0; i < tblProduct.rows().data().length; i++) {
+                var current = tblProduct.rows(i).data()[0]["PurchaseCurrency"];
+                if (previous != "") {
+                    if (previous != current) {
+                        message = message + "<li>Please select one Purchase Currency only.</li>";
+                        break;
+                    }
+                }
+                previous = current;
+            }
             
             if($('#requestor-id').val() == "" || $('#requestor-name').val() == "")  
                  message = message + "<li>Please select requestor name.</li>";    
@@ -2434,6 +2447,7 @@ function GetDim2(projectid, callback) {
 
 function GetDim3(departmentid, callback) {
     var CoyID = getCoyID();
+    var MRNo = getMRNo();
     var Scheme = getMRScheme();
     var UserId = getUserID();
     var urlink = get_hostname(window.location.href);
@@ -2444,7 +2458,7 @@ function GetDim3(departmentid, callback) {
         async: true,
         type: "POST",
         url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim3",
-        data: "{'CompanyId' : '" + CoyID + "', 'DepartmentId' : '" + departmentid + "'}",
+        data: "{'CompanyId' : '" + CoyID + "', 'DepartmentId' : '" + departmentid + "','MrDate' :'" + $('#mr-date').val() + "','Userid':'" + UserId + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -2455,7 +2469,7 @@ function GetDim3(departmentid, callback) {
                 });
                 return output;
             });
-            
+
             callback();
         },
         error: function (xhr, text, status) {

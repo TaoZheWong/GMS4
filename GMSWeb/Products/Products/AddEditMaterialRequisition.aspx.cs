@@ -2852,11 +2852,19 @@ namespace GMSWeb.Products.Products
         }
 
         [WebMethod]
-        public static List<Dictionary<string, string>> GetDim3(short CompanyId, short DepartmentId) {
+        public static List<Dictionary<string, string>> GetDim3(short CompanyId, short DepartmentId, string MrDate, short Userid)
+        {
             GMSGeneralDALC dacl = new GMSGeneralDALC();
             DataSet dsSections = new DataSet();
-
-            dacl.GetCompanySection(CompanyId, Convert.ToInt16(DepartmentId), ref dsSections);
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+            if (!string.IsNullOrEmpty(DateTime.Parse(MrDate).ToString("dd/MM/yyyy")))
+            {
+                year = DateTime.Parse(MrDate).Year;
+                month = DateTime.Parse(MrDate).Month;
+            }
+            dacl.GetCompanySection(CompanyId, Convert.ToInt16(DepartmentId), 0, Userid, Convert.ToInt16(year), Convert.ToInt16(month), ref dsSections);
+            //dacl.GetCompanySection(CompanyId, Convert.ToInt16(DepartmentId), ref dsSections);
 
             return GMSUtil.ToJson(dsSections, 0);
         }
