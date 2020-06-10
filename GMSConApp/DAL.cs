@@ -774,5 +774,12 @@ namespace GMSConApp
             SPexecutor("procAppWSCountryInsert");
         }
 
+        public void GMS_Update_CloseMRStatus(short CoyID, string mrno)
+        {
+            CNCMGenerator();
+            cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
+            cm.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrno;
+            SPexecutor("procAppWSUpdateMRStatus");
+        }
     }
 }

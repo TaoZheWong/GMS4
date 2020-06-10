@@ -131,6 +131,66 @@ namespace GMSWeb.Reports.Report {
         }
 
         #region SelectedIndexChanged
+        private void ddlYearMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            GMSGeneralDALC dacl = new GMSGeneralDALC();
+            DropDownList ddlProjectID = pnlParameter.FindControl("ddlProjectID") as DropDownList;
+            ddlProjectID.Items.Clear();
+            DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
+            ddlDepartmentID.Items.Clear();
+            DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
+            ddlSectionID.Items.Clear();
+            DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
+            ddlUnitID.Items.Clear();
+            ddlDepartmentID.Enabled = false;
+            ddlSectionID.Enabled = false;
+            ddlUnitID.Enabled = false;
+            DropDownList ddlYear = pnlParameter.FindControl("ddlYear") as DropDownList;
+            DropDownList ddlMonth = pnlParameter.FindControl("ddlMonth") as DropDownList;
+            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+            short month = 0;
+            try
+            {
+                month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+            }
+            catch (Exception ex)
+            {
+                month = 4;
+            }
+            DataSet dsProjects = new DataSet();
+            dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
+            if (dsProjects.Tables[0].Rows.Count > 0)
+            {
+                for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
+                {
+                    ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ReportProjectID"].ToString()));
+                }
+                if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0)
+                {
+                    DataSet dsDepartments = new DataSet();
+                    dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
+                    foreach (DataRow dr in dsDepartments.Tables[0].Rows)
+                    {
+                        ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
+                    }
+                    ddlDepartmentID.Enabled = true;
+                    //Bind Section if Department > 0
+                    if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0)
+                    {
+                        DataSet dsSections = new DataSet();
+                        dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
+                        foreach (DataRow dr in dsSections.Tables[0].Rows)
+                        {
+                            ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                        }
+                        ddlSectionID.Enabled = true;
+                    }
+                }
+            }
+            cyReportViewer.Visible = false;
+        }
+
         private void ddlProjectID_SelectedIndexChanged(object sender, EventArgs e) {
             short selectedvalue = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlProjectID")).SelectedValue);
             DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
@@ -256,8 +316,8 @@ namespace GMSWeb.Reports.Report {
                     DropDownList ddlYear = new DropDownList();
                     ddlYear.ID = "ddlYear";
                     ddlYear.CssClass = "form-control";
-                    //ddlYear.AutoPostBack = true;                
-                    //ddlYear.SelectedIndexChanged += DropDownListYear_SelectedIndexChanged; 
+                    ddlYear.AutoPostBack = true;                
+                    ddlYear.SelectedIndexChanged += new EventHandler(ddlYearMonth_SelectedIndexChanged);
                     ddlYear.Items.Clear();
 
                     for (int i = 2016; i <= 2020; i++) {
@@ -291,6 +351,8 @@ namespace GMSWeb.Reports.Report {
                     DropDownList ddlMonth = new DropDownList();
                     ddlMonth.ID = "ddlMonth";
                     ddlMonth.CssClass = "form-control";
+                    ddlMonth.AutoPostBack = true;
+                    ddlMonth.SelectedIndexChanged += new EventHandler(ddlYearMonth_SelectedIndexChanged);
                     ddlMonth.Items.Clear();
                     for (int i = 1; i <= 12; i++) {
                         ddlMonth.Items.Add(i.ToString());
