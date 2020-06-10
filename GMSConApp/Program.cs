@@ -1091,7 +1091,6 @@ namespace GMSConApp
 
                 if (execute)
                 {
-
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
@@ -1135,9 +1134,25 @@ namespace GMSConApp
                     Console.WriteLine(from2 + " " + to2);
                     Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
                     */
-
                 }
 
+                if (execute)
+                {
+                    //Retrieve Closed MRNo from PO
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Closed MR Data...");
+                    query = "SELECT \"U_AF_DOCNUM\" FROM OPOR WHERE \"DocStatus\" = 'C' AND  \"U_AF_DOCNUM\" <> ''";
+                    ds = sop.GET_SAP_QueryData(CoyID, query,
+                        "MRNo", "Field2", "Field3", "Field4", "Field5", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Updating Closed MR status in GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        oDAL.GMS_Update_CloseMRStatus(CoyID, dr["MRNo"].ToString());
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Closed MR status update");
+                    ds.Dispose();
+                }
             }
         }
 
