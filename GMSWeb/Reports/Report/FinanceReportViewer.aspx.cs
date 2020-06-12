@@ -136,59 +136,62 @@ namespace GMSWeb.Reports.Report {
             LogSession session = base.GetSessionInfo();
             GMSGeneralDALC dacl = new GMSGeneralDALC();
             DropDownList ddlProjectID = pnlParameter.FindControl("ddlProjectID") as DropDownList;
-            ddlProjectID.Items.Clear();
             DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
-            ddlDepartmentID.Items.Clear();
             DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
-            ddlSectionID.Items.Clear();
             DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
-            ddlUnitID.Items.Clear();
-            ddlDepartmentID.Enabled = false;
-            ddlSectionID.Enabled = false;
-            ddlUnitID.Enabled = false;
-            DropDownList ddlYear = pnlParameter.FindControl("ddlYear") as DropDownList;
-            DropDownList ddlMonth = pnlParameter.FindControl("ddlMonth") as DropDownList;
-            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
-            short month = 0;
-            try
-            {
-                month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
-            }
-            catch (Exception ex)
-            {
-                month = 4;
-            }
-            DataSet dsProjects = new DataSet();
-            dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
-            if (dsProjects.Tables[0].Rows.Count > 0)
-            {
-                for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
+    
+                ddlProjectID.Items.Clear();
+                ddlDepartmentID.Items.Clear();
+                ddlSectionID.Items.Clear();
+                ddlUnitID.Items.Clear();
+
+                ddlDepartmentID.Enabled = false;
+                ddlSectionID.Enabled = false;
+                ddlUnitID.Enabled = false;
+                DropDownList ddlYear = pnlParameter.FindControl("ddlYear") as DropDownList;
+                DropDownList ddlMonth = pnlParameter.FindControl("ddlMonth") as DropDownList;
+                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                short month = 0;
+                try
                 {
-                    ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ReportProjectID"].ToString()));
+                    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
                 }
-                if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0)
+                catch (Exception ex)
                 {
-                    DataSet dsDepartments = new DataSet();
-                    dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
-                    foreach (DataRow dr in dsDepartments.Tables[0].Rows)
+                    month = 4;
+                }
+                DataSet dsProjects = new DataSet();
+                dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
+                if (dsProjects.Tables[0].Rows.Count > 0)
+                {
+                    for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
                     {
-                        ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
+                        ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ReportProjectID"].ToString()));
                     }
-                    ddlDepartmentID.Enabled = true;
-                    //Bind Section if Department > 0
-                    if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0)
+                    if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0)
                     {
-                        DataSet dsSections = new DataSet();
-                        dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
-                        foreach (DataRow dr in dsSections.Tables[0].Rows)
+                        DataSet dsDepartments = new DataSet();
+                        dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
+                        foreach (DataRow dr in dsDepartments.Tables[0].Rows)
                         {
-                            ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                            ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
                         }
-                        ddlSectionID.Enabled = true;
+                        ddlDepartmentID.Enabled = true;
+                        //Bind Section if Department > 0
+                        if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0)
+                        {
+                            DataSet dsSections = new DataSet();
+                            dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
+                            foreach (DataRow dr in dsSections.Tables[0].Rows)
+                            {
+                                ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                            }
+                            ddlSectionID.Enabled = true;
+                        }
                     }
                 }
-            }
-            cyReportViewer.Visible = false;
+                cyReportViewer.Visible = false;
+ 
         }
 
         private void ddlProjectID_SelectedIndexChanged(object sender, EventArgs e) {
