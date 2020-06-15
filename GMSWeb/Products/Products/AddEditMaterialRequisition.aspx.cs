@@ -69,11 +69,18 @@ namespace GMSWeb.Products.Products
                 if (!(Convert.ToBoolean(ds1.Tables[0].Rows[0]["result"])))
                     Response.Redirect(base.UnauthorizedPage(currentLink));
 
-                GMSCore.Entity.MR mr = GMSCore.Entity.MR.RetrieveByCoyAndMRNo(session.CompanyId, Request.Params["MRNo"].ToString());
-                if (string.IsNullOrEmpty(mr.MRScheme))
+                try
+                {
+                    GMSCore.Entity.MR mr = GMSCore.Entity.MR.RetrieveByCoyAndMRNo(session.CompanyId, Request.Params["MRNo"].ToString());
+                    if (string.IsNullOrEmpty(mr.MRScheme))
+                        hidMRScheme.Value = session.MRScheme;
+                    else
+                        hidMRScheme.Value = mr.MRScheme;
+                }
+                catch (Exception ex)
+                {
                     hidMRScheme.Value = session.MRScheme;
-                else
-                    hidMRScheme.Value = mr.MRScheme;
+                }
             }
 
             hidUserID.Value = session.UserId.ToString();
