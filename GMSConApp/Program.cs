@@ -1091,6 +1091,8 @@ namespace GMSConApp
 
                 if (execute)
                 {
+
+
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
                     query = "SELECT * FROM OSLP";
@@ -1563,10 +1565,6 @@ namespace GMSConApp
                     string from2 = DateTime.Now.AddDays(1 - DateTime.Now.Day).ToString("yyyy-MM-dd");
                     string to2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
 
-
-
-
-
                     Task_ImportDataJobTraveller(CoyID, from1, to1, sop);
                     Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
                 }
@@ -1799,7 +1797,7 @@ namespace GMSConApp
                     query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '" + from + "', '" + to + "')";
                     //query = "CALL \"AF_API_GET_SAP_SALES_HEADER\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
-                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxRate", "CustomerSalesPersonID", "TrnSalesPersonID", "DocDate", "DueDate", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "TrnType", "TrnNo", "TrnDate", "AccountCode", "AccountName", "LMSDocNo", "PONo", "Amount", "Currency", "ExchangeRate", "TaxAmount", "CustomerSalesPersonID", "TrnSalesPersonID", "DocDate", "DueDate", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     string lmsDoc = "";
@@ -1820,7 +1818,7 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["Amount"].ToString()),
                         dr["Currency"].ToString(),
                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                        GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
+                        GMSUtil.ToDouble(dr["TaxAmount"].ToString()),
                         dr["CustomerSalesPersonID"].ToString(),
                         dr["TrnSalesPersonID"].ToString(),
                         GMSUtil.ToDate(dr["DocDate"].ToString()),

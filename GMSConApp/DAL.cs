@@ -445,7 +445,7 @@ namespace GMSConApp
         }
 
         public void GMS_Insert_Sales(short CoyID, string trnType, string trnNo, DateTime trnDate, string accountCode, string accountName, string docNo, string poNo, double amount,
-            string currency, double exchangeRate, double taxRate, string customerSalesPersonID, string trnSalesPersonID, DateTime docdate, DateTime duedate)
+            string currency, double exchangeRate, double taxAmount, string customerSalesPersonID, string trnSalesPersonID, DateTime docdate, DateTime duedate)
         {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
@@ -459,7 +459,7 @@ namespace GMSConApp
             cm.Parameters.Add("@Amount", SqlDbType.Float).Value = amount;
             cm.Parameters.Add("@Currency", SqlDbType.NVarChar).Value = currency;
             cm.Parameters.Add("@ExchangeRate", SqlDbType.Float).Value = exchangeRate;
-            cm.Parameters.Add("@TaxRate", SqlDbType.Float).Value = taxRate;
+            cm.Parameters.Add("@TaxAmount", SqlDbType.Float).Value = taxAmount;
             cm.Parameters.Add("@CustomerSalesPersonID", SqlDbType.NVarChar).Value = customerSalesPersonID;
             cm.Parameters.Add("@TrnSalesPersonID", SqlDbType.NVarChar).Value = trnSalesPersonID;
             cm.Parameters.Add("@DocDate", SqlDbType.DateTime).Value = docdate;
