@@ -133,13 +133,15 @@ namespace GMSWeb.Reports.Report {
         #region SelectedIndexChanged
         private void ddlYearMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LogSession session = base.GetSessionInfo();
-            GMSGeneralDALC dacl = new GMSGeneralDALC();
-            DropDownList ddlProjectID = pnlParameter.FindControl("ddlProjectID") as DropDownList;
-            DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
-            DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
-            DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
-    
+            try
+            {
+                LogSession session = base.GetSessionInfo();
+                GMSGeneralDALC dacl = new GMSGeneralDALC();
+                DropDownList ddlProjectID = pnlParameter.FindControl("ddlProjectID") as DropDownList;
+                DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
+                DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
+                DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
+
                 ddlProjectID.Items.Clear();
                 ddlDepartmentID.Items.Clear();
                 ddlSectionID.Items.Clear();
@@ -190,6 +192,11 @@ namespace GMSWeb.Reports.Report {
                         }
                     }
                 }
+
+            }
+            catch (Exception ex) {
+
+            }
                 cyReportViewer.Visible = false;
  
         }
