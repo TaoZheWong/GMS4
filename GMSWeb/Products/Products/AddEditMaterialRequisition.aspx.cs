@@ -574,94 +574,97 @@ namespace GMSWeb.Products.Products
             Dictionary<string, string> newDict = new Dictionary<string, string>();
             foreach (object key in idict.Keys)
             {
-                if (key.ToString() == "mrno")
-                    mrno = idict[key].ToString();
-                else if (key.ToString() == "purchaser")
-                    purchaser = idict[key].ToString();
-                else if (key.ToString() == "BudgetCode")
-                    BudgetCode = idict[key].ToString();
-                else if (key.ToString() == "RefNo")
-                    RefNo = idict[key].ToString();
-                else if (key.ToString() == "ProjectNo")
-                    ProjectNo = idict[key].ToString();
-                else if (key.ToString() == "sourceid")
-                    sourceid = idict[key].ToString();
-                else if (key.ToString() == "freightmode")
-                    freightmode = idict[key].ToString();
-                else if (key.ToString() == "statusname")
-                    statusname = idict[key].ToString();
-                else if (key.ToString() == "statusid")
-                    statusid = idict[key].ToString();
-                else if (key.ToString() == "isconsole")
-                    isconsole = idict[key].ToString();
-                else if (key.ToString() == "consoleDate")
-                    consoleDate = idict[key].ToString();
-                else if (key.ToString() == "mrdate")
-                    mrdate = idict[key].ToString();
-                else if (key.ToString() == "requestorremarks")
-                    requestorremarks = idict[key].ToString();
-                else if (key.ToString() == "orderreason")
-                    orderreason = idict[key].ToString();
-                else if (key.ToString() == "vendorremarks")
-                    vendorremarks = idict[key].ToString();
-                else if (key.ToString() == "purchasingremarks")
-                    purchasingremarks = idict[key].ToString();
-                else if (key.ToString() == "cancelledreason")
-                    cancelledreason = idict[key].ToString();
-                else if (key.ToString() == "glcode")
-                    glcode = idict[key].ToString();
-                else if (key.ToString() == "requestorname")
-                    requestorname = idict[key].ToString();
-                else if (key.ToString() == "requestor")
-                    requestor = idict[key].ToString();
-                else if (key.ToString() == "pmname")
-                    pmname = idict[key].ToString();
-                else if (key.ToString() == "pmuserid")
-                    pmuserid = idict[key].ToString();
-                else if (key.ToString() == "phname")
-                    phname = idict[key].ToString();
-                else if (key.ToString() == "phuserid")
-                    phuserid = idict[key].ToString();
-                else if (key.ToString() == "ph3name")
-                    ph3name = idict[key].ToString();
-                else if (key.ToString() == "ph3userid")
-                    ph3userid = idict[key].ToString();
-                else if (key.ToString() == "ph5name")
-                    ph5name = idict[key].ToString();
-                else if (key.ToString() == "ph5userid")
-                    ph5userid = idict[key].ToString();
-                else if (key.ToString() == "ismov")
-                    ismov = idict[key].ToString();
-                else if (key.ToString() == "mov")
-                    mov = idict[key].ToString();
-                else if (key.ToString() == "intendedusage")
-                    intendedusage = idict[key].ToString();
-                else if (key.ToString() == "mrscheme")
-                    mrscheme = idict[key].ToString();
-                else if (key.ToString() == "TaxTypeID")
-                    taxtypeid = idict[key].ToString();
-                else if (key.ToString() == "TaxRate")
-                    taxrate = idict[key].ToString();
-                else if (key.ToString() == "Discount")
-                    discount = idict[key].ToString();
-                else if (key.ToString() == "ExchangeRate")
-                    exchangeRate = idict[key].ToString();
-                else if (key.ToString() == "DimensionL1")
-                    dimensionL1 = idict[key].ToString();
-                else if (key.ToString() == "Warehouse")
-                    warehouse = idict[key].ToString();
-                else if (key.ToString() == "purchaserid")
-                    purchaserid = idict[key].ToString();
-                else if (key.ToString() == "othersRemarks")
-                    othersRemarks = idict[key].ToString();
-                else if (key.ToString() == "dim1")
-                    dim1 = idict[key].ToString();
-                else if (key.ToString() == "dim2")
-                    dim2 = idict[key].ToString();
-                else if (key.ToString() == "dim3")
-                    dim3 = idict[key].ToString();
-                else if (key.ToString() == "dim4")
-                    dim4 = idict[key].ToString();
+                if (idict[key] != null)
+                {
+                    if (key.ToString() == "mrno")
+                        mrno = idict[key].ToString();
+                    else if (key.ToString() == "purchaser")
+                        purchaser = idict[key].ToString();
+                    else if (key.ToString() == "BudgetCode")
+                        BudgetCode = idict[key].ToString();
+                    else if (key.ToString() == "RefNo")
+                        RefNo = idict[key].ToString();
+                    else if (key.ToString() == "ProjectNo")
+                        ProjectNo = idict[key].ToString();
+                    else if (key.ToString() == "sourceid")
+                        sourceid = idict[key].ToString();
+                    else if (key.ToString() == "freightmode")
+                        freightmode = idict[key].ToString();
+                    else if (key.ToString() == "statusname")
+                        statusname = idict[key].ToString();
+                    else if (key.ToString() == "statusid")
+                        statusid = idict[key].ToString();
+                    else if (key.ToString() == "isconsole")
+                        isconsole = idict[key].ToString();
+                    else if (key.ToString() == "consoleDate")
+                        consoleDate = idict[key].ToString();
+                    else if (key.ToString() == "mrdate")
+                        mrdate = idict[key].ToString();
+                    else if (key.ToString() == "requestorremarks")
+                        requestorremarks = idict[key].ToString();
+                    else if (key.ToString() == "orderreason")
+                        orderreason = idict[key].ToString();
+                    else if (key.ToString() == "vendorremarks")
+                        vendorremarks = idict[key].ToString();
+                    else if (key.ToString() == "purchasingremarks")
+                        purchasingremarks = idict[key].ToString();
+                    else if (key.ToString() == "cancelledreason")
+                        cancelledreason = idict[key].ToString();
+                    else if (key.ToString() == "glcode")
+                        glcode = idict[key].ToString();
+                    else if (key.ToString() == "requestorname")
+                        requestorname = idict[key].ToString();
+                    else if (key.ToString() == "requestor")
+                        requestor = idict[key].ToString();
+                    else if (key.ToString() == "pmname")
+                        pmname = idict[key].ToString();
+                    else if (key.ToString() == "pmuserid")
+                        pmuserid = idict[key].ToString();
+                    else if (key.ToString() == "phname")
+                        phname = idict[key].ToString();
+                    else if (key.ToString() == "phuserid")
+                        phuserid = idict[key].ToString();
+                    else if (key.ToString() == "ph3name")
+                        ph3name = idict[key].ToString();
+                    else if (key.ToString() == "ph3userid")
+                        ph3userid = idict[key].ToString();
+                    else if (key.ToString() == "ph5name")
+                        ph5name = idict[key].ToString();
+                    else if (key.ToString() == "ph5userid")
+                        ph5userid = idict[key].ToString();
+                    else if (key.ToString() == "ismov")
+                        ismov = idict[key].ToString();
+                    else if (key.ToString() == "mov")
+                        mov = idict[key].ToString();
+                    else if (key.ToString() == "intendedusage")
+                        intendedusage = idict[key].ToString();
+                    else if (key.ToString() == "mrscheme")
+                        mrscheme = idict[key].ToString();
+                    else if (key.ToString() == "TaxTypeID")
+                        taxtypeid = idict[key].ToString();
+                    else if (key.ToString() == "TaxRate")
+                        taxrate = idict[key].ToString();
+                    else if (key.ToString() == "Discount")
+                        discount = idict[key].ToString();
+                    else if (key.ToString() == "ExchangeRate")
+                        exchangeRate = idict[key].ToString();
+                    else if (key.ToString() == "DimensionL1")
+                        dimensionL1 = idict[key].ToString();
+                    else if (key.ToString() == "Warehouse")
+                        warehouse = idict[key].ToString();
+                    else if (key.ToString() == "purchaserid")
+                        purchaserid = idict[key].ToString();
+                    else if (key.ToString() == "othersRemarks")
+                        othersRemarks = idict[key].ToString();
+                    else if (key.ToString() == "dim1")
+                        dim1 = idict[key].ToString();
+                    else if (key.ToString() == "dim2")
+                        dim2 = idict[key].ToString();
+                    else if (key.ToString() == "dim3")
+                        dim3 = idict[key].ToString();
+                    else if (key.ToString() == "dim4")
+                        dim4 = idict[key].ToString();
+                }
             }
 
             int totalUniqueCount = 1;
