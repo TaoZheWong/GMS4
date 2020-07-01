@@ -256,7 +256,6 @@ namespace GMSWeb.Reports.Report
             cyReportViewer.Visible = false;
         }
 
-
         #region SelectedIndexChanged
         private void ddlProjectID_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -274,8 +273,37 @@ namespace GMSWeb.Reports.Report
                 LogSession session = base.GetSessionInfo();
                 GMSGeneralDALC dacl = new GMSGeneralDALC();
                 DataSet dsDepartments = new DataSet();
-                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
-                short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+
+                short year = Convert.ToInt16(DateTime.Now.Year);
+                try
+                {
+                     year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                }catch(Exception ex)
+                {
+                    try
+                    {
+                        TextBox txtDate = pnlParameter.FindControl("txtDateTo") as TextBox;
+                        DateTime date = DateTime.Parse(txtDate.Text.ToString());
+                        year = Convert.ToInt16(date.Year.ToString());
+                    }catch(Exception ex2) { }
+                }
+                
+                short month = Convert.ToInt16(DateTime.Now.Month);
+                try
+                {
+                    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        TextBox txtDate = pnlParameter.FindControl("txtDateTo") as TextBox;
+                        DateTime date = DateTime.Parse(txtDate.Text.ToString());
+                        month = Convert.ToInt16(date.Month.ToString());
+                    }
+                    catch (Exception ex2) { }
+                }
+
                 dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, year, month, ref dsDepartments);
                 foreach (DataRow dr in dsDepartments.Tables[0].Rows)
                 {
@@ -306,7 +334,22 @@ namespace GMSWeb.Reports.Report
                 GMSGeneralDALC dacl = new GMSGeneralDALC();
                 DataSet dsSections = new DataSet();
 
-                short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                short year = Convert.ToInt16(DateTime.Now.Year);
+                try
+                {
+                    year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        TextBox txtDate = pnlParameter.FindControl("txtDateTo") as TextBox;
+                        DateTime date = DateTime.Parse(txtDate.Text.ToString());
+                        year = Convert.ToInt16(date.Year.ToString());
+                    }
+                    catch (Exception ex2){}
+                }
+
                 short month = 0;
                 short reportId = 0;
                 short loginUserOrAlternateParty = 0;
@@ -317,7 +360,16 @@ namespace GMSWeb.Reports.Report
                 }
                 catch (Exception ex)
                 {
-                    month = 4;
+                    try
+                    {
+                        TextBox txtDate = pnlParameter.FindControl("txtDateTo") as TextBox;
+                        DateTime date = DateTime.Parse(txtDate.Text.ToString());
+                        month = Convert.ToInt16(date.Month.ToString());
+                    }
+                    catch (Exception ex2)
+                    {
+                        month = 4;
+                    }
                 }
 
                 dacl.GetCompanySection(session.CompanyId, selectedvalue, reportId, loginUserOrAlternateParty,  year, month, ref dsSections);
@@ -352,7 +404,6 @@ namespace GMSWeb.Reports.Report
                 {
                     ddlUnitID.Items.Add(new ListItem(dr["UnitName"].ToString(), dr["UnitID"].ToString()));
                 }
-
             }
             else
             {

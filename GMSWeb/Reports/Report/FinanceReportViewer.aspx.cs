@@ -510,10 +510,12 @@ namespace GMSWeb.Reports.Report {
                                 }
 
                                 //Bind Section if Department > 0
-                                if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack) {
+                                if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack)
+                                {
                                     DataSet dsSections = new DataSet();
                                     dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
-                                    foreach (DataRow dr in dsSections.Tables[0].Rows) {
+                                    foreach (DataRow dr in dsSections.Tables[0].Rows)
+                                    {
                                         ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
                                     }
                                     ddlSectionID.Enabled = true;
