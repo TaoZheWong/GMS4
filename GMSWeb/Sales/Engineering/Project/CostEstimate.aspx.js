@@ -69,21 +69,25 @@ var counter = 1;
                     "data": "QuotedPrice",
                     "title": "Unit Price"
                 },
+                {
+                    "data": "TotalAmount",
+                    "title": "Amount"
+                },
                 { 
                     "data": "CurrencyRate", 
                     "title":"Ori Rate"
                 },
                 {
-                    "data": "TotalAmount",
-                    "title": "Ori Amt"
+                    "data": "TotalAmountExchanged",
+                    "title": "Total (*Ori Rate)"
                 },
                 {
-                    "data": "CurrencyRate",
+                    "data": "CurrExchRate",
                     "title": "Curr Rate"
                 },
                 {
-                    "data": "TotalAmountExchanged",
-                    "title": "Curr Amt"
+                    "data": "CurrExchAmt",
+                    "title": "Total (*Curr Rate)"
                 },
                 { 
                     "data": "Remarks", 

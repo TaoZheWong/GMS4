@@ -508,15 +508,22 @@ namespace GMSWeb.Reports.Report {
                                 foreach (DataRow dr in dsDepartments.Tables[0].Rows) {
                                     ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
                                 }
-
-                                //Bind Section if Department > 0
-                                if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack) {
-                                    DataSet dsSections = new DataSet();
-                                    dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
-                                    foreach (DataRow dr in dsSections.Tables[0].Rows) {
-                                        ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                                try
+                                {
+                                    //Bind Section if Department > 0
+                                    if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack)
+                                    {
+                                        DataSet dsSections = new DataSet();
+                                        dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
+                                        foreach (DataRow dr in dsSections.Tables[0].Rows)
+                                        {
+                                            ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                                        }
+                                        ddlSectionID.Enabled = true;
                                     }
-                                    ddlSectionID.Enabled = true;
+                                }catch(Exception ex)
+                                {
+
                                 }
 
                             }
