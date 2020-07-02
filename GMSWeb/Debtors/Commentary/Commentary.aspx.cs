@@ -384,14 +384,14 @@ namespace GMSWeb.Debtors.Commentary
 		{
 			this.dgData.CurrentPageIndex = 0;
 			btnSearch.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FAA634");
-            if(txtAccountCode.Text.Trim() != ""|| txtAccountName.Text.Trim() != ""|| txtSalespersonID.Text.Trim() != "" || txtSalesPersonName.Text.Trim() != "")
+            //if(txtAccountCode.Text.Trim() != ""|| txtAccountName.Text.Trim() != ""|| txtSalespersonID.Text.Trim() != "" || txtSalesPersonName.Text.Trim() != "")
 			    LoadData();
-            else
-            {
-                this.MsgPanel2.ShowMessage("Please input Customer Info or Salesperson Info.", MessagePanelControl.MessageEnumType.Alert);
-                this.dgData.Visible = false;
-                this.lblSearchSummary.Visible = false;
-            }
+            //else
+            //{
+            //    this.MsgPanel2.ShowMessage("Please input Customer Info or Salesperson Info.", MessagePanelControl.MessageEnumType.Alert);
+            //    this.dgData.Visible = false;
+            //    this.lblSearchSummary.Visible = false;
+            //}
                 
         }
 		#endregion
