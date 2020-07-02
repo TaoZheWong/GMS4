@@ -159,7 +159,6 @@ namespace GMSWeb.Finance
             {
                 m.Status = 1;
                 m.Message = e.Message;
-                
             }
 
             return m;
@@ -204,11 +203,9 @@ namespace GMSWeb.Finance
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
 
             return m;
-
         }
 
         [WebMethod]
@@ -250,7 +247,6 @@ namespace GMSWeb.Finance
             {
                 m.Status = 1;
                 m.Message = e.Message;
-
             }
 
             return m;
