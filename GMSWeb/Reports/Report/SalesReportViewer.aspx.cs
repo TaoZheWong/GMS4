@@ -411,6 +411,96 @@ namespace GMSWeb.Reports.Report
             }
             cyReportViewer.Visible = false;
         }
+
+        private void txtDateTo_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                LogSession session = base.GetSessionInfo();
+                GMSGeneralDALC dacl = new GMSGeneralDALC();
+                DropDownList ddlProjectID = pnlParameter.FindControl("ddlProjectID") as DropDownList;
+                DropDownList ddlDepartmentID = pnlParameter.FindControl("ddlDepartmentID") as DropDownList;
+                DropDownList ddlSectionID = pnlParameter.FindControl("ddlSectionID") as DropDownList;
+                DropDownList ddlUnitID = pnlParameter.FindControl("ddlUnitID") as DropDownList;
+
+                ddlProjectID.Items.Clear();
+                ddlDepartmentID.Items.Clear();
+                ddlSectionID.Items.Clear();
+                ddlUnitID.Items.Clear();
+
+                ddlDepartmentID.Enabled = false;
+                ddlSectionID.Enabled = false;
+                ddlUnitID.Enabled = false;
+                short year = Convert.ToInt16(DateTime.Now.Year);
+                try
+                {
+                    year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        TextBox txtDate = pnlParameter.FindControl("txtDateTo") as TextBox;
+                        DateTime date = DateTime.Parse(txtDate.Text.ToString());
+                        year = Convert.ToInt16(date.Year.ToString());
+                    }
+                    catch (Exception ex2) { }
+                }
+
+                short month = Convert.ToInt16(DateTime.Now.Month);
+                try
+                {
+                    month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        TextBox txtDate = pnlParameter.FindControl("txtDateTo") as TextBox;
+                        DateTime date = DateTime.Parse(txtDate.Text.ToString());
+                        month = Convert.ToInt16(date.Month.ToString());
+                    }
+                    catch (Exception ex2) { }
+                }
+                DataSet dsProjects = new DataSet();
+                dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
+                if (dsProjects.Tables[0].Rows.Count > 0)
+                {
+                    for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
+                    {
+                        ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ReportProjectID"].ToString()));
+                    }
+                    if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0)
+                    {
+                        DataSet dsDepartments = new DataSet();
+                        dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
+                        foreach (DataRow dr in dsDepartments.Tables[0].Rows)
+                        {
+                            ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
+                        }
+                        ddlDepartmentID.Enabled = true;
+                        //Bind Section if Department > 0
+                        if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0)
+                        {
+                            DataSet dsSections = new DataSet();
+                            dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
+                            foreach (DataRow dr in dsSections.Tables[0].Rows)
+                            {
+                                ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                            }
+                            ddlSectionID.Enabled = true;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            cyReportViewer.Visible = false;
+
+        }
         #endregion
 
         private void AddControls()
@@ -464,7 +554,6 @@ namespace GMSWeb.Reports.Report
                 {
                     ddlCompany.Items.Add(new ListItem(dsCompanyName.Tables[0].Rows[j]["CompanyName"].ToString(), dsCompanyName.Tables[0].Rows[j]["CoyID"].ToString()));
                 }
-
 
                 pnlParameter.Controls.Add(ddlCompany);
                 if (ViewState["ddlCompany"] == null)
@@ -552,6 +641,11 @@ namespace GMSWeb.Reports.Report
                 txtDateTo.Columns = 15;
                 txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 txtDateTo.CssClass = "form-control datepicker";
+                if (reportId == 557)
+                {
+                    txtDateTo.AutoPostBack = true;
+                    txtDateTo.TextChanged += txtDateTo_TextChanged;
+                }
                 pnlParameter.Controls.Add(txtDateTo);
                 if (ViewState["txtDateTo"] == null)
                     ViewState["txtDateTo"] = txtDateTo.Text;

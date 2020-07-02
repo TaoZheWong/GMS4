@@ -510,12 +510,10 @@ namespace GMSWeb.Reports.Report {
                                 }
 
                                 //Bind Section if Department > 0
-                                if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack)
-                                {
+                                if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack) {
                                     DataSet dsSections = new DataSet();
                                     dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
-                                    foreach (DataRow dr in dsSections.Tables[0].Rows)
-                                    {
+                                    foreach (DataRow dr in dsSections.Tables[0].Rows) {
                                         ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
                                     }
                                     ddlSectionID.Enabled = true;
@@ -532,6 +530,33 @@ namespace GMSWeb.Reports.Report {
                     }
                     if (ViewState["ddlProjectID"] == null)
                         ViewState["ddlProjectID"] = -1;
+
+                }
+                #endregion
+
+                #region
+                if (crReportDocument.ParameterFields["@Currency"] != null && session.DefaultCurrency != "SGD")
+                {
+
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Currency :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlCurrencyCode = new DropDownList();
+                    ddlCurrencyCode.ID = "ddlCurrencyCode";
+                    ddlCurrencyCode.CssClass = "form-control";
+                    ddlCurrencyCode.Items.Clear();
+                    ddlCurrencyCode.Items.Add(new ListItem("DEFAULT", "DEFAULT"));
+                    ddlCurrencyCode.Items.Add(new ListItem("SGD", "SGD"));
+
+
+                    pnlParameter.Controls.Add(ddlCurrencyCode);
+                    if (ViewState["ddlCurrencyCode"] == null)
+                        ViewState["ddlCurrencyCode"] = "All";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                    controlCount = controlCount + 1;
 
                 }
                 #endregion
@@ -2224,7 +2249,8 @@ namespace GMSWeb.Reports.Report {
                     ViewState["ddlUnitID"] = ((DropDownList)pnlParameter.FindControl("ddlUnitID")).SelectedValue.ToString();
                 else
                     ViewState["ddlUnitID"] = -1;
-
+                if (crReportDocument.ParameterFields["@Currency"] != null && session.DefaultCurrency != "SGD")
+                    ViewState["ddlCurrencyCode"] = ((DropDownList)pnlParameter.FindControl("ddlCurrencyCode")).SelectedValue.ToString();
 
             }
             else if (fileDescription == "F" && !IsCOA2016) {
@@ -2303,7 +2329,7 @@ namespace GMSWeb.Reports.Report {
                 if (crReportDocument.ParameterFields["@StartDate"] != null)
                     ViewState["txtStartDate"] = ((TextBox)pnlParameter.FindControl("txtStartDate")).Text.ToString();
                 if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
-                    ViewState["ddlZcode"] = ((DropDownList)pnlParameter.FindControl("ddlZcode")).SelectedValue.ToString();
+                    ViewState["ddlZcode"] = ((DropDownList)pnlParameter.FindControl("ddlZcode")).SelectedValue.ToString();               
                 if (crReportDocument.ParameterFields["@Dpt"] != null || crReportDocument.ParameterFields["Dpt"] != null)
                     ViewState["ddlDpt"] = ((DropDownList)pnlParameter.FindControl("ddlDpt")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@Rental"] != null || crReportDocument.ParameterFields["Rental"] != null)
@@ -2512,6 +2538,10 @@ namespace GMSWeb.Reports.Report {
                         crReportDocument.SetParameterValue("CoyID", session.CompanyId);
                     if (crReportDocument.ParameterFields["@UserNumID"] != null)
                         crReportDocument.SetParameterValue("@UserNumID", loginUserOrAlternateParty);
+                    if (crReportDocument.ParameterFields["@Currency"] != null && ViewState["ddlCurrencyCode"] != null)
+                        crReportDocument.SetParameterValue("@Currency", ViewState["ddlCurrencyCode"].ToString());
+                    if (crReportDocument.ParameterFields["@Currency"] != null && session.DefaultCurrency == "SGD")
+                        crReportDocument.SetParameterValue("@Currency", "SGD");
                 }
                 else if (fileDescription == "F" && !IsCOA2016) {
                     if (crReportDocument.ParameterFields["@Year"] != null && ViewState["ddlYear"] != null)
@@ -2616,7 +2646,7 @@ namespace GMSWeb.Reports.Report {
                     if (crReportDocument.ParameterFields["Type"] != null && ViewState["ddlType"] != null)
                         crReportDocument.SetParameterValue("Type", ViewState["ddlType"].ToString());
                     if (crReportDocument.ParameterFields["@Zcode"] != null && ViewState["ddlZcode"] != null)
-                        crReportDocument.SetParameterValue("@Zcode", ViewState["ddlZcode"].ToString());
+                        crReportDocument.SetParameterValue("@Zcode", ViewState["ddlZcode"].ToString());            
                     if (crReportDocument.ParameterFields["@Dpt"] != null && ViewState["ddlDpt"] != null)
                         crReportDocument.SetParameterValue("@Dpt", ViewState["ddlDpt"].ToString());
                     if (crReportDocument.ParameterFields["@Rental"] != null && ViewState["ddlRental"] != null)
