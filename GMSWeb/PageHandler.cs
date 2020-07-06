@@ -616,6 +616,7 @@ namespace GMSWeb
                         "<li class='sub-sup-in-detail'><a href=\"" + appPath + "/Products/Products/ProductPurchase.aspx\">Sup Inv Detail</a></li>" +
                         "<li class='sub-material-req'><a href=\"" + appPath +
                         "/Products/Products/MaterialRequisitionDivision.aspx?CurrentLink=Products\">Material Req</a></li>" +
+                        "<li class='sub-GRNSearch'><a href=\"" + appPath + "/Products/Products/GRNSearch.aspx?CurrentLink=Products\">GRN Search</a></li>" +
                     "</ul>" +
                     "</li>" +
                     "<li class='has-sub sale-menu'>" +
