@@ -1208,12 +1208,15 @@
     <Content Include="Procurement\Records\VendorRecords7.aspx" />
     <Content Include="Procurement\Records\VendorRecords8.aspx" />
     <Content Include="Procurement\Records\VendorRecords9.aspx" />
+    <Content Include="Products\Products\GRNDetail.aspx" />
+    <Content Include="Products\Products\GRNSearch.aspx" />
     <Content Include="Products\Products\MaterialRequisitionDivision.aspx" />
     <Content Include="Products\Products\ProductBatchSerial.aspx" />
     <Content Include="Products\Products\ProductGroupSetup.aspx" />
     <Content Include="Products\Products\ProductMovement.aspx" />
     <Content Include="Products\Products\ProductSetup.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
+    <Content Include="Products\Products\ViewGRNBatchSerial.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
     <Content Include="Sales\Reports\SalesBudgetReport.aspx" />
     <Content Include="Sales\Sales\CustomerTypeSetup.aspx" />
@@ -1981,6 +1984,20 @@
     <Compile Include="Products\Products\FileUploadHandler.ashx.cs">
       <DependentUpon>FileUploadHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Products\Products\GRNDetail.aspx.cs">
+      <DependentUpon>GRNDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\GRNDetail.aspx.designer.cs">
+      <DependentUpon>GRNDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Products\GRNSearch.aspx.cs">
+      <DependentUpon>GRNSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\GRNSearch.aspx.designer.cs">
+      <DependentUpon>GRNSearch.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Products\Products\MaterialReq.aspx.cs">
       <DependentUpon>MaterialReq.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2078,6 +2095,13 @@
     </Compile>
     <Compile Include="Products\Products\ViewGRN.aspx.designer.cs">
       <DependentUpon>ViewGRN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Products\ViewGRNBatchSerial.aspx.cs">
+      <DependentUpon>ViewGRNBatchSerial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\ViewGRNBatchSerial.aspx.designer.cs">
+      <DependentUpon>ViewGRNBatchSerial.aspx</DependentUpon>
     </Compile>
     <Compile Include="Products\Products\ViewGRNWithoutSupplierInfo.aspx.cs">
       <DependentUpon>ViewGRNWithoutSupplierInfo.aspx</DependentUpon>
