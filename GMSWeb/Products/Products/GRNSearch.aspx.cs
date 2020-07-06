@@ -77,7 +77,7 @@ namespace GMSWeb.Products.Products
                 //preload
                 ViewState["SortField"] = "TrnNo";
                 ViewState["SortDirection"] = "ASC";
-                this.txtGRNDateFrom.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");//preload 7days ago date
+                this.txtGRNDateFrom.Text = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");//preload 7days ago date
                 this.txtGRNDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");//preload today's date
             }
 
