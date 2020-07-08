@@ -2201,7 +2201,7 @@ $(document).ready(function() {
     function CalculatePurchasePrice()
     {
         var total =  ($('#OrderQty').val() * $('#UnitPurchasePrice').val());
-        $('#TotalPurchasePrice').val(total);
+        $('#TotalPurchasePrice').val(total.toFixed(2));
     }
     
     function SetModalMessage(message, redirect)
