@@ -39,7 +39,9 @@ namespace GMSWeb.Finance.Reports
             }
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             52);
-            if (uAccess == null)
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                           52);
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
                 Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
 
             PopulateRepeater();
@@ -101,6 +103,23 @@ namespace GMSWeb.Finance.Reports
                         {
                             rppReportList.DataSource = lstReport;
                             rppReportList.DataBind();
+                        }
+                    }
+                    else
+                    {
+                        IList<VwReportListingForCompany> lstCompanyReport = null;
+                        lstCompanyReport = new ReportsActivity().RetrieveCompanyReportByCategoryIdUserAccessId(session.CompanyId, rCategory.ReportCategoryID, session.UserId);
+                        if (lstCompanyReport != null && lstCompanyReport.Count > 0)
+                        {
+                            // Bind Data to sub repeater
+                            RepeaterItem item = this.rppCategoryList.Items[i];
+                            Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
+
+                            if (rppReportList != null)
+                            {
+                                rppReportList.DataSource = lstCompanyReport;
+                                rppReportList.DataBind();
+                            }
                         }
                     }
                     i++;
