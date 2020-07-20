@@ -51,7 +51,7 @@ namespace GMSWeb.Finance.Upload
                                                                             160);
 
             IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
-                                                                            160);
+                                                                160);
 
             if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
                 Response.Redirect(base.UnauthorizedPage(currentLink));
@@ -375,19 +375,29 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Create")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+           
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
-                
+                Master.setCurrentLink(currentLink);
+
+
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                {
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
-                    return;
-                }
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 TextBox txtNewProjectCode = (TextBox)e.Item.FindControl("txtNewProjectCode");
                 TextBox txtNewProjectName = (TextBox)e.Item.FindControl("txtNewProjectName");
@@ -420,19 +430,27 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Create")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
 
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                {
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
-                    return;
-                }
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 TextBox txtNewDepartmentCode = (TextBox)e.Item.FindControl("txtNewDepartmentCode");
                 TextBox txtNewDepartmentName = (TextBox)e.Item.FindControl("txtNewDepartmentName");
@@ -465,19 +483,27 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Create")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
 
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                {
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
-                    return;
-                }
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 TextBox txtNewSectionCode = (TextBox)e.Item.FindControl("txtNewSectionCode");
                 TextBox txtNewSectionName = (TextBox)e.Item.FindControl("txtNewSectionName");
@@ -511,19 +537,27 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Create")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
 
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                {
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertmsg", "<script type=\"text/javascript\"> alert(\"" + "You don't have access." + "\");</script>", false);
-                    return;
-                }
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 TextBox txtNewUnitCode = (TextBox)e.Item.FindControl("txtNewUnitCode");
                 TextBox txtNewUnitName = (TextBox)e.Item.FindControl("txtNewUnitName");
@@ -555,18 +589,30 @@ namespace GMSWeb.Finance.Upload
         protected void dgData_UpdateCommand(object sender, DataGridCommandEventArgs e)
         {
             
-                LogSession session = base.GetSessionInfo();
-                if (session == null)
-                {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
-                }
-                UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
-                                                                                161);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+             LogSession session = base.GetSessionInfo();
+            string currentLink = "CompanyFinance";
+            lblPageHeader.Text = "CompanyFinance";
 
-                HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidProjectID");
+            if (Request.Params["CurrentLink"] != null)
+            {
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                    lblPageHeader.Text = "Administration";
+                else
+                    lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
+            }
+            Master.setCurrentLink(currentLink);
+
+            UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
+                                                                            161);
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                           161);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
+
+            HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidProjectID");
                 TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName");
 
                 if (hidProjectID != null &&
@@ -592,16 +638,27 @@ namespace GMSWeb.Finance.Upload
         protected void dgData2_UpdateCommand(object sender, DataGridCommandEventArgs e)
         {
             LogSession session = base.GetSessionInfo();
-            if (session == null)
+            string currentLink = "CompanyFinance";
+            lblPageHeader.Text = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
             {
-                Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                return;
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                    lblPageHeader.Text = "Administration";
+                else
+                    lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
             }
-          
+            Master.setCurrentLink(currentLink);
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             161);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                           161);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
             HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidDepartmentID");
             TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName2");
@@ -628,16 +685,27 @@ namespace GMSWeb.Finance.Upload
         protected void dgData3_UpdateCommand(object sender, DataGridCommandEventArgs e)
         {
             LogSession session = base.GetSessionInfo();
-            if (session == null)
+            string currentLink = "CompanyFinance";
+            lblPageHeader.Text = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
             {
-                Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                return;
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                    lblPageHeader.Text = "Administration";
+                else
+                    lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
             }
-           
+            Master.setCurrentLink(currentLink);
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             161);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                           161);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
             HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidSectionID");
             TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName3");
@@ -664,16 +732,27 @@ namespace GMSWeb.Finance.Upload
         protected void dgData4_UpdateCommand(object sender, DataGridCommandEventArgs e)
         {
             LogSession session = base.GetSessionInfo();
-            if (session == null)
+            string currentLink = "CompanyFinance";
+            lblPageHeader.Text = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
             {
-                Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                return;
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                    lblPageHeader.Text = "Administration";
+                else
+                    lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
             }
-            
+            Master.setCurrentLink(currentLink);
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             161);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                           161);
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
             HtmlInputHidden hidUnitID = (HtmlInputHidden)e.Item.FindControl("hidUnitID");
             TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName4");
@@ -702,21 +781,34 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Delete")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
+              
                 if (session.StatusType != "")
                 {
                     this.MsgPanel1.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
                     LoadData();
                     return;
                 }
+
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidProjectID");
 
@@ -752,21 +844,34 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Delete")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
+
                 if (session.StatusType != "")
                 {
-                    this.MsgPanel2.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
+                    this.MsgPanel1.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
                     LoadData();
                     return;
                 }
+
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidDepartmentID");
 
@@ -802,21 +907,34 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Delete")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
+
                 if (session.StatusType != "")
                 {
-                    this.MsgPanel3.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
+                    this.MsgPanel1.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
                     LoadData();
                     return;
                 }
+
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 HtmlInputHidden hidProjectID = (HtmlInputHidden)e.Item.FindControl("hidSectionID");
 
@@ -852,21 +970,34 @@ namespace GMSWeb.Finance.Upload
             if (e.CommandName == "Delete")
             {
                 LogSession session = base.GetSessionInfo();
-                if (session == null)
+                string currentLink = "CompanyFinance";
+                lblPageHeader.Text = "CompanyFinance";
+
+                if (Request.Params["CurrentLink"] != null)
                 {
-                    Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
-                    return;
+                    currentLink = Request.Params["CurrentLink"].ToString().Trim();
+                    if (Request.Params["CurrentLink"].ToString().Trim() == "CompanyFinance")
+                        lblPageHeader.Text = "Administration";
+                    else
+                        lblPageHeader.Text = Request.Params["CurrentLink"].ToString().Trim();
                 }
+                Master.setCurrentLink(currentLink);
+
                 if (session.StatusType != "")
                 {
-                    this.MsgPanel4.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
+                    this.MsgPanel1.ShowMessage("This record cannot be deleted.", MessagePanelControl.MessageEnumType.Alert);
                     LoadData();
                     return;
                 }
+
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                                 161);
-                if (uAccess == null)
-                    Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+                IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                               161);
+
+                if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                    Response.Redirect(base.UnauthorizedPage(currentLink));
 
                 HtmlInputHidden hidUnitID = (HtmlInputHidden)e.Item.FindControl("hidUnitID");
 
