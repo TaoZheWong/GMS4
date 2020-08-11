@@ -286,8 +286,8 @@ namespace GMSWeb.Debtors.Commentary
 		{
 			LogSession session = base.GetSessionInfo();
 			DateTime asOfDate = GMSUtil.ToDate(txtAsOfDate.Text.ToString());
-			string salesPersonID = "%" + txtSalespersonID.Text.Trim() + "%";
-            string salespersonName = "%" + txtSalesPersonName.Text.Trim() + "%";
+			string salesPersonID = txtSalespersonID.Text.Trim();
+            string salespersonName =  txtSalesPersonName.Text.Trim();
             string salesPersonType = ddlSalesPersonType.SelectedValue.Trim();
             short days = GMSUtil.ToShort(ddlPeriod.SelectedValue.Trim());
             string accountCode = "%" + txtAccountCode.Text.Trim() + "%";

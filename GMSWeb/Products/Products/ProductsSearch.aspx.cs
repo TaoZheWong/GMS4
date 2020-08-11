@@ -272,7 +272,19 @@ namespace GMSWeb.Products.Products
             try
             {
                 getProduct(session, productCode, productName, productGroupCode, productGroup, productForeignName, prodNameSQL);
-            
+
+                ds.Tables[0].DefaultView.Sort = "ProductCode ASC";
+                DataView dv = ds.Tables[0].DefaultView;
+                dv.Sort = ViewState["SortField"].ToString() + " " + ViewState["SortDirection"].ToString();
+                if (session.StatusType == "S")
+                    dv.RowFilter = "IsActive = 'true'";
+                else
+                    dv.RowFilter = "IsActive = 1";
+
+                DataTable dtOri = dv.ToTable();
+                ds.Reset();
+                ds.Tables.Add(dtOri);
+
                 int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
                 int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
 
@@ -285,20 +297,8 @@ namespace GMSWeb.Products.Products
                         this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
                         ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
 
-                    ds.Tables[0].DefaultView.Sort = "ProductCode ASC";
-                    DataView dv = ds.Tables[0].DefaultView;
-                    dv.Sort = ViewState["SortField"].ToString() + " " + ViewState["SortDirection"].ToString();
-                    if (session.StatusType == "S")
-                    {
-                        dv.RowFilter = "IsActive = 'true'";
-                    }
-                    else
-                    {
-                        dv.RowFilter = "IsActive = 1";
-                    }
-
                     this.lblSearchSummary.Visible = true;
-                    this.dgData.DataSource = dv;
+                    this.dgData.DataSource = ds.Tables[0];
                     this.dgData.DataBind();
                     this.btnExportToExcel.Visible = true;
                 }
