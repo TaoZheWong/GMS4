@@ -30,7 +30,16 @@ namespace GMSWeb.Finance.Reports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.setCurrentLink("CompanyFinance");
+            string currentLink = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
+            {
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+
+            }
+
+            Master.setCurrentLink(currentLink);
+
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
@@ -39,8 +48,13 @@ namespace GMSWeb.Finance.Reports
             }
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             52);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                           52);
+
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
             PopulateRepeater();
 
