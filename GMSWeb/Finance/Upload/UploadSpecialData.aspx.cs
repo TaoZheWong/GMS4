@@ -20,17 +20,31 @@ namespace GMSWeb.Finance.Upload
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.setCurrentLink("CompanyFinance");
+            string currentLink = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
+            {
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+
+            }
+
+            Master.setCurrentLink(currentLink);
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
                 Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
                 return;
             }
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             26);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                           26);
+
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
             if (!Page.IsPostBack)
             {

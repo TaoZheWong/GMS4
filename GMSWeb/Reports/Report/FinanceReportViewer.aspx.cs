@@ -225,7 +225,7 @@ namespace GMSWeb.Reports.Report {
                 }
                 catch (Exception ex)
                 {
-                    month = 4;
+                    month = Convert.ToInt16(DateTime.Now.Month);
                 }
 
                 dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, year, month, ref dsDepartments);
@@ -265,7 +265,7 @@ namespace GMSWeb.Reports.Report {
                 }
                 catch (Exception ex)
                 {
-                    month = 4;
+                    month = Convert.ToInt16(DateTime.Now.Month);
                 }
 
 
@@ -498,7 +498,7 @@ namespace GMSWeb.Reports.Report {
                                 }
                                 catch (Exception ex)
                                 {
-                                    month = 4;
+                                    month = Convert.ToInt16(DateTime.Now.Month);
                                 }
 
                                 ddlDepartmentID.Enabled = true;

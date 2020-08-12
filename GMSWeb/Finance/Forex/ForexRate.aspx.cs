@@ -21,17 +21,31 @@ namespace GMSWeb.Finance.Forex
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.setCurrentLink("CompanyFinance"); 
+            string currentLink = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
+            {
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+
+            }
+
+            Master.setCurrentLink(currentLink);
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
                 Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
                 return;
             }
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             2);
-            if (uAccess == null)
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                           2);
+
+
+            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
 
             if (!Page.IsPostBack)
@@ -46,10 +60,14 @@ namespace GMSWeb.Finance.Forex
 
             UserAccessModule uAccess2 = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             24);
-            if (uAccess2 != null)
-            {
-                lnkAddNewRate.Visible = false;
-            }
+
+            IList<UserAccessModuleForCompany> uAccessForCompanyList2 = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
+                                                                          24);
+
+
+            if (uAccess2 == null && (uAccessForCompanyList2 != null && uAccessForCompanyList2.Count == 0))
+                Response.Redirect(base.UnauthorizedPage(currentLink));
+         
         }
 
         #region LoadCreatedDateDDL_Rate

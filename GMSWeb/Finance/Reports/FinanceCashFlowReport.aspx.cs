@@ -30,19 +30,31 @@ namespace GMSWeb.Finance.Reports
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.setCurrentLink("CompanyFinance");
+            string currentLink = "CompanyFinance";
+
+            if (Request.Params["CurrentLink"] != null)
+            {
+                currentLink = Request.Params["CurrentLink"].ToString().Trim();
+
+            }
+
+            Master.setCurrentLink(currentLink);
             LogSession session = base.GetSessionInfo();
             if (session == null)
             {
                 Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
                 return;
             }
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             52);
+
             IList<UserAccessModuleForCompany> uAccessForCompanyList = new GMSUserActivity().RetrieveUserAccessModuleForCompanyByUserIdModuleId(session.CompanyId, session.UserId,
                                                                            52);
+
+
             if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
-                Response.Redirect(base.UnauthorizedPage("CompanyFinance"));
+                Response.Redirect(base.UnauthorizedPage(currentLink));
 
             PopulateRepeater();
 
@@ -103,23 +115,6 @@ namespace GMSWeb.Finance.Reports
                         {
                             rppReportList.DataSource = lstReport;
                             rppReportList.DataBind();
-                        }
-                    }
-                    else
-                    {
-                        IList<VwReportListingForCompany> lstCompanyReport = null;
-                        lstCompanyReport = new ReportsActivity().RetrieveCompanyReportByCategoryIdUserAccessId(session.CompanyId, rCategory.ReportCategoryID, session.UserId);
-                        if (lstCompanyReport != null && lstCompanyReport.Count > 0)
-                        {
-                            // Bind Data to sub repeater
-                            RepeaterItem item = this.rppCategoryList.Items[i];
-                            Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
-
-                            if (rppReportList != null)
-                            {
-                                rppReportList.DataSource = lstCompanyReport;
-                                rppReportList.DataBind();
-                            }
                         }
                     }
                     i++;
