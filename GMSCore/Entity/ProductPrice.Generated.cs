@@ -279,6 +279,66 @@ namespace GMSCore.Entity
             }
         }
 
+        private Int32 _reorderLevel;
+        ///<summary>Database mapping to column tbPriceList.ProductCode</summary>
+        public Int32 ReorderLevel
+        {
+            get { return _reorderLevel; }
+            set
+            {
+                if (_reorderLevel != value)
+                {
+                    _reorderLevel = value;
+                    OnPropertyChanged("ReorderLevel");
+                }
+            }
+        }
+
+        private Boolean _tradingStock;
+        ///<summary>Database mapping to column tbPriceList.ProductCode</summary>
+        public Boolean TradingStock
+        {
+            get { return _tradingStock; }
+            set
+            {
+                if (_tradingStock != value)
+                {
+                    _tradingStock = value;
+                    OnPropertyChanged("TradingStock");
+                }
+            }
+        }
+
+        private DateTime _effectiveDate;
+        ///<summary>Database mapping to column tbPriceList.ProductCode</summary>
+        public DateTime EffectiveDate
+        {
+            get { return _effectiveDate; }
+            set
+            {
+                if (_effectiveDate != value)
+                {
+                    _effectiveDate = value;
+                    OnPropertyChanged("EffectiveDate");
+                }
+            }
+        }
+
+        private string _status;
+        ///<summary>Database mapping to column tbPriceList.ProductCode</summary>
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged("Status");
+                }
+            }
+        }
+
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -315,6 +375,20 @@ namespace GMSCore.Entity
             return RetrieveFirst(where);
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public static ProductPrice RetrieveByKeyPending(short coyID, string productCode)
+        {
+            DBManager db = DBManager.GetInstance();
+            QueryHelper helper = db.Engine.QueryHelper;
+            string where = helper.GetExpression("ProductPrice.ProductCode", productCode);
+            where += " and ";
+            where += helper.GetExpression("ProductPrice.CoyID", coyID);
+            where += " and ";
+            where += helper.GetExpression("ProductPrice.Status", "Pending");
+
+            return RetrieveFirst(where);
+        }
+
         #region IObjectHelper
         /// <summary>Indexer to update local member variables</summary>	
         /// <remarks>This indexer is used by the Wilson ORMapper</remarks>
@@ -339,6 +413,10 @@ namespace GMSCore.Entity
                     case "_remarks": return _remarks;
                     case "_isExpired": return _isExpired;
                     case "_sortOrder": return _sortOrder;
+                    case "_reorderLevel": return _reorderLevel;
+                    case "_tradingStock": return _tradingStock;
+                    case "_effectiveDate": return _effectiveDate;
+                    case "_status": return _status;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
@@ -366,6 +444,10 @@ namespace GMSCore.Entity
                     case "_remarks": _remarks = (string)value; break;
                     case "_isExpired": _isExpired = (Boolean)value; break;
                     case "_sortOrder": _sortOrder = (Int32)value; break;
+                    case "_reorderLevel": _reorderLevel = (Int32)value; break;
+                    case "_tradingStock": _tradingStock = (Boolean)value; break;
+                    case "_effectiveDate": _effectiveDate = (DateTime)value; break;
+                    case "_status": _status = (string)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -398,7 +480,11 @@ namespace GMSCore.Entity
             stb.AppendFormat("_remarks={0}\n,", _remarks.ToString());
             stb.AppendFormat("_isExpired={0}\n,", _isExpired.ToString());
             stb.AppendFormat("_sortOrder={0}\n,", _sortOrder.ToString());
-           
+            stb.AppendFormat("_reorderLevel={0}\n,", _reorderLevel.ToString());
+            stb.AppendFormat("_tradingStock={0}\n,", _tradingStock.ToString());
+            stb.AppendFormat("_effectiveDate={0}\n,", _effectiveDate.ToString());
+            stb.AppendFormat("_status={0}\n,", _status.ToString());
+
             return stb.ToString();
 		}
 		#endregion
