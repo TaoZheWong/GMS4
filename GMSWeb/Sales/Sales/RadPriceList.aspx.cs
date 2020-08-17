@@ -215,11 +215,12 @@ namespace GMSWeb.Sales.Sales
 
         protected void radGrid2_OnItemDataBound(object sender, GridItemEventArgs e)
         {
-            if(e.Item.ItemType == GridItemType.Item)
+            if(e.Item is GridDataItem)
             {
-                LinkButton lnkApprove = (LinkButton)e.Item.FindControl("lnkApprove");
-                LinkButton lnkReject = (LinkButton)e.Item.FindControl("lnkReject");
-                LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete2");
+                GridDataItem item = (GridDataItem)e.Item;
+                LinkButton lnkApprove = (LinkButton)item.FindControl("lnkApprove");
+                LinkButton lnkReject = (LinkButton)item.FindControl("lnkReject");
+                LinkButton lnkDelete = (LinkButton)item.FindControl("lnkDelete2");
                 if (lnkDelete != null)
                     lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
 
