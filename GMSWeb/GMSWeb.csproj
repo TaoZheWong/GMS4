@@ -1217,6 +1217,7 @@
     <Content Include="Products\Products\ProductSetup.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Products\Products\ViewGRNBatchSerial.aspx" />
+    <Content Include="Products\Reports\ViewPricing.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
     <Content Include="Sales\Reports\SalesBudgetReport.aspx" />
     <Content Include="Sales\Sales\CustomerTypeSetup.aspx" />
@@ -2123,6 +2124,13 @@
     </Compile>
     <Compile Include="Products\Products\ViewPOWithoutSupplierInfo.aspx.designer.cs">
       <DependentUpon>ViewPOWithoutSupplierInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Reports\ViewPricing.aspx.cs">
+      <DependentUpon>ViewPricing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Reports\ViewPricing.aspx.designer.cs">
+      <DependentUpon>ViewPricing.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\InlineReportViewer.aspx.cs">
       <DependentUpon>InlineReportViewer.aspx</DependentUpon>

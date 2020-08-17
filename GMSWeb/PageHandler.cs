@@ -592,6 +592,26 @@ namespace GMSWeb
             else if (currentLink == "Products")
             {
                 sideMenu =
+                    "<li class='has-sub products-menu'>" +
+                    "<a href=\"" + appPath +"/Products/Products/ProductsSearch.aspx?CurrentLink=Products\">" +
+                    "<i class='ti-layout-grid2'></i>" +
+                    "<span>Product Info</span>" +
+                    "</a>" +
+                    "</li>" +
+
+                    "<li class='has-sub pricing-menu'>" +
+                    "<a href='javascript:;'>" +
+                    "<i class='ti-money'></i>" +
+                    "<span>Pricing</span>" +
+                    "</a>" +
+                    "<ul class=\"sub-menu\">" +
+                        "<li class='sub-radpricelist'><a href =\"" + appPath + "/UnderConstruction.aspx?ModuleID=Products\">Price Input</a></li>" +
+                         //<a href=\"" + appPath + "/Sales/Sales/RadPriceList.aspx?CurrentLink=Products\">
+                         "<li class='sub-products'><a href=\"" + appPath + "/Products/Reports/ViewPricing.aspx\">Reports</a></li>" +
+                         "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Price List Upload</a></li>" +
+                    "</ul>" +
+                    "</li>" +
+
                     "<li class='has-sub report-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-stats-up'></i>" +
@@ -603,14 +623,13 @@ namespace GMSWeb
                         "<li class='sub-financials'><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx?CurrentLink=Products\">Financials</a></li>" +
                     "</ul>" +
                     "</li>" +
+
                     "<li class='has-sub products-menu'>" +
                     "<a href='javascript:;'>" +
                     "<i class='ti-layout-grid2'></i>" +
                     "<span>Products</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
-                        "<li class='sub-product-search-sale'><a href=\"" + appPath +
-                        "/Products/Products/ProductsSearch.aspx?CurrentLink=Products\">Product Search</a></li>" +
                         "<li class='sub-product-movement'><a href=\"" + appPath +
                         "/Products/Products/ProductMovement.aspx?CurrentLink=Products\">Product Movement</a></li>" +
                         "<li class='sub-sup-in-detail'><a href=\"" + appPath + "/Products/Products/ProductPurchase.aspx\">Sup Inv Detail</a></li>" +
@@ -646,7 +665,7 @@ namespace GMSWeb
                         "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Products\">Upload</a></li>" +
                         "<li class='sub-forms'><a href=\"" + appPath +
                         "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Products - Forms&ModuleCategoryID=7&ModuleCategoryName=Products\">Forms</a></li>" +
-                        "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Price List</a></li>" +
+                        //"<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Price List</a></li>" +
                         "<li class='sub-sales-package'><a href=\"" + appPath + "/Sales/Sales/SalesPackage.aspx\">Sales Package</a></li>" +
                         "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=Products\">Claim</a></li>" +
                         "<li class='sub-productgroup-setup'><a href=\"" + appPath + "/Products/Products/ProductGroupSetup.aspx\">Product Group Setup</a></li>" +

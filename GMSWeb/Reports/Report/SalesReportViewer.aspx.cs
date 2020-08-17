@@ -1147,7 +1147,7 @@ namespace GMSWeb.Reports.Report
             {
 
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Item Name :"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Item Description :"));
                 pnlParameter.Controls.Add(new LiteralControl("</label>"));
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
                 TextBox txtProductDescription = new TextBox();
@@ -2578,6 +2578,50 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
+            if (crReportDocument.ParameterFields["@Effectivedate"] != null)
+            {
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Effective Date :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"input-group date\">"));
+                TextBox txtEffectiveDate = new TextBox();
+                txtEffectiveDate.ID = "txtEffectiveDate";
+                txtEffectiveDate.Columns = 15;
+                txtEffectiveDate.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
+                txtEffectiveDate.CssClass = "form-control datepicker";
+                pnlParameter.Controls.Add(txtEffectiveDate);
+                if (ViewState["txtEffectiveDate"] == null)
+                    ViewState["txtEffectiveDate"] = txtEffectiveDate.Text;
+                pnlParameter.Controls.Add(new LiteralControl("<span class=\"input-group-addon\"><i class=\"ti-calendar\"></i></span>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
+            if (crReportDocument.ParameterFields["@ReviewDate"] != null)
+            {
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Review Date :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"input-group date\">"));
+                TextBox txtReviewDate = new TextBox();
+                txtReviewDate.ID = "txtReviewDate";
+                txtReviewDate.Columns = 15;
+                txtReviewDate.Text = System.DateTime.Today.ToString("dd/MM/yyyy");
+                txtReviewDate.CssClass = "form-control datepicker";
+                pnlParameter.Controls.Add(txtReviewDate);
+                if (ViewState["txtReviewDate"] == null)
+                    ViewState["txtReviewDate"] = txtReviewDate.Text;
+                pnlParameter.Controls.Add(new LiteralControl("<span class=\"input-group-addon\"><i class=\"ti-calendar\"></i></span>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
             Button dynamicbutton = new Button();
             dynamicbutton.Click += new System.EventHandler(btnSubmit_Click);
             dynamicbutton.Text = "Submit";
@@ -2887,9 +2931,14 @@ namespace GMSWeb.Reports.Report
             if (crReportDocument.ParameterFields["@DivisionType"] != null)
                 ViewState["ddlDivision"] = ((DropDownList)pnlParameter.FindControl("ddlDivision")).SelectedValue.ToString();
 
+            if (crReportDocument.ParameterFields["@Effectivedate"] != null)
+                ViewState["txtEffectiveDate"] = ((TextBox)pnlParameter.FindControl("txtEffectiveDate")).Text.ToString();
+
+            if (crReportDocument.ParameterFields["@ReviewDate"] != null)
+                ViewState["txtReviewDate"] = ((TextBox)pnlParameter.FindControl("txtReviewDate")).Text.ToString();
+
             if (crReportDocument.ParameterFields["Brand 1"] != null)
             {
-
                 //ArrayList listProductSelected = new ArrayList();             
                 ListBox lbProdctsSelected = ((ListBox)pnlParameter.FindControl("lbProdctsSelected"));
 
@@ -3367,6 +3416,12 @@ namespace GMSWeb.Reports.Report
 
                     if (crReportDocument.ParameterFields["@TransactionType"] != null && ViewState["ddlTT"] != null)
                         crReportDocument.SetParameterValue("@TransactionType", ViewState["ddlTT"].ToString());
+
+                    if (crReportDocument.ParameterFields["@Effectivedate"] != null && ViewState["txtEffectiveDate"] != null)
+                        crReportDocument.SetParameterValue("@Effectivedate", GMSUtil.ToDate(ViewState["txtEffectiveDate"]));
+
+                    if (crReportDocument.ParameterFields["@ReviewDate"] != null && ViewState["txtReviewDate"] != null)
+                        crReportDocument.SetParameterValue("@ReviewDate", GMSUtil.ToDate(ViewState["txtReviewDate"]));
 
                     cyReportViewer.ReportSource = crReportDocument;
 
