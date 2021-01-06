@@ -40,7 +40,8 @@ $(document).ready(function () {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -73,7 +74,8 @@ $(document).ready(function () {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: "{'CompanyId':'"+getCoyID()+"' ,'account': '"+ i.item.value +"' }",
-                success: function (data) {                
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {
                         $("select[id*=txtCurrencyCode] option[value='"+item.CurrencyCode+"']").attr("selected",true);
                         $("input[id*=txtSalesPersonID]").val(item.SalesPersonID);
@@ -98,7 +100,8 @@ $(document).ready(function () {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -139,7 +142,8 @@ $(document).ready(function () {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -208,7 +212,8 @@ $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataFilter: function(data) { return data; },
-        success: function(data) {
+        success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.each(data, function (key, value) {
                 $("select[id*=txtCurrencyCode]").append($("<option data-tokens='"+value.CurrencyCode+"'></option>").val(value.CurrencyCode).html(value.CurrencyCode));
             });
@@ -234,7 +239,8 @@ function GetProjectInfo()
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataFilter: function(data) { return data; },
-        success: function(data) {
+        success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.map(data, function(item) {
                     $('#txtProjectNo').attr("value", item.ProjectNo);
                     $('#txtPrevProjectNo').attr("value", item.PrevProjectNo);
@@ -287,6 +293,7 @@ function CheckAccess(callback) {
         data: '{"CompanyId":"' + getCoyID() + '", "DocNo": "' + str + '", "UserID":"' + getUserID() + '"}',
         dataType: "json",
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             callback(data);
         },
         error: function (xhr, textstatus, error) {

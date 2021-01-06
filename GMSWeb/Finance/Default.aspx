@@ -158,6 +158,7 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (resp) {
+                    resp = resp.hasOwnProperty('d') ? resp.d : resp;
                     if (resp.Status != 0) {
                         console.log(resp.Message);
                         return 0;
@@ -216,7 +217,7 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (resp) {
-                    
+                    resp = resp.hasOwnProperty('d') ? resp.d : resp;
                     if (resp.Status != 0) {
                         console.log(resp.Message);
                         return 0;
@@ -270,7 +271,7 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (resp) {
-                    
+                    resp = resp.hasOwnProperty('d') ? resp.d : resp;
                     if (resp.Status != 0) {
                         console.log(resp.Message);
                         return 0;
@@ -324,7 +325,7 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (resp){
-                    
+                    resp = resp.hasOwnProperty('d') ? resp.d : resp;
                     if (resp.Status != 0) {
                         console.log(resp.Message);
                         return 0;

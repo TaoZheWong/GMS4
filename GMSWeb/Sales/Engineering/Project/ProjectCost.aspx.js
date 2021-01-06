@@ -58,6 +58,7 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     alert("Success");
                     LaborCost();
                     GetTotalInfo();
@@ -105,6 +106,7 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     alert("Success");
                     Miscellaneous();
                     GetTotalInfo();
@@ -129,6 +131,7 @@ function LaborCost(){
                 return "{'CompanyId':'"+getCoyID()+"', 'ProjectNo': '" + $("#txtProjectNo").val() + "', 'UserID':'"+getUserID()+"' }";
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }   
         },
@@ -251,6 +254,7 @@ $( "#dialog-confirm" ).dialog({
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     alert("Record have been deleted successfully.");
                     LaborCost();
                     GetTotalInfo();
@@ -288,6 +292,7 @@ $( "#dialog-confirm" ).dialog({
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Record have been deleted successfully.");
                         Miscellaneous();
                         GetTotalInfo();
@@ -340,6 +345,7 @@ function Miscellaneous(){
                 return "{ 'CompanyId':'" + getCoyID() + "', 'ProjectNo': '" + $("#txtProjectNo").val() + "', 'UserID':'" + getUserID() + "' }";
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }   
         },
@@ -447,6 +453,7 @@ function MaterialRequisition() {
                 return JSON.stringify({ Info: obj });
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }
         },
@@ -523,7 +530,7 @@ function ViewMRDetails(item) {
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
         success: function (data) {
-           
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.each(data, function (key, value) {
                 $.each(value, function (i, item) {
                     $('#' + i).val(item);
@@ -550,6 +557,7 @@ function DisplayInvoiceList(mrno) {
             },
             "url": "ProjectCost.aspx/GetMaterialRequisitionListByMRNo",
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }
         },
@@ -604,6 +612,7 @@ function SaveItem(item)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            response = response.hasOwnProperty('d') ? response.d : response;
             DisplayInvoiceList(item.value);
             SetModalMessage("Success!", '');
             ResetForm("ModalMRPayment");
@@ -635,6 +644,7 @@ function deletemrinv(item, mrno)
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Record have been deleted successfully.");
                         ViewMRDetails(mrno);
                         DisplayInvoiceList(mrno);
@@ -665,6 +675,7 @@ function GetTotalInfo() {
         contentType: "application/json; charset=utf-8",
         dataFilter: function (data) { return data; },
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.map(data, function (item) {
                 $('#MRSubTotal').attr("value", item.MRGrandTotal);
                 $('#LaborSubTotal').attr("value", item.LaborGrandTotal);

@@ -76,7 +76,7 @@ function Search()
                 "url": "MaterialRequisitionSearch.aspx/GetMR",
                 "data": function (data) { return datastr;},  
                 "dataSrc": function (json) { 
-                     
+                    json = json.hasOwnProperty('d') ? json.d : json;
                      return json;                    
                 }
             },

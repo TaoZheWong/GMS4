@@ -94,6 +94,33 @@ namespace GMSWeb.Admin.Accounts {
         protected global::System.Web.UI.WebControls.RadioButton rbIsNotCompanyManagementUser;
         
         /// <summary>
+        /// productManagementRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl productManagementRow;
+        
+        /// <summary>
+        /// rbIsProductManagementUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbIsProductManagementUser;
+        
+        /// <summary>
+        /// rbIsNotProductManagementUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbIsNotProductManagementUser;
+        
+        /// <summary>
         /// divisionRow control.
         /// </summary>
         /// <remarks>

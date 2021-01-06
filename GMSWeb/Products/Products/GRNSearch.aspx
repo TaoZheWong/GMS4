@@ -100,34 +100,34 @@
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="GRN No.">
                             <ItemTemplate>
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "GRNDetail.aspx?TrnNo="+Eval("TrnNo")+"&CurrentLink="+Request.Params["CurrentLink"].ToString().Trim()%>'><%# Eval("TrnNo")%></asp:HyperLink>
+                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "GRNDetail.aspx?TrnNo="+Eval("DocNum")+"&CurrentLink="+Request.Params["CurrentLink"].ToString().Trim()%>'><%# Eval("DocNum")%></asp:HyperLink>
                             </ItemTemplate>                                                    
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="GRN Date">
                             <ItemTemplate>
-                                <%# Eval("TrnDate")%>
+                                <%# Eval("DocDate")%>
                             </ItemTemplate>                                                    
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="PO No.">
                             <ItemTemplate>
-                                <%# Eval("PONo")%>
-                            </ItemTemplate>                                                    
-                        </asp:TemplateColumn>
-                        <asp:TemplateColumn HeaderText="PO Date">
-                            <ItemTemplate>
-                                <%# Eval("PODate")%>                                
+                                <%# Eval("BaseRef")%>
                             </ItemTemplate>                                                    
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Vendor Code">
                             <ItemTemplate>
-                                <%# Eval("VendorCode")%>
+                                <%# Eval("CardCode")%>
                             </ItemTemplate>                                                    
                         </asp:TemplateColumn> 
                         <asp:TemplateColumn HeaderText="Vendor Name">
                             <ItemTemplate>
-                                <%# Eval("VendorName")%>
+                                <%# Eval("CardName")%>
                             </ItemTemplate>                                                    
-                        </asp:TemplateColumn>                                               
+                        </asp:TemplateColumn>  
+                        <asp:TemplateColumn HeaderText="Created By">
+                            <ItemTemplate>
+                                <%# Eval("U_AF_CREATEDBY")%>                                
+                            </ItemTemplate>                                                    
+                        </asp:TemplateColumn>                                            
                     </Columns>
                     <HeaderStyle CssClass="tHeader" />
                     <PagerStyle Mode="NumericPages" CssClass="grid_pagination" />

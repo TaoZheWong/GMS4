@@ -103,9 +103,9 @@ namespace GMSWeb.Finance.Reports
                 int i = 0;
                 foreach (ReportCategory rCategory in lstCategory)
                 {
-                    IList<VwReportListing> lstReport = null;
-                    lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, session.UserId);
-                    if (lstReport != null && lstReport.Count > 0)
+                    IList<VwReportListingForCompany> lstCompanyReport = null;
+                    lstCompanyReport = new ReportsActivity().RetrieveCompanyReportByCategoryIdUserAccessId(session.CompanyId, rCategory.ReportCategoryID, session.UserId);
+                    if (lstCompanyReport != null && lstCompanyReport.Count > 0)
                     {
                         // Bind Data to sub repeater
                         RepeaterItem item = this.rppCategoryList.Items[i];
@@ -113,8 +113,25 @@ namespace GMSWeb.Finance.Reports
 
                         if (rppReportList != null)
                         {
-                            rppReportList.DataSource = lstReport;
+                            rppReportList.DataSource = lstCompanyReport;
                             rppReportList.DataBind();
+                        }
+                    }
+                    else
+                    {
+                        IList<VwReportListing> lstReport = null;
+                        lstReport = new ReportsActivity().RetrieveReportByCategoryIdUserAccessId(rCategory.ReportCategoryID, session.UserId);
+                        if (lstReport != null && lstReport.Count > 0)
+                        {
+                            // Bind Data to sub repeater
+                            RepeaterItem item = this.rppCategoryList.Items[i];
+                            Repeater rppReportList = (Repeater)item.FindControl("rppReportList");
+
+                            if (rppReportList != null)
+                            {
+                                rppReportList.DataSource = lstReport;
+                                rppReportList.DataBind();
+                            }
                         }
                     }
                     i++;

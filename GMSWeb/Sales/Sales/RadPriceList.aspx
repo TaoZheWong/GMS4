@@ -10,6 +10,30 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
 <uctrl:Header ID="MySiteHeader" runat="server" EnableViewState="true" />
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <telerik:RadAjaxManager runat="server" ID="RadAjaxManager1">
+        <AjaxSettings>
+             <telerik:AjaxSetting AjaxControlID="RadSpreadsheet1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadSpreadsheet1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="RadGrid2">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid2" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+        </AjaxSettings>
+    </telerik:RadAjaxManager>
+    <style>
+        .RadSpreadsheet .rssSheetsbar a.t-spreadsheet-sheets-bar-add
+        {
+             display: none;
+        }
+
+        .rssPopup .rssCollapsibleList .rssDetails {
+            height: 150px;
+        }
+    </style>
 <a name="TemplateInfo"></a>
 <ul class="breadcrumb pull-right">
     <li><a href="#"><asp:Label ID="lblPageHeader" runat="server" /></a></li>
@@ -40,11 +64,11 @@
                             <asp:TextBox runat="server" ID="txtProductGroup" MaxLength="50" Columns="20" onfocus="select();"
                                 CssClass="form-control" placeholder="e.g. BLUEMETALS"></asp:TextBox>
                     </div>
-                   <div class="form-group col-lg-3 col-md-6 col-sm-6 ">
+                   <div class="form-group col-lg-3 col-md-6 col-sm-6 " hidden>
                         <label class="control-label">Item Code</label>
                             <asp:TextBox runat="server" ID="txtProductCode" MaxLength="50" Columns="20" onfocus="select();" CssClass="form-control" placeholder="e.g. B1110535616"></asp:TextBox>
                     </div>
-                    <div class="form-group col-lg-3 col-md-6 col-sm-6 ">
+                    <div class="form-group col-lg-3 col-md-6 col-sm-6 " hidden>
                         <label class="control-label">Item Description</label>
                             <asp:TextBox runat="server" ID="txtProductName" MaxLength="50" Columns="20" onfocus="select();"
                                 CssClass="form-control" placeholder="e.g. BLUE-TIG 5356"></asp:TextBox>
@@ -85,6 +109,13 @@
         <div class="panel-body no-padding">
             <div class="table-responsive" style="overflow:auto">
                 <!--Current price list-->
+                <asp:HiddenField ID="HiddenField1" runat="server" />
+                <asp:HiddenField ID="hidEmail" runat="server"/>
+                <telerik:RadButton runat="server" ID="RadButton1" Text="Submit" CssClass="pull-right btn m-l-5" Skin="Bootstrap"
+                    OnClick="RadButton1_Click" OnClientClicked="OnClientClicked" visible="false" SingleClick="true"  SingleClickText="Submiting..."/>
+                <asp:HiddenField runat="server" ID="hidRowChanged" ClientIDMode="Static" />
+                <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet1" Visible="false" OnClientChange="OnClientChange">
+                </telerik:RadSpreadsheet>
                  <telerik:RadGrid ID="RadGrid1" runat="server" Visible="false" OnPageIndexChanged="radGrid_OnPageIndexChanged" OnPageSizeChanged="radGrid_OnPageSizeChanged"
                    AllowPaging="True" AutoGenerateColumns="False" Skin="Bootstrap" AllowFilteringByColumn="true" PageSize="20" OnCancelCommand="radGrid_OnCancel" 
                     OnNeedDataSource="RadGrid1_NeedDataSource" OnUpdateCommand="RadGrid1_OnUpdateCommand">
@@ -168,7 +199,7 @@
                    AllowPaging="True" AutoGenerateColumns="False" Skin="Bootstrap" AllowFilteringByColumn="true" PageSize="20" OnCancelCommand="radGrid2_OnCancel" 
                     OnNeedDataSource="RadGrid2_NeedDataSource" OnDeleteCommand="RadGrid2_OnDeleteCommand" OnItemDataBound="radGrid2_OnItemDataBound">
 
-                    <MasterTableView CommandItemDisplay="None" EditMode="Batch" 
+                    <MasterTableView CommandItemDisplay="None"
                         CommandItemSettings-ShowRefreshButton="false" DataKeyNames="ProductCode">
                 
                         <Columns>
@@ -194,6 +225,10 @@
                             <telerik:GridCheckBoxColumn FilterControlAltText="Filter Clearing Stock column" HeaderText="Clearing Stock" FilterControlWidth="50%" UniqueName="TradingStock"
                                 ItemStyle-HorizontalAlign="Center" AllowFiltering="false" headerstyle-Width="7%" DataField="TradingStock">
                             </telerik:GridCheckBoxColumn>
+                            <telerik:GridBoundColumn FilterControlAltText="Filter Remarks column" HeaderText="Remarks" HeaderStyle-Wrap="true" DataField="Remarks" ReadOnly="true" AllowFiltering="false" Visible="false">
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn FilterControlAltText="Filter Country column" HeaderText="Country" HeaderStyle-Wrap="true" DataField="Country" ReadOnly="true" AllowFiltering="false" Visible="false">
+                            </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn FilterControlAltText="Filter Effective Date column" HeaderText="Effective Date" HeaderStyle-Wrap="true" DataField="EffectiveDate" ReadOnly="true" AllowFiltering="false" headerstyle-Width="9%">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FilterControlAltText="Filter Status column" HeaderText="Status" HeaderStyle-Wrap="true" DataField="Status" ReadOnly="true" AllowFiltering="false">
@@ -201,15 +236,19 @@
                              <telerik:GridTemplateColumn UniqueName="Function" AllowFiltering="false" HeaderText="Function" headerstyle-Width="10%">
                                 <ItemTemplate>
                                      <div class="btn-group-vertical">
-                                    <asp:LinkButton ID="lnkApprove" runat="server" Visible="false" OnClick="lnkApprove_Click" CommandArgument='<%# Eval("ProductCode")%>' 
-                                         CssClass="btn btn-default btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Approve">Approve</asp:LinkButton>
+                                   <asp:LinkButton ID="lnkApprove" runat="server" Visible="false" OnClick="lnkApprove_Click" CommandArgument='<%# Eval("Email")+","+Eval("ProductGroupName")+","+Eval("ProductCode")+","+Eval("PMName")%>' 
+                                             CssClass="btn btn-default btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Approve">Approve</asp:LinkButton>
                                      <asp:LinkButton ID="lnkReject" runat="server" Visible="false" CommandArgument='<%# Eval("Email")+","+Eval("ProductGroupName")+","+Eval("ProductCode")+","+Eval("PMName")%>' OnClick="lnkReject_Click" 
                                          CssClass="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Reject">Reject</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkDelete2" runat="server" EnableViewState="false" CommandName="Delete" 
+                                    <asp:LinkButton ID="lnkDelete2" runat="server" EnableViewState="true" CommandName="Delete"
                                         CausesValidation="false" CssClass="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="ti-trash"></i> </asp:LinkButton>
                                 </div>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
+                            <%-- <telerik:GridButtonColumn ConfirmText="Delete this data?" 
+                                        CommandName="Delete" Text="Delete" UniqueName="DeleteColumn1" Visible="true">
+                                        <ItemStyle CssClass="MyImageButton"></ItemStyle>
+                                    </telerik:GridButtonColumn>--%>
                         </Columns>
                     </MasterTableView>
                 </telerik:RadGrid>
@@ -233,7 +272,27 @@
             $(".sub-radpricelist").addClass("active");
         });
 
-    </script>
+        function OnClientClicked(sender, args) {
+            var spreadsheet = $find("<%= RadSpreadsheet1.ClientID %>");
+            var jsonstring = JSON.stringify(spreadsheet.get_kendoWidget().toJSON());
+            $get("<%= HiddenField1.ClientID %>").value = jsonstring;
+            getChangeRowsAsArray();
+        }
 
-                           
+        //save on row changed event
+        var changedRows = {};
+        var changedRowsIndices = [];
+        function OnClientChange(sender, args) {
+            args.get_range()._range._ref.forEachRowIndex(function (rowIndex) {
+                changedRows[rowIndex] = true;//save row index into list
+            });
+        }
+        function getChangeRowsAsArray(sender, args) {
+            for (var r in changedRows) {
+                changedRowsIndices.push(r);
+            }
+            $("#hidRowChanged").val(changedRowsIndices);
+            changedRowsIndices = [];
+        }
+    </script>                  
 </asp:Content>

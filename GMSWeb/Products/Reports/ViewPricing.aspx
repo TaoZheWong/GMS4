@@ -10,7 +10,7 @@
         <li><a href="#">Reports</a></li>
         <li class="active">Product</li>
     </ul>
-    <h1 class="page-header">Pricing <br /><small>Click a report to view.</small></h1>
+    <h1 class="page-header">Price List <br /><small>Click a report to view.</small></h1>
 
 
     <asp:Repeater ID="rppCategoryList" runat="server">

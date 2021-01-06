@@ -42,15 +42,18 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.modifieddate = '';
     claim.allowCreateOnbehalf = false;
     claim.onbehalfuser = [];
+    claim.claimDate = '';
 
     claim.getDim1List = function () {
         ClaimService.getCompanyProjectList(claim.companyID).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.dim1List = resp.data.Params.data;
         });
     }
 
     claim.getDim2List = function (CoyID, dim1ID, init) {
         ClaimService.getCompanyDepartmentList(CoyID, dim1ID).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.dim2List = resp.data.Params.data;
             
             if (resp.data.Params.data.length > 0) {
@@ -68,8 +71,9 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
         });
     }
 
-    claim.getDim3List = function (CoyID, dim2ID, init) {
-        ClaimService.getCompanySectionList(CoyID, dim2ID).then(function (resp) {
+    claim.getDim3List = function (CoyID, dim2ID,date, init) {
+        ClaimService.getCompanySectionList(CoyID, dim2ID,date).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.dim3List = resp.data.Params.data;
 
             if (resp.data.Params.data.length > 0) {
@@ -87,6 +91,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.getDim4List = function (CoyID, dim3ID, init) {
         ClaimService.getCompanyUnitList(CoyID, dim3ID).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.dim4List = resp.data.Params.data;
             if (resp.data.Params.data.length > 0) {
                 if (!init)
@@ -102,6 +107,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.getClaimDetails = function (ClaimID) {
         claim.detail = [];
         ClaimService.getDetail(ClaimID, claim.companyID, timeoutCanceler).then(function (detailResp) {
+            detailResp.data = detailResp.data.hasOwnProperty('d') ? detailResp.data.d : detailResp.data;
             angular.forEach(detailResp.data.Params.data, function (data) {
                 var newObj = angular.copy(claim.detailModel);
                 newObj = data;
@@ -116,10 +122,12 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.getClaimInfo = function () {
 
         ClaimService.getClaimInfo($location.$$search.id, timeoutCanceler).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.claimInfo = resp.data.Params.data[0];
             claim.modifieddate = resp.data.Params.data[0].ModifiedDate;
             claim.getClaimDetails(resp.data.Params.data[0].ClaimID);
             claim.getSalesPersonList(resp.data.Params.data[0].CreatedBy);
+            claim.claimDate = resp.data.Params.data[0].ClaimDate;
 
             //Only the user that created the claims can submit the claims for approval.
             if (resp.data.Params.data[0].CreatedBy != globalUserID) {
@@ -133,6 +141,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
             }
 
             ClaimService.getApproveRejectAccess(globalUserID).then(function (resp) {
+                resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                 if (resp.data.Params.data.length > 0)
                     claim.allowApproveReject = resp.data.Params.data[0].Access;
                 else
@@ -149,11 +158,13 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.updateClaimInfo = function () {
         ClaimService.isLatestTransaction(globalCoyID, $location.$$search.id, claim.modifieddate, 'Claim').then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (!resp.data) {
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();
             } else {
                 ClaimService.updateClaimInfo(claim.claimInfo).then(function (resp) {
+                    resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                     if (resp.data.Status == 1) {
                         claim.claimInfo = resp.data.Params.data[0];
                     }
@@ -166,6 +177,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.submitClaim = function (data, type) {
         ClaimService.isLatestTransaction(globalCoyID, $location.$$search.id, claim.modifieddate, 'Claim').then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (!resp.data) {
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();
@@ -174,12 +186,14 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
                     if (angular.equals(type, 'Submit') || angular.equals(type, 'Approve')) {
                         //help user to update claim info and detail info upon submitting the form
                         ClaimService.updateClaimInfo(claim.claimInfo).then(function (resp) {
+                            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                             if (resp.data.Status == 1) {
                                 claim.claimInfo = resp.data.Params.data[0];
                             }
                         });
 
                         ClaimService.addClaimDetail(claim.claimInfo.ClaimID, claim.companyID, JSON.stringify(claim.detail), timeoutCanceler).then(function (resp) {
+                            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                             if (resp.data.Status == 0) {
                                 claim.detail = [];
                             }
@@ -212,6 +226,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
                 //}
 
                 ClaimService.SubmitClaim(data.ClaimID, globalUserID, type, data.rejectremark, data.paymentvoucher).then(function (resp) {
+                    resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                     alert(resp.data.Message);
                     claim.getClaimInfo();
                 });
@@ -221,12 +236,14 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.deleteClaim = function (data) {
         ClaimService.isLatestTransaction(globalCoyID, $location.$$search.id, claim.modifieddate, 'Claim').then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (!resp.data) {
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();
             } else {
                 if (confirm("Confirm delete this claim? (This step can't be undo)")) {
                     ClaimService.deleteClaim($location.$$search.id, globalCoyID).then(function (resp) {
+                        resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                         $window.location.href = Path + '/Claim/Default.aspx';
                         alert(resp.data.Message);
                     });
@@ -236,18 +253,21 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     }
 
     ClaimService.getClaimDetailModal().then(function (resp) {
+        resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
         claim.detailModel = JSON.parse(resp.data.Params.data);
     });
 
 
     claim.getSalesPersonList = function (claimantId) {
         ClaimService.getSalesPersonID(claim.companyID, claimantId).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.salesPersonID = resp.data.Params.data;
         });
     }
 
     claim.getEntertainmentType = function () {
         ClaimService.getEntertainmentType().then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.typeList = resp.data.Params.data;
         });
     }
@@ -263,6 +283,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
         if (data.id != null ) {
             if (confirm("Confirm delete saved claim detail ?")) {
                 ClaimService.DeleteClaimDetail(data.id).then(function (resp) {
+                    resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                     if (resp.Status > 0)
                         alert(resp.Message);
                     else {
@@ -286,6 +307,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
             return
         }
         ClaimService.addClaimDetail(claim.claimInfo.ClaimID, claim.companyID, JSON.stringify(claim.detail), timeoutCanceler).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (resp.data.Status == 0) {
                 claim.detail = [];
                 claim.getClaimDetails(claim.claimInfo.ClaimID);
@@ -301,6 +323,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
         claim.attachmentList = [];
         
         ClaimService.getAttachment(data.id).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (resp.data.Status == 1) {
                 alert(resp.data.Message);
             } else {
@@ -329,18 +352,20 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.previewAttachment = function (data) {
         claim.selectedAttachmentID = data.ID;
-        claim.attachmentSrc = data.attachment;
+        claim.attachmentSrc = data.FileName
         $("#attachmentFile").val('');
     }
 
     claim.deleteAttachment = function (data) {
         if (confirm("Confirm delete selected attachment ?")) {
             ClaimService.DeleteAttachment(data.ID).then(function (result) {
+                result.data = result.data.hasOwnProperty('d') ? result.data.d : result.data;
                 if (result.data.Status == 1) {
                     alert(result.data.Message);
                 } else {
                     //refresh the attachment list
                     ClaimService.getAttachment(data.ClaimDetailID).then(function (resp) {
+                        resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                         if (resp.data.Status == 1) {
                             alert(resp.data.Message);
                         } else {
@@ -357,12 +382,14 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     }
 
     claim.saveAttachment = function () {
-        ClaimService.saveAttachment(claim.selectedAttachmentID, claim.selectedDetail.id, claim.attachmentSrc).then(function (result) {
+        ClaimService.saveAttachment(claim.companyID, claim.selectedAttachmentID, claim.selectedDetail.id, claim.attachmentSrc).then(function (result) {
+            result.data = result.data.hasOwnProperty('d') ? result.data.d : result.data;
             if (result.data.Status == 1) {
                 alert(result.data.Message);
             } else {
                 //refresh the attachment list
                 ClaimService.getAttachment(claim.selectedDetail.id).then(function (resp) {
+                    resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
                     if (resp.data.Status == 1) {
                         alert(resp.data.Message);
                     } else {
@@ -380,6 +407,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.createOnBehalf = function () {
         ClaimService.createOnBehalf(globalCoyID, globalUserID).then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (resp.data.Params.data.length > 0) {
                 claim.allowCreateOnbehalf = true;
                 claim.onbehalfuser = resp.data.Params.data;
@@ -443,7 +471,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
             }
 
             if (oldValue.dim2 != newValue.dim2 && newValue.dim2) {
-                claim.getDim3List(claim.companyID, newValue.dim2, initialize);
+                claim.getDim3List(claim.companyID, newValue.dim2,claim.claimDate, initialize);
             }
 
             if (oldValue.dim3 != newValue.dim3 && newValue.dim3) {
@@ -462,6 +490,9 @@ app.controller('ClaimDefaultController', function (ClaimService, UtilityService,
 
     claim.getapproverights = function () {
         ClaimService.getApproveRejectAccess(globalUserID).then(function (resp) {
+
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
+            console.log(resp.data);
             if (resp.data.Params.data.length > 0)
                 claim.allowApproveReject = resp.data.Params.data[0].Access;
             else
@@ -471,6 +502,7 @@ app.controller('ClaimDefaultController', function (ClaimService, UtilityService,
 
     claim.getEntertainmentType = function () {
         ClaimService.getEntertainmentType().then(function (resp) {
+            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.typeList = resp.data.Params.data;
         });
     }

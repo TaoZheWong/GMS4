@@ -273,12 +273,9 @@
                                         </div>
                                     </div>
                                         
-                                   
-                                          
-                                       
-                                            <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%"
+                                   <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%"
                                                 style="display: none"></iframe>
-                                    
+       
                                             <asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
                             </div>
                         </div>

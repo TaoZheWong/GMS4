@@ -76,6 +76,7 @@ Changes :   1. Remove "Insert new cost estimate" function
             data: "{ 'ProjectNo': '"+ code +"' }",
 
             success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.map(data, function(item) {
                     $('#AccountCode').val(item.AccountCode);
                     $('#AccountName').val(item.AccountName);
@@ -171,6 +172,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataFilter: function(data) { return data; },
                     success: function(data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         if(data==""){
                             alert("No data found");
                         }
@@ -197,6 +199,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     data: "{ 'Code': '"+ i.item.value +"' }",
 
                     success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         $.map(data, function(item) {
                             $('#AccountName').val(item.AccountName);
                             $('#DefaultCurrency').val(item.DefaultCurrency);
@@ -230,6 +233,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataFilter: function(data) { return data; },
                     success: function(data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         if(data==""){
                         alert("No data found");
                         }
@@ -264,6 +268,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataFilter: function(data) { return data; },
                     success: function(data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         if(data==""){
                         alert("No data found");
                         }
@@ -298,6 +303,7 @@ Changes :   1. Remove "Insert new cost estimate" function
             contentType: "application/json; charset=utf-8",
             dataFilter: function(data) { return data; },
             success: function(data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.each(data, function (key, value) {
                     if(value.CurrencyCode==$("#Default").val()){
                         $("#DefaultCurrency").append($("<option selected='selected'></option>").val
@@ -320,6 +326,7 @@ Changes :   1. Remove "Insert new cost estimate" function
             contentType: "application/json; charset=utf-8",
             dataFilter: function(data) { return data; },
             success: function(data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.each(data, function (key, value) {
                     $("#StatusID").append($("<option></option>").val
                     (value.StatusID).html(value.StatusName));
@@ -372,6 +379,7 @@ Changes :   1. Remove "Insert new cost estimate" function
             contentType: "application/json; charset=utf-8",
             dataFilter: function(data) { return data; },
             success: function(data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.each(data, function (key, value) {
                     $('.UOM').append($("<option></option>").val
                     (value.UOM).html(value.UOM));
@@ -392,7 +400,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                 },
                 "dataSrc": function (json) {   
-                    
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     var prop;
                     var propCount = 0;
 
@@ -459,6 +467,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                 },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                 $.map(json, function(item) {
                        $("#OCCC").text($("#Default").val());
                        $("#OtherClaimsAmt").val(item.OCAmt);
@@ -583,6 +592,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
                         OtherClaims();
                         DisplayDetails($("#ProjectNo").val());
@@ -608,6 +618,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
                         OtherClaims();
                         DisplayDetails($("#ProjectNo").val());
@@ -643,6 +654,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             alert("Record have been deleted successfully.");
 //                            $('#tblAdditionalMR').dataTable().empty();
                             OtherClaims();
@@ -674,6 +686,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                 },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                    $.map(json, function(item) {
                        $("#LCCC").text($("#Default").val());
                        $("#LaborCostAmt").val(item.LCAmt);
@@ -842,6 +855,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
                         DisplayDetails($("#ProjectNo").val());
                         //a.Destroy();
@@ -872,6 +886,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
                         DisplayDetails($("#ProjectNo").val());
                         //a.Destroy();
@@ -908,6 +923,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             alert("Record have been deleted successfully.");
                             
                             //a.Destroy();
@@ -947,6 +963,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                 },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                  }
             },
@@ -1217,6 +1234,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
                         $('#tblMaintenance').dataTable().empty();
                         maintenanceRecord();
@@ -1250,6 +1268,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
                         $('#tblMaintenance').dataTable().empty();
                         maintenanceRecord();
@@ -1285,6 +1304,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             alert("Record have been deleted successfully.");
                             $('#tblMaintenance').dataTable().empty();
                             maintenanceRecord();
@@ -1312,6 +1332,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataFilter: function(data) { return data; },
                     success: function(data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         if(data==""){
                             alert("No data found");
                         }
@@ -1347,6 +1368,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                         return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                     },
                     "dataSrc": function (json) {
+                        json = json.hasOwnProperty('d') ? json.d : json;
                         return json;
                      }
                 },
@@ -1505,6 +1527,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
         //                 var a = $('#tblAdditionalMR').DataTable();
         //                //a.Destroy();
@@ -1542,6 +1565,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Project Info has been updated successfully.");
         //                 var a = $('#tblAdditionalMR').DataTable();
         //                //a.Destroy();
@@ -1577,6 +1601,7 @@ Changes :   1. Remove "Insert new cost estimate" function
   </div>
                         dataType: "json",
                         success: function (response) {
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             alert("Record have been deleted successfully.");
                             //$('#tblProgressiveClaim').dataTable().empty();
                             ProgressiveClaim();
@@ -1615,7 +1640,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
-                       
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             alert(response);
                             //$('#tblImportedMRs').dataTable().empty();
                             MRRecord();
@@ -1644,6 +1669,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                 },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                     
                  }
@@ -1715,6 +1741,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                     data: "{ 'SerialNo': '"+ SN +"' }",
 
                     success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         $.map(data, function(item) {
                             $('#Manufacturer').html(item.Manufacturer);
                             $('#ModelNo').html(item.ModelNo);
@@ -1756,6 +1783,7 @@ Changes :   1. Remove "Insert new cost estimate" function
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                response = response.hasOwnProperty('d') ? response.d : response;
                 if(response == '1'){
                     alert("Project No."+ $("#ProjectNo").val()+" already have a Delivery Order No."+ $("#DONo").val());
                 }else{
@@ -1778,6 +1806,7 @@ Changes :   1. Remove "Insert new cost estimate" function
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     alert (response);
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -1810,6 +1839,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                      $.each(data, function(index) {
                         c[i++] = data[index].ProjectNo;
                     });
@@ -1861,6 +1891,7 @@ Changes :   1. Remove "Insert new cost estimate" function
                         return "{ 'ProjectNo': '" + $("#ProjectNo").val() + "' }";
                     },
                     "dataSrc": function (json) {
+                        json = json.hasOwnProperty('d') ? json.d : json;
                         return json;
                      }
                 },

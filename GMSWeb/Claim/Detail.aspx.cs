@@ -17,6 +17,9 @@ using System.Collections.Generic;
 using System.Web.Services;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace GMSWeb.Claim
 {
@@ -63,7 +66,12 @@ namespace GMSWeb.Claim
                 Response.Redirect(base.UnauthorizedPage("Sales"));
 
             hidCurrentLink.Value = currentLink;
-
+            string id = "";
+            if (Request.Params["id"] != null)
+            {
+                id = Request.Params["id"].ToString().Trim();
+            }
+            this.hidClaimID.Value = id;
         }
 
         public class ResponseModel
@@ -89,7 +97,7 @@ namespace GMSWeb.Claim
         public static ResponseModel GetActionAccessRight(int UserID)
         {
             var m = new ResponseModel();
-            
+
             try
             {
                 DataSet dsTemp = new DataSet();
@@ -105,14 +113,35 @@ namespace GMSWeb.Claim
             return m;
         }
         [WebMethod]
-        public static ResponseModel SaveClaimAttachment(int ClaimAttachmentID, int ClaimDetailID, string data)
+        public static ResponseModel SaveClaimAttachment(int CompanyID,int ClaimAttachmentID, int ClaimDetailID, string data)
         {
             var m = new ResponseModel();
             try
             {
                 DataSet dsTemp = new DataSet();
-                new GMSGeneralDALC().SaveClaimAttachment(ClaimAttachmentID,ClaimDetailID, data);
-                m.Message = "Save Successful";
+                string randomFileName = DateTime.Now.Ticks.ToString() + ".jpg";
+                string imagePath = @"D:\\GMSDocuments\\Claim\\"+CompanyID+"\\";
+                new GMSGeneralDALC().SaveClaimAttachment(ClaimAttachmentID, ClaimDetailID, randomFileName);
+                string base64StringData = data;
+                if (!base64StringData.Contains("image"))
+                {
+                    m.Status = 1;
+                    m.Message = "Only Image Formats, .png,.jpeg & etc, allowed.";
+                }
+                else
+                {
+                    string cleandata = base64StringData.Substring(base64StringData.IndexOf(",") + 1);
+                    byte[] data2 = Convert.FromBase64String(cleandata);
+                    using (MemoryStream ms = new MemoryStream(data2))
+                    {
+                        using (Bitmap bm2 = new Bitmap(ms))
+                        {
+                            bm2.Save(imagePath + randomFileName, ImageFormat.Jpeg);
+                        }
+                       
+                    }
+                    m.Message = "Save Successful";
+                }
             }
             catch (Exception e)
             {
@@ -141,7 +170,7 @@ namespace GMSWeb.Claim
 
             return m;
         }
-        
+
         [WebMethod]
         public static ResponseModel GetClaimAttachment(int ClaimDetailID)
         {
@@ -163,7 +192,7 @@ namespace GMSWeb.Claim
             return m;
         }
         [WebMethod]
-        public static ResponseModel GetSelectionCustomerList(string Name , short CompanyID)
+        public static ResponseModel GetSelectionCustomerList(string Name, short CompanyID)
         {
             var m = new ResponseModel();
 
@@ -183,7 +212,7 @@ namespace GMSWeb.Claim
             return m;
         }
         [WebMethod]
-        public static ResponseModel GetCompanyProjectListByCoyID( short CompanyID)
+        public static ResponseModel GetCompanyProjectListByCoyID(short CompanyID)
         {
             var m = new ResponseModel();
 
@@ -235,11 +264,11 @@ namespace GMSWeb.Claim
                 else
                     inputDate = new DateTime();
 
-               short reportId = 0;
-               short loginUserOrAlternateParty = 0;
+                short reportId = 0;
+                short loginUserOrAlternateParty = 0;
 
-        DataSet dsTemp = new DataSet();
-                new GMSGeneralDALC().GetCompanySection(CompanyID, DepartmentID,reportId,loginUserOrAlternateParty, (short)inputDate.Year, (short)inputDate.Month, ref dsTemp);
+                DataSet dsTemp = new DataSet();
+                new GMSGeneralDALC().GetCompanySection(CompanyID, DepartmentID, reportId, loginUserOrAlternateParty, (short)inputDate.Year, (short)inputDate.Month, ref dsTemp);
                 m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
             }
             catch (Exception e)
@@ -268,7 +297,7 @@ namespace GMSWeb.Claim
 
             return m;
         }
-        
+
         [WebMethod]
         public static ResponseModel GetClaim(int ClaimID)
         {
@@ -278,7 +307,7 @@ namespace GMSWeb.Claim
             {
                 DataSet dsTemp = new DataSet();
                 new GMSGeneralDALC().GetClaimByID(ClaimID, ref dsTemp);
-                m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0)}};
+                m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
             }
             catch (Exception e)
             {
@@ -290,11 +319,11 @@ namespace GMSWeb.Claim
         }
 
         [WebMethod]
-        public static ResponseModel UpdateClaim(int ClaimID, string Description, string ClaimDate, 
+        public static ResponseModel UpdateClaim(int ClaimID, string Description, string ClaimDate,
             string ClaimantDesig, string SalesPersonID, string NumPplEntertained, string CreateOnBehalf,
             string dim1, string dim2, string dim3, string dim4,
-            string Cust1, string Cust2, string Cust3, 
-            string Desig1, string Desig2, string Desig3, 
+            string Cust1, string Cust2, string Cust3,
+            string Desig1, string Desig2, string Desig3,
             string Person1, string Person2, string Person3,
             string Phone1, string Phone2, string Phone3,
             string DepartureDate, string ReturnDate, string Destination,
@@ -302,7 +331,7 @@ namespace GMSWeb.Claim
             )
         {
             var m = new ResponseModel();
-            
+
             try
             {
                 new GMSGeneralDALC().UpdateClaim(ClaimID, Description, ClaimDate, ClaimantDesig, SalesPersonID, NumPplEntertained, CreateOnBehalf,
@@ -326,8 +355,9 @@ namespace GMSWeb.Claim
 
             return m;
         }
-        
-        public class Customer {
+
+        public class Customer
+        {
             public string name { get; set; }
             public string designation { get; set; }
         }
@@ -362,9 +392,9 @@ namespace GMSWeb.Claim
                 claimDetail.amount = 0;
                 claimDetail.amountSGD = 0;
                 claimDetail.GST = 0;
-                
-                m.Params = new Dictionary<string, object> { { "data",  JsonConvert.SerializeObject(claimDetail)} };
-                
+
+                m.Params = new Dictionary<string, object> { { "data", JsonConvert.SerializeObject(claimDetail) } };
+
             }
             catch (Exception e)
             {
@@ -430,13 +460,14 @@ namespace GMSWeb.Claim
                     if (detailObj.id != null)
                     {
                         //Update
-                        new GMSGeneralDALC().UpdateClaimDetail(int.Parse(detailObj.id), detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum, detailObj.destination);
+                        new GMSGeneralDALC().UpdateClaimDetail(int.Parse(detailObj.id), detailObj.type, detailObj.date, detailObj.remark, detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum, detailObj.destination);
                     }
-                    else {
+                    else
+                    {
                         //insert
-                        new GMSGeneralDALC().InsertNewClaimDetail(companyID, claimID, detailObj.type, detailObj.date, detailObj.remark,detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum, detailObj.destination);
+                        new GMSGeneralDALC().InsertNewClaimDetail(companyID, claimID, detailObj.type, detailObj.date, detailObj.remark, detailObj.currencyCode, detailObj.currencyRate, detailObj.amount, detailObj.chargeto, detailObj.GST, detailObj.receiptNum, detailObj.destination);
                     }
-                    
+
                 }
 
                 m.Message = "Save Successfully";
@@ -452,7 +483,7 @@ namespace GMSWeb.Claim
         }
 
         [WebMethod]
-        public static ResponseModel SubmitClaim(int ClaimID, string Type, int UserID, 
+        public static ResponseModel SubmitClaim(int ClaimID, string Type, int UserID,
             string RejectRemark, string ApprovePaymentVoucher)
         {
             var m = new ResponseModel();
@@ -505,7 +536,7 @@ namespace GMSWeb.Claim
         }
 
         [WebMethod]
-        public static ResponseModel GetSelectionCurrencyList(string DefaultCurrency, string Date, short CompanyID , string Currency)
+        public static ResponseModel GetSelectionCurrencyList(string DefaultCurrency, string Date, short CompanyID, string Currency)
         {
             var m = new ResponseModel();
             DateTime inputDate;
@@ -515,9 +546,9 @@ namespace GMSWeb.Claim
                     inputDate = DateTime.ParseExact(Date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 else
                     inputDate = new DateTime();
-                
+
                 DataSet dsTemp = new DataSet();
-                new GMSGeneralDALC().GetSelectionCurrencyList(DefaultCurrency,Currency, CompanyID, (short)inputDate.Year, (short)inputDate.Month, ref dsTemp);
+                new GMSGeneralDALC().GetSelectionCurrencyList(DefaultCurrency, Currency, CompanyID, (short)inputDate.Year, (short)inputDate.Month, ref dsTemp);
                 m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
             }
             catch (Exception e)
@@ -537,7 +568,7 @@ namespace GMSWeb.Claim
             try
             {
                 DataSet dsTemp = new DataSet();
-                new GMSGeneralDALC().GetClaimSalesPersonID( CompanyID, ClaimantID, ref dsTemp);
+                new GMSGeneralDALC().GetClaimSalesPersonID(CompanyID, ClaimantID, ref dsTemp);
                 m.Params = new Dictionary<string, object> { { "data", GMSUtil.ToJson(dsTemp, 0) } };
             }
             catch (Exception e)
@@ -587,7 +618,7 @@ namespace GMSWeb.Claim
                 m.Message = e.Message;
 
             }
-            
+
             return tempResult;
         }
 
@@ -608,8 +639,9 @@ namespace GMSWeb.Claim
                 m.Message = e.Message;
 
             }
-            
+
             return m;
         }
+
     }
 }

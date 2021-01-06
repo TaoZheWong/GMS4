@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GMSCore</RootNamespace>
     <AssemblyName>GMSCore</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -31,6 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -57,9 +60,11 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WilsonORMapper, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -135,6 +140,10 @@
     <Compile Include="Entity\AccountCommRecord.cs" />
     <Compile Include="Entity\AccountCommRecord.Generated.cs">
       <DependentUpon>AccountCommRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\MonthlyPerformance.cs" />
+    <Compile Include="Entity\MonthlyPerformance.Generated.cs">
+      <DependentUpon>MonthlyPerformance.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity\AccountCommRecordComment.cs" />
     <Compile Include="Entity\AccountCommRecordComment.Generated.cs">
@@ -223,6 +232,10 @@
     <Compile Include="Entity\BudgetSalesTeam.cs" />
     <Compile Include="Entity\BudgetSalesTeam.Generated.cs">
       <DependentUpon>BudgetSalesTeam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\RefillingProduct.cs" />
+    <Compile Include="Entity\RefillingProduct.Generated.cs">
+      <DependentUpon>RefillingProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity\Bulletin.cs" />
     <Compile Include="Entity\Bulletin.Generated.cs">
@@ -570,6 +583,14 @@
     <Compile Include="Entity\Product.Generated.cs">
       <DependentUpon>Product.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\ProductManagementUser.cs" />
+    <Compile Include="Entity\ProductManagementUser.Generated.cs">
+      <DependentUpon>ProductManagementUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\BrandCategory.cs" />
+    <Compile Include="Entity\BrandCategory.Generated.cs">
+      <DependentUpon>BrandCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\ProductBudget.cs" />
     <Compile Include="Entity\ProductBudget.Generated.cs">
       <DependentUpon>ProductBudget.cs</DependentUpon>
@@ -805,6 +826,18 @@
     <Compile Include="Entity\ProductPrice.cs" />
     <Compile Include="Entity\ProductPrice.Generated.cs">
       <DependentUpon>ProductPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CostAllocation.cs" />
+    <Compile Include="Entity\CostAllocation.Generated.cs">
+      <DependentUpon>CostAllocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\CostAllocationMain.cs" />
+    <Compile Include="Entity\CostAllocationMain.Generated.cs">
+      <DependentUpon>CostAllocationMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\AuthKey.cs" />
+    <Compile Include="Entity\AuthKey.Generated.cs">
+      <DependentUpon>AuthKey.cs</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\NullSessionException.cs" />
     <Compile Include="Exceptions\SecurityException.cs" />

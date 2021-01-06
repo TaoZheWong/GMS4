@@ -69,7 +69,7 @@
 						    </a>
                             <ul class="dropdown-menu dropdown-lg no-padding nav-tab" runat="server" id="linkTag"></ul>
                         </li>
-                        <li class="dropdown" id="" data-ng-controller="QuickNewsFeedController as quickFeedController">
+                        <%--<li class="dropdown" id="" data-ng-controller="QuickNewsFeedController as quickFeedController">
 							<a href="javascript:;" id="notification_btn" data-toggle="dropdown" class="dropdown-toggle navbar-icon" data-ng-class="quickFeedController.list.length > 0?'with-label':''">
 								<i class="ti-bell"></i>
 							</a>
@@ -92,7 +92,7 @@
                                 </li>
                                  <li class="notification-footer text-center"><a href="<%= Request.ApplicationPath %>/News/Feeds.aspx">Go To Inbox</a></li>
 							</ul>
-						</li>
+						</li>--%>
                         <li>
 							<a href="javascript:;" data-control="company-sidebar" class="navbar-icon">
 								<i class="ti-home"></i>
@@ -134,9 +134,9 @@
 							    <asp:Label runat="server" ID="lblWelcome" CssClass="username-label hidden-xs"></asp:Label>
 						    </a>
 						    <ul class="dropdown-menu">
-							    <li><a id="changePassword" href="/GMS3/Admin/Accounts/ChangePasswordNoFrame.aspx" target="_blank" title="Change password">Change Password</a></li>
+							    <li><a id="changePassword" href="/GMS4/Admin/Accounts/ChangePasswordNoFrame.aspx" target="_blank" title="Change password">Change Password</a></li>
 							    <li class="divider"></li>
-							    <li><a id="logout" href="/GMS3/Logout.aspx" title="Sign Out">Sign Out</a></li>
+							    <li><a id="logout" href="/GMS4/Logout.aspx" title="Sign Out">Sign Out</a></li>
 						    </ul>
 					    </li>
 				    </ul>
@@ -258,7 +258,7 @@
         function ViewInvoice(TrnNo,TrnType,DBVersion)
         {			
 						
-            var url = '/GMS3/Sales/Sales/ViewSalesOrderPopUp.aspx?TrnNo='+TrnNo+'&TrnType='+TrnType+'&DBVersion='+DBVersion;
+            var url = '/GMS4/Sales/Sales/ViewSalesOrderPopUp.aspx?TrnNo='+TrnNo+'&TrnType='+TrnType+'&DBVersion='+DBVersion;
 						
             detailWindow = window.open(url,"","width=" + 650 + ",height=" + 600 +",resizable=yes,status=yes,menubar=no,scrollbars=yes");	
             return false;
@@ -360,8 +360,8 @@
     <!-- Angular Module-->
     <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/app.js?now=<%=DateTime.Now.Millisecond %>"></script>
     <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/directive/datepicker.js?now=<%=DateTime.Now.Millisecond %>"></script>
-    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/factory/feed.js?now=<%=DateTime.Now.Millisecond %>"></script>
-    <script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/controller/quickFeed.js?now=<%=DateTime.Now.Millisecond %>"></script>
+    <%--<script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/factory/feed.js?now=<%=DateTime.Now.Millisecond %>"></script>--%>
+    <%--<script type="text/javascript" src="<%= Request.ApplicationPath %>/new_assets/js/angular/controller/quickFeed.js?now=<%=DateTime.Now.Millisecond %>"></script>--%>
     
     <asp:ContentPlaceHolder ID="ScriptContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
 </body>

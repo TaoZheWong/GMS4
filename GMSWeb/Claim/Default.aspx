@@ -169,6 +169,7 @@
                     //console.log(textStatus);
                 },
                 "dataSrc": function (result) {
+                    result = result.hasOwnProperty('d') ? result.d : result;
                     return result.Params.data;
                 }
             }
@@ -230,6 +231,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(postObj),
                     success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         //success return
                         $("#claim_desc").val("");
                         $("#claim_date").val("");
@@ -252,12 +254,12 @@
             if (datefrom == "" || dateto == "" || !datefrom || !dateto) {
                 alert("Please enter your date.");
             } else {
-                jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&DATEFROM=' + $("#claim-date-from").val() + '&DATETO=' + $("#claim-date-to").val());
+                jsOpenOperationalReport('/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&DATEFROM=' + $("#claim-date-from").val() + '&DATETO=' + $("#claim-date-to").val());
             }
         }
 
         function printTravelClaim(id,date) {
-            jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&ISTRAVEL=YES&DATE=' + date + '&ID=' + id);
+            jsOpenOperationalReport('/Finance/BankFacilities/PdfReportViewer.aspx?ISCLAIM=YES&ISTRAVEL=YES&DATE=' + date + '&ID=' + id);
         }
 
         $(document).ready(function () {

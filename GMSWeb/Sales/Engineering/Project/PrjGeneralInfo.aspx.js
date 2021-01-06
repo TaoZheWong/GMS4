@@ -30,7 +30,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -104,6 +105,7 @@ function GetProjectInfo() {
         contentType: "application/json; charset=utf-8",
         dataFilter: function (data) { return data; },
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.map(data, function (item) {
                 //$('#txtProjectNo').attr("value", item.ProjectNo);
                 //$('#txtPrevProjectNo').attr("value", item.PrevProjectNo);
@@ -201,6 +203,7 @@ function InsertUpdateProjectInfo(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
+            response = response.hasOwnProperty('d') ? response.d : response;
             $.map(response, function(item) {
                 var ID = item.ProjectNo;
                 if (ID.indexOf("Prj") > 0 || ID.indexOf("Column1")> 0 ){

@@ -148,8 +148,8 @@
                 <asp:Button ID="btnUpload" CssClass="btn btn-primary pull-right" runat="server" CausesValidation="true" Text="Upload" OnClick="btnUpload_Click" />
             </div>
         </div>
-
-		<IFRAME ID=IFrame1 FRAMEBORDER=0 SCROLLING=YES Runat="Server" width=100% Style="display:none"></IFRAME>	
+        <iframe ID="IFrame1" FRAMEBORDER=0 SCROLLING="YES" Runat="Server" width="100%" Style="display:none"></iframe>
+	
 		<asp:Label ID="lblMsg" runat="server"></asp:Label>				    
 					            
 	    <div class="TABCOMMAND">

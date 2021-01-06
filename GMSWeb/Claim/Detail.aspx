@@ -26,7 +26,7 @@
 
     <div data-ng-controller="ClaimDetailController as claim" data-ng-cloak="">
         <input type="hidden" id="hidCurrentLink" data-ng-bind="currentlink" runat="server" value="" />
-
+        <input type="hidden" id="hidClaimID" runat="server"  />
         <!-- Reject Modal used to keep track the reason to reject-->
         <div id="rejectModal" class="modal fade" role="dialog" data-backdrop="static" >
             <div class="modal-dialog" >
@@ -69,9 +69,10 @@
                             </tr>
                         </table>
                         <div class="form-group " data-ng-if="claim.claimInfo.Status == '0'">
-                            <input type="file" id="attachmentFile" accept="image/*" data-ng-file-select="onFileSelect($files)" data-ng-model="claim.attachmentSrc" class="form-control">
+                            <input type="file" id="attachmentFile" runat="server" accept="image/*" data-ng-file-select="onFileSelect($files)" data-ng-model="claim.attachmentSrc" class="form-control">
                         </div>
-                        <img data-ng-src="{{claim.attachmentSrc}}" class="img-responsive img-thumbnail" data-ng-if="claim.attachmentSrc != ''"/>
+                        <%--<img data-ng-src='{{claim.attachmentSrc}}' class="img-responsiv e img-thumbnail" data-ng-if="claim.attachmentSrc != ''"/>--%>
+                        <img data-ng-src='ViewImage.aspx?FileName={{claim.attachmentSrc}}&ID={{claim.companyID}}' class="img-responsive img-thumbnail" data-ng-if="claim.attachmentSrc != ''"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-ng-click="claim.resetSelectedAttachment()"  data-ng-if="claim.claimInfo.Status == '0' && claim.selectedAttachmentID != 0">New Receipt</button>

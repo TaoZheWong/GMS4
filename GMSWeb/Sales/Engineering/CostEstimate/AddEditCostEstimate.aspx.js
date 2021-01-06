@@ -73,7 +73,8 @@ $(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -118,7 +119,8 @@ $(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -156,7 +158,8 @@ $(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -201,7 +204,8 @@ $(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -245,7 +249,8 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 data: "{ 'CompanyId': '" + getCoyID() + "'}",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -291,6 +296,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -330,6 +336,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -369,6 +376,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -408,6 +416,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -447,6 +456,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -486,6 +496,7 @@ $(function() {
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -531,6 +542,7 @@ $(function() {
             contentType: "application/json; charset=utf-8",
             data: "{ 'CompanyId': '" + getCoyID() + "', 'category': '%" + $("#ItemCategory").val() + "%', 'material': '%" + $("#ItemMaterial").val() + "', 'size': '%" + $("#ItemSize").val() + "%', 'suppliername': '%" + $("#SupplierName").val() + "%', 'brand': '%" + $("#ItemBrand").val() + "%', 'description': '%" + $("#ItemDescription").val() + "%', 'field': 'All' , 'UserID': " + getUserID() + " }",
             success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.map(data, function (item) {
                     $("#CurrencyCode").val(item.CurrencyCode);
                     $("#QuotedPrice").val(item.UnitPrice);
@@ -648,7 +660,8 @@ function getRate(){
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: '{Info: ' + JSON.stringify(obj) + '}',
-            success: function (data) { 
+            success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.map(data, function(item) {
                    $("#CurrencyRate").val(item.MonthEndRate);
                     action = data.Action;
@@ -673,7 +686,8 @@ function CurrencyRate(item){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -706,7 +720,8 @@ function CurrencyRate(item){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: '{Info: ' + JSON.stringify(obj) + '}',
-                success: function (data) { 
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {
                        $("#CurrencyRate").val(item.MonthEndRate);
                         action = data.Action;
@@ -876,7 +891,8 @@ function SubmitCancellation(first, type){
         data        : '{Info: ' + JSON.stringify(fields) + '}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (response) {
+        success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         SetModalMessage("C/E form " + first + " has been " + type + "!", '');
                         location.reload();
                       },
@@ -907,7 +923,8 @@ function SubmitApproval(first) {
             data        : '{"CompanyId":"'+getCoyID()+'", "CEID": "' + first + '", "UserID":"'+getUserID()+'"}',
             contentType : "application/json; charset=utf-8",
             dataType    : "json",
-            success     : function (response) {
+            success: function (response) {
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             SetModalMessage("C/E form " + first + " has been approved!", '');
                             location.reload();
                           },
@@ -952,6 +969,7 @@ function SubmitforApproval(first){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                response = response.hasOwnProperty('d') ? response.d : response;
                 SetModalMessage("C/E form " + first + " has been sent for approval!", location.reload());
                 
             },
@@ -980,7 +998,8 @@ function CheckAccess(callback){
         contentType : "application/json; charset=utf-8",
         data        : '{"CompanyId":"'+getCoyID()+'", "DocNo": "' + str + '", "UserID":"'+getUserID()+'"}',
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         callback(data);
                       },
         error       : function(xhr, textstatus, error){
@@ -998,7 +1017,8 @@ function RevisionList(){
         contentType : "application/json; charset=utf-8",
         data        : '{"DocNo": "' + str + '", "CompanyId": "'+getCoyID()+'", "UserID":"'+getUserID()+'"}',
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         $('#txtRevision').children().remove().end();
                         $.each(data, function (key, value) {
                             $('#txtRevision').append($("<option></option>").attr("value",value.Revision).text(value.RevisionName)); 
@@ -1048,7 +1068,8 @@ function GetFullAccountList(item)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1094,7 +1115,8 @@ function GetEngineerDetail(){
         contentType : "application/json; charset=utf-8",
         data        : '{"CompanyId": "' + getCoyID() + '", "UserID":"' + getUserID() + '"}',
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         $.map(data, function(item) { 
                             $("#txtEngineerID").val(item.EngineerID);
                             $("#txtEngineerName").val(item.EngineerName);
@@ -1118,7 +1140,8 @@ function DisplayCostEstimate(revision){
         data        : '{"CompanyId":"'+getCoyID()+'","CEID": "' + str + '", "Revision": "'+revision+'", "UserID":"'+getUserID()+'"}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         $.each(data, function (key, value) {
                             $.each(value, function (i, item) {
                                 $('#txt'+i).val(item);
@@ -1195,6 +1218,7 @@ function SaveCostEstimateInfo() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                response = response.hasOwnProperty('d') ? response.d : response;
                 $.map(response, function (item) {
                     if (item.CEID == fields["CEID"]) {
                         SetModalMessage("Success!", 'AddEditCostEstimate.aspx?CurrentLink=' + getCurrentLink() + '&CoyID=' + getCoyID() + '&&CEID=' + item.CEID);
@@ -1228,6 +1252,7 @@ function CEDetail(first, status, revision){
                 return "{ 'CEID': '" + first + "', 'Revision': '" + revision + "', 'CompanyId': '" + getCoyID() + "', 'UserID': '"+getUserID()+"' }";
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }   
         },
@@ -1423,7 +1448,8 @@ function SaveItem(item) {
             data        : '{Info: ' + JSON.stringify(fields) + '}',
             contentType : "application/json; charset=utf-8",
             dataType    : "json",
-            success     : function (response) {
+            success: function (response) {
+                            response = response.hasOwnProperty('d') ? response.d : response;
                             SetModalMessage("Success", '');
                             CEDetail(fields["CEID"], $("#txtCEStatusName").val(), $("#txtRevision").val());
                             $('#AddEditCostEstimate').modal('hide');
@@ -1462,7 +1488,8 @@ function EditCostEstimateItem(item){
         data        : '{Info: ' + JSON.stringify(fields) + '}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         if ($('#chkIsOthers').is(":checked")) {
                             $("#chkIsOthers").click();
                         }
@@ -1498,7 +1525,8 @@ function DeleteCEItem(item){
         data        : '{Info: ' + JSON.stringify(fields) + '}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                          SetModalMessage("Deleted successfully", '');
                          CEDetail(fields["CEID"], $("#txtCEStatusName").val(), $("#txtRevision").val());
                       },
@@ -1516,7 +1544,8 @@ function ConvertCEForm(item){
         data        : '{"CompanyId":"'+getCoyID()+'","CEID": "' + item + '", "UserID":"'+getUserID()+'"}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         SetModalMessage("Converted successfully. New project no. is " + data[0].ProjectNo, ''); 
                         $("#txtProjectNo").val(data[0].ProjectNo);
                         showButton(str, "0");
@@ -1535,7 +1564,8 @@ function ReviseCEForm(item){
         data        : '{"CompanyId":"' + getCoyID() + '","CEID": "' + item + '", "UserID":"' + getUserID() + '"}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         SetModalMessage("Revised successfully.", '');
                         DisplayCostEstimate(0);
                       },

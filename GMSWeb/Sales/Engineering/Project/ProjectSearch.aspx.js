@@ -47,7 +47,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -83,7 +84,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -119,7 +121,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -159,7 +162,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -198,7 +202,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -234,7 +239,8 @@ $(document).ready(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -268,7 +274,8 @@ $(document).ready(function() {
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataFilter: function(data) { return data; },
-        success: function(data) {
+        success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.each(data, function (key, value) {
                 $("select[id*='txtStatusID']").append($("<option></option>").val(value.StatusID).html(value.StatusName));
             });
@@ -308,7 +315,7 @@ function DisplayProjectList() {
             "url": "ProjectSearch.aspx/GetProjectList",
             "data": function (data) { return datastr; },
             "dataSrc": function (json) {
-
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }
         },
@@ -394,6 +401,7 @@ function GetEngineerDetail() {
         data: '{"CompanyId": "' + getCoyID() + '", "UserID":"' + getUserID() + '"}',
         dataType: "json",
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $.map(data, function (item) {
                 $("#txtEngineerID").val(item.EngineerID);
                 $("#txtEngineerName").val(item.EngineerName);
@@ -444,6 +452,7 @@ function CheckAccess(callback) {
         dataType: "json",
         data: datastr,
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             callback(data);
         },
         error: function (xhr, textstatus, error) {

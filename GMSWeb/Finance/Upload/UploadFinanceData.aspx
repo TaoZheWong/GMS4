@@ -78,8 +78,8 @@
         </div>
     </div>
     
-    <asp:Label ID="lblMsg" runat="server"></asp:Label>         
-    <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>
+    <asp:Label ID="lblMsg" runat="server"></asp:Label>
+    <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>         
        
 	<div class="TABCOMMAND">
         <atlas:UpdatePanel ID="udpMsgUpdater" runat="server" Mode="Always">

@@ -14,6 +14,9 @@ using GMSWeb.CustomCtrl;
 using GMSCore.Entity;
 using GMSCore.Activity;
 using System.Collections.Generic;
+using Telerik.Web.UI;
+using System.IO;
+using System.Linq;
 
 namespace GMSWeb.Products.Products
 {
@@ -28,7 +31,11 @@ namespace GMSWeb.Products.Products
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
 		{
-			LogSession session = base.GetSessionInfo();
+            if (Request.Params["authkey"] != null)//for 
+            {
+                base.loginByAuthKey(Request.Params["authkey"].ToString());
+            }
+            LogSession session = base.GetSessionInfo();
 			string currentLink = "Products";	
 			if (Request.Params["CurrentLink"] != null)
 			{
@@ -139,10 +146,53 @@ function ViewMultipleUOM()
 ";
 			Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
 		}
-		#endregion
+        #endregion
 
-		#region LoadData
-		private void LoadData()
+        protected void RadAsycnUpload1_onFileUploaded(object sender, FileUploadedEventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Image is uploaded.')", true);
+        }
+
+        protected bool UOMexist(string productCode)
+        {
+            LogSession session = base.GetSessionInfo();
+            DataSet ds = new DataSet();
+
+            CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
+            if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+            {
+                sc1.Url = session.CMSWebServiceAddress.Trim();
+            }
+            else
+                sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+            try
+            {
+                ds = sc1.GetProductUOM(productCode);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            try
+            {
+                if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                JScriptAlertMsg(ex.Message);
+                return false;
+            }
+        }
+
+        #region LoadData
+        private void LoadData()
 		{
 			LogSession session = base.GetSessionInfo();
             
@@ -153,10 +203,25 @@ function ViewMultipleUOM()
 				return;
 			}
 
-			string productCode = this.hidProductCode.Value.Trim();
+            if (!UOMexist(hidProductCode.Value))
+                this.lnkViewMultipleUOM.Visible = false;
 
-			// Get Product Info
-			DataSet dsProductInfo = new DataSet();
+            this.lblDprice.Text = "0.00";
+            this.lblUprice.Text = "0.00";
+            this.lblRprice.Text = "0.00";
+
+            string productCode = this.hidProductCode.Value.Trim();
+
+            string folderPath = Server.MapPath("~/images/Product/"+session.CompanyId+"/"+ productCode);
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            this.RadAsycnUpload1.TargetFolder = "~/images/Product/" + session.CompanyId + "/"+ productCode;
+
+            this.btnDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
+
+            // Get Product Info
+            DataSet dsProductInfo = new DataSet();
 			new GMSGeneralDALC().GetProductInfoByProductCode(session.CompanyId, productCode, ref dsProductInfo);
 			if ((dsProductInfo != null) && (dsProductInfo.Tables[0].Rows.Count > 0))
 			{
@@ -185,13 +250,28 @@ function ViewMultipleUOM()
                     this.dgData4.Columns[1].HeaderText = "Dealer Price (" + session.DefaultCurrency + ")";
                     this.dgData4.Columns[2].HeaderText = "User Price (" + session.DefaultCurrency + ")";
                     this.dgData4.Columns[3].HeaderText = "Retail Price (" + session.DefaultCurrency + ")";
+                    double dealer = 0.00;
+                    double user = 0.00;
+                    double retail = 0.00;
                     if ((dsProductPrice != null))
 					{
 						this.dgData4.DataSource = dsProductPrice.Tables[0];
 						this.dgData4.DataBind();
-                       
+                        this.lblCountry.Text = dsProductPrice.Tables[0].Rows[0]["Country"].ToString();
+                        
+                        if (!string.IsNullOrEmpty(dsProductPrice.Tables[0].Rows[0]["DealerPrice"].ToString()))
+                            dealer = double.Parse(dsProductPrice.Tables[0].Rows[0]["DealerPrice"].ToString());
+
+                        if (!string.IsNullOrEmpty(dsProductPrice.Tables[0].Rows[0]["UserPrice"].ToString()))
+                            user = double.Parse(dsProductPrice.Tables[0].Rows[0]["UserPrice"].ToString());
+
+                        if (!string.IsNullOrEmpty(dsProductPrice.Tables[0].Rows[0]["RetailPrice"].ToString()))
+                            retail = double.Parse(dsProductPrice.Tables[0].Rows[0]["RetailPrice"].ToString());      
                     }
-				}
+                    this.lblDprice.Text = dealer.ToString("0.00");
+                    this.lblUprice.Text = user.ToString("0.00");
+                    this.lblRprice.Text = retail.ToString("0.00");
+                }
 				catch (Exception ex)
 				{
 					this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
@@ -343,6 +423,7 @@ function ViewMultipleUOM()
 						//PMRegion2.Visible = false;
 						PMRegion3.Visible = false;
 						PMRegion4.Visible = false;
+                        PMRegion7.Visible = false;
 						//Added by Adam to limit not product manager user cannot view price
 						dgData4.Visible = false;
 
@@ -634,7 +715,7 @@ function ViewMultipleUOM()
 					//PMRegion2.Visible = false;
 					PMRegion3.Visible = false;
 					PMRegion4.Visible = false;
-
+                    PMRegion7.Visible = false;
 					if (userRole == "S")
 					{
                         if (canAccessProductStatus)
@@ -1021,10 +1102,74 @@ function ViewMultipleUOM()
 				}
 			}
 		}
-		#endregion
+        #endregion
 
+        #region RadImageGallery Controls
+        protected void RadImageGallery1_NeedDataSource(object sender, Telerik.Web.UI.ImageGalleryNeedDataSourceEventArgs e)
+        {
+            this.RadImageGallery.DataSource = LoadGallery();
+        }
 
-	    protected void btnSave_Click(object sender, EventArgs e)
+        private DataTable LoadGallery()
+        {
+            LogSession session = base.GetSessionInfo();
+            string productCode = this.hidProductCode.Value.Trim();
+            string folderPath = Server.MapPath("~/images/Product/" + session.CompanyId + "/" + productCode + "/");
+            DirectoryInfo info = new DirectoryInfo(folderPath);
+
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+
+            //Data table for image gallery data source
+            DataTable table = new DataTable();
+            table.Columns.Add("Title", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("ImageData", typeof(string));
+            table.Columns.Add("ThumbnailData", typeof(string));
+
+            foreach (FileInfo file in files)
+            {
+                table.Rows.Add(file.Name, "", "~/images/Product/" + session.CompanyId + "/" + productCode + "/" + file.Name, "~/images/Product/" + session.CompanyId + "/" + productCode + "/" + file.Name);
+            }
+
+            return table;
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+
+            string productCode = this.hidProductCode.Value.Trim();
+            DataSet dsProductInfo = new DataSet();
+            string folderPath = Server.MapPath("~/images/Product/" + session.CompanyId + "/" + productCode + "/");
+
+            int selectedIndex = this.RadImageGallery.CurrentItemIndex;
+            int i = 0;
+            string directoryName = Path.GetDirectoryName(folderPath);
+
+            DirectoryInfo info = new DirectoryInfo(folderPath);
+
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+
+            foreach (FileInfo file in files)
+            {
+                if (i == selectedIndex)
+                {
+                    File.Delete(folderPath + file.Name);
+                    break;
+                }
+                i++;
+            }
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Image deleted.')", true);
+            Response.Redirect(Request.RawUrl, false);
+        }
+
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Request.RawUrl, false);
+        }
+        #endregion
+
+        protected void btnSave_Click(object sender, EventArgs e)
 		{
 			LogSession session = base.GetSessionInfo();
 
@@ -1036,13 +1181,12 @@ function ViewMultipleUOM()
 			if (remarks.Length > 4000)
 			{
 				lblMessage.Text = "Remarks Length cannot exceed 4000 characters!";
-				
 			}
 			else
 			{ 
 				new GMSGeneralDALC().UpdateProductInfoByProductCode(session.CompanyId, productCode, remarks, session.UserId);
 				lblMessage.Text = "Data has been Updated!";
-			}	
+            }	
 		}
 
         protected void setProductTeamAccess(DataSet ds)
@@ -1050,6 +1194,7 @@ function ViewMultipleUOM()
             LogSession session = base.GetSessionInfo();
             string productCode = this.hidProductCode.Value.Trim();
             PMRegion1.Visible = true;
+            PMRegion7.Visible = true;
             if (canAccessProductStatus)
             {
                 PMRegion2.Visible = true;

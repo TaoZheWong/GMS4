@@ -1694,7 +1694,7 @@ namespace GMSConApp
                     //query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "ReceivedQty", "IssuedQty", "BalanceQty", "Cost", "CostWT", "Currency", "ExchangeRate", "Narration", "DocNo", "Warehouse",
-                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    "TransNum", "UnitPrice", "WarehouseName", "FromWarehouse", "FromWarehouseName", "ToWarehouse", "ToWarehouseName", "DueDate", "DocumentDate", "Field30");
                     tempProductName = "";
                     string tempNarration = "";
                     //Insert StockMovement data into GMS
@@ -1763,9 +1763,9 @@ namespace GMSConApp
                         dr["ProductGroupName"].ToString().Replace("'", "''"),
                         GMSUtil.ToDouble(dr["Quantity"].ToString()),
                         GMSUtil.ToDouble(dr["UnitCost"].ToString()),
-                        GMSUtil.ToDouble(dr["UnitAmount"].ToString()) * GMSUtil.ToFloat(dr["ExchangeRate"].ToString()),
+                        GMSUtil.ToDouble(dr["UnitAmount"].ToString()) * GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                         GMSUtil.ToDouble(dr["Cost"].ToString()),
-                        GMSUtil.ToDouble(dr["Amount"].ToString()) * GMSUtil.ToFloat(dr["ExchangeRate"].ToString()),
+                        GMSUtil.ToDouble(dr["Amount"].ToString()) * GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                         GMSUtil.ToDouble(dr["GPAmount"].ToString()),
                         dr["Currency"].ToString(),
                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),

@@ -40,12 +40,13 @@
 
             return action;
         },
-        getCompanySectionList: function (CompanyID, DepartmentID) {
+        getCompanySectionList: function (CompanyID, DepartmentID,date) {
             var action = $http({
                 url: Path + '/Claim/Detail.aspx/GetCompanySectionList',
                 data: {
                     'CompanyID': CompanyID,
-                    'DepartmentID': DepartmentID
+                    'DepartmentID': DepartmentID,
+                    'Date': date
                 },
                 dataType: 'JSON',
                 contentType: 'application/json; characterset=utf-8',
@@ -81,10 +82,11 @@
 
             return action;
         },
-        saveAttachment: function (attachmentID,claimDetailId, data) {
+        saveAttachment: function (CompanyID,attachmentID, claimDetailId, data) {
             var action = $http({
                 url: Path + '/Claim/Detail.aspx/SaveClaimAttachment',
                 data: {
+                    'CompanyID': CompanyID,
                     'ClaimAttachmentID': attachmentID,
                     'ClaimDetailID': claimDetailId,
                     'data':data

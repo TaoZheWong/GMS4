@@ -103,7 +103,7 @@
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Item Code" SortExpression="ProductCode" HeaderStyle-Wrap="false">
                             <ItemTemplate>
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "ProductDetail.aspx?ProductCode="+Eval("ProductCode")+"&CurrentLink="+Request.Params["CurrentLink"].ToString().Trim()%>'><%# Eval("ProductCode")%></asp:HyperLink>
+                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "../../Route.aspx?Type=ProductInfo&ProductCode="+Eval("ProductCode")+"&CurrentLink="+Request.Params["CurrentLink"].ToString().Trim()%>'><%# Eval("ProductCode")%></asp:HyperLink>
                             </ItemTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderText="Item Description" SortExpression="ProductName" HeaderStyle-Wrap="false">
@@ -235,6 +235,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $(element).attr('data-content', data);
                     $('[data-toggle="popover"]').popover();
                 },

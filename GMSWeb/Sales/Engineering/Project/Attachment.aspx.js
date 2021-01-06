@@ -37,6 +37,7 @@ function Attachment(){
                  return "{ 'ProjectNo': '" + PrjNo + "' }";
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }   
         },

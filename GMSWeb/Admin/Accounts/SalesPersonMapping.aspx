@@ -51,6 +51,15 @@
                             OnCheckedChanged="rbIsCompanyManagementUser_CheckedChanged" AutoPostBack="true" />
                     </div>
                 </div>
+                <div class="form-group col-lg-12 col-sm-12"  runat="server" ID="productManagementRow" style="display:none">
+                    <label class="col-sm-6 control-label text-left">Product Management User</label>
+                    <div class="col-sm-6 radio-inline m-b-3">
+                        <asp:RadioButton ID="rbIsProductManagementUser" runat="server" Text="Yes" GroupName="ProductManagementUser"
+                            OnCheckedChanged="rbIsProductManagementUser_CheckedChanged" AutoPostBack="true" />
+                        <asp:RadioButton ID="rbIsNotProductManagementUser" runat="server" Text="No" GroupName="ProductManagementUser"
+                            OnCheckedChanged="rbIsProductManagementUser_CheckedChanged" AutoPostBack="true" />
+                    </div>
+                </div>
                 <div runat="server" id="divisionRow" visible="false" class="form-group col-lg-12 col-sm-12">
                     <label class="col-sm-6 control-label text-left">
                         Division User

@@ -18,7 +18,9 @@ namespace GMSWeb
 {
     public class PageHandler : GMSBasePage
     {
+        //get current url http
         string appPath = HttpRuntime.AppDomainAppVirtualPath;
+        //string appPath = "https://gms.leedenlimited.com/GMS3";
 
         public string LoadTabs()
         {
@@ -140,8 +142,12 @@ namespace GMSWeb
         public string LoadSidebar(string currentLink)
         {
             LogSession session = base.GetSessionInfo();
+            string randomID = "";
             List<short> lstModuleCategory = session.UserAccessModuleCategory;
             string sideMenu = string.Empty;
+            AuthKey authkey = AuthKey.RetrieveByKey(session.UserId);
+            if (authkey != null)
+                randomID = authkey.RandomID;
 
             if (currentLink == "HR")
             {
@@ -204,27 +210,7 @@ namespace GMSWeb
             else if (currentLink == "Admin")
             {
                 sideMenu =
-                    /*
-                    "<h1>System</h1>" + 
-                    "<ul class=\"sidemenu\">" +
-                        "<li><a href=\"" + appPath + "/Admin/SystemData/Country.aspx\">Country</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/SystemData/DivisionData.aspx\">Division</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/SystemData/CompanyData.aspx\">Company</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/SystemData/ItemListing.aspx\">Item</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/SystemData/ItemStructureListing.aspx\">Item Structure</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/SystemData/CurrencyListing.aspx\">Currency</a></li>" +
-                    "</ul>" +
-                    "<h1>Company Reports</h1>" +
-                    "<ul class=\"sidemenu\">" +
-                        "<li><a href=\"" + appPath + "/Admin/CompanyReports/Category.aspx\">Category</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/CompanyReports/Modify.aspx\">Modify</a></li>" +
-                        "<li><a href=\"" + appPath + "/Admin/CompanyReports/Upload.aspx\">Upload</a></li>" +
-                    "</ul>" +
-                    "<h1>Module Reports</h1>" +
-                    "<ul class=\"sidemenu\">" +
-                        "<li><a href=\"" + appPath + "/Admin/ModuleReports/Category.aspx\">Category</a></li>" +
-                    "</ul>" +
-                     */
+
                     "<li class=\"has-sub account-menu\">" +
                         "<a href='javascript:;'> " +
                             "<i class='ti-user'></i> " +
@@ -240,102 +226,6 @@ namespace GMSWeb
             else if (currentLink == "Sales")
             {
                 sideMenu =
-                 //    "<li class='has-sub report-menu'>" +
-                 //    "<a href='javascript:;'>" +
-                 //    "<i class='ti-stats-up'></i>" +
-                 //    "<span>Report</span>" +
-                 //    "</a>" +
-                 //    "<ul class=\"sub-menu\">" +
-                 //    "<li class='sub-sales'><a href=\"" + appPath + "/Sales/Reports/View.aspx\">Sales</a></li>" +
-                 //    "<li class='sub-debtors'><a href=\"" + appPath + "/Debtors/Reports/View.aspx\">Debtors</a></li>" +
-                 //    "<li class='sub-financials'><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx?CurrentLink=Sales\">Financials</a></li>" +
-                 //    "<li class='sub-budget'><a href=\"" + appPath + "/Finance/Reports/FinanceBudgetReport.aspx?CurrentLink=Sales\">Budget</a></li>" +
-                 //    "</ul>" +
-                 //    "</li>" +
-                 //    "<li class='has-sub sale-menu'>" +
-                 //    "<a href='javascript:;'>" +
-                 //    "<i class='ti-bar-chart'></i>" +
-                 //    "<span>Sales</span>" +
-                 //    "</a>" + 
-                 //    "<ul class=\"sub-menu\">" +
-                 //    "<li class='sub-quotation'><a href=\"" + appPath + "/Sales/Sales/QuotationSearch.aspx\">Quotation</a></li>" +
-                 //    "<li class='sub-sales-order'><a href=\"" + appPath + "/Sales/Sales/SalesOrderSearch.aspx\">Sales Order</a></li>" +
-                 //    "<li class='sub-delivery-order'><a href=\"" + appPath + "/Sales/Sales/DeliveryOrderSearch.aspx\">Delivery Order</a></li>" +
-                 //    "<li class='sub-invoice'><a href=\"" + appPath + "/Sales/Sales/Invoice.aspx\">Invoice</a></li>" +
-                 //    "<li class='sub-sales-detail'><a href=\"" + appPath + "/Sales/Sales/SalesSearch.aspx\">Sales Detail</a></li>" +
-                 //    "</ul>" +
-                 //    "</li>" +
-                 //    "<li class='has-sub project-menu'>" +
-                 //    "<a href='javascript:;'>" +
-                 //    "<i class='ti-briefcase'></i>" +
-                 //    "<span>Project</span>" +
-                 //    "</a>" +
-                 //    "<ul class=\"sub-menu\">" +
-                 //    "<li class='sub-material'><a href=\"" + appPath + "/Sales/Engineering/Material/MaterialSearch.aspx\">Material</a></li>" +
-                 //    "<li class='sub-cost-estimate'><a href=\"" + appPath +
-                 //    "/Sales/Engineering/CostEstimate/CostEstimateSearch.aspx\">Cost Estimate</a></li>" +
-                 //    "<li class='sub-project-search'><a href=\"" + appPath + "/Sales/Engineering/Project/ProjectSearch.aspx\">Project</a></li>" +
-                 //    "</ul>" +
-                 //    "</li>" +
-                 //    "<li class='has-sub products-menu'>" +
-                 //    "<a href='javascript:;'>" +
-                 //    "<i class='ti-layout-grid2'></i>" +
-                 //    "<span>Products</span>" +
-                 //    "</a>" +
-                 //    "<ul class=\"sub-menu\">" +
-                 //    "<li class='sub-product-search-sale'><a href=\"" + appPath +
-                 //    "/Products/Products/ProductsSearch.aspx?CurrentLink=Sales\">Product Search</a></li>" +
-                 //    "<li class='sub-product-movement'><a href=\"" + appPath +
-                 //    "/Products/Products/ProductMovement.aspx?CurrentLink=Sales\">Product Movement</a></li>" +
-                 //    "<li class='sub-material-req'><a href=\"" + appPath +
-                 //    "/Products/Products/MaterialRequisitionDivision.aspx?CurrentLink=Sales\">Material Req</a></li>" +
-                 //    //"<li><a href=\"" + appPath + "/UnderConstruction.aspx?ModuleID=Sales\">Product Loan</a></li>" +                
-                 //    "</ul>" +
-                 //    "</li>" +
-                 //    "<li class='has-sub customer-info-menu'>" +
-                 //    "<a href='javascript:;'>" +
-                 //    "<i class='ti-id-badge'></i>" +
-                 //    "<span>Customer Info</span>" +
-                 //    "</a>" +
-                 //    "<ul class=\"sub-menu\">" +
-                 //    "<li class='sub-debtors-search'><a href=\"" + appPath + "/Debtors/Debtors/DebtorsSearch.aspx\">Customer Detail</a></li>" +
-                 //    "<li class='sub-debtors-search-all'><a href=\"" + appPath + "/Debtors/Debtors/DebtorsSearchAll.aspx\">Search</a></li>" +
-                 //    "<li class='sub-commentary'><a href=\"" + appPath + "/Debtors/Commentary/Commentary.aspx\">Overdue Debts</a></li>" +
-                 //    "<li class='sub-finance-search'><a href=\"" + appPath + "/Debtors/Debtors/FinanceSearch.aspx\">Finance Search</a></li>" +
-                 //    "</ul>" +
-                 //    "</li>" +
-                 //    "<li class='has-sub administration-menu'>" +
-                 //    "<a href='javascript:;'>" +
-                 //    "<i class='ti-ruler-pencil'></i>" +
-                 //    "<span>Administration</span>" +
-                 //    "</a>" +
-                 //    "<ul class=\"sub-menu\">" +
-                 //    // "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Sales\">Upload</a></li>" +
-                 //    // "<li class='sub-importer'><a href=\"" + appPath + "/Sales/Sales/Import.aspx?CurrentLink=Sales\">Importer</a></li>" +
-                 //    "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx\">Claim</a></li>" +
-                 //    "<li class='sub-salesman-detail'><a href=\"" + appPath + "/Sales/Sales/Salesman.aspx\">Salesman Detail</a></li>" +
-                 //    "<li class='sub-forms'><a href=\"" + appPath +
-                 //    "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Sales - Forms&ModuleCategoryID=8&ModuleCategoryName=Sales\">Forms</a></li>" +
-                 //    // "<li class='sub-package-costing'><a href=\"" + appPath + "/Sales/Sales/SalesBreakdown.aspx\">Package Costing</a></li>" +
-                 //    "</ul>";
-
-                 ////if (lstModuleCategory.Contains(4))
-                 ////{
-                 //sideMenu +=
-                 //"</li>" +
-                 // "<li class='has-sub resources-menu'>" +
-                 //"<a href='javascript:;'>" +
-                 //"<i class='ti-package'></i>" +
-                 //"<span>Resources</span>" +
-                 //"</a>" +
-                 //"<ul class=\"sub-menu\">" +
-                 //"<li class='sub-resource-useful-resource'><a href=\"" + appPath + "/UsefulResources/Resources/ViewUsefulResources.aspx?PageHeader=Resources &gt; Resources&PageTitle=Resources&ModuleCategoryID=8&ModuleCategoryName=Sales\">Useful Resources</a></li>" +
-                 //"</ul>" +
-                 //"</li>";
-                 ////}
-
-                 //New
-
 
                  "<li class='has-sub report-menu'>" +
                     "<a href=\"" + appPath + "/Sales/Reports/View.aspx\">" +
@@ -387,12 +277,12 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
-                     "<li class='sub-pricelist'>" +
-                    "<a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Sales\">" +
-                    "<i class='ti-money'></i>" +
-                    "<span>Price List</span>" +
-                    "</a>" +
-                    "</li>" +
+                    // "<li class='sub-pricelist'>" +
+                    //"<a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Sales\">" +
+                    //"<i class='ti-money'></i>" +
+                    //"<span>Price List</span>" +
+                    //"</a>" +
+                    //"</li>" +
 
                     "<li class='sub-latestpricelist'>" +
                     "<a href=\"" + appPath + "/Sales/Sales/LatestPriceList.aspx?CurrentLink=Sales&PageHeader=Sales&PageTitle=Latest%20Price%20List&ModuleCategoryID=8&ModuleCategoryName=Sales&isPriceList=yes\">" +
@@ -421,11 +311,15 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
-                    "<li class='has-sub budget-menu'>" +
-                    "<a href=\"" + appPath + "/Sales/Reports/SalesBudgetReport.aspx\">" +
+                   "<li class='has-sub budget-menu'>" +
+                     "<a href='javascript:;'>" +
                     "<i class='ti-receipt'></i>" +
                     "<span>Budget</span>" +
                     "</a>" +
+                    "<ul class=\"sub-menu\">" +
+                        "<li class='sub-budgetExercise'><a href=\"" + appPath + "/Budget/BudgetExercise.aspx?CurrentLink=Sales\">Budget Input</a></li>" +
+                         "<li class='sub-budgetReport'><a href=\"" + appPath + "/Sales/Reports/SalesBudgetReport.aspx\">Budget Report</a></li>" +
+                    "</ul>" +
                    "</li>" +
 
                     "<li class='has-sub administration-menu'>" +
@@ -434,17 +328,29 @@ namespace GMSWeb
                     "<span>Admin</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
+                     "<li class='sub-listing'><a href=\"" + appPath + "/Sales/Reports/ViewListing.aspx?CurrentLink=Sales\" >Listing</a></li>" +
                     // "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Sales\">Upload</a></li>" +
                     // "<li class='sub-importer'><a href=\"" + appPath + "/Sales/Sales/Import.aspx?CurrentLink=Sales\">Importer</a></li>" +
                     "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx\">Claim</a></li>" +
                     "<li class='sub-salesman-detail'><a href=\"" + appPath + "/Sales/Sales/Salesman.aspx\">Salesman Detail</a></li>" +
                     "<li class='sub-forms'><a href=\"" + appPath +
                     "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Sales - Forms&ModuleCategoryID=8&ModuleCategoryName=Sales\">Forms</a></li>" +
-                    "<li class='sub-team-setup'><a href=\"" + appPath + "/Sales/Sales/TeamSetup.aspx\">Team Setup</a></li>" +
-                    "<li class='sub-customertype-setup'><a href=\"" + appPath + "/Sales/Sales/CustomerTypeSetup.aspx\">Customer Type Setup</a></li>" +
-                    // "<li class='sub-package-costing'><a href=\"" + appPath + "/Sales/Sales/SalesBreakdown.aspx\">Package Costing</a></li>" +
-                    "</ul>";
+                    //"<li class='sub-team-setup'><a href=\"" + appPath + "/Sales/Sales/TeamSetup.aspx\">Team Setup</a></li>" +
 
+                    // "<li class='sub-package-costing'><a href=\"" + appPath + "/Sales/Sales/SalesBreakdown.aspx\">Package Costing</a></li>" +
+                    "</ul>" +
+
+                "<li class='has-sub setting-menu'>" +
+                   "<a href='javascript:;'>" +
+                   "<i class='ti-settings'></i>" +
+                   "<span>Setting Up</span>" +
+                   "</a>" +
+                   "<ul class=\"sub-menu\">" +
+                        "<li class='sub-teamSetup'><a href=\"" + appPath + "/Sales/Sales/SalespersonTeamSetup.aspx?CurrentLink=Sales\" >Sales Exec Team Setup</a></li>" +
+                         "<li class='sub-customertype-setup'><a href=\"" + appPath + "/Sales/Sales/CustomerTypeSetup.aspx\">Customer Type Setup</a></li>" +
+                        "<li class='sub-customerSetup'><a href=\"" + appPath + "/Sales/Sales/CustomerGroupTypeSetup.aspx?CurrentLink=Sales\">Customer Group & Type Update</a></li>" +
+                   "</ul>" +
+                   "</li>";
                 //if (lstModuleCategory.Contains(4))
                 //{
                 sideMenu +=
@@ -530,15 +436,6 @@ namespace GMSWeb
                     "</a>" +
                     "</li>" +
 
-                /*"<li class='has-sub recruitment-menu'>" +
-                "<a href='javascript:;'>" +
-                "<span>Recruitment</span>" +
-                "</a>" +
-                "<ul class=\"sub-menu\">" +
-                    "<li class='sub-resume'><a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx\">Recruitment</a></li>" +
-                "</ul>" +
-                "</li>" +*/
-
                 //"<li class='has-sub'>" +
                 //"<a href='javascript:;'>" +
                 //"<i class='ti-package'></i>" +
@@ -592,8 +489,8 @@ namespace GMSWeb
             else if (currentLink == "Products")
             {
                 sideMenu =
-                    "<li class='has-sub products-menu'>" +
-                    "<a href=\"" + appPath +"/Products/Products/ProductsSearch.aspx?CurrentLink=Products\">" +
+                    "<li class='has-sub product-menu'>" +
+                    "<a href=\"" + appPath + "/Products/Products/ProductsSearch.aspx?CurrentLink=Products\">" +
                     "<i class='ti-layout-grid2'></i>" +
                     "<span>Product Info</span>" +
                     "</a>" +
@@ -605,10 +502,11 @@ namespace GMSWeb
                     "<span>Pricing</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
-                        "<li class='sub-radpricelist'><a href =\"" + appPath + "/UnderConstruction.aspx?ModuleID=Products\">Price Input</a></li>" +
+                        "<li class='sub-radpricelist' ><a href=\"" + appPath + "/Sales/Sales/RadPriceList.aspx?CurrentLink=Products\">Price Input</a></li>" +
+                         //< a href =\"https://gms.leedenlimited.com/GMS4/Sales/Sales/RadPriceList.aspx?CurrentLink=Products\">
                          //<a href=\"" + appPath + "/Sales/Sales/RadPriceList.aspx?CurrentLink=Products\">
-                         "<li class='sub-products'><a href=\"" + appPath + "/Products/Reports/ViewPricing.aspx\">Reports</a></li>" +
-                         "<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Price List Upload</a></li>" +
+                         "<li class='sub-products'><a href=\"" + appPath + "/Products/Reports/ViewPricing.aspx\">Price List</a></li>" +
+                    //"<li class='sub-pricelist'><a href=\"" + appPath + "/Sales/Sales/PriceList.aspx?CurrentLink=Products\">Price List Upload</a></li>" +
                     "</ul>" +
                     "</li>" +
 
@@ -662,6 +560,7 @@ namespace GMSWeb
                     "<span>Admin</span>" +
                     "</a>" +
                     "<ul class=\"sub-menu\">" +
+                         "<li class='sub-listing'><a href=\"" + appPath + "/Products/Reports/ViewListing.aspx?CurrentLink=Products\" >Listing</a></li>" +
                         "<li class='sub-upload'><a href=\"" + appPath + "/Sales/Sales/Upload.aspx?CurrentLink=Products\">Upload</a></li>" +
                         "<li class='sub-forms'><a href=\"" + appPath +
                         "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Forms&PageTitle=Products - Forms&ModuleCategoryID=7&ModuleCategoryName=Products\">Forms</a></li>" +
@@ -672,7 +571,19 @@ namespace GMSWeb
                         "<li class='sub-product-setup'><a href=\"" + appPath + "/Products/Products/ProductSetup.aspx\">Product Setup</a></li>" +
                     "</ul>" +
                     "</li>" +
-                    "</li>";
+                    "</li>" +
+
+                "<li class='has-sub setting-menu'>" +
+                   "<a href='javascript:;'>" +
+                   "<i class='ti-settings'></i>" +
+                   "<span>Setting Up</span>" +
+                   "</a>" +
+                   "<ul class=\"sub-menu\">" +
+                        "<li class='sub-brandProductSetup'><a href=\"" + appPath + "/Products/Products/BrandProductSetup.aspx?CurrentLink=Products\">Brand/Product Setup</a></li>" +
+                        "<li class='sub-productManagerSetup'><a href=\"" + appPath + "/Products/Products/ProductManagerSetup.aspx?CurrentLink=Products\">Product Manager Setup</a></li>" +
+                         "<li class='sub-productCategorySetup'><a href=\"" + appPath + "/Products/Products/ProductCategorySetup.aspx?CurrentLink=Products\">Product Category Setup</a></li>" +
+                   "</ul>" +
+                   "</li>";
 
                 //if (lstModuleCategory.Contains(4))
                 // {
@@ -708,6 +619,17 @@ namespace GMSWeb
                 //"</ul>" +
                 "</li>" +
 
+                "<li class='has-sub monthlyReport-menu'>" +
+                "<a href='javascript:;'>" +
+                "<i class='ti-file'></i>" +
+                "<span>Monthly Reporting</span>" +
+                "</a>" +
+                "<ul class=\"sub-menu\">" +
+                     "<li class='sub-MonthlyReport-input'><a href=\"" + appPath + "/Finance/MonthlyReporting/MonthlyFinancialInput.aspx?CurrentLink=CompanyFinance\">Monthly Reporting Input</a></li>" +
+                     "<li class='sub-MonthlyReport-report'><a href=\"" + appPath + "/Finance/Reports/FinanceMonthlyReports.aspx\">Monthly Reports</a></li>" +
+                "</ul>" +
+                "</li>" +
+
                 "<li class='has-sub reports-menu'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">" +
                 "<i class='ti-money'></i>" +
@@ -722,11 +644,22 @@ namespace GMSWeb
                 //"</ul>" +
                 "</li>" +
 
-                 "<li class='has-sub manufacture-menu'>" +
-                "<a href=\"" + appPath + "/Finance/Reports/FinanceManufactureAccount.aspx\">" +
+                "<li class='has-sub manufacture-menu'>" +
+                "<a href='javascript:;'>" +
                 "<i class='ti-server'></i>" +
                 "<span>Production Reports</span>" +
                 "</a>" +
+                "<ul class=\"sub-menu\">" +
+                     "<li class='sub-ProductionVolume-input'><a href=\"" + appPath + "/Finance/ProductionVolume/ProductionVolumeInput.aspx?CurrentLink=CompanyFinance\">Production Volume Budget</a></li>" +
+                      "<li class='sub-manufacture'><a href=\"" + appPath + "/Finance/Reports/FinanceManufactureAccount.aspx\">Production Reports</a></li>" +
+                "</ul>" +
+                "</li>" +
+
+                // "<li class='has-sub manufacture-menu'>" +
+                //"<a href=\"" + appPath + "/Finance/Reports/FinanceManufactureAccount.aspx\">" +
+                //"<i class='ti-server'></i>" +
+                //"<span>Production Reports</span>" +
+                //"</a>" +
                 //"<ul class=\"sub-menu\">" +
                 //    "<li class='sub-reports'><a href=\"" + appPath + "/Finance/Reports/Reports.aspx\">Reports</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceReport.aspx\">Financials</a></li>" +
@@ -736,7 +669,7 @@ namespace GMSWeb
                 //"<li><a href=\"" + appPath + "/Finance/Reports/FinanceCashFlowReport.aspx\">Cash Flow</a></li>" +
                 //"<li><a href=\"" + appPath + "/Finance/CashFlow/CashFlowProjections.aspx\">Cash Flow Proj</a></li>" +
                 //"</ul>" +
-                "</li>" +
+                //"</li>" +
 
                 "<li class='has-sub sales-menu'>" +
                 "<a href=\"" + appPath + "/Finance/Reports/FinanceSalesReport.aspx\">" +
@@ -887,14 +820,26 @@ namespace GMSWeb
                 "</a>" +
                 "<ul class=\"sub-menu\">" +
                     //"<li><a href=\"" + appPath + "/UsefulResources/Resources/ViewResources.aspx?PageHeader=Administration &gt; Resources&PageTitle=Finance - Resources&ModuleCategoryID=10&ModuleCategoryName=CompanyFinance\">Resources</a></li>" +
+                    "<li class='sub-form-costallocation'><a href=\"" + appPath + "/Finance/Reports/CostAllocationForm.aspx\">Cost Allocation Form</a></li>" +
                     "<li class='sub-import-export'><a href=\"" + appPath + "/Finance/Upload/ImportTrialBalance.aspx\">Importer/Exporter</a></li>" +
                     "<li class='sub-coa-mapping'><a href=\"" + appPath + "/Finance/Upload/COAMapping.aspx\">COA Mapping</a></li>" +
                     "<li class='sub-upload-finance'><a href=\"" + appPath + "/Finance/Upload/UploadFinanceData.aspx\">Financial Upload</a></li>" +
                     "<li class='sub-data-setup'><a href=\"" + appPath + "/Finance/Upload/UploadSpecialData.aspx\">Data Setup</a></li>" +
                     "<li class='sub-entertainment-expense'><a href=\"" + appPath + "/HR/Commission/EntertainmentExpense.aspx?CurrentLink=CompanyFinance\">Entertainment</a></li>" +
                     "<li class='sub-claim'><a href=\"" + appPath + "/Claim/Default.aspx?CurrentLink=CompanyFinance\">Claim</a></li>" +
-                    "<li class='sub-dimension-setup'><a href=\"" + appPath + "/Finance/Upload/DimensionSetup.aspx\">Dimension Setup</a></li>" +
+
                 //"<li><a href=\"" + appPath + "/Finance/BankFacilities/CustomerList.aspx\">Receiver/Payer</a></li>" +                
+                "</ul>" +
+                "</li>" +
+
+                "<li class='has-sub setting-menu'>" +
+                "<a href='javascript:;'>" +
+                "<i class='ti-settings'></i>" +
+                "<span>Setting Up</span>" +
+                "</a>" +
+                "<ul class=\"sub-menu\">" +
+                     "<li class='sub-costallocation-input'><a href=\"" + appPath + "/Finance/Admin/CostAllocationInput.aspx?CurrentLink=CompanyFinance\">Cost Allocation</a></li>" +
+                      "<li class='sub-dimension-setup'><a href=\"" + appPath + "/Finance/Upload/DimensionSetup.aspx\">Dimension Setup</a></li>" +
                 "</ul>" +
                 "</li>" +
 

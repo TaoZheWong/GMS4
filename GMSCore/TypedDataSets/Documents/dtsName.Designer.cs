@@ -277,7 +277,7 @@ namespace GMSCore.TypedDataSets.Documents {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ReportDetailDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class ReportDetailDataTable : global::System.Data.TypedTableBase<ReportDetailRow> {
             
             private global::System.Data.DataColumn columnName;
             
@@ -377,12 +377,6 @@ namespace GMSCore.TypedDataSets.Documents {
                 rowReportDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowReportDetailRow);
                 return rowReportDetailRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public virtual global::System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

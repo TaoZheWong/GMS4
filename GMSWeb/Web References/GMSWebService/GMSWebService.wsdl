@@ -1323,6 +1323,49 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Login_Authenticate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:UserModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Login_AuthenticateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Login_AuthenticateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceTotal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="companyId" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateFrom" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dateTo" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInvoiceTotalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInvoiceTotalResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetProductSoapIn">
@@ -1673,6 +1716,18 @@
   <wsdl:message name="GetProductCostSoapOut">
     <wsdl:part name="parameters" element="tns:GetProductCostResponse" />
   </wsdl:message>
+  <wsdl:message name="Login_AuthenticateSoapIn">
+    <wsdl:part name="parameters" element="tns:Login_Authenticate" />
+  </wsdl:message>
+  <wsdl:message name="Login_AuthenticateSoapOut">
+    <wsdl:part name="parameters" element="tns:Login_AuthenticateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceTotalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInvoiceTotal" />
+  </wsdl:message>
+  <wsdl:message name="GetInvoiceTotalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInvoiceTotalResponse" />
+  </wsdl:message>
   <wsdl:portType name="GMSWebServiceSoap">
     <wsdl:operation name="GetProduct">
       <wsdl:input message="tns:GetProductSoapIn" />
@@ -1905,6 +1960,14 @@
     <wsdl:operation name="GetProductCost">
       <wsdl:input message="tns:GetProductCostSoapIn" />
       <wsdl:output message="tns:GetProductCostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Login_Authenticate">
+      <wsdl:input message="tns:Login_AuthenticateSoapIn" />
+      <wsdl:output message="tns:Login_AuthenticateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceTotal">
+      <wsdl:input message="tns:GetInvoiceTotalSoapIn" />
+      <wsdl:output message="tns:GetInvoiceTotalSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GMSWebServiceSoap" type="tns:GMSWebServiceSoap">
@@ -2431,6 +2494,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Login_Authenticate">
+      <soap:operation soapAction="http://tempuri.org/Login_Authenticate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceTotal">
+      <soap:operation soapAction="http://tempuri.org/GetInvoiceTotal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GMSWebServiceSoap12" type="tns:GMSWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -2949,6 +3030,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductCost">
       <soap12:operation soapAction="http://tempuri.org/GetProductCost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login_Authenticate">
+      <soap12:operation soapAction="http://tempuri.org/Login_Authenticate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceTotal">
+      <soap12:operation soapAction="http://tempuri.org/GetInvoiceTotal" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

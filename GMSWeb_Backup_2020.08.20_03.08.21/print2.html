@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Print Test</title>
+	
+       
+        <script language="javascript">
+            function printdiv(printpage)
+            {
+            var headstr = "<html><head><title></title></head><body>";
+            var footstr = "</body>";
+            var newstr = window.document.getElementById(printpage).innerHTML;
+            //alert(newstr);
+            var oldstr = document.body.innerHTML;
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+            document.body.innerHTML = oldstr;
+            return false;
+            }
+        </script>
+
+
+</head>
+<body>
+    
+    <object ID='WB' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2'></object>
+    <a href="javascript:printdiv('div_print');">Print</a>
+    <div id="div_print">
+    <h1 style="Color:Red">The Div content which you want to print</h1>
+    </div>
+
+    
+</body>
+</html>

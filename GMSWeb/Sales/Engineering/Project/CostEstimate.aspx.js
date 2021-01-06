@@ -22,6 +22,7 @@ var counter = 1;
                 return "{'CompanyId':'" + getCoyID() + "', 'CEID': '" + $("#txtCEID").val() + "', 'UserID':'" + getUserID() + "' }";
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }   
         },

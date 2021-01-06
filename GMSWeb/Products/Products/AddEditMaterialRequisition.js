@@ -199,13 +199,13 @@ $(document).ready(function() {
         
         $( "#PrintMR" ).on( "click dblclick", function() {  
             if(getViewPurchaseInfo() == "1")                
-                jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHead_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
+                jsOpenOperationalReport('/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHead_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
             else
-                jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHeadEmptyVendor_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
+                jsOpenOperationalReport('/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHeadEmptyVendor_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
         });     
         
         $( "#PrintPO" ).on( "click dblclick", function() {            
-            jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=PurchaseOrder_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
+            jsOpenOperationalReport('/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=PurchaseOrder_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
         });
                        
         //When checkboxes/radios checked/unchecked, toggle background color
@@ -841,6 +841,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             data: "{CompanyId : "+CoyID+",UserId: "+ UserId+" }",
             success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.map(data, function(item) {
                  $('#requestor-name').val(item.RequestorRealName);
                  $('#requestor-id').val(item.RequestorUserNumID);  
@@ -876,6 +877,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             data: "{CompanyId : "+CoyID+"}",
             success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.map(data, function(item) {
                  $('#TaxTypeID').val(item.TaxTypeID);
                  $('#TaxRate').val(item.TaxRate);  
@@ -900,7 +902,8 @@ $(document).ready(function() {
                 data: "{ 'CompanyId' : "+CoyID+", 'MRNo': '" +$('#mr-no').val() + "', 'Reason' :'" + $('#Reason').val().replace("'", "\\'") + "' ,'PageName':'" +  getPageName() + "' ,'UserID': " + getUserID() + ",'CurrentLink':'" +  getCurrentLink() + "','IsCurrentLevel':'" +  getApproverUser() + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (response) {                       
+                success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                         SetModalMessage("MR approval request has been cancelled!", response);    
                         UpdateStatusAndButton();                                    
                 },
@@ -923,6 +926,7 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                         SetModalMessage("MR approval request has been rejected!", response);
                         UpdateStatusAndButton();
                 },
@@ -945,6 +949,7 @@ $(document).ready(function() {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                             SetModalMessage("Vendor information has been confirmed!", response);
                             UpdateStatusAndButton();
                                             
@@ -971,6 +976,7 @@ $(document).ready(function() {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                             SetModalMessage("MR approval request has been approved!", response);
                             UpdateStatusAndButton();
                                             
@@ -998,7 +1004,8 @@ $(document).ready(function() {
                     data: "{ 'CompanyId' : "+CoyID+", 'MRNo': '" +$('#mr-no').val() + "','PageName':'" +  getPageName() + "','UserID': " + getUserID() + ",'MainPurchaserUserID': " + getMainPurchaserUserID() + ",'CurrentLink':'" +  getCurrentLink() + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {                           
+                    success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                             SetModalMessage("MR has been submitted for approval!", response); 
                             UpdateStatusAndButton();                                           
                     },
@@ -1020,6 +1027,7 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                         SetModalMessage("MR created successfully!", response);                                        
                 },
                 error: function (xhr,text,status) {
@@ -1038,6 +1046,7 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     SetModalMessage("PO updated successfully!", response);
                 },
                 error: function (xhr, text, status) {
@@ -1057,7 +1066,8 @@ $(document).ready(function() {
                 data: "{'MRNo':'" + $('#mr-no').val() + "', "+ info +": " + (localStorage.getItem('DataTables_'+ tablename +'_' + $('#mr-no').val() + '_Delete')) + ",'PageName':'" +  getPageName() + "','MRRole':'" +  getMRRole() + "', 'CompanyId': " + getCoyID() + ",'UserID': " + getUserID() + ",'CurrentLink':'" +  getCurrentLink() + "','CurrentMRStatus':'" +  getCurrentMRStatus() + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (response) {                     
+                success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     localStorage.removeItem('DataTables_'+ tablename +'_' + $('#mr-no').val() + '_Delete');
                                            
                     if(tablename == 'tblProduct')    
@@ -1099,7 +1109,8 @@ $(document).ready(function() {
                 data: datastr,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (response) {                   
+                success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     if($('#mr-no').val() != '') 
                     {                        
                         localStorage.removeItem('DataTables_'+ tablename +'_' + $('#mr-no').val()); 
@@ -1288,7 +1299,7 @@ $(document).ready(function() {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         if(ProductInfo != null) 
                             localStorage.removeItem('DataTables_tblProduct_' + $('#mr-no').val()); 
                         if(ConfirmedSalesInfo != null)
@@ -1395,7 +1406,7 @@ $(document).ready(function() {
                 "url": "AddEditMaterialRequisition.aspx/GetConfirmedSales",
                 "data": function (data) { return "{'CompanyId':"+CoyID+",'MRNo':'"+MRNo+"'}";},  
                 "dataSrc": function (json) {  
-                                
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     if(MRNo == undefined || MRNo == '')  
                     {   
                         if(JSON.stringify(localStorage.getItem('DataTables_tblSales_'+$('#mr-no').val())) == "null")
@@ -1504,7 +1515,7 @@ $(document).ready(function() {
                 "url": "AddEditMaterialRequisition.aspx/GetVendor",               
                 "data": function (data) { return "{'CompanyId':"+CoyID+",'MRNo':'"+MRNo+"'}";},
                 "dataSrc": function (json) {
-                   
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     if(MRNo == undefined || MRNo == '')      
                     {
                         if(JSON.stringify(localStorage.getItem('DataTables_tblVendor_'+$('#mr-no').val())) == "null")
@@ -1609,6 +1620,7 @@ $(document).ready(function() {
                 "url": "AddEditMaterialRequisition.aspx/GetProduct",               
                 "data": function (data) { return "{'CompanyId':"+CoyID+",'MRNo':'"+MRNo+"'}";},
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     if(MRNo == undefined || MRNo == '')  
                     { 
                         if(JSON.stringify(localStorage.getItem('DataTables_tblProduct_'+$('#mr-no').val())) == "null")
@@ -1802,7 +1814,8 @@ $(document).ready(function() {
                 "type": "POST",
                 "url": "AddEditMaterialRequisition.aspx/GetDelivery",               
                 "data": function (data) { return "{'CompanyId':"+CoyID+",'MRNo':'"+MRNo+"'}";},
-                "dataSrc": function (json) {  
+                "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     if(MRNo == undefined || MRNo == '')
                     {
                         if(JSON.stringify(localStorage.getItem('DataTables_tblDelivery_'+$('#mr-no').val())) == "null")
@@ -1919,7 +1932,7 @@ $(document).ready(function() {
                 "url": "AddEditMaterialRequisition.aspx/GetAttachment",               
                 "data": function (data) { return "{'CompanyId':"+CoyID+",'MRNo':'"+MRNo+"'}";},
                 "dataSrc": function (json) {
-                    
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     if(MRNo == undefined || MRNo == '')  
                     {   
                         if(JSON.stringify(localStorage.getItem('DataTables_tblAttachment_'+$('#mr-no').val())) == "null")
@@ -1998,6 +2011,7 @@ $(document).ready(function() {
                 "url": "AddEditMaterialRequisition.aspx/GetRoutingInfo",               
                 "data": function (data) { return "{'CompanyId':"+CoyID+",'MRNo':'"+MRNo+"'}";},
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                  }
             },
@@ -2052,7 +2066,8 @@ $(document).ready(function() {
              type: "POST",
              contentType: "application/json; charset=utf-8",
              data: "{'CompanyId' : " + CoyID + ",'MRNo': '" + MRNo + "'}",
-             success: function (data) {                
+             success: function (data) {
+                 data = data.hasOwnProperty('d') ? data.d : data;
                  $.map(data, function (item) {
                      $('#TaxRate').val(item.TaxRate);                    
                      $('#TaxTypeID').val(item.TaxTypeID);                    
@@ -2080,7 +2095,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             data: "{'CompanyId' : "+CoyID + ",'MRNo': '" + MRNo + "'}",
             success: function (data) {
-               
+                data = data.hasOwnProperty('d') ? data.d : data;
                 $.map(data, function (item) {                    
                     $('#mr-no').val(item.mrno);
                     $('#purchaser').val(item.PurchaserName);
@@ -2223,6 +2238,7 @@ $(document).ready(function() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 callback(data);
             },
             error: function (xhr, textstatus, error) {
@@ -2244,7 +2260,8 @@ $(document).ready(function() {
             data: "{'CompanyId' : " + CoyID + ",'UserId': " + UserId + ", 'MRNo': '" + MRNo + "', 'MRScheme': '" + getMRScheme() + "'}",
             contentType : "application/json; charset=utf-8",
             dataType    : "json",
-            success     : function (data) {
+            success: function (data) {
+                            data = data.hasOwnProperty('d') ? data.d : data;
                             callback(data);
                           },
             error       : function(xhr, textstatus, error){
@@ -2266,7 +2283,7 @@ $(document).ready(function() {
             contentType : "application/json; charset=utf-8",
             dataType    : "json",
             success     : function (data) {
-                            
+                            data = data.hasOwnProperty('d') ? data.d : data;
                             callback(data);
                           },
             error       : function(xhr, textstatus, error){
@@ -2331,6 +2348,7 @@ function ImportRecipe(item) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
+                data = data.hasOwnProperty('d') ? data.d : data;
                 //alert("Message: Valid recipe no.");
                 return;
             },
@@ -2397,6 +2415,7 @@ function GetDim1(callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $dim1.empty().append(function () {
                 var output = '';
                 $.each(data, function (key, value) {
@@ -2429,6 +2448,7 @@ function GetDim2(projectid, callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $dim2.empty().append(function () {
                 var output = '';
                 $.each(data, function (key, value) {
@@ -2462,6 +2482,7 @@ function GetDim3(departmentid, callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $dim3.empty().append(function () {
                 var output = '';
                 $.each(data, function (key, value) {
@@ -2494,6 +2515,7 @@ function GetDim4(sectionid, callback) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             $dim4.empty().append(function () {
                 var output = '';
                 $.each(data, function (key, value) {

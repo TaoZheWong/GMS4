@@ -96,7 +96,7 @@
         </div>
         <div class="panel-content">
             <div class="table-responsive">
-		        <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false" ShowFooter="true"
+		        <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false" ShowFooter="<%# short.Parse(ddlYear.SelectedValue) == 0 || short.Parse(ddlMonth.SelectedValue) == 0 ? false: true %>"
 						DataKeyField="SalesPersonMasterUserID" OnCancelCommand="dgData_CancelCommand" OnEditCommand="dgData_EditCommand"
 						OnUpdateCommand="dgData_UpdateCommand" OnItemCommand="dgData_CreateCommand" GridLines="none"
 						OnItemDataBound="dgData_ItemDataBound" OnDeleteCommand="dgData_DeleteCommand"
@@ -170,7 +170,9 @@
 									</asp:Label>
 								</ItemTemplate>
 								<FooterTemplate>
-									<asp:DropDownList CssClass="form-control input-sm" ID="ddlNewMonth" runat="server">
+                                    <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewMonth" runat="server" DataTextField="Month"
+										DataValueField="Month" />
+									<%--<asp:DropDownList CssClass="form-control input-sm" ID="ddlNewMonth" runat="server">
 										<asp:ListItem>1</asp:ListItem>
 										<asp:ListItem>2</asp:ListItem>
 										<asp:ListItem>3</asp:ListItem>
@@ -183,7 +185,7 @@
 										<asp:ListItem>10</asp:ListItem>
 										<asp:ListItem>11</asp:ListItem>
 										<asp:ListItem>12</asp:ListItem>
-									</asp:DropDownList>
+									</asp:DropDownList>--%>
 								</FooterTemplate>
 							</asp:TemplateColumn>
 							<asp:TemplateColumn HeaderText="Comm Rate"  HeaderStyle-Wrap="false">
@@ -435,6 +437,7 @@
 				<asp:ListItem Value="C06 - Yearly GP For Salesman">Yearly GP For Salesman</asp:ListItem>
 				<asp:ListItem Value="C07 - Monthly GP For Salesman">Monthly GP For Salesman</asp:ListItem>
                 <asp:ListItem Value="C08 - CommissionEntitlementReportforSGC">Commission Entitlement Report for SGC</asp:ListItem>
+                <asp:ListItem Value="CommissionPayableControlReport">Commission Payable Control Report</asp:ListItem>
 			</asp:DropDownList>
         </div>
     </div>

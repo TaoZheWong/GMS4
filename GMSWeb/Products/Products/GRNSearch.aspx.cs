@@ -69,13 +69,13 @@ namespace GMSWeb.Products.Products
             else
                 loginUserOrAlternateParty = session.UserId;
 
-            if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
-                Response.Redirect(base.UnauthorizedPage(currentLink));
+            //if (uAccess == null && (uAccessForCompanyList != null && uAccessForCompanyList.Count == 0))
+            //    Response.Redirect(base.UnauthorizedPage(currentLink));
 
             if (!Page.IsPostBack)
             {
                 //preload
-                ViewState["SortField"] = "TrnNo";
+                ViewState["SortField"] = "DocNum";
                 ViewState["SortDirection"] = "ASC";
                 this.txtGRNDateFrom.Text = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");//preload 7days ago date
                 this.txtGRNDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");//preload today's date
@@ -130,48 +130,55 @@ namespace GMSWeb.Products.Products
             {
                 if (session.StatusType.ToString() == "S" || session.StatusType.ToString() == "L")
                 {
-                    string query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('" + trnNo + "', '" + trnNo + "', '" + trnDateFrom + "', '" + trnDateTo + "')";
+                    string query = "SELECT DISTINCT T0.\"DocEntry\", T1.\"CardCode\", T1.\"CardName\", T1.\"DocDate\", T1.\"DocNum\", T0.\"BaseRef\", T1.\"DocStatus\",T1.\"U_AF_CREATEDBY\" FROM PDN1 T0  INNER JOIN OPDN T1 ON T0.\"DocEntry\" = T1.\"DocEntry\" WHERE T0.\"DocDate\" >= '" + trnDateFrom + "' AND T0.\"DocDate\" <= '" + trnDateTo + "' AND CONTAINS (( T0.\"BaseRef\"), '*" + poNo + "*') AND CONTAINS (( T1.\"DocNum\"), '*" + trnNo + "*') AND CONTAINS (( T0.\"ItemCode\"), '*" + productCode + "*') AND  CONTAINS (( T0.\"Dscription\"), '*" + productName + "*')";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                     ds = sop.GET_SAP_QueryData(session.CompanyId, query,
-                    "TrnNo", "TrnDate", "DetailNo", "PONo", "PODate", "ProductCode", "ProductDescription", "ProductGroupCode", "ProductGroupName", "UOM", "Quantity", "UnitPrice", "LandedCostUnitPrice", "Cost", "Currency", "WH", "ExchangeRate", "Field18", "Field19", "Field20",
+                    "DocEntry", "CardCode", "CardName", "DocDate", "DocNum", "BaseRef", "DocStatus", "U_AF_CREATEDBY", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
-                    string query2 = "CALL \"AF_API_GET_SAP_GRN_HEADER\" ('" + trnNo + "', '" + trnNo + "', '" + trnDateFrom + "', '" + trnDateTo + "')";
-                    SAPOperation sop2 = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    //string query = "CALL \"AF_API_GET_SAP_GRN_DETAIL\" ('" + trnNo + "', '" + trnNo + "', '" + trnDateFrom + "', '" + trnDateTo + "')";
+                    //SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                    //ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                    //"TrnNo", "TrnDate", "DetailNo", "PONo", "PODate", "ProductCode", "ProductDescription", "ProductGroupCode", "ProductGroupName", "UOM", "Quantity", "UnitPrice", "LandedCostUnitPrice", "Cost", "Currency", "WH", "ExchangeRate", "Field18", "Field19", "Field20",
+                    //"Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
-                    ds2 = sop2.GET_SAP_QueryData(session.CompanyId, query2,
-                    "trnno", "TrnDate", "RefNo", "code", "cname", "Add1", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
-                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    //string query2 = "CALL \"AF_API_GET_SAP_GRN_HEADER\" ('" + trnNo + "', '" + trnNo + "', '" + trnDateFrom + "', '" + trnDateTo + "')";
+                    //SAPOperation sop2 = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
 
-                    ds.Tables[0].Columns.Add("VendorCode", typeof(string));
-                    ds.Tables[0].Columns.Add("VendorName", typeof(string));
+                    //ds2 = sop2.GET_SAP_QueryData(session.CompanyId, query2,
+                    //"trnno", "TrnDate", "RefNo", "code", "cname", "Add1", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    //"Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    //ds.Tables[0].Columns.Add("VendorCode", typeof(string));
+                    //ds.Tables[0].Columns.Add("VendorName", typeof(string));
 
                     if (ds.Tables[0].Rows.Count != 0)
                     {
-                        if (ds2.Tables[0].Rows.Count != 0)
-                        {
-                            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                            {
-                                for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
-                                {
-                                    if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
-                                    {
-                                        ds.Tables[0].Rows[j]["VendorCode"] = ds2.Tables[0].Rows[i]["code"].ToString();
-                                        ds.Tables[0].Rows[j]["VendorName"] = ds2.Tables[0].Rows[i]["cname"].ToString();
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        //if (ds2.Tables[0].Rows.Count != 0)
+                        //{
+                        //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                        //    {
+                        //        for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+                        //        {
+                        //            if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
+                        //            {
+                        //                ds.Tables[0].Rows[j]["VendorCode"] = ds2.Tables[0].Rows[i]["code"].ToString();
+                        //                ds.Tables[0].Rows[j]["VendorName"] = ds2.Tables[0].Rows[i]["cname"].ToString();
+                        //                break;
+                        //            }
+                        //        }
+                        //    }
+                        //}
                         DataView dvOri = new DataView(ds.Tables[0]);
-                        dvOri.RowFilter = "PONo like '*" + poNo + "*'";
-                        dvOri.RowFilter = "ProductCode like '*" + productCode + "*'";
-                        dvOri.RowFilter = "ProductDescription like '*" + productName + "*'";
+                        //dvOri.RowFilter = "PONo like '*" + poNo + "*'";
+                        //dvOri.RowFilter = "ProductCode like '*" + productCode + "*'";
+                        //dvOri.RowFilter = "ProductDescription like '*" + productName + "*'";
                         if (session.CompanyId == 120 && userDivision == "GAS")
-                            dvOri.RowFilter = "VendorCode not like '*C2*'";
+                            dvOri.RowFilter = "CardCode not like '*C2*'";
                         else if (session.CompanyId == 120 && userDivision == "WSD")
-                            dvOri.RowFilter = "VendorCode like '*C2*'";
-                        DataTable dtOri = dvOri.ToTable(true, "TrnNo", "TrnDate", "PONo", "PODate", "VendorCode", "VendorName");
+                            dvOri.RowFilter = "CardCode like '*C2*'";
+                        //DataTable dtOri = dvOri.ToTable(true, "TrnNo", "TrnDate", "PONo", "PODate", "VendorCode", "VendorName");
+                        DataTable dtOri = dvOri.ToTable();
                         ds.Reset();
                         ds.Tables.Add(dtOri);
                     }
@@ -189,7 +196,7 @@ namespace GMSWeb.Products.Products
                         this.lblSearchSummary.Text = "Results" + " " + startIndex.ToString() + " - " +
                         ds.Tables[0].Rows.Count.ToString() + " " + "of" + " " + ds.Tables[0].Rows.Count.ToString();
 
-                    ds.Tables[0].DefaultView.Sort = "TrnNo ASC";
+                    ds.Tables[0].DefaultView.Sort = "DocNum ASC";
                     DataView dv = ds.Tables[0].DefaultView;
                     dv.Sort = ViewState["SortField"].ToString() + " " + ViewState["SortDirection"].ToString();
                    

@@ -66,6 +66,7 @@ namespace GMSWeb
                             return;
                         }
                     }
+
                     LogSession sess = new LogSession();
                     sess.CountryId = 1;
                     sess.DivisionId = 2;
@@ -74,10 +75,9 @@ namespace GMSWeb
                     sess.UserName = lgLoginControl.UserName;
                     sess.UserRealName = user.UserRealName;
                     sess.IPAddress = Request.UserHostAddress;
-                    sess.LastLoginDate = DateTime.Now.ToString();    
-                
-                    /*
+                    sess.LastLoginDate = DateTime.Now.ToString();
 
+                    /*
                     if (user.GMSLastLoginDate < DateTime.Parse(sp.RetrieveLatestNewsDate().ParameterValue))
                         sess.ToNewsPage = true;
                     */
@@ -100,6 +100,7 @@ namespace GMSWeb
                     user = user.Resync();
 
                     e.Authenticated = true;
+
                     return;
                 }
             }
@@ -197,5 +198,6 @@ namespace GMSWeb
             return strPwd;
         }
         #endregion
+
     }
 }

@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GMSWeb</RootNamespace>
     <AssemblyName>GMSWeb</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -24,6 +24,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,22 +43,66 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="App_Data\RadCaptcha\0.wav" />
+    <Content Include="App_Data\RadCaptcha\1.wav" />
+    <Content Include="App_Data\RadCaptcha\2.wav" />
+    <Content Include="App_Data\RadCaptcha\3.wav" />
+    <Content Include="App_Data\RadCaptcha\4.wav" />
+    <Content Include="App_Data\RadCaptcha\5.wav" />
+    <Content Include="App_Data\RadCaptcha\6.wav" />
+    <Content Include="App_Data\RadCaptcha\7.wav" />
+    <Content Include="App_Data\RadCaptcha\8.wav" />
+    <Content Include="App_Data\RadCaptcha\9.wav" />
+    <Content Include="App_Data\RadCaptcha\A.wav" />
+    <Content Include="App_Data\RadCaptcha\B.wav" />
+    <Content Include="App_Data\RadCaptcha\C.wav" />
+    <Content Include="App_Data\RadCaptcha\D.wav" />
+    <Content Include="App_Data\RadCaptcha\E.wav" />
+    <Content Include="App_Data\RadCaptcha\F.wav" />
+    <Content Include="App_Data\RadCaptcha\G.wav" />
+    <Content Include="App_Data\RadCaptcha\H.wav" />
+    <Content Include="App_Data\RadCaptcha\I.wav" />
+    <Content Include="App_Data\RadCaptcha\J.wav" />
+    <Content Include="App_Data\RadCaptcha\K.wav" />
+    <Content Include="App_Data\RadCaptcha\L.wav" />
+    <Content Include="App_Data\RadCaptcha\M.wav" />
+    <Content Include="App_Data\RadCaptcha\N.wav" />
+    <Content Include="App_Data\RadCaptcha\O.wav" />
+    <Content Include="App_Data\RadCaptcha\P.wav" />
+    <Content Include="App_Data\RadCaptcha\Q.wav" />
+    <Content Include="App_Data\RadCaptcha\R.wav" />
+    <Content Include="App_Data\RadCaptcha\S.wav" />
+    <Content Include="App_Data\RadCaptcha\T.wav" />
+    <Content Include="App_Data\RadCaptcha\U.wav" />
+    <Content Include="App_Data\RadCaptcha\V.wav" />
+    <Content Include="App_Data\RadCaptcha\W.wav" />
+    <Content Include="App_Data\RadCaptcha\X.wav" />
+    <Content Include="App_Data\RadCaptcha\Y.wav" />
+    <Content Include="App_Data\RadCaptcha\Z.wav" />
     <Content Include="App_Themes\Default\style.css" />
+    <Content Include="Budget\Budget.aspx" />
+    <Content Include="Budget\BudgetExercise.aspx" />
     <Content Include="Claim\claim_detail.js" />
     <Content Include="Claim\Detail.aspx" />
     <Content Include="Claim\Default.aspx" />
+    <Content Include="Claim\ViewImage.aspx" />
     <Content Include="CustomCtrl\CalendarControl.ascx" />
     <Content Include="CustomCtrl\MessagePanelControl.ascx" />
+    <Content Include="Finance\Admin\CostAllocationInput.aspx" />
     <Content Include="Finance\CashFlow\TermSheet.aspx" />
+    <Content Include="Finance\MonthlyReporting\MonthlyFinancialInput.aspx" />
+    <Content Include="Finance\ProductionVolume\ProductionVolumeInput.aspx" />
+    <Content Include="Finance\Reports\CostAllocationForm.aspx" />
     <Content Include="Finance\Reports\FinanceDebtorsReport.aspx" />
     <Content Include="Finance\Reports\FinanceFixedAssets.aspx" />
     <Content Include="Finance\Reports\FinanceGroupReport.aspx" />
     <Content Include="Finance\Reports\FinanceManufactureAccount.aspx" />
+    <Content Include="Finance\Reports\FinanceMonthlyReports.aspx" />
     <Content Include="Finance\Reports\FinancePurchaseCreditor.aspx" />
     <Content Include="Finance\Upload\DimensionSetup.aspx" />
-    <Content Include="Ghostscript\gsdll32.dll" />
     <Content Include="HR\Recruitment\EmailResume.aspx" />
     <Content Include="HR\Recruitment\getPDF.aspx" />
     <Content Include="HR\Recruitment\Recruitment.aspx" />
@@ -1208,21 +1254,30 @@
     <Content Include="Procurement\Records\VendorRecords7.aspx" />
     <Content Include="Procurement\Records\VendorRecords8.aspx" />
     <Content Include="Procurement\Records\VendorRecords9.aspx" />
+    <Content Include="Products\Products\BrandProductSetup.aspx" />
     <Content Include="Products\Products\GRNDetail.aspx" />
     <Content Include="Products\Products\GRNSearch.aspx" />
     <Content Include="Products\Products\MaterialRequisitionDivision.aspx" />
     <Content Include="Products\Products\ProductBatchSerial.aspx" />
+    <Content Include="Products\Products\ProductCategorySetup.aspx" />
     <Content Include="Products\Products\ProductGroupSetup.aspx" />
+    <Content Include="Products\Products\ProductManagerSetup.aspx" />
     <Content Include="Products\Products\ProductMovement.aspx" />
     <Content Include="Products\Products\ProductSetup.aspx" />
     <Content Include="Products\Products\ProductUOM.aspx" />
     <Content Include="Products\Products\ViewGRNBatchSerial.aspx" />
+    <Content Include="Products\Reports\ViewListing.aspx" />
     <Content Include="Products\Reports\ViewPricing.aspx" />
     <Content Include="Reports\Report\ExternalReportViewer.aspx" />
+    <Content Include="Route.aspx" />
     <Content Include="Sales\Reports\SalesBudgetReport.aspx" />
+    <Content Include="Sales\Reports\ViewListing.aspx" />
+    <Content Include="Sales\Sales\CustomerGroupTypeSetup.aspx" />
     <Content Include="Sales\Sales\CustomerTypeSetup.aspx" />
     <Content Include="Sales\Sales\LatestPriceList.aspx" />
     <Content Include="Sales\Sales\NewPriceList.aspx" />
+    <Content Include="Sales\Sales\RadPriceList.aspx" />
+    <Content Include="Sales\Sales\SalespersonTeamSetup.aspx" />
     <Content Include="Sales\Sales\TeamSetup.aspx" />
     <Content Include="scripts\Common.js" />
     <Content Include="SiteHeader.ascx" />
@@ -1240,6 +1295,9 @@
     <Content Include="new_assets\plugins\summernote\font\summernote.ttf" />
     <Content Include="new_assets\plugins\summernote\font\summernote.woff" />
     <Content Include="packages.config" />
+    <Content Include="App_Data\RadSpell\de-DE.tdf" />
+    <Content Include="App_Data\RadSpell\en-US.tdf" />
+    <Content Include="App_Data\RadSpell\fr-FR.tdf" />
     <None Include="web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1297,6 +1355,20 @@
     <Compile Include="ApproveMR.aspx.designer.cs">
       <DependentUpon>ApproveMR.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Budget\Budget.aspx.cs">
+      <DependentUpon>Budget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Budget\Budget.aspx.designer.cs">
+      <DependentUpon>Budget.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Budget\BudgetExercise.aspx.cs">
+      <DependentUpon>BudgetExercise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Budget\BudgetExercise.aspx.designer.cs">
+      <DependentUpon>BudgetExercise.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Bulletin.aspx.cs">
       <DependentUpon>Bulletin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1317,6 +1389,13 @@
     </Compile>
     <Compile Include="Claim\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Claim\ViewImage.aspx.cs">
+      <DependentUpon>ViewImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Claim\ViewImage.aspx.designer.cs">
+      <DependentUpon>ViewImage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Common\banner.aspx.cs">
       <DependentUpon>banner.aspx</DependentUpon>
@@ -1443,6 +1522,13 @@
     <Compile Include="Debtors\Debtors\ROCUpload.aspx.designer.cs">
       <DependentUpon>ROCUpload.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Finance\Admin\CostAllocationInput.aspx.cs">
+      <DependentUpon>CostAllocationInput.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Admin\CostAllocationInput.aspx.designer.cs">
+      <DependentUpon>CostAllocationInput.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Finance\BankFacilities\EmailPDF.aspx.cs">
       <DependentUpon>EmailPDF.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1506,12 +1592,33 @@
     <Compile Include="Finance\InterCompany\ParsingInterCompany.aspx.designer.cs">
       <DependentUpon>ParsingInterCompany.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Finance\MonthlyReporting\MonthlyFinancialInput.aspx.cs">
+      <DependentUpon>MonthlyFinancialInput.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\MonthlyReporting\MonthlyFinancialInput.aspx.designer.cs">
+      <DependentUpon>MonthlyFinancialInput.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\ProductionVolume\ProductionVolumeInput.aspx.cs">
+      <DependentUpon>ProductionVolumeInput.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\ProductionVolume\ProductionVolumeInput.aspx.designer.cs">
+      <DependentUpon>ProductionVolumeInput.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Finance\Reports\AccountingTaxReports.aspx.cs">
       <DependentUpon>AccountingTaxReports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Finance\Reports\AccountingTaxReports.aspx.designer.cs">
       <DependentUpon>AccountingTaxReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\CostAllocationForm.aspx.cs">
+      <DependentUpon>CostAllocationForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\CostAllocationForm.aspx.designer.cs">
+      <DependentUpon>CostAllocationForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Finance\Reports\FinanceDebtorsReport.aspx.cs">
       <DependentUpon>FinanceDebtorsReport.aspx</DependentUpon>
@@ -1540,6 +1647,13 @@
     </Compile>
     <Compile Include="Finance\Reports\FinanceManufactureAccount.aspx.designer.cs">
       <DependentUpon>FinanceManufactureAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceMonthlyReports.aspx.cs">
+      <DependentUpon>FinanceMonthlyReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Finance\Reports\FinanceMonthlyReports.aspx.designer.cs">
+      <DependentUpon>FinanceMonthlyReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Finance\Reports\FinancePurchaseCreditor.aspx.cs">
       <DependentUpon>FinancePurchaseCreditor.aspx</DependentUpon>
@@ -1979,6 +2093,13 @@
     <Compile Include="Products\Products\AddEditMRDetailDescription.aspx.designer.cs">
       <DependentUpon>AddEditMRDetailDescription.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Products\Products\BrandProductSetup.aspx.cs">
+      <DependentUpon>BrandProductSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\BrandProductSetup.aspx.designer.cs">
+      <DependentUpon>BrandProductSetup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Products\Products\FileDownloadHandler.ashx.cs">
       <DependentUpon>FileDownloadHandler.ashx</DependentUpon>
     </Compile>
@@ -2034,12 +2155,26 @@
     <Compile Include="Products\Products\ProductBatchSerial.aspx.designer.cs">
       <DependentUpon>ProductBatchSerial.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Products\Products\ProductCategorySetup.aspx.cs">
+      <DependentUpon>ProductCategorySetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\ProductCategorySetup.aspx.designer.cs">
+      <DependentUpon>ProductCategorySetup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Products\Products\ProductGroupSetup.aspx.cs">
       <DependentUpon>ProductGroupSetup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Products\Products\ProductGroupSetup.aspx.designer.cs">
       <DependentUpon>ProductGroupSetup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Products\ProductManagerSetup.aspx.cs">
+      <DependentUpon>ProductManagerSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products\ProductManagerSetup.aspx.designer.cs">
+      <DependentUpon>ProductManagerSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Products\Products\ProductMovement.aspx.cs">
       <DependentUpon>ProductMovement.aspx</DependentUpon>
@@ -2125,6 +2260,13 @@
     <Compile Include="Products\Products\ViewPOWithoutSupplierInfo.aspx.designer.cs">
       <DependentUpon>ViewPOWithoutSupplierInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Products\Reports\ViewListing.aspx.cs">
+      <DependentUpon>ViewListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Reports\ViewListing.aspx.designer.cs">
+      <DependentUpon>ViewListing.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Products\Reports\ViewPricing.aspx.cs">
       <DependentUpon>ViewPricing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2180,6 +2322,13 @@
     </Compile>
     <Compile Include="Reports\Report\WebServiceReportViewer.aspx.designer.cs">
       <DependentUpon>WebServiceReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Route.aspx.cs">
+      <DependentUpon>Route.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Route.aspx.designer.cs">
+      <DependentUpon>Route.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Engineering\CostEstimate\AddEditCostEstimate.aspx.cs">
       <DependentUpon>AddEditCostEstimate.aspx</DependentUpon>
@@ -2278,12 +2427,26 @@
     <Compile Include="Sales\Reports\SalesBudgetReport.aspx.designer.cs">
       <DependentUpon>SalesBudgetReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Reports\ViewListing.aspx.cs">
+      <DependentUpon>ViewListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Reports\ViewListing.aspx.designer.cs">
+      <DependentUpon>ViewListing.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Sales\AddressSearch.aspx.cs">
       <DependentUpon>AddressSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sales\Sales\AddressSearch.aspx.designer.cs">
       <DependentUpon>AddressSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Sales\CustomerGroupTypeSetup.aspx.cs">
+      <DependentUpon>CustomerGroupTypeSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Sales\CustomerGroupTypeSetup.aspx.designer.cs">
+      <DependentUpon>CustomerGroupTypeSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Sales\CustomerTypeSetup.aspx.cs">
       <DependentUpon>CustomerTypeSetup.aspx</DependentUpon>
@@ -2333,6 +2496,20 @@
     </Compile>
     <Compile Include="Sales\Sales\ParsingProductPrice.aspx.designer.cs">
       <DependentUpon>ParsingProductPrice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Sales\RadPriceList.aspx.cs">
+      <DependentUpon>RadPriceList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Sales\RadPriceList.aspx.designer.cs">
+      <DependentUpon>RadPriceList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Sales\SalespersonTeamSetup.aspx.cs">
+      <DependentUpon>SalespersonTeamSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Sales\SalespersonTeamSetup.aspx.designer.cs">
+      <DependentUpon>SalespersonTeamSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Sales\TeamSetup.aspx.cs">
       <DependentUpon>TeamSetup.aspx</DependentUpon>
@@ -3347,9 +3524,9 @@
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=1.0.10123.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxControlToolkit.15.1.4.0\lib\net20\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\..\..\GMS3\GMSWeb\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Asiasoft.MSExcelFileReader, Version=1.0.2438.20697, Culture=neutral" />
     <Reference Include="CKEditor.NET, Version=3.6.4.0, Culture=neutral, PublicKeyToken=e379cdf2f8354999, processorArchitecture=MSIL" />
@@ -3372,15 +3549,16 @@
       <HintPath>bin\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="FreeTextBox, Version=3.3.0.22914, Culture=neutral, PublicKeyToken=5962a4e684a48b87, processorArchitecture=MSIL" />
-    <Reference Include="GhostscriptSharp">
-      <HintPath>..\packages\GhostScriptSharp.1.3.1\lib\net40\GhostscriptSharp.dll</HintPath>
+    <Reference Include="GhostscriptSharp, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GhostScriptSharp.1.3.1.4\lib\net40\GhostscriptSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AtlasControlExtender, Version=1.0.60726.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Atlas, Version=2.0.50727.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=2.1.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL" />
     <Reference Include="office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -3393,19 +3571,52 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Extensions.Design, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.Design.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Web.Spreadsheet">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Telerik.Web.Spreadsheet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Web.UI">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\Telerik.Web.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Web.UI.Skins">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\Telerik.Web.UI.Skins.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Core">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Telerik.Windows.Documents.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Flow">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Telerik.Windows.Documents.Flow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Spreadsheet">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Zip">
+      <HintPath>..\lib\RCAJAX\2020.2.617.45\AdditionalLibraries\Bin45\Telerik.Windows.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="UtilitiesProject, Version=1.0.1.0, Culture=neutral" />
     <Reference Include="WilsonORMapper, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
@@ -10107,10 +10318,11 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>
-if not exist "$(TargetDir)\gsdll32.dll" xcopy /Y "$(ProjectDir)\Ghostscript\gsdll32.dll" "$(TargetDir)"</PostBuildEvent>
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "ls '$(SolutionDir)\packages\GhostScriptSharp.*\Tools\gsdll32.dll' | Sort -Descending | Select -First 1 | cp -Destination '$(TargetDir)'; exit 0"</PostBuildEvent>
   </PropertyGroup>
 </Project>

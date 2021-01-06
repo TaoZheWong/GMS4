@@ -5,15 +5,61 @@
 <%@ MasterType VirtualPath="~/Common/Site.Master" %>
 <%@ Register TagPrefix="uctrl" TagName="MsgPanel" Src="~/CustomCtrl/MessagePanelControl.ascx" %>
 <%@ Register TagPrefix="uctrl" TagName="Header" Src="~/SiteHeader.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderMain" runat="server">
     <ul class="breadcrumb pull-right">
         <li><a href="#">Products</a></li>
-        <li class="active">Product Detail</li> 
+        <li class="active">Item Detail</li> 
     </ul>
-    <h1 class="page-header">Product Detail </h1>
+    <h1 class="page-header">Item Detail </h1>
 
 	<asp:ScriptManager ID="ScriptManager1" runat="server">
 	</asp:ScriptManager>
+  
+    <style>
+        html .upload-container {
+            display: inline-block;
+            text-align: center;
+            padding-top:20px;
+            width:100%;
+        }
+ 
+        html .upload-container .RadUpload .ruUploadProgress {
+            width: 210px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: top;
+        }
+
+        html .upload-container .ruBrowse{
+            background-position: 0 -23px;
+            width: 79px;
+            background-image:url("../../images/ruSprite.png");
+        }
+
+        .RadUpload_Bootstrap .ruSelectWrap .ruButton {
+           padding:0px 0px;
+        }
+
+        html .upload-container .ruFileWrap .ruButtonHover{
+            background-position: 100% -23px;
+        }
+ 
+        html .upload-container .ruFakeInput {
+            width: 200px;
+        }
+
+        .RadImageGallery .rigItemBox {
+            background-color:lightgrey;
+        }
+
+        .RadImageGallery .rigDotList>a{
+            padding:0px;
+        }
+   </style>
+    
 	<input type="hidden" id="hidProductCode" runat="server" />
     <input type="hidden" id="hidProductGroupCode" runat="server" />
     <input type="hidden" id="hidTrackType" runat="server" />
@@ -24,81 +70,134 @@
                 <a data-init="true" title="" data-original-title="" href="javascript:;" class="btn" data-toggle="panel-collapse"><i class="glyphicon glyphicon-chevron-up"></i></a>
             </div>
             <h4 class="panel-title">
-                Product Information
+                Item Information
             </h4>
         </div>
         <div class="panel-body row">
-            <div class="form-horizontal m-t-20">
-                <div class="form-group col-lg-6 col-sm-12 col-md-12">
-                    <label class="col-sm-6 control-label text-left">
-                        Product Code
-                    </label>
-                    <label class="col-sm-6 control-label text-left">
-                       <asp:Label runat="server" ID="lblProductCode"></asp:Label>
-                    </label>
-                </div>
-                <div class="form-group col-lg-6 col-sm-12 col-md-12">
-                    <label class="col-sm-6 control-label text-left">
-                        Product Name
-                    </label>
-                    <label class="col-sm-6 control-label text-left">
-                       <asp:Label runat="server" ID="lblProductName"></asp:Label>
-                    </label>
-                </div>
-                <div class="form-group col-lg-6 col-sm-12 col-md-12">
-                    <label class="col-sm-6 control-label text-left">
-                        Product Group Name
-                    </label>
-                    <label class="col-sm-6 control-label text-left">
-                       <asp:Label runat="server" ID="lblProductGroup"></asp:Label>
-                    </label>
-                </div>
-                <div class="form-group col-lg-6 col-sm-12 col-md-12">
-                    <label class="col-sm-6 control-label text-left">
-                        Product Manager Name
-                    </label>
-                    <label class="col-sm-6 control-label text-left">
-                       <asp:Label runat="server" ID="lblProductManagerName"></asp:Label>
-                    </label>
-                </div>
-                <div class="form-group col-lg-6 col-sm-12 col-md-12">
-                    <label class="col-sm-6 control-label text-left">
-                        UOM
-                    </label>
-                    <label class="col-sm-6 control-label text-left">
-                       <asp:Label runat="server" ID="lblUOM"></asp:Label>
-                        &nbsp;&nbsp;
-                        <a id="lnkViewMultipleUOM" onclick="return ViewMultipleUOM();" href="#">
-                            View Conversion Factor</a>
-                    </label>
-                </div>
-                <div id="PMRegion1" runat="server" class="form-group col-lg-6 col-sm-12 col-md-12">
-                        <label class="col-sm-6 control-label text-left">
-                            Weighted Cost
+            <div class="form-vertical m-t-10">
+                <div class="form-group col-lg-6">
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Item Code
                         </label>
-                        <label class="col-sm-6 control-label text-left">
-                           <asp:Label runat="server" ID="lblWeightedCost"></asp:Label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblProductCode"></asp:Label>
                         </label>
-                </div>
-                <div class="form-group col-lg-6 col-sm-12 col-md-12">
-                    <label class="col-sm-6 control-label text-left">
-                        Remarks
-                    </label>
-                    <div class="col-sm-6">
-                       <asp:TextBox runat="server" ID="txtRemarks" TextMode="MultiLine" CssClass="form-control" onfocus="select();" onchange="this.value = this.value.toUpperCase()"></asp:TextBox>
-				
                     </div>
-                </div>
-				<div class="form-group col-lg-12 col-sm-12">
-                    <label class="control-label text-left">
-                         <asp:Label ID="lblModifiedDate" runat="server" Text=""></asp:Label>
-                    </label>
-                </div>     
-                <div class="form-group col-lg-12 col-sm-12">
-                    <label class="control-label text-left">
-                         <span style="color:Red; size:7px; font-style:italic;"><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></span>
-                    </label>
-                </div>     
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Item Description
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblProductName"></asp:Label>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Brand/Product Name
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblProductGroup"></asp:Label>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Product Manager Name
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblProductManagerName"></asp:Label>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            UOM
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblUOM"></asp:Label>
+                            &nbsp;&nbsp;
+                            <a id="lnkViewMultipleUOM" runat="server"  onclick="return ViewMultipleUOM();" href="#">
+                                View Conversion Factor</a>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Country Of Origin
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblCountry"></asp:Label>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Dealer Price
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblDprice"></asp:Label>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            User Price 
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblUprice"></asp:Label>
+                        </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           Retail Price
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblRprice"></asp:Label>
+                        </label>
+                    </div>
+                    <div id="PMRegion1" runat="server" class="form-group col-lg-12 col-sm-12 col-md-12">
+                            <label class="col-sm-6 col-lg-6 control-label text-left">
+                                Weighted Cost
+                            </label>
+                            <label class="col-sm-6 col-lg-6 control-label text-left">
+                               <asp:Label runat="server" ID="lblWeightedCost"></asp:Label>
+                            </label>
+                    </div>
+                    <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                            Remarks
+                        </label>
+                        <div class="col-sm-6 col-lg-6">
+                           <asp:TextBox runat="server" ID="txtRemarks" TextMode="MultiLine" CssClass="form-control" onfocus="select();" onchange="this.value = this.value.toUpperCase()"></asp:TextBox>
+				
+                        </div>
+                    </div>
+				    <div class="form-group col-lg-12 col-sm-12">
+                        <label class="control-label text-left">
+                             <asp:Label ID="lblModifiedDate" runat="server" Text=""></asp:Label>
+                        </label>
+                    </div>     
+                    <div class="form-group col-lg-12 col-sm-12">
+                        <label class="control-label text-left">
+                             <span style="color:Red; size:7px; font-style:italic;"><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></span>
+                        </label>
+                    </div>
+                </div> 
+                <div class="form-group col-lg-6">
+                    <telerik:RadImageGallery  RenderMode="Lightweight" runat="server" ID="RadImageGallery" DisplayAreaMode="Image" Skin="Bootstrap" OnNeedDataSource="RadImageGallery1_NeedDataSource"
+                        DataTitleField="" DataDescriptionField="" DataImageField="ImageData" DataThumbnailField="ThumbnailData" Width="100%" Height="300px" >
+                        <ImageAreaSettings Height="300px" ShowDescriptionBox="false" />
+                         <ThumbnailsAreaSettings Mode="ImageSlider"  />
+                        <ToolbarSettings ShowSlideshowButton="false" Position="Bottom"/>
+                    </telerik:RadImageGallery>
+
+                    <div class="upload-container size-narrow" id="PMRegion7" runat="server" >
+                        <telerik:RadAsyncUpload RenderMode="Lightweight" runat="server" ID="RadAsycnUpload1" OnClientValidationFailed="OnClientValidationFailed"
+                          OnFileUploaded="RadAsycnUpload1_onFileUploaded"  AllowedFileExtensions="jpg,jpeg,png,gif" MultipleFileSelection="Automatic" MaxFileSize="5097152"/>
+                        <asp:Label ID="Label1" runat="server" Text="Only Image files within 5MB size are accepted."></asp:Label>
+                        <telerik:RadProgressArea RenderMode="Lightweight" runat="server" ID="RadProgressArea1"  />
+                        <br>
+                        <asp:LinkButton runat="server" ID="btnUpload" OnClick="btnUpload_Click">Upload Image</asp:LinkButton>
+                        &nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:LinkButton runat="server" ID="btnDelete" OnClick="btnDelete_Click">Delete Current Image</asp:LinkButton>
+                    </div>
+                </div>    
             </div>
         </div>
         <div class="panel-footer clearfix">
@@ -107,7 +206,7 @@
         </div>
     </div>
 	
-	<div id="PMRegion6" runat="server" class="panel panel-primary">
+	<div id="PMRegion6" runat="server" class="panel panel-primary" hidden>
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a data-init="true" title="" data-original-title="" href="javascript:;" class="btn" data-toggle="panel-collapse"><i class="glyphicon glyphicon-chevron-up"></i></a>
@@ -444,8 +543,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".products-menu").addClass("active expand");
+            $(".product-menu").addClass("active expand");
             $(".sub-product-search-sale").addClass("active");
         });
+
+        function OnClientValidationFailed(sender, args) {
+            var fileExtention = args.get_fileName().substring(args.get_fileName().lastIndexOf('.') + 1, args.get_fileName().length);
+            if (args.get_fileName().lastIndexOf('.') != -1) {//this checks if the extension is correct
+                if (sender.get_allowedFileExtensions().indexOf(fileExtention) == -1) {
+                    alert("Only Image files allowed!");
+                }
+                else {
+                    alert("Wrong file size!");
+                }
+            }
+            else {
+                alert("Only Image files allowed!");
+            }
+        }
+
     </script>
 </asp:Content>

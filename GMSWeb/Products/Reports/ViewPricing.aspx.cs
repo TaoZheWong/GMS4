@@ -87,10 +87,10 @@ namespace GMSWeb.Products.Reports
             LogSession session = base.GetSessionInfo();
             IList<ReportCategory> lstCategory = new List<ReportCategory>();
 
-                ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Pricing");
+                ReportCategory cat1 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Price List");
                 if (cat1 != null)
                 {
-                    cat1.Name = "Pricing";
+                    cat1.Name = "Price List";
                     lstCategory.Add(cat1);
                 }
        

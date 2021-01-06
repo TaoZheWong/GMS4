@@ -39,6 +39,7 @@ $(document).ready(function() {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    response = response.hasOwnProperty('d') ? response.d : response;
                     alert("Success");
                     Payment();
                 }
@@ -60,6 +61,7 @@ function Payment(){
                 return "{ 'ProjectNo': '" + $("#txtProjectNo").val() + "' }";
             },
             "dataSrc": function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 return json;
             }   
         },
@@ -267,6 +269,7 @@ function DeletePCDetail(ProjectNo, PCId) {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         alert("Record have been deleted successfully.");
                         Payment();
                     },

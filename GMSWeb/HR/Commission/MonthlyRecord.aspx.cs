@@ -73,6 +73,16 @@ namespace GMSWeb.HR.Commission
             string GroupType = GMSUtil.ToStr(ddlGroupType.SelectedValue);
             IList<GMSCore.Entity.SalesPersonRecord> lstSalesPersonRecord = null;
             DataSet dsSalesRecord = new DataSet();
+
+            string IssuesDetected = IsVerifiedSalesAmount(year, month);
+            if (IssuesDetected != "")
+            {
+                this.PageMsgPanel.ShowMessage("Alert! " + IssuesDetected  + " for selected year and month does not tally.", MessagePanelControl.MessageEnumType.Alert);
+                this.lblSearchSummary.Visible = false;
+                this.dgData.DataSource =null;
+                this.dgData.DataBind();
+                return;
+            }
             try
             {
                 lstSalesPersonRecord = new SystemDataActivity().RetrieveAllSalesPersonRecordListByCompanyIDSortByYearMonthSalesPersonMasterID(session.CompanyId, year, month, GroupType);
@@ -125,16 +135,90 @@ namespace GMSWeb.HR.Commission
                 DropDownList ddlNewGPQ = (DropDownList)e.Item.FindControl("ddlNewGPQ");
                 DropDownList ddlNewCommRate = (DropDownList)e.Item.FindControl("ddlNewCommRate");
 
+                DropDownList ddlNewYear = (DropDownList)e.Item.FindControl("ddlNewYear");
+                // load year ddl
+                DataTable dtt1 = new DataTable();
+                dtt1.Columns.Add("Year", typeof(string));
+
+                if (GMSUtil.ToShort(ddlYear.SelectedValue) == 0)
+                {
+                    for (int i = -4; i < 5; i++)
+                    {
+                        DataRow dr1 = dtt1.NewRow();
+                        dr1["Year"] = DateTime.Now.Year + i;
+                        dtt1.Rows.Add(dr1);
+                    }
+                }
+                else {
+                    
+                    DataRow dr1 = dtt1.NewRow();
+                    dr1["Year"] = GMSUtil.ToShort(ddlYear.SelectedValue);
+                    dtt1.Rows.Add(dr1);
+                        
+                }
+                 
+
+                ddlNewYear.DataSource = dtt1;
+                ddlNewYear.DataBind();
+
+                if (GMSUtil.ToShort(ddlYear.SelectedValue) == 0)
+                    ddlNewYear.SelectedValue = DateTime.Now.Year.ToString();
+                else
+                    ddlNewYear.SelectedValue = ddlYear.SelectedValue;
+
+                DropDownList ddlNewMonth = (DropDownList)e.Item.FindControl("ddlNewMonth");
+                DataTable dtt2 = new DataTable();
+                dtt2.Columns.Add("Month", typeof(string));
+
+                if (GMSUtil.ToShort(ddlYear.SelectedValue) == 0)
+                {
+                    for (int i = 1; i < 13; i++)
+                    {
+                        DataRow dr2 = dtt2.NewRow();
+                        dr2["Month"] = i;
+                        dtt2.Rows.Add(dr2);
+                    }
+                }
+                else
+                {
+                    DataRow dr2 = dtt2.NewRow();
+                    dr2["Month"] = GMSUtil.ToShort(ddlMonth.SelectedValue);
+                    dtt2.Rows.Add(dr2);
+
+                }
+
+
+                ddlNewMonth.DataSource = dtt2;
+                ddlNewMonth.DataBind();
+
+                if (GMSUtil.ToShort(ddlMonth.SelectedValue) == 0)
+                    ddlNewMonth.SelectedValue = DateTime.Now.Month.ToString();
+                else
+                    ddlNewMonth.SelectedValue = ddlMonth.SelectedValue;
+
+
                 if (ddlNewSalesPersonMasterName != null && ddlNewGPQ != null && ddlNewCommRate != null)
                 {
                     SystemDataActivity sDataActivity = new SystemDataActivity();
 
                     // fill in currency dropdown list
                     IList<GMSCore.Entity.SalesPersonMaster> lstSalesPerson = null;
-                    lstSalesPerson = sDataActivity.RetrieveAllSalesPersonMasterListByCompanyIDSortBySalesPersonMasterName(session.CompanyId);
-                    ddlNewSalesPersonMasterName.DataSource = lstSalesPerson;
-                    ddlNewSalesPersonMasterName.DataBind();
-                    System.Web.UI.ScriptManager.RegisterClientScriptBlock(ddlNewSalesPersonMasterName, ddlNewSalesPersonMasterName.GetType(), "script1", "<script type=\"text/javascript\"> var ddlNewSalesPersonMasterName = '" + ddlNewSalesPersonMasterName.ClientID + "';</script>", false);
+                    if (GMSUtil.ToShort(ddlYear.SelectedValue) == 0 || GMSUtil.ToShort(ddlMonth.SelectedValue) == 0)
+                    {
+                        lstSalesPerson = sDataActivity.RetrieveAllSalesPersonMasterListByCompanyIDSortBySalesPersonMasterName(session.CompanyId);
+                        ddlNewSalesPersonMasterName.DataSource = lstSalesPerson;
+                        ddlNewSalesPersonMasterName.DataBind();
+                        System.Web.UI.ScriptManager.RegisterClientScriptBlock(ddlNewSalesPersonMasterName, ddlNewSalesPersonMasterName.GetType(), "script1", "<script type=\"text/javascript\"> var ddlNewSalesPersonMasterName = '" + ddlNewSalesPersonMasterName.ClientID + "';</script>", false);
+                    }
+                    else
+                    {
+                        DataSet dsGMS = new DataSet();
+                        new GMSGeneralDALC().RetrieveAllSalesPersonMasterListByCompanyIDSortBySalesPersonMasterName(session.CompanyId, GMSUtil.ToShort(ddlYear.SelectedValue), GMSUtil.ToShort(ddlMonth.SelectedValue), ref dsGMS);
+                        ddlNewSalesPersonMasterName.DataSource = dsGMS;
+                        ddlNewSalesPersonMasterName.DataBind();
+                        System.Web.UI.ScriptManager.RegisterClientScriptBlock(ddlNewSalesPersonMasterName, ddlNewSalesPersonMasterName.GetType(), "script1", "<script type=\"text/javascript\"> var ddlNewSalesPersonMasterName = '" + ddlNewSalesPersonMasterName.ClientID + "';</script>", false);
+                    }
+
 
                     ddlNewCommRate.DataSource = lstSalesPerson;
                     ddlNewCommRate.DataBind();
@@ -156,22 +240,6 @@ namespace GMSWeb.HR.Commission
                     else lblGPQ2.Text = "Nill";
                     System.Web.UI.ScriptManager.RegisterClientScriptBlock(lblGPQ2, lblGPQ2.GetType(), "script4", "<script type=\"text/javascript\"> var lblGPQ2 = '" + lblGPQ2.ClientID + "';</script>", false);
                 }
-
-                DropDownList ddlNewYear = (DropDownList)e.Item.FindControl("ddlNewYear");
-                // load year ddl
-                DataTable dtt1 = new DataTable();
-                dtt1.Columns.Add("Year", typeof(string));
-
-                for (int i = -4; i < 5; i++)
-                {
-                    DataRow dr1 = dtt1.NewRow();
-                    dr1["Year"] = DateTime.Now.Year + i;
-
-                    dtt1.Rows.Add(dr1);
-                }
-                ddlNewYear.DataSource = dtt1;
-                ddlNewYear.DataBind();
-                ddlNewYear.SelectedValue = DateTime.Now.Year.ToString();
             }
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -475,5 +543,124 @@ namespace GMSWeb.HR.Commission
             ddlYear.Items.Insert(0, new ListItem("All", "0"));
         }
         #endregion
+
+
+        protected string IsVerifiedSalesAmount(short year, short month) {
+
+            bool IsVerified = true;
+            string IssuesDetected = "";
+
+            if (year == 0 || month == 0)
+            {
+                return "";
+                //year = short.Parse(DateTime.Now.Year.ToString());
+                //month = short.Parse(DateTime.Now.Month.ToString());
+            }
+            var firstDayOfMonth = new DateTime(year, month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            //string datefrom = firstDayOfMonth.ToString();
+            //string dateto = lastDayOfMonth.ToString();
+
+
+            LogSession session = base.GetSessionInfo();
+            DataSet ds = new DataSet();
+            DataSet dsGMS = new DataSet();
+            string accountingSystem = (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S") ? "SAP" : "A21";
+            if (session.TBType == "N" || session.TBType == "P") // read from local A21 or remote A21
+            {
+                GMSWebService.GMSWebService ws = new GMSWebService.GMSWebService();
+                if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
+                    ws.Url = session.WebServiceAddress.Trim();
+                else
+                    ws.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
+
+                new GMSGeneralDALC().RetrieveSalesDetailSummary(session.CompanyId, firstDayOfMonth, lastDayOfMonth, ref dsGMS);
+
+                if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
+                {
+                    SAPOperation sapOp = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+
+                    //string query = "SELECT YEAR(\"DocDate\"), MONTH(\"DocDate\"), ROUND(SUM(\"SUBTOTAL\"),0) FROM ( SELECT T0.\"DocDate\", CASE WHEN T0.\"DocRate\" != 1 THEN(T1.\"TotalFrgn\" * T0.\"DocRate\")  ELSE T1.\"LineTotal\" END AS \"SUBTOTAL\" FROM OINV T0 " +
+                    //"INNER JOIN INV1 T1 ON TO_NVARCHAR(T0.\"DocEntry\") = TO_NVARCHAR(T1.\"DocEntry\") AND T0.\"CardCode\" = T1.\"BaseCard\" " +
+                    //"INNER JOIN NNM1 T10 ON T0.\"Series\" = T10.\"Series\" AND T10.\"ObjectCode\" in ('13', '14') " +
+                    //"WHERE T0.\"Series\" in ('4', '75') AND T0.\"CANCELED\" = 'N' " +
+                    //"AND T0.\"DocType\" != 'S' " +
+                    //"UNION ALL " +
+                    //"SELECT T0.\"DocDate\", CASE WHEN T0.\"DocRate\" != 1 THEN((T1.\"TotalFrgn\" * T0.\"DocRate\") * -1) ELSE(T1.\"LineTotal\" * -1) END as \"SubTotal\" " +
+                    //"FROM ORIN T0 " +
+                    //"INNER JOIN RIN1 T1 ON TO_NVARCHAR(T0.\"DocEntry\") = TO_NVARCHAR(T1.\"DocEntry\") AND T0.\"CardCode\" = T1.\"BaseCard\" " +
+                    //"INNER JOIN NNM1 T10 ON T0.\"Series\" = T10.\"Series\" AND T10.\"ObjectCode\" in ('13', '14') " +
+                    //"WHERE T0.\"Series\" in ('5', '78') AND T0.\"CANCELED\" = 'N'  AND T0.\"DocType\" != 'S' )  " +
+                    //"WHERE TO_VARCHAR(\"DocDate\", 'yyyymmdd') >= TO_VARCHAR('" + firstDayOfMonth.ToString("yyyy-MM-dd") + "', 'yyyymmdd') AND TO_VARCHAR(\"DocDate\", 'yyyymmdd') <= TO_VARCHAR('" + lastDayOfMonth.ToString("yyyy-MM-dd") + "', 'yyyymmdd') " +
+                    //"GROUP BY YEAR(\"DocDate\"), MONTH(\"DocDate\") " +
+                    //"ORDER BY YEAR(\"DocDate\"), MONTH(\"DocDate\");";
+
+
+                    string query = "SELECT YEAR(\"Date\"), MONTH(\"Date\"), SUM(\"SUB\" * \"DocRate\"), SUM(\"SUB\" * \"Disc\"), SUM(\"TAX\") " +
+                    "FROM( " +
+                    "SELECT T0.\"DocDate\" as \"Date\", T0.\"Series\", T0.\"DocRate\", (1 - (T0.\"DiscPrcnt\" / 100)) as \"Disc\", " +
+                    "CASE WHEN T0.\"DocRate\" != 1 THEN T1.\"TotalFrgn\" ELSE T1.\"LineTotal\" END AS \"SUB\", " +
+                    "CASE WHEN T0.\"DocRate\" != 1 THEN T1.\"VatSumFrgn\" ELSE T1.\"VatSum\" END AS \"TAX\" " +
+                    "FROM OINV T0 " +
+                    "INNER JOIN INV1 T1 ON T0.\"DocEntry\" = T1.\"DocEntry\" " +
+                    "WHERE T0.\"CANCELED\" = 'N' AND T0.\"DocType\" != 'S' " +
+                    "UNION ALL " +
+                    "SELECT T0.\"DocDate\",T0.\"Series\", T0.\"DocRate\", (1 - (T0.\"DiscPrcnt\" / 100)), " +
+                    "CASE WHEN T0.\"DocRate\" != 1 THEN T1.\"TotalFrgn\" * -1 ELSE T1.\"LineTotal\" * -1 END, " +
+                    "CASE WHEN T0.\"DocRate\" != 1 THEN T1.\"VatSumFrgn\" ELSE T1.\"VatSum\" END " +
+                    "FROM ORIN T0 INNER JOIN RIN1 T1 ON T0.\"DocEntry\" = T1.\"DocEntry\" " +
+                    "WHERE T0.\"CANCELED\" = 'N' AND T0.\"DocType\" != 'S' " +
+                    ") T2 " +
+                    "INNER JOIN NNM1 T10 ON T2.\"Series\" = T10.\"Series\" " +
+                    "WHERE TO_VARCHAR(\"Date\", 'yyyymmdd') >= TO_VARCHAR('" + firstDayOfMonth.ToString("yyyy-MM-dd") + "', 'yyyymmdd') AND TO_VARCHAR(\"Date\", 'yyyymmdd') <= TO_VARCHAR('" + lastDayOfMonth.ToString("yyyy-MM-dd") + "', 'yyyymmdd') " +
+                    "AND(T10.\"SeriesName\" LIKE 'INV%' OR T10.\"SeriesName\" LIKE 'CN%') AND T10.\"SeriesName\" NOT LIKE '%OB' AND T10.\"SeriesName\" NOT LIKE '%-NT' " +
+                    "GROUP BY YEAR(\"Date\"), MONTH(\"Date\"); ";
+
+
+                    ds = sapOp.GET_SAP_QueryData(session.CompanyId, query,
+                        "tbYear", "tbMonth", "SubTotal", "HeaderSubTotal", "TaxAmount", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                }
+                else
+                {
+                    ds = ws.GetInvoiceTotal(session.CompanyId, firstDayOfMonth, lastDayOfMonth);
+                }
+
+                foreach (DataRow dr in dsGMS.Tables[0].Rows)
+                {
+                    foreach (DataRow dr1 in ds.Tables[0].Rows)
+                    {
+                        if (int.Parse(dr1["tbYear"].ToString()) == int.Parse(dr["tbYear"].ToString()) && int.Parse(dr1["tbMonth"].ToString()) == int.Parse(dr["tbMonth"].ToString()))
+                        {
+                            if (decimal.Parse(dr1["SubTotal"].ToString()) != decimal.Parse(dr["SubTotal"].ToString()) && ((decimal.Parse(dr1["SubTotal"].ToString()) - decimal.Parse(dr["SubTotal"].ToString())) > 10 || (decimal.Parse(dr["SubTotal"].ToString()) - decimal.Parse(dr1["SubTotal"].ToString())) > 10))
+                            {
+                                return "Detail Amount";
+                                
+                            }
+
+                            if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
+                            {
+                                if (Math.Round(decimal.Parse(dr1["HeaderSubTotal"].ToString())) != decimal.Parse(dr["HeaderSubTotal"].ToString()) && ((Math.Round(decimal.Parse(dr1["HeaderSubTotal"].ToString())) - decimal.Parse(dr["HeaderSubTotal"].ToString())) > 10 || (decimal.Parse(dr["HeaderSubTotal"].ToString()) - Math.Round(decimal.Parse(dr1["HeaderSubTotal"].ToString()))) > 10))
+                                {
+                                    return "Sales Amount";
+                                }
+
+                                if (decimal.Parse(dr1["TaxAmount"].ToString()) != decimal.Parse(dr["TaxAmount"].ToString()) && ((decimal.Parse(dr1["TaxAmount"].ToString()) - decimal.Parse(dr["TaxAmount"].ToString())) > 5 || (decimal.Parse(dr["TaxAmount"].ToString()) - decimal.Parse(dr1["TaxAmount"].ToString())) > 5))
+                                {
+                                    return "Tax Amount";
+                                }
+
+                                if (decimal.Parse(dr1["TaxAmount"].ToString()) != decimal.Parse(dr["TaxTotal"].ToString()) && (Math.Abs(decimal.Parse(dr1["TaxAmount"].ToString()) - decimal.Parse(dr["TaxTotal"].ToString())) > 5))
+                                {
+                                    return "Tax Total";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return IssuesDetected;
+        }
     }
 }

@@ -1420,6 +1420,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $(element).attr('data-content', data);
                     $('[data-toggle="popover"]').popover();
                 },

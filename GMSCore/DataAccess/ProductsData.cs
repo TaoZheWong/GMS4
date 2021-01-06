@@ -261,6 +261,7 @@ namespace GMSCore
             command.Parameters.Add("@PMUserID", SqlDbType.NVarChar).Value = PMUserID;
             command.Parameters.Add("@SalesmanID", SqlDbType.NVarChar).Value = salesmanID;
             command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = userNumId;
+            command.CommandTimeout = 5000;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;

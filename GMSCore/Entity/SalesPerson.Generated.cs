@@ -213,11 +213,99 @@ namespace GMSCore.Entity
                 }
             }
         }
-		
-		#endregion
-		
-		///<summary>Initializes a new instance of this class</summary>
-		public SalesPerson() : base()
+
+        private short _dim1 = 0;
+        ///<summary>Database mapping to column tbSalesPerson.ApprovedUserID</summary>
+        public short Dim1
+        {
+            get { return _dim1; }
+            set
+            {
+                if (_dim1 != value)
+                {
+                    _dim1 = value;
+                    OnPropertyChanged("Dim1");
+                }
+            }
+        }
+
+        private short _dim2 = 0;
+        ///<summary>Database mapping to column tbSalesPerson.ApprovedUserID</summary>
+        public short Dim2
+        {
+            get { return _dim2; }
+            set
+            {
+                if (_dim2 != value)
+                {
+                    _dim2 = value;
+                    OnPropertyChanged("Dim2");
+                }
+            }
+        }
+
+        private short _dim3 = 0;
+        ///<summary>Database mapping to column tbSalesPerson.ApprovedUserID</summary>
+        public short Dim3
+        {
+            get { return _dim3; }
+            set
+            {
+                if (_dim3 != value)
+                {
+                    _dim3 = value;
+                    OnPropertyChanged("Dim3");
+                }
+            }
+        }
+
+        private short _dim4 = 0;
+        ///<summary>Database mapping to column tbSalesPerson.ApprovedUserID</summary>
+        public short Dim4
+        {
+            get { return _dim4; }
+            set
+            {
+                if (_dim4 != value)
+                {
+                    _dim4 = value;
+                    OnPropertyChanged("Dim4");
+                }
+            }
+        }
+
+        private string _shortName = "";
+        public string ShortName
+        {
+            get { return _shortName; }
+            set
+            {
+                if (_shortName != value)
+                {
+                    _shortName = value;
+                    OnPropertyChanged("ShortName");
+                }
+            }
+        }
+
+        private bool _isBudget = false;
+        ///<summary>Database mapping to column tbProductGroup.IsBudget</summary>
+        public bool IsBudget
+        {
+            get { return _isBudget; }
+            set
+            {
+                if (_isBudget != value)
+                {
+                    _isBudget = value;
+                    OnPropertyChanged("IsBudget");
+                }
+            }
+        }
+        #endregion
+
+        ///<summary>Initializes a new instance of this class</summary>
+        public SalesPerson() : base()
 		{
 			// Default Constructor
 		}
@@ -278,8 +366,14 @@ namespace GMSCore.Entity
 					case "_fax": return _fax;
 					case "_email": return _email;
 					case "_approvedUserID": return _approvedUserID;
-									
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
+                    case "_dim1": return _dim1;
+                    case "_dim2": return _dim2;
+                    case "_dim3": return _dim3;
+                    case "_dim4": return _dim4;
+                    case "_shortName": return _shortName;
+                    case "_isBudget": return _isBudget;
+
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
 			}
 			set {
@@ -299,8 +393,13 @@ namespace GMSCore.Entity
 					case "_fax": _fax = (string)value; break;
 					case "_email": _email = (string)value; break;
 					case "_approvedUserID": _approvedUserID = (short)value; break;
-				
-					default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
+                    case "_dim1": _dim1 = (short)value; break;
+                    case "_dim2": _dim2 = (short)value; break;
+                    case "_dim3": _dim3 = (short)value; break;
+                    case "_dim4": _dim4 = (short)value; break;
+                    case "_shortName": _shortName = (string)value; break;
+                    case "_isBudget": _isBudget = (bool)value; break;
+                    default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
 			}
 		}
@@ -325,9 +424,13 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_fax={0}\n,", _fax.ToString() );
 			stb.AppendFormat("_email={0}\n,", _email.ToString() );
 			stb.AppendFormat("_approvedUserID={0}\n,", _approvedUserID.ToString() );
-							
-			
-			return stb.ToString();
+            stb.AppendFormat("_dim1={0}\n,", _dim1.ToString());
+            stb.AppendFormat("_dim2={0}\n,", _dim2.ToString());
+            stb.AppendFormat("_dim3={0}\n,", _dim3.ToString());
+            stb.AppendFormat("_dim4={0}\n,", _dim4.ToString());
+            stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
+            stb.AppendFormat("_isBudget={0}\n,", _isBudget.ToString());
+            return stb.ToString();
 		}
 		#endregion
 

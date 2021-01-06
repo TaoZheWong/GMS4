@@ -70,7 +70,6 @@
              <asp:Button ID="btnUpload" runat="server" CausesValidation="true" Text="Upload" CssClass="btn btn-primary pull-right" OnClick="btnUpload_Click" />
         </div>
     </div>
-    
     <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>
     <asp:Label ID="lblMsg" runat="server"></asp:Label>    
                            

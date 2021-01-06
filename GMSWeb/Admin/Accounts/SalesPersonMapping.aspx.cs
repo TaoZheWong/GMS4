@@ -158,6 +158,20 @@ namespace GMSWeb.Admin.Accounts
                     rbIsNotCompanyManagementUser.Checked = true;
                     rbIsCompanyManagementUser.Checked = false;
                 }
+
+                this.productManagementRow.Style.Add("display", "block");
+                ProductManagementUser pmu = ProductManagementUser.RetrieveByKey(GMSUtil.ToShort(ddlCompany.SelectedValue), GMSUtil.ToShort(ddlUsername.SelectedValue));
+                if (pmu != null)
+                {
+                    rbIsProductManagementUser.Checked = true;
+                    rbIsNotProductManagementUser.Checked = false;
+                }
+                else
+                {
+                    rbIsNotProductManagementUser.Checked = true;
+                    rbIsProductManagementUser.Checked = false;
+                }
+
                 this.divisionRow.Visible = true;
                 DivisionUser du = DivisionUser.RetrieveByKey(GMSUtil.ToShort(ddlCompany.SelectedValue), GMSUtil.ToShort(ddlUsername.SelectedValue));
                 if(du != null)
@@ -211,6 +225,26 @@ namespace GMSWeb.Admin.Accounts
                 cmu.CoyID = GMSUtil.ToShort(ddlCompany.SelectedValue);
                 cmu.Save();
                 cmu.Resync();
+            }
+        }
+        #endregion
+
+        #region rbIsProductManagementUser_CheckedChanged
+        protected void rbIsProductManagementUser_CheckedChanged(object sender, EventArgs e)
+        {
+            ProductManagementUser pmu = ProductManagementUser.RetrieveByKey(GMSUtil.ToShort(ddlCompany.SelectedValue), GMSUtil.ToShort(ddlUsername.SelectedValue));
+            if (pmu != null)
+            {
+                pmu.Delete();
+                pmu.Resync();
+            }
+            else
+            {
+                pmu = new ProductManagementUser();
+                pmu.MGUserID = GMSUtil.ToShort(ddlUsername.SelectedValue);
+                pmu.CoyID = GMSUtil.ToShort(ddlCompany.SelectedValue);
+                pmu.Save();
+                pmu.Resync();
             }
         }
         #endregion

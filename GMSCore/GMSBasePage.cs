@@ -8,7 +8,10 @@ using System.Threading;
 
 namespace GMSCore
 {
+    using Activity;
+    using Entity;
     using GMSCore;
+    using System.Collections.Generic;
 
     public abstract class GMSBasePage : System.Web.UI.Page
     {
@@ -114,6 +117,63 @@ namespace GMSCore
         {
             Page.RegisterStartupScript(strMessageKey,
                 "<script type='text/javascript'>\n  confirm(\"" + strMessage.Replace("\"", "'") + "\");\n</script>");
+        }
+
+        public void loginByAuthKey(string authKey)
+        {
+            string authkey = authKey;
+            AuthKey UserAuthKey = AuthKey.RetrieveByAuthKey(authkey);
+            short company = 0;
+            if (UserAuthKey != null)
+            {
+                company = UserAuthKey.CoyID;
+                Company newCoy = Company.RetrieveByKey(company);
+                GMSUser user = null;
+                user = new GMSUserActivity().RetrieveUser(UserAuthKey.UserID);
+                if (user != null)
+                {
+                    LogSession sess = new LogSession();
+                    sess.UserId = UserAuthKey.UserID;
+                    sess.UserName = user.UserName;
+                    sess.UserRealName = user.UserRealName;
+                    sess.IPAddress = Request.UserHostAddress;
+                    sess.LastLoginDate = DateTime.Now.ToString();
+                    sess.CompanyId = newCoy.CoyID;
+                    sess.CountryId = newCoy.CountryID;
+                    sess.DivisionId = newCoy.DivisionID;
+                    sess.WebServiceAddress = newCoy.WebServiceAddress;
+                    sess.CMSWebServiceAddress = newCoy.CMSWebServiceAddress;
+                    sess.DefaultCurrency = newCoy.DefaultCurrencyCode;
+                    sess.TBType = newCoy.TBType;
+                    sess.IsOffline = newCoy.IsOffline;
+                    sess.FYE = newCoy.FYE;
+                    sess.DBName = newCoy.DBName;
+                    sess.StatusType = newCoy.StatusType;
+                    sess.LMSParallelRunEndDate = newCoy.LMSParallelRunEndDate;
+                    sess.SAPStartDate = newCoy.SAPStartDate;
+                    sess.GASLMSWebServiceAddress = newCoy.GASLMSWebServiceAddress;
+                    sess.WSDLMSWebServiceAddress = newCoy.WSDLMSWebServiceAddress;
+                    sess.MRScheme = newCoy.MRScheme;
+                    sess.DimensionL1 = newCoy.DimensionL1;
+                    sess.DefaultWarehouse = newCoy.DefaultWarehouse;
+                    sess.TableSuffix = newCoy.TableSuffix;
+                    sess.SAPURI = newCoy.SAPURI;
+                    sess.SAPKEY = newCoy.SAPKEY;
+                    sess.SAPDB = newCoy.SAPDB;
+
+                    #region Plug in user's available Access Items/Operations
+                    IList<UserAccessModuleCategory> lstModuleCategory = new GMSUserActivity().RetrieveUserAccessModuleCategoryByUserId(UserAuthKey.UserID);
+                    List<short> userAccessModuleCategory = new List<short>();
+                    foreach (UserAccessModuleCategory mc in lstModuleCategory)
+                    {
+                        userAccessModuleCategory.Add(mc.ModuleCategoryID);
+                    }
+                    sess.UserAccessModuleCategory = userAccessModuleCategory;
+                    #endregion
+
+                    Session[GMSCoreBase.SESSIONNAME] = sess;
+                }
+            }
         }
 
     }

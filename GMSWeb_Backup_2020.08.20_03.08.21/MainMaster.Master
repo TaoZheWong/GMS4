@@ -1,0 +1,29 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainMaster.master.cs" Inherits="GMSWeb.MainMaster" %>
+
+<%@ Register TagPrefix="uctrl" TagName="Header" Src="~/SiteHeader.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+	<title>Leeden Group Management System</title>    
+	<uctrl:Header ID="MySiteHeader" runat="server" EnableViewState="true" />
+</head>
+<body>
+	<form id="frm" runat="server">
+		<div id="MAIN">
+		    <div class="HEADER">
+		        <asp:ContentPlaceHolder ID="HeaderRegion" runat="server">
+		        </asp:ContentPlaceHolder>
+		    </div>
+			<div>
+				<asp:ContentPlaceHolder ID="MainRegion" runat="server">
+				</asp:ContentPlaceHolder>
+			</div>
+			<div class="FOOTER">
+			    <asp:ContentPlaceHolder ID="FooterRegion" runat="server">
+			    </asp:ContentPlaceHolder>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

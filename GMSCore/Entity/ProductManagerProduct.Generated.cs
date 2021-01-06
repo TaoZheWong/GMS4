@@ -180,11 +180,23 @@ namespace GMSCore.Entity
 		{
 			// Default Constructor
 		}
-		
-		#region IObjectHelper
-		/// <summary>Indexer to update local member variables</summary>	
-		/// <remarks>This indexer is used by the Wilson ORMapper</remarks>
-		object IObjectHelper.this[string memberName]
+
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public static ProductManagerProduct RetrieveByKey(short coyID, string productGroupCode)
+        {
+            DBManager db = DBManager.GetInstance();
+            QueryHelper helper = db.Engine.QueryHelper;
+            string where = helper.GetExpression("ProductManagerProduct.CoyID", coyID);
+            where += " and ";
+            where += helper.GetExpression("ProductManagerProduct.ProductGroupCode", productGroupCode);
+
+            return RetrieveFirst(where);
+        }
+
+        #region IObjectHelper
+        /// <summary>Indexer to update local member variables</summary>	
+        /// <remarks>This indexer is used by the Wilson ORMapper</remarks>
+        object IObjectHelper.this[string memberName]
 		{
 			get {
 				switch (memberName) {

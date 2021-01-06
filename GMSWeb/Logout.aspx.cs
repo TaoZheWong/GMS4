@@ -25,9 +25,18 @@ namespace GMSWeb
                 //if (!string.IsNullOrEmpty(Request.QueryString["LOGOUT"]) &&
                 //    Request.QueryString["LOGOUT"].Trim() == "1")
                 //{
-                    Session.RemoveAll();
-                    FormsAuthentication.SignOut();
-                    Response.Redirect("Default.aspx");
+                LogSession session = base.GetSessionInfo();
+                try
+                {
+                    AuthKey.DeleteByKey(session.UserId);
+                }catch(Exception ex)
+                {
+
+                }
+                Session.RemoveAll();
+                FormsAuthentication.SignOut();
+                Response.Redirect("Default.aspx");
+                
                     //lblMessage.Text = "You have logged out.";
                 //}
             }

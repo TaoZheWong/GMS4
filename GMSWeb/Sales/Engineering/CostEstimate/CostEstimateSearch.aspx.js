@@ -107,7 +107,8 @@ $(function() {
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -151,7 +152,8 @@ function GetFullAccountList(item)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -233,6 +235,7 @@ function CheckAccess(callback){
         dataType: "json",
         data: datastr,
         success: function (data) {
+            data = data.hasOwnProperty('d') ? data.d : data;
             callback(data);
         },
         error: function (xhr, textstatus, error) {
@@ -273,7 +276,8 @@ function DisplayCostEstimateList(){
             "type"          : "POST",
             "url"           : "CostEstimateSearch.aspx/GetCostEstimate",
             "data"          : function (d){  return datastr;  },
-            "dataSrc"       : function (json) {
+            "dataSrc": function (json) {
+                                json = json.hasOwnProperty('d') ? json.d : json;
                                 return json;
                               }   
         },

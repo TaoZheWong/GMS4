@@ -68,6 +68,7 @@ $(document).ready(function(){
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -218,7 +219,8 @@ function DisplayMaterialList(){
             "type"          : "POST",
             "url"           : "MaterialSearch.aspx/GetMaterialList",
             "data"          : function (data) { return datastr; },
-            "dataSrc"       : function (json) {
+            "dataSrc": function (json) {
+                                json = json.hasOwnProperty('d') ? json.d : json;
                                 return json;
                               }   
         },
@@ -325,7 +327,8 @@ function CheckAccess(callback) {
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
         data        : datastr,
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         callback(data);
                       },
         error       : function (xhr, textstatus, error) {
@@ -355,7 +358,8 @@ function PopulateMaterialModal(item) {
         data        : datastr,
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (data) {
+        success: function (data) {
+                        data = data.hasOwnProperty('d') ? data.d : data;
                         $('#ItemMaterial').val("").attr('disabled', false);
                         $.each(data, function (key, value) {
                             $.each(value, function (i, item) {
@@ -389,7 +393,8 @@ function DisplayMaterialPriceList(item){
                             return "{'CompanyID':'" + getCoyID() + "', 'ItemID': '" + item.value + "' }";
                               },
             "url"           : "MaterialSearch.aspx/GetMaterialPriceList",
-            "dataSrc"       : function (json) {
+            "dataSrc": function (json) {
+                                json = json.hasOwnProperty('d') ? json.d : json;
                                 return json;
                               }   
         },
@@ -502,6 +507,7 @@ function SaveMaterialInfo(item) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                response = response.hasOwnProperty('d') ? response.d : response;
                 SetModalMessage("Success!", "");
                 $('#SaveMaterialRecord').modal('hide')
                 DisplayMaterialList();
@@ -533,7 +539,8 @@ function SaveMaterialUpload(item, ItemID) {
         data        : '{Info: ' + JSON.stringify(fields) + '}',
         contentType : "application/json; charset=utf-8",
         dataType    : "json",
-        success     : function (response) {
+        success: function (response) {
+                        response = response.hasOwnProperty('d') ? response.d : response;
                         Attachment(ItemID);
                       },
         error       : function(xhr, textstatus, error){
@@ -554,7 +561,8 @@ function Attachment(item){
                                 return "{'CompanyId':'"+getCoyID()+"', 'ItemID': '" + item + "' }";
                               },
             "url"           : "MaterialSearch.aspx/GetMaterialAttachment",
-            "dataSrc"       : function (json) {
+            "dataSrc": function (json) {
+                                json = json.hasOwnProperty('d') ? json.d : json;
                                 return json;
                               }   
         },
@@ -604,7 +612,8 @@ function GetCurrency(a){
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",              
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 

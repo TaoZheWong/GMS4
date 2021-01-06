@@ -3523,7 +3523,7 @@ namespace GMSCore
             return;
 
         }
-        public void SaveClaimAttachment(int ClaimAttachmentID, int claimDetailID, string data)
+        public void SaveClaimAttachment(int ClaimAttachmentID, int claimDetailID, string fileName)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3535,7 +3535,7 @@ namespace GMSCore
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@ClaimAttachmentID", SqlDbType.Int).Value = ClaimAttachmentID;
                 command.Parameters.Add("@ClaimDetailID", SqlDbType.Int).Value = claimDetailID;
-                command.Parameters.Add("@Attachment", SqlDbType.NVarChar).Value = data;
+                command.Parameters.Add("@FileName", SqlDbType.NVarChar).Value = fileName;
 
                 rdr = command.ExecuteReader();
             }
@@ -4445,7 +4445,7 @@ namespace GMSCore
         #endregion
 
         #region RetrieveProductPrice
-        public void RetrieveProductPrice(short companyId, string productGroupCode, string productGroupName, string productCode, string productName, short userId, ref DataSet ds)
+        public void RetrieveProductPrice(short companyId, string productGroupCode, string productGroupName, string productCode, string productName, short userId, string status, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppProductPriceSelect", (SqlConnection)conn);
@@ -4456,6 +4456,7 @@ namespace GMSCore
             command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
             command.Parameters.Add("@ProductName", SqlDbType.NVarChar).Value = productName;
             command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            command.Parameters.Add("@Status", SqlDbType.NVarChar).Value = status;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -4493,6 +4494,1032 @@ namespace GMSCore
                 }
             }
 
+            return;
+        }
+        #endregion
+
+        #region AuthKeyUpdate
+        public void UpdateAuthKey( short userId, string randomID,short coyid)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppAuthKeyUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@UserID", SqlDbType.SmallInt).Value = userId;
+                command.Parameters.Add("@RandomID", SqlDbType.NVarChar).Value = randomID;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region Cost Allocation
+        public void SelectCostAllocation(short companyId, short year, short month, short dim1, short dim2, short dim3, short dim4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppCostAllocationSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = dim1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = dim2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = dim3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = dim4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void SelectCostAllocationDetailItem(short companyId, short year, short month, short dim1, short dim2, short dim3, short dim4, short parentID, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppCostAllocationDetailItemSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = dim1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = dim2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = dim3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = dim4;
+            command.Parameters.Add("@ParentID", SqlDbType.SmallInt).Value = parentID;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void SelectFinanceItem(ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppFinanceItemSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void SelectFinanceChildItem(ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppFinanceChildItemSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void SelectUOM(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppUOMSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void InsertCostAllocationParent(short coyid, int year, int month, short dim1, short dim2, short dim3, short dim4, int itemNo, string method, short userid)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppCostAllocationInsert", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
+                command.Parameters.Add("@ProjectID", SqlDbType.NVarChar).Value = dim1;
+                command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = dim2;
+                command.Parameters.Add("@SectionID", SqlDbType.NVarChar).Value = dim3;
+                command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = dim4;
+                command.Parameters.Add("@Year", SqlDbType.NVarChar).Value = year;
+                command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
+                command.Parameters.Add("@Method", SqlDbType.NVarChar).Value = method;
+                command.Parameters.Add("@ItemNo", SqlDbType.SmallInt).Value = itemNo;
+                command.Parameters.Add("@UserID", SqlDbType.NVarChar).Value = userid;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductPrice2
+        public void RetrieveProductPrice2(short companyId, string productGroupCode, string productGroupName, short userId, string status, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceSelect2", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+            command.Parameters.Add("@ProductGroupName", SqlDbType.NVarChar).Value = productGroupName;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            command.Parameters.Add("@Status", SqlDbType.NVarChar).Value = status;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        public void SubmitPriceForApproval(short companyId, string ProductCode, double DealerPrice,
+            double UserPrice, double RetailPrice, int userid, string Remarks, string Country, int reorderLevel, DateTime effectiveDate, bool tradingStock)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppProductPriceInsert2", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = ProductCode;
+                command.Parameters.Add("@DealerPrice", SqlDbType.Float).Value = DealerPrice;
+                command.Parameters.Add("@UserPrice", SqlDbType.Float).Value = UserPrice;
+                command.Parameters.Add("@RetailPrice", SqlDbType.Float).Value = RetailPrice;
+                command.Parameters.Add("@UpdatedBy", SqlDbType.SmallInt).Value = userid;
+                command.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
+                command.Parameters.Add("@Country", SqlDbType.NVarChar).Value = Country;
+                command.Parameters.Add("@ReorderLevel", SqlDbType.Int).Value = reorderLevel;
+                command.Parameters.Add("@EffectiveDate", SqlDbType.DateTime).Value = effectiveDate;
+                command.Parameters.Add("@TradingStock", SqlDbType.Bit).Value = tradingStock;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+
+        #region RetrieveSalespersonWithDim
+        public void RetrieveSalespersonWithDim(short companyId, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalespersonWithTeamSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveCustomerWithGroupType
+        public void RetrieveCustomerWithGroupType(short companyId, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppCustomerTypeGroupSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveBrandProductByCategory
+        public void RetrieveBrandProductByCategory(short companyId, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBrandProductByCategorySelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveBrandProductByPM
+        public void RetrieveBrandProductByPM(short companyId, short userId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductGroupWithPMSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrievePMUser
+        public void RetrievePMUser(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductManagementUserSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveProductCategory
+        public void RetrieveProductCategory(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductCategorySelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveBudgetActualSales
+        public void RetrieveBudgetActualSales(short companyId, short year, short usernumid, string type,
+            string salespersonID, string classType, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetActualSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@ClassType", SqlDbType.NVarChar).Value = classType;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveBudgetDistributionRatio
+        public void RetrieveBudgetDistributionRatio(short companyId, short year, short usernumid, string type,
+            string salespersonID, string classType, short d1, short d2, short d3, short d4, string budgetType, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetDistributionSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@ClassType", SqlDbType.NVarChar).Value = classType;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.Parameters.Add("@BudgetType", SqlDbType.NVarChar).Value = budgetType;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveBudgetForecastSales
+        public void RetrieveBudgetForecastSales(short companyId, short year, short usernumid, string type,
+            string salespersonID, string classType, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetForecastSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@ClassType", SqlDbType.NVarChar).Value = classType;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveSalespersonBudget
+        public void RetrieveSalespersonBudget(short companyId, short usernumid, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalespersonBudgetSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateBudgetForecast
+        public void UpdateBudgetForecast(short companyId, int usernumid, int year, int id, double nov, double dec, double jan, double feb, double mar, double total, bool isTotalNml)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetForecastUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = usernumid;
+                command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+                command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@Nov", SqlDbType.Float).Value = nov;
+                command.Parameters.Add("@Dec", SqlDbType.Float).Value = dec;
+                command.Parameters.Add("@Jan", SqlDbType.Float).Value = jan;
+                command.Parameters.Add("@Feb", SqlDbType.Float).Value = feb;
+                command.Parameters.Add("@Mar", SqlDbType.Float).Value = mar;
+                command.Parameters.Add("@Total", SqlDbType.Float).Value = total;
+                command.Parameters.Add("@isTotalNml", SqlDbType.Bit).Value = isTotalNml;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region RetrieveBudgetBudgetSales
+        public void RetrieveBudgetBudgetSales(short companyId, short year, short usernumid, string type,
+            string salespersonID, string classType, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetBudgetSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@ClassType", SqlDbType.NVarChar).Value = classType;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        public void RetrieveSalesDetailSummary(short companyId, DateTime dateFrom, DateTime dateTo, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalesDetailSummaryByYearByMonth", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = dateFrom;
+            command.Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dateTo;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        #region InsertBudgetNewAccount
+        public void InsertBudgetNewAccount(short companyId, int usernumid, int year, string newName, double apr, double may, double jun, double jul, double aug, double sep,
+            double oct, double nov, double dec, double jan, double feb, double mar, double total, string salespersonID)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetNewAccountInsert", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = usernumid;
+                command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+                command.Parameters.Add("@NewName", SqlDbType.NVarChar).Value = newName;
+                command.Parameters.Add("@Apr", SqlDbType.Float).Value = apr;
+                command.Parameters.Add("@May", SqlDbType.Float).Value = may;
+                command.Parameters.Add("@Jun", SqlDbType.Float).Value = jun;
+                command.Parameters.Add("@Jul", SqlDbType.Float).Value = jul;
+                command.Parameters.Add("@Aug", SqlDbType.Float).Value = aug;
+                command.Parameters.Add("@Sep", SqlDbType.Float).Value = sep;
+                command.Parameters.Add("@Oct", SqlDbType.Float).Value = oct;
+                command.Parameters.Add("@Nov", SqlDbType.Float).Value = nov;
+                command.Parameters.Add("@Dec", SqlDbType.Float).Value = dec;
+                command.Parameters.Add("@Jan", SqlDbType.Float).Value = jan;
+                command.Parameters.Add("@Feb", SqlDbType.Float).Value = feb;
+                command.Parameters.Add("@Mar", SqlDbType.Float).Value = mar;
+                command.Parameters.Add("@Total", SqlDbType.Float).Value = total;
+                command.Parameters.Add("@SalespersonID", SqlDbType.NVarChar).Value = salespersonID;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region UpdateBudgetBudget
+        public void UpdateBudgetBudget(short companyId, int usernumid, int year, int id, double apr, double may, double jun, double jul, double aug, double sep,
+            double oct, double nov, double dec, double jan, double feb, double mar, double total, bool isTotalNml)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetBudgetUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = usernumid;
+                command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+                command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@Apr", SqlDbType.Float).Value = apr;
+                command.Parameters.Add("@May", SqlDbType.Float).Value = may;
+                command.Parameters.Add("@Jun", SqlDbType.Float).Value = jun;
+                command.Parameters.Add("@Jul", SqlDbType.Float).Value = jul;
+                command.Parameters.Add("@Aug", SqlDbType.Float).Value = aug;
+                command.Parameters.Add("@Sep", SqlDbType.Float).Value = sep;
+                command.Parameters.Add("@Oct", SqlDbType.Float).Value = oct;
+                command.Parameters.Add("@Nov", SqlDbType.Float).Value = nov;
+                command.Parameters.Add("@Dec", SqlDbType.Float).Value = dec;
+                command.Parameters.Add("@Jan", SqlDbType.Float).Value = jan;
+                command.Parameters.Add("@Feb", SqlDbType.Float).Value = feb;
+                command.Parameters.Add("@Mar", SqlDbType.Float).Value = mar;
+                command.Parameters.Add("@Total", SqlDbType.Float).Value = total;
+                command.Parameters.Add("@isTotalNml", SqlDbType.Bit).Value = isTotalNml;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region RetrieveBudgetBrand
+        public void RetrieveBudgetBrand(short companyId, short usernumid, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetBrandSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region  RetrieveBudgetActualProductByCustomer
+        public void RetrieveBudgetActualProductByCustomer(short companyId, short year, short usernumid, string type,
+           string salespersonID, string customer, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetActualProductByCustomerSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@Accountcode", SqlDbType.NVarChar).Value = customer;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveCustomerBudget
+        public void RetrieveCustomerBudget(short companyId, short year, string salespersonID, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppCustomerBudgetSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@SalespersonID", SqlDbType.NVarChar).Value = salespersonID;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region RetrieveBudgetCustomerMonthlySales
+        public void RetrieveBudgetCustomerMonthlySales(short companyId, short year, short userid, string salespersonID, string accountCode, 
+            string budgetType, short d1, short d2, short d3, short d4,string type, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procReportBudgetMonthlySalesByCustomer", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = userid;
+            command.Parameters.Add("@SalespersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountCode;
+            command.Parameters.Add("@BudgetType", SqlDbType.NVarChar).Value = budgetType;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region  RetrieveBudgetForecastProductByCustomer
+        public void RetrieveBudgetForecastProductByCustomer(short companyId, short year, short usernumid, string type,
+           string salespersonID, string customer, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetForecastProductByCustomerSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@Accountcode", SqlDbType.NVarChar).Value = customer;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region  RetrieveBudgetBudgetProductByCustomer
+        public void RetrieveBudgetBudgetProductByCustomer(short companyId, short year, short usernumid, string type,
+           string salespersonID, string customer, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetBudgetProductByCustomerSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@Accountcode", SqlDbType.NVarChar).Value = customer;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            command.CommandTimeout = 5000;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region UpdateBudgetProductForecast
+        public void UpdateBudgetProductForecast(short companyId, int usernumid, int year, int id, double nov, double dec, double jan, double feb, double mar, double total,
+            double qtynov, double qtydec, double qtyjan, double qtyfeb, double qtymar, double qtytotal)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetProductForecastUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = usernumid;
+                command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+                command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@Nov", SqlDbType.Float).Value = nov;
+                command.Parameters.Add("@Dec", SqlDbType.Float).Value = dec;
+                command.Parameters.Add("@Jan", SqlDbType.Float).Value = jan;
+                command.Parameters.Add("@Feb", SqlDbType.Float).Value = feb;
+                command.Parameters.Add("@Mar", SqlDbType.Float).Value = mar;
+                command.Parameters.Add("@Total", SqlDbType.Float).Value = total;
+                command.Parameters.Add("@QtyNov", SqlDbType.Float).Value = qtynov;
+                command.Parameters.Add("@QtyDec", SqlDbType.Float).Value = qtydec;
+                command.Parameters.Add("@QtyJan", SqlDbType.Float).Value = qtyjan;
+                command.Parameters.Add("@QtyFeb", SqlDbType.Float).Value = qtyfeb;
+                command.Parameters.Add("@QtyMar", SqlDbType.Float).Value = qtymar;
+                command.Parameters.Add("@QtyTotal", SqlDbType.Float).Value = qtytotal;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region UpdateBudgetProductBudget
+        public void UpdateBudgetProductBudget(short companyId, int usernumid, int year, int id,
+            double apr, double may, double jun, double jul, double aug, double sep, double oct,
+            double nov, double dec, double jan, double feb, double mar, double total,
+            double qtyapr, double qtymay, double qtyjun, double qtyjul, double qtyaug, double qtysep, double qtyoct,
+            double qtynov, double qtydec, double qtyjan, double qtyfeb, double qtymar, double qtytotal)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetProductBudgetUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = usernumid;
+                command.Parameters.Add("@Year", SqlDbType.Int).Value = year;
+                command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@Apr", SqlDbType.Float).Value = apr;
+                command.Parameters.Add("@May", SqlDbType.Float).Value = may;
+                command.Parameters.Add("@Jun", SqlDbType.Float).Value = jun;
+                command.Parameters.Add("@Jul", SqlDbType.Float).Value = jul;
+                command.Parameters.Add("@Aug", SqlDbType.Float).Value = aug;
+                command.Parameters.Add("@Sep", SqlDbType.Float).Value = sep;
+                command.Parameters.Add("@Oct", SqlDbType.Float).Value = oct;
+                command.Parameters.Add("@Nov", SqlDbType.Float).Value = nov;
+                command.Parameters.Add("@Dec", SqlDbType.Float).Value = dec;
+                command.Parameters.Add("@Jan", SqlDbType.Float).Value = jan;
+                command.Parameters.Add("@Feb", SqlDbType.Float).Value = feb;
+                command.Parameters.Add("@Mar", SqlDbType.Float).Value = mar;
+                command.Parameters.Add("@Total", SqlDbType.Float).Value = total;
+
+                command.Parameters.Add("@QtyApr", SqlDbType.Float).Value = qtyapr;
+                command.Parameters.Add("@QtyMay", SqlDbType.Float).Value = qtymay;
+                command.Parameters.Add("@QtyJun", SqlDbType.Float).Value = qtyjun;
+                command.Parameters.Add("@QtyJul", SqlDbType.Float).Value = qtyjul;
+                command.Parameters.Add("@QtyAug", SqlDbType.Float).Value = qtyaug;
+                command.Parameters.Add("@QtySep", SqlDbType.Float).Value = qtysep;
+                command.Parameters.Add("@QtyOct", SqlDbType.Float).Value = qtyoct;
+                command.Parameters.Add("@QtyNov", SqlDbType.Float).Value = qtynov;
+                command.Parameters.Add("@QtyDec", SqlDbType.Float).Value = qtydec;
+                command.Parameters.Add("@QtyJan", SqlDbType.Float).Value = qtyjan;
+                command.Parameters.Add("@QtyFeb", SqlDbType.Float).Value = qtyfeb;
+                command.Parameters.Add("@QtyMar", SqlDbType.Float).Value = qtymar;
+                command.Parameters.Add("@QtyTotal", SqlDbType.Float).Value = qtytotal;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
+
+        #region RetrieveCompanyName
+        public void RetrieveCompanyName(short companyId, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppGetCompanyNameByCoyID", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region InsertBudgetData
+        public void InsertBudgetData(short companyId, short year, short usernumid, string type,
+            string salespersonID, string classType, short d1, short d2, short d3, short d4)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetDataInsert", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+                command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+                command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+                command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+                command.Parameters.Add("@ClassType", SqlDbType.NVarChar).Value = classType;
+                command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+                command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+                command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+                command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+                command.CommandTimeout = 5000;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+            return;
+        }
+        #endregion
+
+        public void RetrieveAllSalesPersonMasterListByCompanyIDSortBySalesPersonMasterName(short companyId, short ddlYear, short ddlMonth, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppSalesPersonListingForMonthlyRecord", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.Int).Value = ddlYear;
+            command.Parameters.Add("@Month", SqlDbType.Int).Value = ddlMonth;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        #region UpdateBudgetGP
+        public void UpdateBudgetGP(short companyId, short year, short usernumid, string budgetProduct,
+            double gp, string docType, short d1, short d2, short d3, short d4, string type)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppBudgetGPUpdate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+                command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+                command.Parameters.Add("@BudgetProduct", SqlDbType.NVarChar).Value = budgetProduct;
+                command.Parameters.Add("@GP", SqlDbType.Float).Value = gp;
+                command.Parameters.Add("@DocType", SqlDbType.NVarChar).Value = docType;
+                command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+                command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+                command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+                command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+                command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+                command.CommandTimeout = 5000;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+            return;
+        }
+        #endregion
+
+        #region CheckBudgetSetup
+        public void CheckBudgetSetup(short companyId, short usernumid, string type, string salespersonID,
+            short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetSetupCheck", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@SalesPersonID", SqlDbType.NVarChar).Value = salespersonID;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        public void SendPriceEmail(string email, string productList, string productGroupCode, string type, string name)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procEmailGeneratorPriceInput", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+                command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+                command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productList;
+                command.Parameters.Add("@type", SqlDbType.NVarChar).Value = type;
+                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = name;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+
+        #region GetPHEmail
+        public void GetPHEmail(short companyId, string productGroupCode, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppProductPriceGetPHEmail", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProductGroupCode", SqlDbType.NVarChar).Value = productGroupCode;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region SelectMonthlyPerformance
+        public void SelectMonthlyPerformance(short companyId, short year, short month, short usernumid, string docType,
+                                        short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppMonthlyPerformanceSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@DocType", SqlDbType.NVarChar).Value = docType;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region SelectProductionVolume
+        public void SelectProductionVolume(short companyId, short usernumid, DateTime datefrom, DateTime dateto, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppRefillingProductVolumeSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@DateTo", SqlDbType.DateTime).Value = dateto;
+            command.Parameters.Add("@DateFrom", SqlDbType.DateTime).Value = datefrom;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region SelectRefillingProduct
+        public void SelectRefillingProduct(short companyId, short usernumid, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppRefillingProductSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region SelectRefillingProductByDim
+        public void SelectRefillingProductByDim(short companyId, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppRefillingProductSelectByDim", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region SelectBudgetVaiance
+        public void SelectBudgetVariance(short companyId, short usernumid, string doctype, short year, short d1, short d2, short d3, short d4, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBudgetVarianceSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@DocType", SqlDbType.NVarChar).Value = doctype;
+            command.Parameters.Add("@ProjectID", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@DepartmentID", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@SectionID", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@UnitID", SqlDbType.SmallInt).Value = d4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
             return;
         }
         #endregion

@@ -61,7 +61,9 @@ namespace GMSCore.Activity
             StringBuilder stb = new StringBuilder(200);
             stb.AppendFormat(" {0} = {1} ", helper.GetFieldName("AccountClass.CoyID"),
                                 helper.CleanValue(coyID));
-            return AccountClass.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("AccountClass.ClassID")));
+            stb.AppendFormat(" AND {0} !='' ", helper.GetFieldName("AccountClass.ShortName"));
+
+            return AccountClass.RetrieveQuery(stb.ToString(), string.Format(" {0} DESC ", helper.GetFieldName("AccountClass.Value")));
         }
         public IList<AccountGroup> RetrieveAllAccountGroup()
         {
