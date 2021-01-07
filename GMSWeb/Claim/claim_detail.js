@@ -122,6 +122,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
     claim.getClaimInfo = function () {
 
         ClaimService.getClaimInfo($location.$$search.id, timeoutCanceler).then(function (resp) {
+            
             resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             claim.claimInfo = resp.data.Params.data[0];
             claim.modifieddate = resp.data.Params.data[0].ModifiedDate;
@@ -158,7 +159,7 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.updateClaimInfo = function () {
         ClaimService.isLatestTransaction(globalCoyID, $location.$$search.id, claim.modifieddate, 'Claim').then(function (resp) {
-            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
+            resp = resp.hasOwnProperty('d') ? resp.d : resp;
             if (!resp.data) {
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();
@@ -177,7 +178,8 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.submitClaim = function (data, type) {
         ClaimService.isLatestTransaction(globalCoyID, $location.$$search.id, claim.modifieddate, 'Claim').then(function (resp) {
-            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
+
+            resp= resp.hasOwnProperty('d') ? resp.d : resp;
             if (!resp.data) {
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();

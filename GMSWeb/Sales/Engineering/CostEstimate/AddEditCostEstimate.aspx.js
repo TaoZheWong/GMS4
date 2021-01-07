@@ -1582,7 +1582,7 @@ function jsOpenOperationalReport( url )
 
 function pdfprint(){
     var CEID = $("#txtCEID").val();
-    jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=EngineeringCostEstimateFormWithLetterHead&&TRNNO=' + CEID + '&&REPORTID=-6');
+    jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=EngineeringCostEstimateFormWithLetterHead&&TRNNO=' + CEID + '&&REPORTID=-6');
 }
 
 function SetModalMessage(message, redirect) {

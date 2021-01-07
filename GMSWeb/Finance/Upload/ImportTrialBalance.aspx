@@ -47,8 +47,8 @@
         <div class="panel-footer clearfix">
             <asp:Button ID="btnImport" runat="server" Style="margin-left: 60px" CausesValidation="true" Text="Import" CssClass="btn btn-primary pull-right" OnClick="btnImport_Click" />
         </div>
-    </div>                   
-    <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>
+    </div>
+    <iframe  id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>                   
        
     <div class="TABCOMMAND">
         <atlas:UpdatePanel ID="udpMsgUpdater" runat="server" Mode="Always">

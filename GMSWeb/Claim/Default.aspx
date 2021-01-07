@@ -169,6 +169,7 @@
                     //console.log(textStatus);
                 },
                 "dataSrc": function (result) {
+                    console.log(result);
                     result = result.hasOwnProperty('d') ? result.d : result;
                     return result.Params.data;
                 }

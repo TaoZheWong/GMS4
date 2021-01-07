@@ -97,6 +97,7 @@
                     console.log(textStatus);
                 },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             }
@@ -132,6 +133,7 @@
                 "url": "Default.aspx/GetListOfRejectedOrCancelledMRByUserNumId",
                 "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             };
@@ -167,6 +169,7 @@
                 "url": "Default.aspx/GetListOfMRFailedDeliveryDateByUserNumId",
                 "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             };
