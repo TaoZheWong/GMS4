@@ -429,12 +429,20 @@ namespace GMSWeb
                     "</ul>" +
                     "</li>" +
 
-                    "<li class='has-sub recruitment-menu'>" +
-                    "<a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx?CurrentLink=CompanyHR\">" +
-                    "<i class='ti-user'></i>" +
-                    "<span>Recruitment</span>" +
+                 //"<li class='has-sub recruitment-menu'>" +
+                 //"<a href=\"" + appPath + "/HR/Recruitment/Recruitment.aspx?CurrentLink=CompanyHR\">" +
+                 //"<i class='ti-shield'></i>" +
+                 // "<span>Recruitment</span>" +
+                 //"</a>" +
+                 //"</li>" +
+
+
+                 "<li class='has-sub recruitment-menu'>" +
+                    "<a href =\"" + appPath + "/UnderConstruction.aspx?ModuleID=CompanyHR\">" +
+                    "<i class='ti-shield'></i>" +
+                    "<span>Budget</span>" +
                     "</a>" +
-                    "</li>" +
+                   "</li>" +
 
                 //"<li class='has-sub'>" +
                 //"<a href='javascript:;'>" +
