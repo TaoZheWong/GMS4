@@ -5523,6 +5523,34 @@ namespace GMSCore
             return;
         }
         #endregion
+
+        #region UpdatePriceList
+        public void UpdatePriceList()
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppUpdatePriceListEffectiveDate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
     }
 
 }

@@ -22,6 +22,11 @@
                     <telerik:AjaxUpdatedControl ControlID="RadGrid2" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="lnkDelete2">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadGrid2" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
     </telerik:RadAjaxManager>
     <style>
@@ -293,6 +298,30 @@
             }
             $("#hidRowChanged").val(changedRowsIndices);
             changedRowsIndices = [];
+        }
+
+        if (Telerik.Web.UI.Spreadsheet && Telerik.Web.UI.Spreadsheet.FilterMenuView) {
+
+            Telerik.Web.UI.Spreadsheet.FilterMenuView.prototype.filterValueListBox = function (value) {
+                var listBox = this.controls.valueListBox;
+                var items = listBox.get_items();
+                var count = items.get_count();
+                var item;
+                var isVisible;
+                var hasVisibleItems = false;
+
+                for (var i = 0; i < count; i++) {
+                    item = items.getItem(i);
+
+                    isVisible = item.get_text().toLowerCase().indexOf(value.toLowerCase()) > -1;
+
+                    item.set_visible(isVisible);
+
+                    hasVisibleItems = hasVisibleItems || isVisible;
+                }
+
+                $telerik.$(listBox.get_element()).find(".rlbCheckAllItems").toggle(hasVisibleItems);
+            }
         }
     </script>                  
 </asp:Content>

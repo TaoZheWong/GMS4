@@ -389,6 +389,22 @@ namespace GMSCore.Entity
             return RetrieveFirst(where);
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public static ProductPrice RetrieveByProdCodeEffectiveDate(short coyID, string productCode, DateTime effectiveDate)
+        {
+            DBManager db = DBManager.GetInstance();
+            QueryHelper helper = db.Engine.QueryHelper;
+            string where = helper.GetExpression("ProductPrice.ProductCode", productCode);
+            where += " and ";
+            where += helper.GetExpression("ProductPrice.CoyID", coyID);
+            where += " and ";
+            where += helper.GetExpression("ProductPrice.EffectiveDate", effectiveDate);
+            where += " and ";
+            where += helper.GetExpression("ProductPrice.IsExpired", 0);
+
+            return RetrieveFirst(where);
+        }
+
         #region IObjectHelper
         /// <summary>Indexer to update local member variables</summary>	
         /// <remarks>This indexer is used by the Wilson ORMapper</remarks>
