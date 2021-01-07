@@ -354,15 +354,42 @@ namespace GMSWeb.Sales.Sales
                                     effectiveDate = DateTime.Parse(DateTime.FromOADate(double.Parse(row.Cells[13].Value.ToString())).ToString("dd/MM/yyyy"));
                                 }
 
-                                if (effectiveDate <= DateTime.Now)
+                                //if (effectiveDate <= DateTime.Now)
+                                //{
+                                //    alertMessage("Date must be greater than today.");
+                                //    LoadSpreadSheet();
+                                //    return;
+                                //}
+
+                                if (effectiveDate == DateTime.Parse("1/01/1900 12:00:00 AM"))
                                 {
-                                    alertMessage("Date must be greater than today.");
-                                    LoadSpreadSheet();
-                                    return;
+                                    effectiveDate = DateTime.Now.Date;
+                                }
+
+                                ProductPrice pp = ProductPrice.RetrieveByProdCodeEffectiveDate(session.CompanyId, productCode, effectiveDate);
+                                if (pp != null)
+                                {
+                                    double ppDealer = double.Parse(Math.Round(pp.DealerPrice, 2).ToString());
+                                    double ppUser = double.Parse(Math.Round(pp.UserPrice, 2).ToString());
+                                    double ppRetail = double.Parse(Math.Round(pp.RetailPrice, 2).ToString());
+
+                                    if (!(ppDealer == dealerPrice &&
+                                        ppUser == userPrice &&
+                                        ppRetail == retailPrice) && pp.EffectiveDate == effectiveDate)
+                                    {
+                                        alertMessage("This product," + productCode + " already has a price with same effective date.");
+                                        LoadSpreadSheet();
+                                        return;
+                                    }
                                 }
 
                                 ggdal.SubmitPriceForApproval(session.CompanyId, productCode, dealerPrice, userPrice, retailPrice,
-                                    session.UserId, remarks, country, reorderLevel, effectiveDate, clearingStock);
+                                        session.UserId, remarks, country, reorderLevel, effectiveDate, clearingStock);
+
+                                if (!string.IsNullOrEmpty(productList))
+                                    productList = productList + ",<br/>" + productCode;
+                                else
+                                    productList = productCode;
                             }
                         }
                         rowIndex++;
@@ -414,6 +441,7 @@ namespace GMSWeb.Sales.Sales
             return sheet;
         }
         #endregion
+
         #region btnSearch_Click
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -516,6 +544,7 @@ namespace GMSWeb.Sales.Sales
             }
         }
         #endregion
+
         #region Current Price list Rad grid
         protected void RadGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
@@ -665,6 +694,7 @@ namespace GMSWeb.Sales.Sales
         protected void lnkApprove_Click(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
+            GMSGeneralDALC ggdal = new GMSGeneralDALC();
             LinkButton btn = (LinkButton)(sender);
             string[] arg = new string[4];
             arg = btn.CommandArgument.ToString().Split(',');
@@ -682,6 +712,7 @@ namespace GMSWeb.Sales.Sales
                 pp_new.Status = "";
                 pp_new.Save();
                 alertMessage("Price is updated.");
+                ggdal.UpdatePriceList();
                 ProductNoticeViaEmail(productCode, productGroupName, email, "Approved", pmName);
                 RetrieveProduct();
             }
