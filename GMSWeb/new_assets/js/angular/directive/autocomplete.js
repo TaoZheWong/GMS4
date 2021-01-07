@@ -28,6 +28,8 @@ app.directive('customAutoComplete', function ($http, $filter) {
                             contentType: 'application/json; characterset=utf-8',
                             method: 'POST'
                         }).then(function (result) {
+                            console.log(result);
+                            result.data = result.data.hasOwnProperty('d') ? result.data.d : result.data;
                             resp(result.data.Params.data);
                         });
                     }

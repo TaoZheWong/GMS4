@@ -109,6 +109,7 @@
                 "url": "Default.aspx/GetListOfMRRequiresApprovalByUserNumId",
                 "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             }
@@ -144,6 +145,7 @@
                 "url": "Default.aspx/GetListOfMRRequiresProductManagerApprovalByUserNumId",
                 "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             };
@@ -179,6 +181,7 @@
                 "url": "Default.aspx/GetListOfMRWithoutETDInfoByUserNumId",
                 "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             };
@@ -214,6 +217,7 @@
                 "url": "Default.aspx/GetListOfRejectedMRByUserNumId",
                 "data": function (data) { return JSON.stringify({ 'CompanyID': CoyID, 'UserID': UserID }); },
                 "dataSrc": function (json) {
+                    json = json.hasOwnProperty('d') ? json.d : json;
                     return json;
                 }
             };
