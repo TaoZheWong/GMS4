@@ -128,7 +128,7 @@ namespace GMSWeb.Reports.Report
 
             string javaScript =
 @"
-<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>
+<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>
 ";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
 
@@ -177,7 +177,8 @@ namespace GMSWeb.Reports.Report
                 }
                 catch (Exception ex)
                 {
-                    month = 4;
+                    year = Convert.ToInt16((int.Parse(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue) + 1).ToString());
+                    month = 3;
                 }
                 DataSet dsProjects = new DataSet();
                 dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
@@ -266,7 +267,8 @@ namespace GMSWeb.Reports.Report
                 }
                 catch (Exception ex)
                 {
-                    month = Convert.ToInt16(DateTime.Now.Month);
+                    year = Convert.ToInt16((int.Parse(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue) + 1).ToString());
+                    month = 3;
                 }
 
                 dacl.GetCompanyDepartment(session.CompanyId, selectedvalue, 0, loginUserOrAlternateParty, year, month, ref dsDepartments);
@@ -331,7 +333,8 @@ namespace GMSWeb.Reports.Report
                 }
                 catch (Exception ex)
                 {
-                    month = Convert.ToInt16(DateTime.Now.Month);
+                    year = Convert.ToInt16((int.Parse(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue) + 1).ToString());
+                    month = 3;
                 }
 
 

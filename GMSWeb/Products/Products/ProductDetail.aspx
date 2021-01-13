@@ -151,6 +151,14 @@
                            <asp:Label runat="server" ID="lblRprice"></asp:Label>
                         </label>
                     </div>
+                     <div class="form-group col-lg-12 col-sm-12 col-md-12">
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           Effective Date
+                        </label>
+                        <label class="col-sm-6 col-lg-6 control-label text-left">
+                           <asp:Label runat="server" ID="lblEffectiveDate"></asp:Label>
+                        </label>
+                    </div>
                     <div id="PMRegion1" runat="server" class="form-group col-lg-12 col-sm-12 col-md-12">
                             <label class="col-sm-6 col-lg-6 control-label text-left">
                                 Weighted Cost

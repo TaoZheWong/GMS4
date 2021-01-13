@@ -225,9 +225,9 @@ function InsertUpdateProjectInfo(){
 function pdfprint(type){
     var ProjectNo = getProjectNo();
     if (type == "PC")
-        jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=ProjectCosting_'+getCoyID()+'&&TRNNO=' + ProjectNo.replace('#', '') + '&&REPORTID=-7');
+        jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=ProjectCosting_'+getCoyID()+'&&TRNNO=' + ProjectNo.replace('#', '') + '&&REPORTID=-7');
     else if (type == "MR")
-    jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=ProjectCostingMR_' + getCoyID() + '&&TRNNO=' + ProjectNo.replace('#', '') + '&&REPORTID=-8');
+    jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=ProjectCostingMR_' + getCoyID() + '&&TRNNO=' + ProjectNo.replace('#', '') + '&&REPORTID=-8');
 }
 
 function jsOpenOperationalReport( url )

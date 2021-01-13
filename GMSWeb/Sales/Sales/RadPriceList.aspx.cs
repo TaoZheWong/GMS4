@@ -79,7 +79,6 @@ namespace GMSWeb.Sales.Sales
             operationGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Undo, ShowLabel = true });
             operationGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Redo, ShowLabel = true });
             operationGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Filter, ShowLabel = true });
-            operationGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.InsertImage, ShowLabel = true });
             homeToolBarTab.Groups.Add(operationGroup);
 
             SpreadsheetToolbarGroup fontGroup = new SpreadsheetToolbarGroup();
@@ -199,6 +198,7 @@ namespace GMSWeb.Sales.Sales
                 row.Cells[4].Enable = false;
                 row.Cells[6].Enable = false;
                 row.Cells[8].Enable = false;
+                row.Cells[14].Enable = false;
                 //number validate
                 row.Cells[3].Format = "#.00";
                 row.Cells[5].Format = "#.00";
@@ -218,6 +218,7 @@ namespace GMSWeb.Sales.Sales
                 row.Cells[11].TextAlign = "center";
                 row.Cells[12].TextAlign = "right";
                 row.Cells[13].TextAlign = "right";
+                row.Cells[14].TextAlign = "right";
                 //Validation
                 row.Cells[3].Validation = new Validation()
                 {
