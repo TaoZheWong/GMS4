@@ -256,6 +256,16 @@
                     <div class="table-responsive" style="overflow: auto">
                         <asp:HiddenField ID="HiddenField1" runat="server" />
                         <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet1">
+						 <Toolbar>
+                                <telerik:SpreadsheetToolbarTab Text="Tool">
+                                    <telerik:SpreadsheetToolbarGroup>
+                                        <telerik:SpreadsheetTool Name="ExportAs" />
+                                        <telerik:SpreadsheetTool Name="FontSize" />
+                                        <telerik:SpreadsheetTool Name="Undo" />
+                                        <telerik:SpreadsheetTool Name="Redo" />
+                                    </telerik:SpreadsheetToolbarGroup>
+                                </telerik:SpreadsheetToolbarTab>
+                            </Toolbar>
                         </telerik:RadSpreadsheet>
                     </div>
                 </div>
@@ -282,6 +292,16 @@
                             OnClick="btnB2F_Click" OnClientClicked="OnClientClicked2" SingleClick="true" SingleClickText="Updating...">
                         </telerik:RadButton>
                         <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet2" OnClientChange="OnClientChangeB12">
+						 <Toolbar>
+                                <telerik:SpreadsheetToolbarTab Text="Tool">
+                                    <telerik:SpreadsheetToolbarGroup>
+                                        <telerik:SpreadsheetTool Name="ExportAs" />
+                                        <telerik:SpreadsheetTool Name="FontSize" />
+                                        <telerik:SpreadsheetTool Name="Undo" />
+                                        <telerik:SpreadsheetTool Name="Redo" />
+                                    </telerik:SpreadsheetToolbarGroup>
+                                </telerik:SpreadsheetToolbarTab>
+                            </Toolbar>
                         </telerik:RadSpreadsheet>
                     </div>
                 </div>
@@ -307,6 +327,16 @@
                         <telerik:RadButton runat="server" ID="btnB3B" Text="Submit" CssClass="pull-right btn-lg m-l-5 bg-danger largeFont" Skin="Bootstrap"
                             OnClick="btnB3B_Click" OnClientClicked="OnClientClicked3" SingleClick="true" SingleClickText="Updating..." />
                         <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet3" OnClientChange="OnClientChangeB13">
+						 <Toolbar>
+                                <telerik:SpreadsheetToolbarTab Text="Tool">
+                                    <telerik:SpreadsheetToolbarGroup>
+                                        <telerik:SpreadsheetTool Name="ExportAs" />
+                                        <telerik:SpreadsheetTool Name="FontSize" />
+                                        <telerik:SpreadsheetTool Name="Undo" />
+                                        <telerik:SpreadsheetTool Name="Redo" />
+                                    </telerik:SpreadsheetToolbarGroup>
+                                </telerik:SpreadsheetToolbarTab>
+                            </Toolbar>
                         </telerik:RadSpreadsheet>
                     </div>
                 </div>
@@ -329,6 +359,16 @@
                     <div class="table-responsive" style="overflow: auto">
                         <asp:HiddenField ID="HiddenField4" runat="server" />
                         <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet4">
+						 <Toolbar>
+                                <telerik:SpreadsheetToolbarTab Text="Tool">
+                                    <telerik:SpreadsheetToolbarGroup>
+                                        <telerik:SpreadsheetTool Name="ExportAs" />
+                                        <telerik:SpreadsheetTool Name="FontSize" />
+                                        <telerik:SpreadsheetTool Name="Undo" />
+                                        <telerik:SpreadsheetTool Name="Redo" />
+                                    </telerik:SpreadsheetToolbarGroup>
+                                </telerik:SpreadsheetToolbarTab>
+                            </Toolbar>
                         </telerik:RadSpreadsheet>
                     </div>
                 </div>
@@ -354,6 +394,16 @@
                         <telerik:RadButton runat="server" ID="btnB5F" Text="Submit" CssClass="pull-right btn-lg m-l-5 bg-danger largeFont" Skin="Bootstrap"
                             OnClick="btnB5F_Click" OnClientClicked="OnClientClicked5" SingleClick="true" SingleClickText="Updating..." />
                         <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet5" OnClientChange="OnClientChangeB15">
+						 <Toolbar>
+                                <telerik:SpreadsheetToolbarTab Text="Tool">
+                                    <telerik:SpreadsheetToolbarGroup>
+                                        <telerik:SpreadsheetTool Name="ExportAs" />
+                                        <telerik:SpreadsheetTool Name="FontSize" />
+                                        <telerik:SpreadsheetTool Name="Undo" />
+                                        <telerik:SpreadsheetTool Name="Redo" />
+                                    </telerik:SpreadsheetToolbarGroup>
+                                </telerik:SpreadsheetToolbarTab>
+                            </Toolbar>
                         </telerik:RadSpreadsheet>
                     </div>
                 </div>
@@ -381,6 +431,16 @@
                         <telerik:RadButton runat="server" ID="btnGPB16" Text="Update GP" CssClass="pull-right btn-lg m-l-5 bg-success largeFont" Skin="Bootstrap"
                             OnClick="btnGPB16_Click" OnClientClicked="OnClientClicked6" SingleClick="true" SingleClickText="GP Updating..." />
                         <telerik:RadSpreadsheet runat="server" ID="RadSpreadsheet6" OnClientChange="OnClientChangeB16">
+						 <Toolbar>
+                                <telerik:SpreadsheetToolbarTab Text="Tool">
+                                    <telerik:SpreadsheetToolbarGroup>
+                                        <telerik:SpreadsheetTool Name="ExportAs" />
+                                        <telerik:SpreadsheetTool Name="FontSize" />
+                                        <telerik:SpreadsheetTool Name="Undo" />
+                                        <telerik:SpreadsheetTool Name="Redo" />
+                                    </telerik:SpreadsheetToolbarGroup>
+                                </telerik:SpreadsheetToolbarTab>
+                            </Toolbar>
                         </telerik:RadSpreadsheet>
                     </div>
                 </div>

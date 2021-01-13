@@ -139,6 +139,15 @@ namespace GMSWeb.Products.Products {
         protected global::System.Web.UI.WebControls.Label lblRprice;
         
         /// <summary>
+        /// lblEffectiveDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEffectiveDate;
+        
+        /// <summary>
         /// PMRegion1 control.
         /// </summary>
         /// <remarks>

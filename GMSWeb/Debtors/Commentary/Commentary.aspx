@@ -387,7 +387,7 @@
                         </label>
                         <div class="col-sm-8">
                             <asp:TextBox runat="server" ID="txtComment" TextMode="MultiLine" Columns="30" Rows="5" onfocus="select();"
-                                CssClass="form-control" onkeyup="update();" MaxLength="10"></asp:TextBox>
+                                CssClass="form-control" onkeyup="update();" MaxLength="600"></asp:TextBox>
                         </div>
                     </div>
                     <input type="hidden" id="hidAccountCode" runat="server" value="" />

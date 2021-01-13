@@ -253,6 +253,7 @@ function ViewMultipleUOM()
                     double dealer = 0.00;
                     double user = 0.00;
                     double retail = 0.00;
+                    string effectiveDate = "";
                     if ((dsProductPrice != null))
 					{
 						this.dgData4.DataSource = dsProductPrice.Tables[0];
@@ -266,11 +267,16 @@ function ViewMultipleUOM()
                             user = double.Parse(dsProductPrice.Tables[0].Rows[0]["UserPrice"].ToString());
 
                         if (!string.IsNullOrEmpty(dsProductPrice.Tables[0].Rows[0]["RetailPrice"].ToString()))
-                            retail = double.Parse(dsProductPrice.Tables[0].Rows[0]["RetailPrice"].ToString());      
+                            retail = double.Parse(dsProductPrice.Tables[0].Rows[0]["RetailPrice"].ToString());
+
+                        if (!string.IsNullOrEmpty(dsProductPrice.Tables[0].Rows[0]["EffectiveDate"].ToString()) &&
+                         !(DateTime.Parse(dsProductPrice.Tables[0].Rows[0]["EffectiveDate"].ToString()).ToString("dd/MM/yyyy") == "01/01/1900"))
+                            effectiveDate = DateTime.Parse(dsProductPrice.Tables[0].Rows[0]["EffectiveDate"].ToString()).ToString("dd/MM/yyyy");
                     }
                     this.lblDprice.Text = dealer.ToString("0.00");
                     this.lblUprice.Text = user.ToString("0.00");
                     this.lblRprice.Text = retail.ToString("0.00");
+                    this.lblEffectiveDate.Text = effectiveDate;
                 }
 				catch (Exception ex)
 				{
