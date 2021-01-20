@@ -2863,7 +2863,7 @@ namespace GMSWeb.Sales.Sales
 			mail.IsBodyHtml = true;
 			mail.Body = "<p>Dear " + user.UserRealName + ",</p>" +
 						"<p>Please click the link below to approve or reject quotation " + quotationNo + ".<br />" +
-						"<a href=\"http://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Sales/Sales/AddEditQuotation.aspx?RANDOMID=" + randomId + "\">Click here.</a></p>" +
+						"<a href=\"http://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/Sales/Sales/AddEditQuotation.aspx?RANDOMID=" + randomId + "\">Click here.</a></p>" +
 
 						"***** This is a computer-generated email. Please do not reply.*****";
 			try

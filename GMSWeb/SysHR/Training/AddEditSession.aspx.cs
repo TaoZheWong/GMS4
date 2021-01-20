@@ -198,7 +198,7 @@ namespace GMSWeb.SysHR.Training
                         txtOtherCost.Text = courseSession.OtherCost.Value.ToString("#0.00");
                     if (courseSession.Remarks != null)
                         txtRemarks.Text = courseSession.Remarks;
-                    lnkCourseRegistration.NavigateUrl = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/CourseRegistration.aspx?COURSESESSIONID=" + courseSession.CourseSessionID;
+                    lnkCourseRegistration.NavigateUrl = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/SysHR/Training/CourseRegistration.aspx?COURSESESSIONID=" + courseSession.CourseSessionID;
                     lnkCourseRegistration.Text = "Click here to register new participants";
                 }
                 btnDuplicate.Visible = true;

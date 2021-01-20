@@ -18,7 +18,7 @@ namespace GMSWeb.SysHR.Training
                 {
                     string sessionid = Request.Params["COURSESESSIONID"].ToString();
 
-                    string path = "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=https://gms.leedenlimited.com/GMS3/SysHR/Training/TEFsignin.aspx?COURSESESSIONID=" + sessionid + "%0D%0A&chld=H|0";
+                    string path = "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=https://gms.leedenlimited.com/GMS4/SysHR/Training/TEFsignin.aspx?COURSESESSIONID=" + sessionid + "%0D%0A&chld=H|0";
 
                     this.Qrimage.Attributes["src"] = path;
                 }

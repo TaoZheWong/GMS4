@@ -117,7 +117,7 @@ namespace GMSWeb.Debtors.Debtors
 			function ViewInvoice(TrnNo,TrnType,DBVersion)
 			{			
 						
-						var url = '/GMS3/Sales/Sales/ViewSalesOrderPopUp.aspx?TrnNo='+TrnNo+'&TrnType='+TrnType+'&DBVersion='+DBVersion;
+						var url = '/GMS4/Sales/Sales/ViewSalesOrderPopUp.aspx?TrnNo='+TrnNo+'&TrnType='+TrnType+'&DBVersion='+DBVersion;
 						
 						detailWindow = window.open(url,"""",""width="" + 650 + "",height="" + 600 +"",resizable=yes,status=yes,menubar=no,scrollbars=yes"");	
 						return false;

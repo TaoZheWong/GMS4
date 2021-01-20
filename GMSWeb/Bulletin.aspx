@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>List of People - Staff</title>
-    <script language="javascript" type="text/javascript" src="/GMS3/scripts/popcalendar.js"></script>
+    <script language="javascript" type="text/javascript" src="/GMS4/scripts/popcalendar.js"></script>
     <script language="javascript" type="text/javascript">
     function addNews()
 			{					

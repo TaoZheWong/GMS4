@@ -22,8 +22,8 @@
                </td>
                <td align="right">
                    <h2 id="username">Welcome&nbsp;<asp:Label runat="server" ID="lblWelcome"></asp:Label>!&nbsp;&nbsp;|&nbsp;&nbsp;
-                   <a id="changePassword" href="/GMS3/Admin/Accounts/ChangePasswordNoFrame.aspx" target="_blank" title="Change password">Change Your Password Here</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                   <a id="changePassword" href="/GMS3/Logout.aspx" title="Sign Out">Sign Out</a>
+                   <a id="changePassword" href="/GMS4/Admin/Accounts/ChangePasswordNoFrame.aspx" target="_blank" title="Change password">Change Your Password Here</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                   <a id="changePassword" href="/GMS4/Logout.aspx" title="Sign Out">Sign Out</a>
                    </h2>
                </td>
                </tr>

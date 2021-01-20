@@ -170,13 +170,13 @@ $(document).ready(function() {
         
         $( "#PrintMR" ).on( "click dblclick", function() {  
             if(getViewPurchaseInfo() == "1")                
-                jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHead_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
+                jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHead_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
             else
-                jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHeadEmptyVendor_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
+                jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=MaterialRequisitionWithLetterHeadEmptyVendor_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
         });     
         
         $( "#PrintPO" ).on( "click dblclick", function() {            
-            jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=PurchaseOrder_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
+            jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT=PurchaseOrder_'+getCoyID()+'&TRNNO='+$('#mr-no').val() + '&REPORTID=-4');
         });
                        
         //When checkboxes/radios checked/unchecked, toggle background color
@@ -2099,16 +2099,16 @@ function OpenPopUp(mrno, po)
 {   
     var url = "";
     if($('#hidViewPurchaseInfo').val() == "1")
-        url = "https://gms.leedenlimited.com/GMS3/Products/Products/ViewPO.aspx?MRNo=" + mrno + "&TrnNo="+ po;
+        url = "https://gms.leedenlimited.com/GMS4/Products/Products/ViewPO.aspx?MRNo=" + mrno + "&TrnNo="+ po;
     else
-        url = "https://gms.leedenlimited.com/GMS3/Products/Products/ViewPOWithoutSupplierInfo.aspx?MRNo=" + mrno + "&TrnNo="+ po;
+        url = "https://gms.leedenlimited.com/GMS4/Products/Products/ViewPOWithoutSupplierInfo.aspx?MRNo=" + mrno + "&TrnNo="+ po;
         
    window.open(url,"","width=650,height=400,resizable=yes,status=yes,menubar=no,scrollbars=yes");	
 }   
 
 function Download(CoyID, fileName)
 {  
-    window.location = "https://gms.leedenlimited.com/GMS3/Products/Products/FileDownloadHandler.ashx?CompanyId="+CoyID+"&FileName="+fileName;
+    window.location = "https://gms.leedenlimited.com/GMS4/Products/Products/FileDownloadHandler.ashx?CompanyId="+CoyID+"&FileName="+fileName;
 }  
       
       

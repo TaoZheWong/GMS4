@@ -52,7 +52,7 @@ namespace GMSWeb.Sales.Sales
             }
 
             string javaScript =
-            @"<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>
+            @"<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>
                 <script language=""javascript"" type=""text/javascript"">
                     var txtNewProductCode_id;
                     function SearchProduct(ctl)

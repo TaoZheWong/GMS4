@@ -117,7 +117,7 @@ namespace GMSWeb.Reports.Report
                 RefreshCrystalReport();
             }
 
-            string javaScript = @"<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>";
+            string javaScript = @"<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
         }
 

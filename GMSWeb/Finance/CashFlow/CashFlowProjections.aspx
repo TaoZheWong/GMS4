@@ -28,7 +28,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
             </div>
             <div class="modal-body p-0">
-                <iframe name="" class="" frameborder="0" style="width: 100%;height:100%" src="/GMS3/Finance/CashFlow/CashFlowProjectionForWeekPopUp.aspx"></iframe>
+                <iframe name="" class="" frameborder="0" style="width: 100%;height:100%" src="/GMS4/Finance/CashFlow/CashFlowProjectionForWeekPopUp.aspx"></iframe>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
         //<!--
-        var GB_ROOT_DIR = "/GMS3/greybox/";
+        var GB_ROOT_DIR = "/GMS4/greybox/";
 
 
         //-->

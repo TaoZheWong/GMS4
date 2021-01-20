@@ -8,8 +8,8 @@
     <link href="../../App_Themes/default/style%20-%20Copy.css" type="text/css" rel="stylesheet">
     <link href="../../App_Themes/default/style.css" type="text/css" rel="stylesheet">
     <link href="../../App_Themes/default/style2011.css" type="text/css" rel="stylesheet">
-    <script type='text/javascript' src='/GMS3/scripts/popcalendar.js'></script>
-    <script type='text/javascript' src='/GMS3/scripts/date.js'></script> 
+    <script type='text/javascript' src='/GMS4/scripts/popcalendar.js'></script>
+    <script type='text/javascript' src='/GMS4/scripts/date.js'></script> 
     <script type='text/javascript'>
 	function btnSubmit_OnClick()
 	{

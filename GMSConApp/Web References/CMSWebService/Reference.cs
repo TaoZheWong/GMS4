@@ -120,6 +120,18 @@ namespace GMSConApp.CMSWebService {
         
         private System.Threading.SendOrPostCallback GetProductUOMOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetDeliveryOrderByDeliveryZoneOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetDeliveryOrderByDeliveryZoneByProductOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPendingSOOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetBatchSerialDOOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetBatchSerialUnpostedByProductCodeOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetUnpostedBatchSerialByProdCodeOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -292,6 +304,24 @@ namespace GMSConApp.CMSWebService {
         
         /// <remarks/>
         public event GetProductUOMCompletedEventHandler GetProductUOMCompleted;
+        
+        /// <remarks/>
+        public event GetDeliveryOrderByDeliveryZoneCompletedEventHandler GetDeliveryOrderByDeliveryZoneCompleted;
+        
+        /// <remarks/>
+        public event GetDeliveryOrderByDeliveryZoneByProductCompletedEventHandler GetDeliveryOrderByDeliveryZoneByProductCompleted;
+        
+        /// <remarks/>
+        public event GetPendingSOCompletedEventHandler GetPendingSOCompleted;
+        
+        /// <remarks/>
+        public event GetBatchSerialDOCompletedEventHandler GetBatchSerialDOCompleted;
+        
+        /// <remarks/>
+        public event GetBatchSerialUnpostedByProductCodeCompletedEventHandler GetBatchSerialUnpostedByProductCodeCompleted;
+        
+        /// <remarks/>
+        public event GetUnpostedBatchSerialByProdCodeCompletedEventHandler GetUnpostedBatchSerialByProdCodeCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetRecipe", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -1751,6 +1781,192 @@ namespace GMSConApp.CMSWebService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDeliveryOrderByDeliveryZone", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetDeliveryOrderByDeliveryZone(string RequiredDate) {
+            object[] results = this.Invoke("GetDeliveryOrderByDeliveryZone", new object[] {
+                        RequiredDate});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetDeliveryOrderByDeliveryZoneAsync(string RequiredDate) {
+            this.GetDeliveryOrderByDeliveryZoneAsync(RequiredDate, null);
+        }
+        
+        /// <remarks/>
+        public void GetDeliveryOrderByDeliveryZoneAsync(string RequiredDate, object userState) {
+            if ((this.GetDeliveryOrderByDeliveryZoneOperationCompleted == null)) {
+                this.GetDeliveryOrderByDeliveryZoneOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetDeliveryOrderByDeliveryZoneOperationCompleted);
+            }
+            this.InvokeAsync("GetDeliveryOrderByDeliveryZone", new object[] {
+                        RequiredDate}, this.GetDeliveryOrderByDeliveryZoneOperationCompleted, userState);
+        }
+        
+        private void OnGetDeliveryOrderByDeliveryZoneOperationCompleted(object arg) {
+            if ((this.GetDeliveryOrderByDeliveryZoneCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetDeliveryOrderByDeliveryZoneCompleted(this, new GetDeliveryOrderByDeliveryZoneCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetDeliveryOrderByDeliveryZoneByProduct", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetDeliveryOrderByDeliveryZoneByProduct(string RequiredDate) {
+            object[] results = this.Invoke("GetDeliveryOrderByDeliveryZoneByProduct", new object[] {
+                        RequiredDate});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetDeliveryOrderByDeliveryZoneByProductAsync(string RequiredDate) {
+            this.GetDeliveryOrderByDeliveryZoneByProductAsync(RequiredDate, null);
+        }
+        
+        /// <remarks/>
+        public void GetDeliveryOrderByDeliveryZoneByProductAsync(string RequiredDate, object userState) {
+            if ((this.GetDeliveryOrderByDeliveryZoneByProductOperationCompleted == null)) {
+                this.GetDeliveryOrderByDeliveryZoneByProductOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetDeliveryOrderByDeliveryZoneByProductOperationCompleted);
+            }
+            this.InvokeAsync("GetDeliveryOrderByDeliveryZoneByProduct", new object[] {
+                        RequiredDate}, this.GetDeliveryOrderByDeliveryZoneByProductOperationCompleted, userState);
+        }
+        
+        private void OnGetDeliveryOrderByDeliveryZoneByProductOperationCompleted(object arg) {
+            if ((this.GetDeliveryOrderByDeliveryZoneByProductCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetDeliveryOrderByDeliveryZoneByProductCompleted(this, new GetDeliveryOrderByDeliveryZoneByProductCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPendingSO", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetPendingSO(string userName, string salesPersonList, string cs, string sortBy, string sortingOrder) {
+            object[] results = this.Invoke("GetPendingSO", new object[] {
+                        userName,
+                        salesPersonList,
+                        cs,
+                        sortBy,
+                        sortingOrder});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPendingSOAsync(string userName, string salesPersonList, string cs, string sortBy, string sortingOrder) {
+            this.GetPendingSOAsync(userName, salesPersonList, cs, sortBy, sortingOrder, null);
+        }
+        
+        /// <remarks/>
+        public void GetPendingSOAsync(string userName, string salesPersonList, string cs, string sortBy, string sortingOrder, object userState) {
+            if ((this.GetPendingSOOperationCompleted == null)) {
+                this.GetPendingSOOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPendingSOOperationCompleted);
+            }
+            this.InvokeAsync("GetPendingSO", new object[] {
+                        userName,
+                        salesPersonList,
+                        cs,
+                        sortBy,
+                        sortingOrder}, this.GetPendingSOOperationCompleted, userState);
+        }
+        
+        private void OnGetPendingSOOperationCompleted(object arg) {
+            if ((this.GetPendingSOCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPendingSOCompleted(this, new GetPendingSOCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetBatchSerialDO", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetBatchSerialDO(string documentNo, string batchSerialNo) {
+            object[] results = this.Invoke("GetBatchSerialDO", new object[] {
+                        documentNo,
+                        batchSerialNo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetBatchSerialDOAsync(string documentNo, string batchSerialNo) {
+            this.GetBatchSerialDOAsync(documentNo, batchSerialNo, null);
+        }
+        
+        /// <remarks/>
+        public void GetBatchSerialDOAsync(string documentNo, string batchSerialNo, object userState) {
+            if ((this.GetBatchSerialDOOperationCompleted == null)) {
+                this.GetBatchSerialDOOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBatchSerialDOOperationCompleted);
+            }
+            this.InvokeAsync("GetBatchSerialDO", new object[] {
+                        documentNo,
+                        batchSerialNo}, this.GetBatchSerialDOOperationCompleted, userState);
+        }
+        
+        private void OnGetBatchSerialDOOperationCompleted(object arg) {
+            if ((this.GetBatchSerialDOCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetBatchSerialDOCompleted(this, new GetBatchSerialDOCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetBatchSerialUnpostedByProductCode", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetBatchSerialUnpostedByProductCode(string productCode) {
+            object[] results = this.Invoke("GetBatchSerialUnpostedByProductCode", new object[] {
+                        productCode});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetBatchSerialUnpostedByProductCodeAsync(string productCode) {
+            this.GetBatchSerialUnpostedByProductCodeAsync(productCode, null);
+        }
+        
+        /// <remarks/>
+        public void GetBatchSerialUnpostedByProductCodeAsync(string productCode, object userState) {
+            if ((this.GetBatchSerialUnpostedByProductCodeOperationCompleted == null)) {
+                this.GetBatchSerialUnpostedByProductCodeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBatchSerialUnpostedByProductCodeOperationCompleted);
+            }
+            this.InvokeAsync("GetBatchSerialUnpostedByProductCode", new object[] {
+                        productCode}, this.GetBatchSerialUnpostedByProductCodeOperationCompleted, userState);
+        }
+        
+        private void OnGetBatchSerialUnpostedByProductCodeOperationCompleted(object arg) {
+            if ((this.GetBatchSerialUnpostedByProductCodeCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetBatchSerialUnpostedByProductCodeCompleted(this, new GetBatchSerialUnpostedByProductCodeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetUnpostedBatchSerialByProdCode", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetUnpostedBatchSerialByProdCode(string productCode, string trackType) {
+            object[] results = this.Invoke("GetUnpostedBatchSerialByProdCode", new object[] {
+                        productCode,
+                        trackType});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetUnpostedBatchSerialByProdCodeAsync(string productCode, string trackType) {
+            this.GetUnpostedBatchSerialByProdCodeAsync(productCode, trackType, null);
+        }
+        
+        /// <remarks/>
+        public void GetUnpostedBatchSerialByProdCodeAsync(string productCode, string trackType, object userState) {
+            if ((this.GetUnpostedBatchSerialByProdCodeOperationCompleted == null)) {
+                this.GetUnpostedBatchSerialByProdCodeOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetUnpostedBatchSerialByProdCodeOperationCompleted);
+            }
+            this.InvokeAsync("GetUnpostedBatchSerialByProdCode", new object[] {
+                        productCode,
+                        trackType}, this.GetUnpostedBatchSerialByProdCodeOperationCompleted, userState);
+        }
+        
+        private void OnGetUnpostedBatchSerialByProdCodeOperationCompleted(object arg) {
+            if ((this.GetUnpostedBatchSerialByProdCodeCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetUnpostedBatchSerialByProdCodeCompleted(this, new GetUnpostedBatchSerialByProdCodeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -2926,6 +3142,162 @@ namespace GMSConApp.CMSWebService {
         private object[] results;
         
         internal GetProductUOMCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetDeliveryOrderByDeliveryZoneCompletedEventHandler(object sender, GetDeliveryOrderByDeliveryZoneCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetDeliveryOrderByDeliveryZoneCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetDeliveryOrderByDeliveryZoneCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetDeliveryOrderByDeliveryZoneByProductCompletedEventHandler(object sender, GetDeliveryOrderByDeliveryZoneByProductCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetDeliveryOrderByDeliveryZoneByProductCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetDeliveryOrderByDeliveryZoneByProductCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetPendingSOCompletedEventHandler(object sender, GetPendingSOCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPendingSOCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPendingSOCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetBatchSerialDOCompletedEventHandler(object sender, GetBatchSerialDOCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetBatchSerialDOCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetBatchSerialDOCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetBatchSerialUnpostedByProductCodeCompletedEventHandler(object sender, GetBatchSerialUnpostedByProductCodeCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetBatchSerialUnpostedByProductCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetBatchSerialUnpostedByProductCodeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetUnpostedBatchSerialByProdCodeCompletedEventHandler(object sender, GetUnpostedBatchSerialByProdCodeCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetUnpostedBatchSerialByProdCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetUnpostedBatchSerialByProdCodeCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

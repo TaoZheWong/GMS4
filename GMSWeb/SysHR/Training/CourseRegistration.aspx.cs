@@ -1213,7 +1213,7 @@ namespace GMSWeb.SysHR.Training
                         "<tr><td>Course Date</td><td>:</td><td>" + eCourse.CourseSessionObject.DateFrom.Value.ToString("dd/MM/yyyy HH:mm") + " to " + eCourse.CourseSessionObject.DateTo.Value.ToString("dd/MM/yyyy HH:mm") + "</td></tr>" +
                         "<tr><td>Employee Enrolled</td><td>:</td><td>" + eCourse.EmployeeObject.Name + "</td></tr></table></p>" +
                         "<p>Please click the link below to confirm your registration. Please ignore this Email if you have not registered for this course." + ".<br />" +
-                        "<a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/CourseRegistration.aspx?RANDOMID=" + fa.ApprovalRandomID + "&FORMTYPE=PRETR" + "\">Click here.</a></p>" +
+                        "<a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/SysHR/Training/CourseRegistration.aspx?RANDOMID=" + fa.ApprovalRandomID + "&FORMTYPE=PRETR" + "\">Click here.</a></p>" +
 
                         "***** This is a computer-generated email. Please do not reply.*****";
             try
@@ -1368,7 +1368,7 @@ namespace GMSWeb.SysHR.Training
                         "<tr><td>Course Date</td><td>:</td><td>" + eCourse.CourseSessionObject.DateFrom.Value.ToString("dd/MM/yyyy HH:mm") + " to " + eCourse.CourseSessionObject.DateTo.Value.ToString("dd/MM/yyyy HH:mm") + "</td></tr>" +
                         "<tr><td>Employee Enrolled</td><td>:</td><td>" + eCourse.EmployeeObject.Name + "</td></tr></table></p>" +
                         "<p>Please click the link below to approve or reject the enrolment." + ".<br />" +
-                        "<a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/CourseRegistration.aspx?RANDOMID=" + fa.ApprovalRandomID + "&FORMTYPE=TR" + "\">Click here.</a></p>" +
+                        "<a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/SysHR/Training/CourseRegistration.aspx?RANDOMID=" + fa.ApprovalRandomID + "&FORMTYPE=TR" + "\">Click here.</a></p>" +
 
                         "***** This is a computer-generated email. Please do not reply.*****";
             try
@@ -1403,7 +1403,7 @@ namespace GMSWeb.SysHR.Training
             mail.IsBodyHtml = true;
             mail.Body = "<p>Dear " + userRealName + ",</p>\n" +
                         "<p>The course registration submitted by " + applicantName + " has been approved.\n<br /></p>" +
-                //"<a href=\"http://sgcitrix.leedenlimited.com/GMS3/SysHR/Training/AddEditCEF.aspx?CEFID=" + eCourse.CEFID.ToString() + "\">Click here to view.</a></p>\n" +
+                //"<a href=\"http://sgcitrix.leedenlimited.com/GMS4/SysHR/Training/AddEditCEF.aspx?CEFID=" + eCourse.CEFID.ToString() + "\">Click here to view.</a></p>\n" +
                         "<p><table><tr><td>Course Provider</td><td>:</td><td>" + eCourse.CourseSessionObject.CourseObject.CourseOrganizerObject.OrganizerName + "</td></tr>" +
                         "<tr><td>Course Title</td><td>:</td><td>" + eCourse.CourseSessionObject.CourseObject.CourseTitle + "</td></tr>" +
                         "<tr><td>Course Date</td><td>:</td><td>" + eCourse.CourseSessionObject.DateFrom.Value.ToString("dd/MM/yyyy HH:mm") + " to " + eCourse.CourseSessionObject.DateTo.Value.ToString("dd/MM/yyyy HH:mm") + "</td></tr>" +
@@ -2242,7 +2242,7 @@ namespace GMSWeb.SysHR.Training
             mail.IsBodyHtml = true;
             mail.Body = "<p>Dear " + eCourse.EmployeeObject.Name + ",</p>" +
                         "<p>Please click the below link to fill up your training evaluation form. </p>" +
-                        "<p><a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/AddEditTEF.aspx?RANDOMID=" + fa.ApprovalRandomID + "\">Click here.</a></p>" +
+                        "<p><a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/SysHR/Training/AddEditTEF.aspx?RANDOMID=" + fa.ApprovalRandomID + "\">Click here.</a></p>" +
 
                         "***** This is a computer-generated email. Please do not reply.*****";
             try
@@ -2279,7 +2279,7 @@ namespace GMSWeb.SysHR.Training
             mail.IsBodyHtml = true;
             mail.Body = "<p>Dear " + eCourse.EmployeeObject.SuperiorObject.Name + ",</p>" +
                         "<p>Please click the below link to fill up the post training evaluation form. </p>" +
-                        "<p><a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/SysHR/Training/CourseRegistration.aspx?RANDOMID=" + fa.ApprovalRandomID + "&FORMTYPE=PTEF" + "\">Click here.</a></p>" +
+                        "<p><a href=\"https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/SysHR/Training/CourseRegistration.aspx?RANDOMID=" + fa.ApprovalRandomID + "&FORMTYPE=PTEF" + "\">Click here.</a></p>" +
 
                         "***** This is a computer-generated email. Please do not reply.*****";
             try

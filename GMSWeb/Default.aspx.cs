@@ -160,9 +160,9 @@ namespace GMSWeb
                         "<br />" +
                         "<p>Access GMS: <a href=\"http://" +
                         (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue +
-                        "/GMS3/\">https://" +
+                        "/GMS4/\">https://" +
                         (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue +
-                        "/GMS3/</a></p>\n" +
+                        "/GMS4/</a></p>\n" +
                         "***** This is a computer-generated email. Please do not reply.*****";
 
             try

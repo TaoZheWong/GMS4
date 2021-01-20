@@ -64,8 +64,8 @@ namespace GMSWeb.Debtors.Commentary
 
 			string javaScript =
 			@"
-<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>
-<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/date.js""></script>
+<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>
+<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/date.js""></script>
 <uctrl:Header ID=""MySiteHeader"" runat=""server"" EnableViewState=""true"" />
 <script language=""javascript"" type=""text/javascript"">
 	function btnSearch_OnClick()

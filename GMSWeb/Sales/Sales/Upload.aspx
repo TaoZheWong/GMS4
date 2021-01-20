@@ -96,7 +96,7 @@
                                     <asp:TemplateColumn HeaderText="URL" SortExpression="FileName" HeaderStyle-Wrap="false" >
                                         <ItemTemplate>
 
-                                            <%# "http://gms.leedenlimited.com/GMS3/GetFile.aspx?ID=" + Eval("CoyID") + "&FileID=" + Eval("FileName")%>
+                                            <%# "http://gms.leedenlimited.com/GMS4/GetFile.aspx?ID=" + Eval("CoyID") + "&FileID=" + Eval("FileName")%>
                                             <input type="hidden" id="hidDocumentID" runat="server" value='<%# Eval("DocumentID")%>' />
                                         </ItemTemplate>
                                     </asp:TemplateColumn>

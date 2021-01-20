@@ -375,7 +375,7 @@ namespace GMSWeb
                 session.SAPKEY = newCoy.SAPKEY;
                 session.SAPDB = newCoy.SAPDB;
                 string appPath = HttpRuntime.AppDomainAppVirtualPath;
-                //string appPath = "https://gms.leedenlimited.com/GMS3";
+                //string appPath = "https://gms.leedenlimited.com/GMS4";
                 //Response.Redirect(appPath+"/CompanyRoute.aspx?Type="+ companyId);
                 //commented by OSS 12 Sep 2011
                 //if (oldCoy.CountryID != 9 && newCoy.CountryID == 9)

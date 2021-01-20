@@ -21,7 +21,7 @@
     
     function OpenFullScreenWindow() {
             var caption = "Cash Flow Projection";
-            var url = "/GMS3/Finance/CashFlow/CashFlowProjPopUp.aspx";
+            var url = "/GMS4/Finance/CashFlow/CashFlowProjPopUp.aspx";
             return GB_showFullScreen(caption, url, callback_fn)
     }
     

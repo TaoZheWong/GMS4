@@ -11,7 +11,7 @@
  
 function jsOpenOperationalReport(url)
 {
-    if (url.indexOf('GMS3') < 0)
+    if (url.indexOf('GMS4') < 0)
         url = sDOMAIN + "/" + url;
 	jsWinOpen2( url, 795, 580, 'yes');
 }  
@@ -52,7 +52,7 @@ function PopulateForm(item, tablename, modal, itemkey, itemno, functionname)
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
-            url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/" + functionname,  
+            url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/" + functionname,  
             data: "{'CompanyId' : "+CoyID + ",'MRNo': '" + MRNo + "'}",
             success: function(json) {               
                 localStorage.setItem( 'DataTables_'+ tablename +'_'+itemno, JSON.stringify(json));
@@ -250,7 +250,7 @@ function CheckAccount(item, callback)
  
     $.ajax({
                 async       : true,
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/CheckAccountCode",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/CheckAccountCode",
                 data: "{'CompanyId' : "+CoyID + ",UserId: "+ UserId+", 'AccountCode': '" + item + "'}",
                 dataType: "json",
                 type: "POST",
@@ -281,7 +281,7 @@ function GetCompany(callback)
     var urlink = get_hostname(window.location.href);
     
     $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetCompany",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetCompany",
                 data: "{'CompanyId' : "+CoyID + "}",
                 dataType: "json",
                 type: "POST",
@@ -302,7 +302,7 @@ function CheckProduct(item, callback)
     var urlink = get_hostname(window.location.href);
     var CoyID = getCoyID();  
     $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/CheckProductCode",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/CheckProductCode",
                 data: "{'CompanyId' : "+CoyID + ",'ProdCode': '" + item + "'}",
                 dataType: "json",
                 type: "POST",
@@ -326,7 +326,7 @@ function CheckPrice(unitsellingPrice, sellingcurrency, unitpurchasePrice, purcha
     var urlink = get_hostname(window.location.href);
     var CoyID = getCoyID();  
     $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetConvertedSellingAndPurchasePrice",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetConvertedSellingAndPurchasePrice",
                 data: "{'CompanyId' : "+CoyID + ",'SellingPrice': '" + unitsellingPrice + "','SellingCurrency': '" + sellingcurrency + "','PurchasePrice': '" + unitpurchasePrice + "','PurchaseCurrency': '" + purchasecurrency + "'}",
                 dataType: "json",
                 type: "POST",
@@ -354,7 +354,7 @@ var urlink = get_hostname(window.location.href);
 $(item).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetAccountList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetAccountList",
                 data: "{'CompanyId' : "+CoyID + ", 'UserId':"+UserId+", 'account': '" + item.value + "', 'exact': false, 'accounttype':'"+ accounttype +"'}",
                 dataType: "json",
                 type: "POST",
@@ -457,7 +457,7 @@ var urlink = get_hostname(window.location.href);
 $(item).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetProductList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetProductList",
                 data: "{'CompanyId' : "+CoyID + ", 'product': '" + item.value + "', 'approver1': '" + $('#approver1-id').val() + "', 'approver2': '" + $('#approver2-id').val() + "', 'approver3': '" + $('#approver3-id').val() + "', 'approver4': '" + $('#approver4-id').val() + "', 'exact': false }",
                 dataType: "json",
                 type: "POST",
@@ -572,7 +572,7 @@ var urlink = get_hostname(window.location.href);
 $(item).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetUOMList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetUOMList",
                 data: "{'CompanyId' : "+CoyID + ", 'uom': '" + item.value + "' }",
                 dataType: "json",
                 type: "POST",
@@ -626,7 +626,7 @@ var urlink = get_hostname(window.location.href);
 $(item).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetProductGroupList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetProductGroupList",
                 data: "{'CompanyId' : "+CoyID + ", 'productgroupcode': '" + item.value + "' }",
                 dataType: "json",
                 type: "POST",
@@ -680,7 +680,7 @@ var urlink = get_hostname(window.location.href);
 $(item).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetProductTeamByProductGroup",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetProductTeamByProductGroup",
                 data: "{ 'CompanyId' : "+CoyID + ", 'productgroupcode': '" + productgroupcode + "' }",
                 dataType: "json",
                 type: "POST",
@@ -749,7 +749,7 @@ var urlink = get_hostname(window.location.href);
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetCurrencyList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetCurrencyList",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",              
@@ -794,7 +794,7 @@ function GetRequestor(a){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetRequestorList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetRequestorList",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -830,7 +830,7 @@ function GetRequestor(a){
             {
                 // Get Approver 1
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -850,7 +850,7 @@ function GetRequestor(a){
                 
                 // Get Approver 2
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -870,7 +870,7 @@ function GetRequestor(a){
                 
                 // Get Approver 3
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -890,7 +890,7 @@ function GetRequestor(a){
                 
                 // Get Approver 4
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/CheckApproverUser",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -936,7 +936,7 @@ function GetApprover1(a, fill, Approver2ID, Approver2, Approver3ID, Approver3, A
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetApprover1List",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetApprover1List",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -980,7 +980,7 @@ function GetApprover1(a, fill, Approver2ID, Approver2, Approver3ID, Approver3, A
             {
                 // Set Approver 2
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -1027,7 +1027,7 @@ function SetApprover3(Approver2ID, Approver3ID, Approver3)
             {
                 // Set Approver 3
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -1062,7 +1062,7 @@ function GetApprover2(a, fill, fillNextID, fillNextText){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetApprover2List",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetApprover2List",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -1100,7 +1100,7 @@ function GetApprover2(a, fill, fillNextID, fillNextText){
             {
                 // Set Approver 3
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -1137,7 +1137,7 @@ function GetApprover3(a, fill, fillNextID, fillNextText){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetApprover3List",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetApprover3List",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -1171,7 +1171,7 @@ function GetApprover3(a, fill, fillNextID, fillNextText){
              $('#'+fill).val(i.item.text); 
              // Set Approver 4
                 $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetNextApprover",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",  
@@ -1206,7 +1206,7 @@ function GetApprover4(a, fill){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetApprover4List",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetApprover4List",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -1253,7 +1253,7 @@ function GetPurchaser(a){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetPurchaserList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetPurchaserList",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -1300,7 +1300,7 @@ function GetWarehouse(a) {
     $(a).autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetWarehouseList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetWarehouseList",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -1379,7 +1379,7 @@ function GetProductInfo1(a)
     var urlink = get_hostname(window.location.href);
      $.ajax({
                 async       : true,
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDynamicContent",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetDynamicContent",
                 data: "{'CompanyId' : "+CoyID + ",'ProdCode': '" + item + "', 'UserId':"+getUserID()+",'AccountCode': '" + AccountCode + "'}",
                 dataType: "json",
                 type: "POST",
@@ -1403,7 +1403,7 @@ function GetProductInfo(item, a, UserId, AccountCode)
     var urlink = get_hostname(window.location.href);
      $.ajax({
                 async       : true,
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDynamicContent",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetDynamicContent",
                 data: "{'CompanyId' : "+CoyID + ",'ProdCode': '" + item + "', 'UserId':"+UserId+",'AccountCode': '" + AccountCode + "'}",
                 dataType: "json",
                 type: "POST",
@@ -1425,7 +1425,7 @@ function GetGRNInfo(item, a, mrno, UserId)
      var urlink = get_hostname(window.location.href);
      $.ajax({
                 async       : true,
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetGRNInfo",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetGRNInfo",
                 data: "{'CompanyId' : "+CoyID + ",'PONo': '" + item + "','MRNo': '" + mrno + "', 'UserId':"+UserId+"}",
                 dataType: "json",
                 type: "POST",
@@ -1507,7 +1507,7 @@ function GetMRStatus(a){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetMRStatusList",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetMRStatusList",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -1558,7 +1558,7 @@ function GetTaxType(a){
     $(a).autocomplete({
         source: function(request, response) {
             $.ajax({
-                url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetTaxType",
+                url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetTaxType",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
@@ -1612,7 +1612,7 @@ function PopulateProductItem(item)
         $.ajax({
             async       : true,
             type        : "POST",
-            url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetProductList",
+            url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetProductList",
             data: "{'CompanyId' : "+CoyID + ", 'product': '" + item.value + "', 'approver1': '" + $('#approver1-id').val() + "', 'approver2': '" + $('#approver2-id').val() + "', 'approver3': '" + $('#approver3-id').val() + "', 'approver4': '" + $('#approver4-id').val() + "','exact': true }",
             contentType : "application/json; charset=utf-8",
             dataType    : "json",
