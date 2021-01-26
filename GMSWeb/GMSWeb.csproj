@@ -85,6 +85,7 @@
     <Content Include="App_Themes\Default\style.css" />
     <Content Include="Budget\Budget.aspx" />
     <Content Include="Budget\BudgetExercise.aspx" />
+    <Content Include="Budget\HrBudget.aspx" />
     <Content Include="Claim\claim_detail.js" />
     <Content Include="Claim\Detail.aspx" />
     <Content Include="Claim\Default.aspx" />
@@ -1368,6 +1369,13 @@
     </Compile>
     <Compile Include="Budget\BudgetExercise.aspx.designer.cs">
       <DependentUpon>BudgetExercise.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Budget\HrBudget.aspx.cs">
+      <DependentUpon>HrBudget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Budget\HRBudget.aspx.designer.cs">
+      <DependentUpon>HrBudget.aspx</DependentUpon>
     </Compile>
     <Compile Include="Bulletin.aspx.cs">
       <DependentUpon>Bulletin.aspx</DependentUpon>

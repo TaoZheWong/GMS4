@@ -314,7 +314,7 @@ namespace GMSWeb.Sales.Sales
 
                 try
                 {
-                    if (statusType == "A21")
+                    if (session.StatusType == "A")
                     {
                         GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
                         if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
@@ -325,7 +325,7 @@ namespace GMSWeb.Sales.Sales
                             sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                         ds = sc.GetInvoiceProductDesc(session.CompanyId, hidDoNo.Value, hidDOType.Value, hidSrNo.Value, GMSUtil.ToShort(hidDBVersion));
                     }
-                    else if (statusType == "LMS")
+                    else if (session.StatusType == "L")
                     {
                         CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
                         if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")

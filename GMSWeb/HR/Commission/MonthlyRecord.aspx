@@ -438,6 +438,7 @@
 				<asp:ListItem Value="C07 - Monthly GP For Salesman">Monthly GP For Salesman</asp:ListItem>
                 <asp:ListItem Value="C08 - CommissionEntitlementReportforSGC">Commission Entitlement Report for SGC</asp:ListItem>
                 <asp:ListItem Value="CommissionPayableControlReport">Commission Payable Control Report</asp:ListItem>
+                <asp:ListItem Value="CommissionForLazada">Commission For Lazada</asp:ListItem>
 			</asp:DropDownList>
         </div>
     </div>

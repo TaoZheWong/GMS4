@@ -5551,6 +5551,81 @@ namespace GMSCore
             return;
         }
         #endregion
+
+        #region SelectHrBudgetDim
+        public void SelectHrBudgetDim(short companyId, short usernumid, string type, short year, short d1, short d2, short d3,  ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppHrBudgetDimSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@Dim1", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@Dim2", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@Dim3", SqlDbType.SmallInt).Value = d3;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region SelectHrBudgetReport
+        public void SelectHrBudgetReport(short companyId, short usernumid, string type, short year, short d1, short d2, short d3,short d4,string budgetType, ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppHrBudgetSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = usernumid;
+            command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+            command.Parameters.Add("@BudgetType", SqlDbType.NVarChar).Value = budgetType;
+            command.Parameters.Add("@Dim1", SqlDbType.SmallInt).Value = d1;
+            command.Parameters.Add("@Dim2", SqlDbType.SmallInt).Value = d2;
+            command.Parameters.Add("@Dim3", SqlDbType.SmallInt).Value = d3;
+            command.Parameters.Add("@Dim4", SqlDbType.SmallInt).Value = d4;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+        #endregion
+
+        #region DeleteHrBudget
+        public void DeleteHrBudget(short coyid, short year, short d1, short d2, short d3, short d4, string type)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlDataReader rdr = null;
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand("procAppHrBudgetDelete", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
+                command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
+                command.Parameters.Add("@Dim1", SqlDbType.SmallInt).Value = d1;
+                command.Parameters.Add("@Dim2", SqlDbType.SmallInt).Value = d2;
+                command.Parameters.Add("@Dim3", SqlDbType.SmallInt).Value = d3;
+                command.Parameters.Add("@Dim4", SqlDbType.SmallInt).Value = d4;
+                command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+                rdr = command.ExecuteReader();
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+                if (rdr != null)
+                {
+                    rdr.Close();
+                }
+            }
+
+            return;
+        }
+        #endregion
     }
 
 }
