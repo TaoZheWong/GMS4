@@ -12,7 +12,7 @@ namespace GMSWeb.Procurement.Records
     {
         protected void btn_SendMessage_Click(object sender, EventArgs e)
         {
-            SmtpClient smtpClient = new SmtpClient("localhost/GMS3/Procurement/Records/mail.aspx", 25);
+            SmtpClient smtpClient = new SmtpClient("localhost/GMS4/Procurement/Records/mail.aspx", 25);
 
             smtpClient.Credentials = new System.Net.NetworkCredential("yvonne.lim@leedennox.com", "leeden123");
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;

@@ -252,7 +252,7 @@ namespace GMSWeb.HR.Staff
             {
                 string selectedReport = "StaffInfo";                
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Report1",
-                    string.Format("jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT={0}&&TRNNO=" + this.employeeNo + "&&REPORTID=-5');",
+                    string.Format("jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT={0}&&TRNNO=" + this.employeeNo + "&&REPORTID=-5');",
                                         selectedReport)
                                         , true);
                 LoadData();

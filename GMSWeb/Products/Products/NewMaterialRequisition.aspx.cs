@@ -216,9 +216,9 @@ namespace GMSWeb.Products.Products
            
 
             string javaScript =
-             @"<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>
-               <script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/Common.js""></script>
-               <script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/importing.js""></script>
+             @"<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>
+               <script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/Common.js""></script>
+               <script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/importing.js""></script>
                
                 <script language=""javascript"" type=""text/javascript"">
                     
@@ -5142,7 +5142,7 @@ namespace GMSWeb.Products.Products
         {
 
             string selectedReport = ddlReport.SelectedValue;  
-            ScriptManager.RegisterClientScriptBlock(upOutter, this.GetType(), "Report1", string.Format("jsOpenOperationalReport('/GMS3/Finance/BankFacilities/PdfReportViewer.aspx?REPORT={0}&&TRNNO=" + this.lblMRNo.Text.Trim() + "&&REPORTID=-4');", selectedReport), true);
+            ScriptManager.RegisterClientScriptBlock(upOutter, this.GetType(), "Report1", string.Format("jsOpenOperationalReport('/GMS4/Finance/BankFacilities/PdfReportViewer.aspx?REPORT={0}&&TRNNO=" + this.lblMRNo.Text.Trim() + "&&REPORTID=-4');", selectedReport), true);
              LoadData();
         }   
         
@@ -5283,7 +5283,7 @@ namespace GMSWeb.Products.Products
         protected void GenerateReport(object sender, EventArgs e)
         {        
             string selectedReport = ddlReport.SelectedValue;
-            ScriptManager.RegisterClientScriptBlock(upOutter, this.GetType(), "Report1", string.Format("jsOpenOperationalReport('/GMS3/Finance/BankFacilities/ReportViewer.aspx?REPORT={0}&&TRNNO=" + this.lblMRNo.Text.Trim() + "&&REPORTID=-4');", selectedReport), true);
+            ScriptManager.RegisterClientScriptBlock(upOutter, this.GetType(), "Report1", string.Format("jsOpenOperationalReport('/GMS4/Finance/BankFacilities/ReportViewer.aspx?REPORT={0}&&TRNNO=" + this.lblMRNo.Text.Trim() + "&&REPORTID=-4');", selectedReport), true);
             LoadData();            
             ScriptManager.RegisterClientScriptBlock(upOutter, this.GetType(), "Report1", string.Format("SendAttach();", selectedReport), true);
         }

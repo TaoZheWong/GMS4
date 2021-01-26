@@ -1310,7 +1310,7 @@
         <td colspan = "3"> 
         <br />     
         <FTB:FreeTextBox ID="FTBContent"       
-        SupportFolder="/GMS3/FreeTextBox/" 
+        SupportFolder="/GMS4/FreeTextBox/" 
 	    JavaScriptLocation="ExternalFile"	    
 	    ButtonImagesLocation="ExternalFile"
         runat="server" Text=""

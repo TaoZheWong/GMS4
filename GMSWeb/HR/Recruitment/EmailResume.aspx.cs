@@ -24,7 +24,7 @@ namespace GMSWeb.HR.Recruitment
 
         protected void btn_SendMessage_Click(object sender, EventArgs e)
         {
-            string linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/HR/Recruitment/ViewPage.aspx?ID=" + Request.Params["ID"].ToString() + "&FileName=" + Request.Params["FileName"].ToString();
+            string linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/HR/Recruitment/ViewPage.aspx?ID=" + Request.Params["ID"].ToString() + "&FileName=" + Request.Params["FileName"].ToString();
             string emailTo = txtTo.Text.ToString();
             string ccTo = txtCC.Text.ToString();
             string hr = Decrypt(Request.Params["HRinCharge"].ToString());

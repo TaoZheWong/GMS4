@@ -9,7 +9,7 @@
 <head id="Head1" runat="server">
     <title>List of People - Add New Staff</title>
 
-    <script language="javascript" type="text/javascript" src="/GMS3/scripts/popcalendar.js"></script>
+    <script language="javascript" type="text/javascript" src="/GMS4/scripts/popcalendar.js"></script>
     <script language="javascript" type="text/javascript" >
     function ConfirmSendEmail()
     {

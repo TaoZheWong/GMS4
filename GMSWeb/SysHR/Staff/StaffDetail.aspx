@@ -44,7 +44,7 @@
     <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
     <meta http-equiv="PRAGMA" content="NO-CACHE" />
 
-    <script language="javascript" type="text/javascript" src="/GMS3/scripts/popcalendar.js"></script>
+    <script language="javascript" type="text/javascript" src="/GMS4/scripts/popcalendar.js"></script>
     <script language="javascript" type="text/javascript">
         function ConfirmSendEmail(button) {
             if (document.getElementById("dlData_ctl00_rdEditInactive").checked) {

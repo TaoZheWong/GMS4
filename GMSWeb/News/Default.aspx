@@ -30,7 +30,7 @@ However, it can be used in other internet browsers such as <b>Google Chrome</b>,
     <p>As a result of this, the URL address to access GMS has now been changed from: </p>
     <p><a href="https://gms.leedenlimited.com/GMS"><b>https://gms.leedenlimited.com/GMS</b></a> </p>
     <p>to</p>
-    <p><a href="https://gms.leedenlimited.com/GMS3"><b>https://gms.leedenlimited.com/GMS<font color="red">2</font></b></a></p>
+    <p><a href="https://gms.leedenlimited.com/GMS4"><b>https://gms.leedenlimited.com/GMS<font color="red">2</font></b></a></p>
     <p>Please update the GMS bookmark(if any) in your browser or shortcut to point to the new address.</p>
     <p>Should you have any queries, please do not hesitate to contact me: <a href="mailto:adam.lee@leedennox.com">adam.lee@leedennox.com</a>(ext. 871)</p>
     <p><i>Cheers, Adam Lee</i></p>

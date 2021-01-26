@@ -1005,6 +1005,138 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetDeliveryOrderByDeliveryZone">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequiredDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderByDeliveryZoneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryOrderByDeliveryZoneResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderByDeliveryZoneByProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequiredDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryOrderByDeliveryZoneByProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryOrderByDeliveryZoneByProductResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingSO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="salesPersonList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cs" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sortBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sortingOrder" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPendingSOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPendingSOResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchSerialDO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="documentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="batchSerialNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchSerialDOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBatchSerialDOResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchSerialUnpostedByProductCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchSerialUnpostedByProductCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBatchSerialUnpostedByProductCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUnpostedBatchSerialByProdCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="productCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trackType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUnpostedBatchSerialByProdCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUnpostedBatchSerialByProdCodeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="GetRecipeSoapIn">
@@ -1277,6 +1409,42 @@
   <wsdl:message name="GetProductUOMSoapOut">
     <wsdl:part name="parameters" element="tns:GetProductUOMResponse" />
   </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderByDeliveryZoneSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderByDeliveryZone" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderByDeliveryZoneSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderByDeliveryZoneResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderByDeliveryZoneByProductSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderByDeliveryZoneByProduct" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryOrderByDeliveryZoneByProductSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOrderByDeliveryZoneByProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingSOSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPendingSO" />
+  </wsdl:message>
+  <wsdl:message name="GetPendingSOSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPendingSOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchSerialDOSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBatchSerialDO" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchSerialDOSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBatchSerialDOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchSerialUnpostedByProductCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBatchSerialUnpostedByProductCode" />
+  </wsdl:message>
+  <wsdl:message name="GetBatchSerialUnpostedByProductCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBatchSerialUnpostedByProductCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUnpostedBatchSerialByProdCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUnpostedBatchSerialByProdCode" />
+  </wsdl:message>
+  <wsdl:message name="GetUnpostedBatchSerialByProdCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUnpostedBatchSerialByProdCodeResponse" />
+  </wsdl:message>
   <wsdl:portType name="CMSWebServiceSoap">
     <wsdl:operation name="GetRecipe">
       <wsdl:input message="tns:GetRecipeSoapIn" />
@@ -1457,6 +1625,30 @@
     <wsdl:operation name="GetProductUOM">
       <wsdl:input message="tns:GetProductUOMSoapIn" />
       <wsdl:output message="tns:GetProductUOMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByDeliveryZone">
+      <wsdl:input message="tns:GetDeliveryOrderByDeliveryZoneSoapIn" />
+      <wsdl:output message="tns:GetDeliveryOrderByDeliveryZoneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByDeliveryZoneByProduct">
+      <wsdl:input message="tns:GetDeliveryOrderByDeliveryZoneByProductSoapIn" />
+      <wsdl:output message="tns:GetDeliveryOrderByDeliveryZoneByProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingSO">
+      <wsdl:input message="tns:GetPendingSOSoapIn" />
+      <wsdl:output message="tns:GetPendingSOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchSerialDO">
+      <wsdl:input message="tns:GetBatchSerialDOSoapIn" />
+      <wsdl:output message="tns:GetBatchSerialDOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchSerialUnpostedByProductCode">
+      <wsdl:input message="tns:GetBatchSerialUnpostedByProductCodeSoapIn" />
+      <wsdl:output message="tns:GetBatchSerialUnpostedByProductCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnpostedBatchSerialByProdCode">
+      <wsdl:input message="tns:GetUnpostedBatchSerialByProdCodeSoapIn" />
+      <wsdl:output message="tns:GetUnpostedBatchSerialByProdCodeSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CMSWebServiceSoap" type="tns:CMSWebServiceSoap">
@@ -1866,6 +2058,60 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByDeliveryZone">
+      <soap:operation soapAction="http://tempuri.org/GetDeliveryOrderByDeliveryZone" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByDeliveryZoneByProduct">
+      <soap:operation soapAction="http://tempuri.org/GetDeliveryOrderByDeliveryZoneByProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingSO">
+      <soap:operation soapAction="http://tempuri.org/GetPendingSO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchSerialDO">
+      <soap:operation soapAction="http://tempuri.org/GetBatchSerialDO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchSerialUnpostedByProductCode">
+      <soap:operation soapAction="http://tempuri.org/GetBatchSerialUnpostedByProductCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnpostedBatchSerialByProdCode">
+      <soap:operation soapAction="http://tempuri.org/GetUnpostedBatchSerialByProdCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="CMSWebServiceSoap12" type="tns:CMSWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -2267,6 +2513,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductUOM">
       <soap12:operation soapAction="http://tempuri.org/GetProductUOM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByDeliveryZone">
+      <soap12:operation soapAction="http://tempuri.org/GetDeliveryOrderByDeliveryZone" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOrderByDeliveryZoneByProduct">
+      <soap12:operation soapAction="http://tempuri.org/GetDeliveryOrderByDeliveryZoneByProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPendingSO">
+      <soap12:operation soapAction="http://tempuri.org/GetPendingSO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchSerialDO">
+      <soap12:operation soapAction="http://tempuri.org/GetBatchSerialDO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchSerialUnpostedByProductCode">
+      <soap12:operation soapAction="http://tempuri.org/GetBatchSerialUnpostedByProductCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnpostedBatchSerialByProdCode">
+      <soap12:operation soapAction="http://tempuri.org/GetUnpostedBatchSerialByProdCode" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

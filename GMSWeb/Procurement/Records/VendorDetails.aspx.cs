@@ -47,7 +47,7 @@ namespace GMSWeb.Procurement.Records
             }
 
             string javaScript =
-            @"<script language=""javascript"" type=""text/javascript"" src=""/GMS3/scripts/popcalendar.js""></script>";
+            @"<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>";
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
         }
@@ -268,11 +268,11 @@ namespace GMSWeb.Procurement.Records
             var companyName = vendorApplicationForm1.VendorObject.CompanyName;
             var email = vendorApplicationForm1.VendorObject.Email;
             string appPath = HttpRuntime.AppDomainAppVirtualPath;
-            var linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
+            var linktopass = "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
             //localhost
             //"localhost" + appPath + "/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
 
-            //lnkVendorEvaluation.Text = lnkVendorEvaluation.NavigateUrl =  "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS3/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
+            //lnkVendorEvaluation.Text = lnkVendorEvaluation.NavigateUrl =  "https://" + (new SystemParameterActivity()).RetrieveSystemParameterByParameterName("Domain").ParameterValue + "/GMS4/Procurement/Forms/VendorEvaluationForm1.aspx?RANDOMID=" + randomID + "&FORMID=" + vendorformid.FormID.ToString();
 
             SystemDataActivity sDataActivity = new SystemDataActivity();
             GMSCore.Entity.VendorApplicationForm vendorAppForm = sDataActivity.RetrieveVendorApplicationFormByVendorID(GMSUtil.ToInt(hidNewVendorID.Value.Trim()));

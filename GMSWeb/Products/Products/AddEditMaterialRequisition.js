@@ -2343,7 +2343,7 @@ function ImportRecipe(item) {
         $.ajax({
             async: true,
             type: "POST",
-            url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/ImportRecipeInfo",
+            url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/ImportRecipeInfo",
             data: "{'CompanyId' : " + CoyID + ", 'recipeno': '" + item.value + "'}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -2410,7 +2410,7 @@ function GetDim1(callback) {
     $.ajax({
         async: true,
         type: "POST",
-        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim1",
+        url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetDim1",
         data: "{'CompanyId' : '" + CoyID + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -2443,7 +2443,7 @@ function GetDim2(projectid, callback) {
     $.ajax({
         async: true,
         type: "POST",
-        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim2",
+        url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetDim2",
         data: "{'CompanyId' : '" + CoyID + "', 'ProjectId' : '" + projectid + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -2477,7 +2477,7 @@ function GetDim3(departmentid, callback) {
     $.ajax({
         async: true,
         type: "POST",
-        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim3",
+        url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetDim3",
         data: "{'CompanyId' : '" + CoyID + "', 'DepartmentId' : '" + departmentid + "','MrDate' :'" + $('#mr-date').val() + "','Userid':'" + UserId + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -2510,7 +2510,7 @@ function GetDim4(sectionid, callback) {
     $.ajax({
         async: true,
         type: "POST",
-        url: urlink + "/GMS3/Products/Products/AddEditMaterialRequisition.aspx/GetDim4",
+        url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/GetDim4",
         data: "{'CompanyId' : '" + CoyID + "', 'SectionId' : '" + sectionid + "'}",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
