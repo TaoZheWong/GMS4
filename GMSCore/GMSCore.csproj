@@ -141,6 +141,8 @@
     <Compile Include="Entity\AccountCommRecord.Generated.cs">
       <DependentUpon>AccountCommRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\HrBudget.cs" />
+    <Compile Include="Entity\HrBudget.Generated.cs" />
     <Compile Include="Entity\MonthlyPerformance.cs" />
     <Compile Include="Entity\MonthlyPerformance.Generated.cs">
       <DependentUpon>MonthlyPerformance.cs</DependentUpon>

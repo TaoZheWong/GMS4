@@ -69,23 +69,26 @@ namespace GMSWeb.Products.Products
             if (session.StatusType.ToString() == "L")
             {
                 CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
-                if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
-                    sc1.Url = session.CMSWebServiceAddress.Trim();
-                else
-                    sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                if (session.CompanyId != 120)
+                {
+                    if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.CMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                }else
+                {
+                    if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.GASLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
 
-                if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
-                    sc1.Url = session.GASLMSWebServiceAddress.Trim();
-                else
-                    sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.WSDLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                }
 
                 dsUnpostBatchSerial = sc1.GetUnpostBatchSerial(productCode, this.type);
-
-                if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
-                    sc1.Url = session.WSDLMSWebServiceAddress.Trim();
-                else
-                    sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-
                 dsUnpostBatchSerial_lms = sc1.GetUnpostBatchSerial(productCode, this.type);
             }
 

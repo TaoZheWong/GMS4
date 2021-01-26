@@ -438,7 +438,7 @@ namespace GMSWeb
 
 
                  "<li class='has-sub recruitment-menu'>" +
-                    "<a href =\"" + appPath + "/UnderConstruction.aspx?ModuleID=CompanyHR\">" +
+                    "<a href =\"" + appPath + "/Budget/HrBudget.aspx?CurrentLink=CompanyHR\">" +
                     "<i class='ti-shield'></i>" +
                     "<span>Budget</span>" +
                     "</a>" +
