@@ -690,7 +690,6 @@ namespace GMSWeb.Sales.Sales
             }
         }
 
-
         #region lnkApprove_Click
         protected void lnkApprove_Click(object sender, EventArgs e)
         {

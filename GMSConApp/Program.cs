@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Text;
 namespace GMSConApp
 {
@@ -2045,7 +2046,7 @@ namespace GMSConApp
                         tempProductName = dr["ProductName"].ToString().Replace("'", "''");
 
                         oDAL.GMS_Insert_PurchaseDetail(CoyID,
-                        GMSUtil.ToDate(dr["TrnDate"].ToString()),
+                        DateTime.ParseExact(dr["TrnDate"].ToString(), "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture),
                         dr["RefNo"].ToString().Replace("'", "''"),
                         dr["AccountCode"].ToString(),
                         dr["AccountName"].ToString(),

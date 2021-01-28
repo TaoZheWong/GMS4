@@ -180,7 +180,7 @@
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="lblSN" EnableViewState="true" Text='<%# (Container.ItemIndex + 1) + ((dgData.CurrentPageIndex) * dgData.PageSize)  %>'>
                                             </asp:Label>
-                                            <input type="hidden" id="hidSrNo" runat="server" value='<%# Eval("SrNo")%>' /><input type="hidden" id="hidDoNo" runat="server" value='<%# Eval("DONo")%>' /><input type="hidden" id="hidDOType" runat="server" value='<%# Eval("DOType")%>' />
+                                            <input type="hidden" id="hidSrNo" runat="server" value='<%# Eval("SrNo")%>' /><input type="hidden" id="hidDoNo" runat="server" value='<%# Eval("TrnNo")%>' /><input type="hidden" id="hidDOType" runat="server" value='<%# Eval("DOType")%>' />
                                         </ItemTemplate>
                                     </asp:TemplateColumn>
                                     <asp:TemplateColumn HeaderText="Product Code">

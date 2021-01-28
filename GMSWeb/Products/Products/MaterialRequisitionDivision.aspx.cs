@@ -60,12 +60,12 @@ namespace GMSWeb.Products.Products
                         session.DefaultWarehouse = "W02";
                         session.DimensionL1 = "WSD";
                     }
-                    Response.Redirect("MaterialRequisitionSearch.aspx?CurrentLink=" + currentLink);
+                    Response.Redirect("MaterialRequisitionSearch.aspx?v1=9&CurrentLink=" + currentLink);
                 }
             }
             else
             {               
-                Response.Redirect("MaterialRequisitionSearch.aspx?CurrentLink=" + currentLink);
+                Response.Redirect("MaterialRequisitionSearch.aspx?v1=9&CurrentLink=" + currentLink);
             }
 
 
@@ -108,7 +108,7 @@ namespace GMSWeb.Products.Products
             session.MRScheme = "Department";
             session.DefaultWarehouse = "G02";
             session.DimensionL1 = "GAS";
-            Response.Redirect("MaterialRequisitionSearch.aspx?CurrentLink=" + currentLink);
+            Response.Redirect("MaterialRequisitionSearch.aspx?v1=9&CurrentLink=" + currentLink);
         }
 
         protected void btnWelding_Click(object sender, EventArgs e)
@@ -117,7 +117,7 @@ namespace GMSWeb.Products.Products
             session.MRScheme = "Product";
             session.DefaultWarehouse = "W02";
             session.DimensionL1 = "WSD";
-            Response.Redirect("MaterialRequisitionSearch.aspx?CurrentLink=" + currentLink);
+            Response.Redirect("MaterialRequisitionSearch.aspx?v1=9&CurrentLink=" + currentLink);
         }
     }
 }
