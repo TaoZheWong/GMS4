@@ -54,7 +54,8 @@ function PopulateForm(item, tablename, modal, itemkey, itemno, functionname)
             type: "POST",
             url: urlink + "/GMS4/Products/Products/AddEditMaterialRequisition.aspx/" + functionname,  
             data: "{'CompanyId' : "+CoyID + ",'MRNo': '" + MRNo + "'}",
-            success: function(json) {               
+            success: function (json) {
+                json = json.hasOwnProperty('d') ? json.d : json;
                 localStorage.setItem( 'DataTables_'+ tablename +'_'+itemno, JSON.stringify(json));
                 SetFormValue(item, tablename, modal, itemkey, itemno);  
                                     
@@ -256,7 +257,8 @@ function CheckAccount(item, callback)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(JSON.stringify(data) == "[]")
                         callback(false);
                     else
@@ -287,7 +289,8 @@ function GetCompany(callback)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                      callback(data);   
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -308,7 +311,8 @@ function CheckProduct(item, callback)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(JSON.stringify(data) == "[]")
                         callback(false);
                     else
@@ -333,7 +337,7 @@ function CheckPrice(unitsellingPrice, sellingcurrency, unitpurchasePrice, purcha
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
                 success: function(data) {
-                   
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(parseFloat(data[0].SellingPrice) < parseFloat(data[0].PurchasePrice))
                         callback(false);
                     else
@@ -361,7 +365,7 @@ $(item).autocomplete({
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
                 success: function(data) {                
-                    
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -464,7 +468,7 @@ $(item).autocomplete({
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
                 success: function(data) {
-                   
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(JSON.stringify(data) == "[]")
                     {    
                         $('#ProdCode').val("");                      
@@ -578,7 +582,8 @@ $(item).autocomplete({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -632,7 +637,8 @@ $(item).autocomplete({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -686,7 +692,8 @@ $(item).autocomplete({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -753,7 +760,8 @@ var urlink = get_hostname(window.location.href);
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",              
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -799,7 +807,8 @@ function GetRequestor(a){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
                 data: "{CompanyId : "+CoyID+",UserId: "+ UserId+", 'MRScheme': '" + getMRScheme() + "'}",          
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -836,6 +845,7 @@ function GetRequestor(a){
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 1, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {  
                                       
                      $('#approver1-id').val(item.UserNumId);                 
@@ -856,6 +866,7 @@ function GetRequestor(a){
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 2, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {  
                                      
                      $('#approver2-id').val(item.UserNumId);                 
@@ -876,6 +887,7 @@ function GetRequestor(a){
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 3, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {  
                                    
                      $('#approver3-id').val(item.UserNumId);                 
@@ -896,6 +908,7 @@ function GetRequestor(a){
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 4, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {  
                                   
                      $('#approver4-id').val(item.UserNumId);                 
@@ -942,7 +955,7 @@ function GetApprover1(a, fill, Approver2ID, Approver2, Approver3ID, Approver3, A
                 contentType: "application/json; charset=utf-8",    
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + UserId + ", 'UserRealName': '" + a.value + "', 'MRScheme': '" + MRScheme + "'}",
                 success: function (data) {
-                   
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         alert('a');
                         var result = [{
@@ -986,7 +999,7 @@ function GetApprover1(a, fill, Approver2ID, Approver2, Approver3ID, Approver3, A
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 0, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
-                    
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function (item) {
                        
                      $('#' + Approver2ID).val(item.UserNumId);
@@ -1033,6 +1046,7 @@ function SetApprover3(Approver2ID, Approver3ID, Approver3)
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + Approver2ID + ", 'Seq': 1, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function (item) {
                         if (Approver2ID != item.UserNumId)
                         {
@@ -1068,7 +1082,7 @@ function GetApprover2(a, fill, fillNextID, fillNextText){
                 contentType: "application/json; charset=utf-8",    
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + UserId + ", 'UserRealName': '" + a.value + "', 'MRScheme': '" + getMRScheme() + "' }",
                 success: function(data) {
-                    
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1106,6 +1120,7 @@ function GetApprover2(a, fill, fillNextID, fillNextText){
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 1, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {  
                      $('#'+fillNextID).val(item.UserNumId);
                      $('#'+fillNextText).val(item.UserRealName);   
@@ -1142,7 +1157,8 @@ function GetApprover3(a, fill, fillNextID, fillNextText){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + UserId + ", 'UserRealName': '" + a.value + "', 'MRScheme': '" + getMRScheme() + "' }",
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1177,6 +1193,7 @@ function GetApprover3(a, fill, fillNextID, fillNextText){
                 contentType: "application/json; charset=utf-8",  
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + i.item.text + ", 'Seq': 2, 'MRScheme': '" + getMRScheme() + "' }",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $.map(data, function(item) {  
                      $('#'+fillNextID).val(item.UserNumId);
                      $('#'+fillNextText).val(item.UserRealName);   
@@ -1211,7 +1228,8 @@ function GetApprover4(a, fill){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
                 data: "{'CompanyId' : " + CoyID + ",'UserId': " + UserId + ", 'UserRealName': '" + a.value + "', 'MRScheme': '" + getMRScheme() + "' }",
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1258,7 +1276,8 @@ function GetPurchaser(a){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
                 data: "{CompanyId : "+CoyID + "}",          
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1306,6 +1325,7 @@ function GetWarehouse(a) {
                 contentType: "application/json; charset=utf-8",
                 data: "{CompanyId : " + CoyID + "}",
                 success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if (!data) {
                         var result = [{
                             label: 'No matches found',
@@ -1385,7 +1405,8 @@ function GetProductInfo1(a)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $(a).attr('data-content', data);
                     $('[data-toggle="popover"]').popover();                                        
                          
@@ -1409,7 +1430,8 @@ function GetProductInfo(item, a, UserId, AccountCode)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $(a).attr('data-content', data);
                     $('[data-toggle="popover"]').popover();                                        
                          
@@ -1431,7 +1453,8 @@ function GetGRNInfo(item, a, mrno, UserId)
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function(data) { return data; },
-                success: function(data) {                    
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     $(a).attr('data-content', data);
                     $('[data-toggle="popover"]').popover();                                        
                          
@@ -1513,7 +1536,7 @@ function GetMRStatus(a){
                 contentType: "application/json; charset=utf-8",    
                 data: "{'CompanyId' : "+CoyID+",'Status': '"+ a.value +"' }",          
                 success: function(data) {
-                   
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1563,7 +1586,8 @@ function GetTaxType(a){
                 type: "POST",
                 contentType: "application/json; charset=utf-8",    
                 data: "{CompanyId : "+CoyID+"}",          
-                success: function(data) {
+                success: function (data) {
+                    data = data.hasOwnProperty('d') ? data.d : data;
                     if(!data){
                         var result = [{
                             label: 'No matches found', 
@@ -1617,7 +1641,7 @@ function PopulateProductItem(item)
             contentType : "application/json; charset=utf-8",
             dataType    : "json",
             success: function (data) {
-
+                data = data.hasOwnProperty('d') ? data.d : data;
                 if (JSON.stringify(data) == "[]") {
                     $('#ProdCode').val("");
                     $('#ProdName').val("");
