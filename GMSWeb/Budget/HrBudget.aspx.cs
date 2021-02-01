@@ -125,9 +125,12 @@ namespace GMSWeb.Budget
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             LoadHrTemplate();
+
             LoadB52Spreadsheet("B");
             LoadB52Spreadsheet("F");
             LoadB52Spreadsheet("A");
+
+            this.hidType.Value = this.ddlType.SelectedValue;
 
             string yearFormat = this.hidYear.Value + "/" + (int.Parse(this.hidYear.Value) + 1).ToString().Substring(2);
 
@@ -228,28 +231,27 @@ namespace GMSWeb.Budget
             GMSGeneralDALC ggdal = new GMSGeneralDALC();
             var workbook = Workbook.FromJson(HiddenField1.Value);
 
-            for (int i = 0; i < 1; i++)
-            {   //exclude title row
-                workbook.Sheets[0].Rows.Remove(workbook.Sheets[0].Rows[0]);
-            }
+           //remove title row as in telerik radspreadsheet hidden row is started with rows[0]
+            workbook.Sheets[0].Rows.Remove(workbook.Sheets[0].Rows[1]);
+            
             if (workbook.Sheets[0].Rows.Count > 0)
             {
                 try
                 {
-                    var rowCOA = workbook.Sheets[0].Rows[0];
-                    var rowQuarter = workbook.Sheets[0].Rows[1];
-                    var rowTotal = workbook.Sheets[0].Rows[2];
-
-                    string coaID = "";
+                    var rowID = workbook.Sheets[0].Rows[0];
+                    var rowCOA = workbook.Sheets[0].Rows[1];
+                    var rowQuarter = workbook.Sheets[0].Rows[2];
+                    var rowTotal = workbook.Sheets[0].Rows[3];
+                    int id = 0;
                     double total = 0;
-                    for (int i = 0; i < 28; i++)
+                    for (int i = 0; i < rowID.Cells.Count; i++)
                     {
-                        if (!(rowCOA.Cells[i].Value == null && rowTotal.Cells[i].Value == null))
+                        if (!(rowID.Cells[i].Value == null && rowTotal.Cells[i].Value == null))
                         {
-                            if (rowCOA.Cells[i].Value != null)
+                            if (rowID.Cells[i].Value != null)
                             {
-                                if (!string.IsNullOrEmpty(rowCOA.Cells[i].Value.ToString()))
-                                    coaID = rowCOA.Cells[i].Value.ToString().Trim();
+                                if (!string.IsNullOrEmpty(rowID.Cells[i].Value.ToString()))
+                                    id = int.Parse(rowID.Cells[i].Value.ToString());
                             }
 
                             if (!string.IsNullOrEmpty(rowTotal.Cells[i].Value.ToString()))
@@ -258,14 +260,33 @@ namespace GMSWeb.Budget
                             #region for Salary & Leave 
                             if (i == 0 || i == 1)//for salary & leave
                             {
-                                if (i == 1)
-                                    coaID = "8001";
+                                switch (hidType.Value)
+                                {
+                                    case "A":
+                                        id = 55;
+                                        break;
+                                    case "B":
+                                        id = 55;
+                                        break;
+                                    case "C":
+                                        id = 55;
+                                        break;
+                                    case "D":
+                                        id = 55;
+                                        break;
+                                    case "E":
+                                        id = 55;
+                                        break;
+                                    default:
+                                        id = 0;
+                                        break;
+                                }
 
-                                if (rowQuarter.Cells[i].Value.ToString() == "1Q")//1Q will distribute to Apr,May,Jun only
+                                if (rowQuarter.Cells[i].Value.ToString() == "1Q")//1Q will be distribute to Apr,May,Jun only
                                 {
                                     for (short j = 4; j <= 6; j++)
                                     {
-                                        HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, year, j, coaID, budgetType);
+                                        HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, year, j, id, budgetType);
                                         if (hb != null)
                                         {
                                             hb.Total = total;
@@ -284,7 +305,7 @@ namespace GMSWeb.Budget
                                             newHb.Dim4 = dim4;
                                             newHb.tbYear = year;
                                             newHb.tbMonth = j;
-                                            newHb.COAID = coaID;
+                                            newHb.HrParentID = 0;
                                             newHb.Total = total;
                                             newHb.UpdatedBy = session.UserId;
                                             newHb.UpdatedDate = DateTime.Now;
@@ -311,7 +332,7 @@ namespace GMSWeb.Budget
                                             newYear = year;
                                         }
 
-                                        HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, newYear, short.Parse(newMonth.ToString()), coaID, budgetType);
+                                        HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, newYear, short.Parse(newMonth.ToString()), id, budgetType);
                                         if (hb != null)
                                         {
                                             hb.Total = total;
@@ -330,7 +351,7 @@ namespace GMSWeb.Budget
                                             newHb.Dim4 = dim4;
                                             newHb.tbYear = newYear;
                                             newHb.tbMonth = short.Parse(newMonth.ToString());
-                                            newHb.COAID = coaID;
+                                            newHb.HrParentID = id;
                                             newHb.Total = total;
                                             newHb.UpdatedBy = session.UserId;
                                             newHb.UpdatedDate = DateTime.Now;
@@ -359,7 +380,7 @@ namespace GMSWeb.Budget
                                         newYear = year;
                                     }
 
-                                    HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, newYear, short.Parse(newMonth.ToString()), coaID, budgetType);
+                                    HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, newYear, short.Parse(newMonth.ToString()), id, budgetType);
                                     if (hb != null)
                                     {
                                         hb.Total = total;
@@ -378,7 +399,7 @@ namespace GMSWeb.Budget
                                         newHb.Dim4 = dim4;
                                         newHb.tbYear = newYear;
                                         newHb.tbMonth = short.Parse(newMonth.ToString());
-                                        newHb.COAID = coaID;
+                                        newHb.HrParentID = id;
                                         newHb.Total = total;
                                         newHb.UpdatedBy = session.UserId;
                                         newHb.UpdatedDate = DateTime.Now;
@@ -454,9 +475,9 @@ namespace GMSWeb.Budget
                             hasFormula = !string.IsNullOrEmpty(row.Cells[7].Formula);
                         if (isRowChanged || hasFormula)//save only the row changed or cells with formula
                         {
-                            string coaid = "";
-                            if (!string.IsNullOrEmpty(row.Cells[1].Value.ToString()))
-                                coaid = row.Cells[1].Value.ToString().Trim();
+                            int hrparentid = 0;
+                            if (!string.IsNullOrEmpty(row.Cells[20].Value.ToString()))
+                                hrparentid = int.Parse(row.Cells[20].Value.ToString());
                             for (int i = 1; i <= 12; i++)
                             {
                                 if (budgetType == "F")//save only nov - mar un b52F
@@ -482,7 +503,7 @@ namespace GMSWeb.Budget
                                     if (!string.IsNullOrEmpty(row.Cells[i].Value.ToString()))
                                         value2 = double.Parse(row.Cells[i].Value.ToString());
                                 }
-                                HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, year_, short.Parse(i.ToString()), coaid, budgetType);
+                                HrBudget hb = HrBudget.RetrieveByKey(session.CompanyId, dim1, dim2, dim3, dim4, year_, short.Parse(i.ToString()), hrparentid, budgetType);
                                 if (hb != null)
                                 {
                                     if (i <= 3)
@@ -516,7 +537,7 @@ namespace GMSWeb.Budget
                                     newHb.Dim4 = dim4;
                                     newHb.tbYear = year_;
                                     newHb.tbMonth = short.Parse(i.ToString());
-                                    newHb.COAID = coaid;
+                                    newHb.HrParentID = hrparentid;
                                     if (i <= 3)
                                         newHb.Total = value;
                                     else
@@ -1043,10 +1064,15 @@ namespace GMSWeb.Budget
                             for (int j = 11; j <= 15; j++)//for nov to mar month column
                             {
                                 string formula = "";
-                                string sn = row.Cells[0].Value.ToString();
-                                //determine row that has new 
-                                List<string> sameAsLastMonth = new List<string> { "1", "2", "6", "7" };
-                                if (sameAsLastMonth.Contains(sn))
+                                string id = row.Cells[20].Value.ToString().Trim();
+                                //determine row that follow oct data by itemid
+                                List<string> sameAsLastMonth = new List<string> { "55", "56", "58", "60",
+                                                                                "71","72","74","76",
+                                                                                "92","93","113","114",
+                                                                                "116","117","28","29",
+                                                                                "34","35","135","136",
+                                                                                "138","138","1","2","7","8"};
+                                if (sameAsLastMonth.Contains(id))
                                     formula = "IFERROR(K" + (i + 1).ToString() + ",0)";
                                 else
                                     formula = "IFERROR(AVERAGE(E" + (i + 1).ToString() + ":K" + (i + 1).ToString() + "),0)";

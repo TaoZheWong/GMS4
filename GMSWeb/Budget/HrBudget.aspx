@@ -149,6 +149,7 @@ Click 'Ok' to Proceed." />
         </telerik:RadButton>
         <asp:HiddenField runat="server" ID="hidYear" />
         <asp:HiddenField runat="server" ID="hidBudgetYear" />
+        <asp:HiddenField runat="server" ID="hidType" />
     </div>
 
     <telerik:RadTabStrip RenderMode="Lightweight" ID="RadTabStrip1" Visible="false" OnClientTabSelected="OnClientTabSelected" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" Skin="Bootstrap" Width="100%">
@@ -159,7 +160,7 @@ Click 'Ok' to Proceed." />
             </telerik:RadTab>
             <telerik:RadTab runat="server" Text="B52B" PageViewID="PageView3">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="Data Processing" PageViewID="PageView1">
+            <telerik:RadTab runat="server" Text="Data Processing" PageViewID="PageView1" Visible="false">
             </telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>
@@ -321,16 +322,19 @@ Click 'Ok' to Proceed." />
             var activeSheet = spreadsheet.get_activeSheet();
             activeSheet.hideColumn(18);
             activeSheet.hideColumn(19);
+            activeSheet.hideColumn(20);
 
             var spreadsheet2 = $find("<%= RadSpreadsheet3.ClientID %>");
             var activeSheet2 = spreadsheet2.get_activeSheet();
             activeSheet2.hideColumn(18);
             activeSheet2.hideColumn(19);
+            activeSheet2.hideColumn(20);
 
             var spreadsheet3 = $find("<%= RadSpreadsheet4.ClientID %>");
             var activeSheet3 = spreadsheet3.get_activeSheet();
             activeSheet3.hideColumn(18);
             activeSheet3.hideColumn(19);
+            activeSheet3.hideColumn(20);
         }
 
         function OnClientTabSelected(sender, args) {

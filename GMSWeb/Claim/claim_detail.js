@@ -238,7 +238,6 @@ app.controller('ClaimDetailController', function (ClaimService, UtilityService, 
 
     claim.deleteClaim = function (data) {
         ClaimService.isLatestTransaction(globalCoyID, $location.$$search.id, claim.modifieddate, 'Claim').then(function (resp) {
-            resp.data = resp.data.hasOwnProperty('d') ? resp.data.d : resp.data;
             if (!resp.data) {
                 alert('This transaction is outdated, this page will be refreshed.');
                 $window.location.reload();
