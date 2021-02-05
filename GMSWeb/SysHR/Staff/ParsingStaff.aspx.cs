@@ -14,6 +14,7 @@ using GMSCore;
 using GMSCore.Activity;
 using GMSCore.Entity;
 using GMSWeb.CustomCtrl;
+using System.Linq;
 
 namespace GMSWeb.HR.Staff
 {
@@ -229,7 +230,7 @@ namespace GMSWeb.HR.Staff
                             employee.Name = dsExcel.Tables[0].Rows[i][0].ToString().Trim();
                             employee.Department = dsExcel.Tables[0].Rows[i][2].ToString().Trim();
                             employee.Designation = dsExcel.Tables[0].Rows[i][3].ToString().Trim();
-                            employee.NRIC = dsExcel.Tables[0].Rows[i][4].ToString().Trim();
+                            employee.NRIC = MaskNRIC(dsExcel.Tables[0].Rows[i][4].ToString().Trim());
                             employee.DOB = GMSUtil.ToDate(dsExcel.Tables[0].Rows[i][5].ToString());
                             employee.DateJoined = GMSUtil.ToDate(dsExcel.Tables[0].Rows[i][6].ToString());
                             employee.Address1 = dsExcel.Tables[0].Rows[i][7].ToString().Trim();
@@ -312,7 +313,7 @@ namespace GMSWeb.HR.Staff
                             employee.EmployeeNo = eeno;
                             employee.Department = dsExcel.Tables[0].Rows[i][2].ToString().Trim();
                             employee.Designation = dsExcel.Tables[0].Rows[i][3].ToString().Trim();
-                            employee.NRIC = dsExcel.Tables[0].Rows[i][4].ToString().Trim();
+                            employee.NRIC = MaskNRIC(dsExcel.Tables[0].Rows[i][4].ToString().Trim());
                             employee.DOB = GMSUtil.ToDate(dsExcel.Tables[0].Rows[i][5].ToString());
                             employee.DateJoined = GMSUtil.ToDate(dsExcel.Tables[0].Rows[i][6].ToString());
                             employee.Address1 = dsExcel.Tables[0].Rows[i][7].ToString().Trim();
@@ -645,6 +646,21 @@ namespace GMSWeb.HR.Staff
             }
         }
 
+        protected string MaskNRIC(string ic)
+        {
+            #region masked nric
+            var nric = ic;
+            var maskedNric = nric.Aggregate(string.Empty, (value, next) =>
+            {
+                if (value.Length < nric.Length - 4)
+                {
+                    next = '*';
+                }
+                return value + next;
+            });
 
+            return maskedNric;
+            #endregion
+        }
     }
 }
