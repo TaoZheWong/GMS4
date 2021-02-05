@@ -754,7 +754,7 @@ namespace GMSConApp
                         dr["location"].ToString(),
                         dr["customersalespersonid"].ToString(),
                         dr["transactionsalespersonid"].ToString(),
-                        GMSUtil.ToDate(""), GMSUtil.ToDate("")
+                        GMSUtil.ToDate(""), GMSUtil.ToDate(""),""
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion for " + i.ToString());
@@ -1742,7 +1742,7 @@ namespace GMSConApp
                     //query = "CALL \"AF_API_GET_SAP_SALES_DETAIL\" ('', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "SalesTrnType", "SalesTrnNo", "SalesTrnDate", "SrNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "Quantity", "UnitCost", "UnitAmount", "Cost", "Amount", "GPAmount", "Currency", "ExchangeRate", "TaxRate", "LMSDONo",
-                    "Warehouse", "CustomerSalesPersonID", "TrnSalesPersonID", "SalesDocDate", "DueDate", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    "Warehouse", "CustomerSalesPersonID", "TrnSalesPersonID", "SalesDocDate", "DueDate", "GLAccount", "Field27", "Field28", "Field29", "Field30");
 
                     tempProductName = "";
                     //Insert Sales Detail data into GMS
@@ -1776,7 +1776,8 @@ namespace GMSConApp
                         dr["CustomerSalesPersonID"].ToString(),
                         dr["TrnSalesPersonID"].ToString(),
                         GMSUtil.ToDate(dr["SalesDocDate"].ToString()),
-                        GMSUtil.ToDate(dr["DueDate"].ToString())
+                        GMSUtil.ToDate(dr["DueDate"].ToString()),
+                        dr["GLAccount"].ToString()
                         );
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Detail data insertion");

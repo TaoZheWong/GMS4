@@ -219,21 +219,21 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FilterControlAltText="Filter Weighted Cost column" HeaderText="Weighted Cost" HeaderStyle-Wrap="true" DataField="WeightedCost" ReadOnly="true" AllowFiltering="false">
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn FilterControlAltText="Filter Dealer Price column" HeaderText="Dealer Price" UniqueName="DealerPrice">
+                            <telerik:GridTemplateColumn AllowFiltering="false"  FilterControlAltText="Filter Dealer Price column" HeaderText="Dealer Price" UniqueName="DealerPrice">
                                 <ItemTemplate>
                                     <asp:Label runat="server" ID="txtDealerPrice" Text='<%#Eval( "DealerPrice")%>' Font-Bold="true"></asp:Label>
                                     </br>
                                     <asp:Label runat="server" ID="lblDPercent"><i><%#Eval( "DPercent")%>%</i></asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn FilterControlAltText="Filter User Price column" HeaderText="User Price" UniqueName="UserPrice">
+                            <telerik:GridTemplateColumn AllowFiltering="false"  FilterControlAltText="Filter User Price column" HeaderText="User Price" UniqueName="UserPrice">
                                 <ItemTemplate>
                                     <asp:Label runat="server" ID="txtUserPrice" Text='<%#Eval( "UserPrice")%>' Font-Bold="true"></asp:Label>
                                     </br>
                                     <asp:Label runat="server"><i><%#Eval("UPercent")%>%</i></asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn FilterControlAltText="Filter Retail Price column" HeaderText="Retail Price" UniqueName="RetailPrice">
+                            <telerik:GridTemplateColumn AllowFiltering="false"  FilterControlAltText="Filter Retail Price column" HeaderText="Retail Price" UniqueName="RetailPrice">
                                 <ItemTemplate>
                                     <asp:Label runat="server" ID="txtRetailPrice" Text='<%#Eval( "RetailPrice")%>' Font-Bold="true"></asp:Label>
                                     </br>
@@ -251,6 +251,20 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderText="Last 6 Mths Sales" HeaderStyle-Wrap="true" DataField="Amount" ReadOnly="true" AllowFiltering="false" headerstyle-Width="9%">
                             </telerik:GridBoundColumn>
+                             <telerik:GridTemplateColumn HeaderText="Current Inventory Value" UniqueName="StockValue" AllowFiltering="false">
+                                <ItemTemplate>
+                                    <asp:Label runat="server" ID="lbl1" Text='<%#"<1 yr: "+Eval( "LessThanEqual1YearCost")%> '></asp:Label>
+                                    </br>
+                                    <asp:Label runat="server" ID="lbl2" Text='<%#">1 yr: "+Eval("MoreThan1YearCost")%>'></asp:Label>
+                                    </br>
+                                    <asp:Label runat="server" ID="lbl3" Text='<%#">2 yr: "+Eval( "MoreThan2YearCost")%>'></asp:Label>
+                                    </br>
+                                    <asp:Label runat="server" ID="lbl4" Text='<%#">3 yr: "+Eval( "MoreThan3YearCost")%>'></asp:Label>
+                                    </br>
+                                    <asp:Label runat="server" ID="lbl5" Text='<%#"Total: "+Eval( "Total")%>'></asp:Label>
+                                    </br>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                              <telerik:GridBoundColumn FilterControlAltText="Filter Effective Date column" HeaderText="Effective Date" HeaderStyle-Wrap="true" DataField="EffectiveDate" ReadOnly="true" AllowFiltering="false" headerstyle-Width="9%">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn FilterControlAltText="Filter Submit Date column" HeaderText="Submission Date" HeaderStyle-Wrap="true" DataField="UpdatedDate" ReadOnly="true" AllowFiltering="false" HeaderStyle-Width="9%">
