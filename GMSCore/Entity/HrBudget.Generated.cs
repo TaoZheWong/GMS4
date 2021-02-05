@@ -135,16 +135,16 @@ namespace GMSCore.Entity
             }
         }
 
-        private string _coaID;
-		public string COAID
-		{
-			get { return _coaID; }
+        private int _hrParentID;
+		public int HrParentID
+        {
+			get { return _hrParentID; }
 			set
 			{
-				if (_coaID != value)
+				if (_hrParentID != value)
 				{
-                    _coaID = value;
-					OnPropertyChanged("COAID");
+                    _hrParentID = value;
+					OnPropertyChanged("HrParentID");
 				}
 			}
 		}
@@ -228,7 +228,7 @@ namespace GMSCore.Entity
 		
 		///<summary>Retrieve an instance of this class using its ID from the persistence store</summary>
 		[DataObjectMethod(DataObjectMethodType.Select)]
-		public static HrBudget RetrieveByKey(short coyID, short d1, short d2, short d3, short d4, short tbyear, short tbmonth, string coaid, string type)
+		public static HrBudget RetrieveByKey(short coyID, short d1, short d2, short d3, short d4, short tbyear, short tbmonth, int hrparentid, string type)
 		{
 			DBManager db = DBManager.GetInstance();
 			QueryHelper helper = db.Engine.QueryHelper;
@@ -246,7 +246,7 @@ namespace GMSCore.Entity
             where += " and ";
             where += helper.GetExpression("HrBudget.tbMonth", tbmonth);
             where += " and ";
-            where += helper.GetExpression("HrBudget.COAID", coaid);
+            where += helper.GetExpression("HrBudget.HrParentID", hrparentid);
             where += " and ";
             where += helper.GetExpression("HrBudget.Type", type);
 
@@ -291,7 +291,7 @@ namespace GMSCore.Entity
 					case "_dim4": return _dim4;
 					case "_tbYear": return _tbYear;
 					case "_tbMonth": return _tbMonth;
-					case "_coaID": return _coaID;
+					case "_hrParentID": return _hrParentID;
 					case "_total": return _total;
 					case "_updatedBy": return _updatedBy;
 					case "_updatedDate": return _updatedDate;
@@ -315,7 +315,7 @@ namespace GMSCore.Entity
 					case "_dim4": _dim4 = (short)value; break;
 					case "_tbYear": _tbYear = (short)value; break;
 					case "_tbMonth": _tbMonth = (short)value; break;
-					case "_coaID": _coaID = (string)value; break;
+					case "_hrParentID": _hrParentID = (int)value; break;
                     case "_total": _total = (double)value; break;
                     case "_updatedBy": _updatedBy = (short)value; break;
 					case "_updatedDate": _updatedDate = (DateTime)value; break;
@@ -344,7 +344,7 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_dim4={0}\n,", _dim4.ToString() );
 			stb.AppendFormat("_tbYear={0}\n,", _tbYear.ToString());
 			stb.AppendFormat("_tbMonth={0}\n,", _tbMonth.ToString());
-			stb.AppendFormat("_coaID={0}\n,", _coaID.ToString() );
+			stb.AppendFormat("_hrParentID={0}\n,", _hrParentID.ToString() );
 			stb.AppendFormat("_total={0}\n,", _total.ToString() );
 			stb.AppendFormat("_updatedBy={0}\n,", _updatedBy.ToString());
 			stb.AppendFormat("_updatedDate={0}\n,", _updatedDate.ToString() );
