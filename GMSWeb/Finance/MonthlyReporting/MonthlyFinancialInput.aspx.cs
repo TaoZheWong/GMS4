@@ -100,6 +100,7 @@ namespace GMSWeb.Finance.MonthlyReporting
                     }
                 }
             }
+            ChangeTabName();
         }
 
         #region btnSearch_Click
@@ -115,8 +116,40 @@ namespace GMSWeb.Finance.MonthlyReporting
             this.RadGrid3.DataBind();
             this.RadGrid4.DataBind();
 
+            ChangeTabName();
         }
         #endregion
+        protected void ChangeTabName()
+        {
+            #region change tab text 
+            RadTab tab1 = (RadTab)this.RadTabStrip1.FindTabByValue("1");
+            tab1.Text = "By Month Analysis (" + DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(int.Parse(this.ddlMonth.SelectedValue.ToString())) + "-" + this.ddlYear.SelectedValue.ToString() + ")";
+            RadTab tab2 = (RadTab)this.RadTabStrip1.FindTabByValue("2");
+            tab2.Text = "YTD By Month Analysis (" + DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(int.Parse(this.ddlMonth.SelectedValue.ToString())) + "-" + this.ddlYear.SelectedValue.ToString() + ")";
+            RadTab tab3 = (RadTab)this.RadTabStrip1.FindTabByValue("3");
+            int i = (int.Parse(this.ddlMonth.SelectedValue.ToString()) + 1);
+            int i2 = (int.Parse(this.ddlMonth.SelectedValue.ToString()) + 2);
+            int i3 = (int.Parse(this.ddlMonth.SelectedValue.ToString()) + 3);
+            string firstMth = DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName((i > 12 ? i - 12 : i));
+            string secondMth = DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName((i2 > 12 ? i2 - 12 : i2));
+            string thirdMth = DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName((i3 > 12 ? i3 - 12 : i3));
+            string tab3Text = "";
+            if (int.Parse(this.ddlMonth.SelectedValue) == 1)
+                tab3Text = "Next 2 Months (" + firstMth + "-" + secondMth + ")";
+            else if (int.Parse(this.ddlMonth.SelectedValue) == 2)
+                tab3Text = "Next Month (" + firstMth + ")";
+            else
+                tab3Text = "Next 3 Months (" + firstMth + "-" + thirdMth + ")";
+            tab3.Text = tab3Text;
+            RadTab tab4 = (RadTab)this.RadTabStrip1.FindTabByValue("4");
+            string year = "";
+            if (int.Parse(this.ddlMonth.SelectedValue) <= 3)
+                year = (int.Parse(this.ddlYear.SelectedValue) - 1).ToString() + "/" + this.ddlYear.SelectedValue.Substring(2);
+            else
+                year = this.ddlYear.SelectedValue + "/" + (int.Parse(this.ddlYear.SelectedValue) + 1).ToString().Substring(2);
+            tab4.Text = "Financial Year (" + year + ")";
+            #endregion
+        }
 
         protected void RadGrid1_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
