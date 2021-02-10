@@ -106,13 +106,13 @@
     </asp:UpdatePanel>
     <telerik:RadTabStrip RenderMode="Lightweight" ID="RadTabStrip1" SelectedIndex="0" runat="server" MultiPageID="RadMultiPage1" Skin="Bootstrap" Width="100%">
         <Tabs>
-            <telerik:RadTab runat="server" Text="By Month Analysis" PageViewID="PageView1">
+            <telerik:RadTab runat="server" Text="By Month Analysis" PageViewID="PageView1" Value="1">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="YTD By Month Analysis" PageViewID="PageView2">
+            <telerik:RadTab runat="server" Text="YTD By Month Analysis" PageViewID="PageView2" Value="2">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="Next 3 Months Forecast" PageViewID="PageView3">
+            <telerik:RadTab runat="server" Text="Next 3 Months Forecast" PageViewID="PageView3" Value="3">
             </telerik:RadTab>
-            <telerik:RadTab runat="server" Text="Financial Year Forecast" PageViewID="PageView4">
+            <telerik:RadTab runat="server" Text="Financial Year Forecast" PageViewID="PageView4" Value="4">
             </telerik:RadTab>
         </Tabs>
     </telerik:RadTabStrip>
@@ -234,6 +234,10 @@
                         <i class="ti-align-justify"></i>
                         <asp:Label ID="Label2" Visible="false" runat="server" />
                     </h4>
+                    <div class="note note-info" style="margin-top:10px">
+                        <h4 class="block"><i class="ti-info-alt"></i>Info</h4>
+                        <p>For Jan and Feb monthly financial reporting, only the current financial year forecasting ending March 31st is required. Hence, Jan reporting would require a forecast for Feb and March, and Feb reporting would require only a forecast for March</p>
+                    </div>
                 </div>
                 <div class="panel-body no-padding">
                     <div class="table-responsive" style="overflow: auto">
