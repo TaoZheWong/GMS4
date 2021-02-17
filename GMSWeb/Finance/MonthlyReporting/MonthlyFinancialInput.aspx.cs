@@ -16,6 +16,7 @@ namespace GMSWeb.Finance.MonthlyReporting
 {
     public partial class MonthlyFinancialPerformance : GMSBasePage
     {
+        protected short loginUserOrAlternateParty = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.Params["authkey"] != null)//for access from GMS3 
@@ -36,6 +37,18 @@ namespace GMSWeb.Finance.MonthlyReporting
                 currentLink = Request.Params["CurrentLink"].ToString().Trim();
 
             Master.setCurrentLink(currentLink);
+
+            DataSet lstAlterParty = new DataSet();
+            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Monthly Performance", ref lstAlterParty);
+            if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
+            {
+                for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
+                {
+                    loginUserOrAlternateParty = GMSUtil.ToShort(lstAlterParty.Tables[0].Rows[i]["OnBehalfUserNumID"].ToString());
+                }
+            }
+            else
+                loginUserOrAlternateParty = session.UserId;
 
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             182);
@@ -73,7 +86,7 @@ namespace GMSWeb.Finance.MonthlyReporting
             GMSGeneralDALC ggdal = new GMSGeneralDALC();
             DataSet dsProjects = new DataSet();
             //same dimension restriction as f21 report
-            ggdal.GetCompanyProject(session.CompanyId, session.UserId, 426, ref dsProjects);
+            ggdal.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, 426, ref dsProjects);
 
             for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
             {
@@ -81,7 +94,7 @@ namespace GMSWeb.Finance.MonthlyReporting
                 if (Convert.ToInt16(ddlSearchDim1.SelectedValue) > 0)
                 {
                     DataSet dsDepartments = new DataSet();
-                    ggdal.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlSearchDim1.SelectedValue), 0, session.UserId, short.Parse(this.ddlYear.SelectedValue), short.Parse(this.ddlMonth.SelectedValue), ref dsDepartments);
+                    ggdal.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlSearchDim1.SelectedValue), 0, loginUserOrAlternateParty, short.Parse(this.ddlYear.SelectedValue), short.Parse(this.ddlMonth.SelectedValue), ref dsDepartments);
                     foreach (DataRow dr in dsDepartments.Tables[0].Rows)
                     {
                         ddlSearchDim2.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
@@ -91,7 +104,7 @@ namespace GMSWeb.Finance.MonthlyReporting
                     if (Convert.ToInt16(ddlSearchDim2.SelectedValue) > 0)
                     {
                         DataSet dsSections = new DataSet();
-                        ggdal.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlSearchDim2.SelectedValue), 0, session.UserId, short.Parse(this.ddlYear.SelectedValue), short.Parse(this.ddlMonth.SelectedValue), ref dsSections);
+                        ggdal.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlSearchDim2.SelectedValue), 0, loginUserOrAlternateParty, short.Parse(this.ddlYear.SelectedValue), short.Parse(this.ddlMonth.SelectedValue), ref dsSections);
                         foreach (DataRow dr in dsSections.Tables[0].Rows)
                         {
                             ddlSearchDim3.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
@@ -364,7 +377,7 @@ namespace GMSWeb.Finance.MonthlyReporting
                     month = 4;
                 }
                 DataSet dsProjects = new DataSet();
-                dacl.GetCompanyProject(session.CompanyId, session.UserId, 426, ref dsProjects);
+                dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, 426, ref dsProjects);
                 if (dsProjects.Tables[0].Rows.Count > 0)
                 {
                     for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
@@ -465,7 +478,6 @@ namespace GMSWeb.Finance.MonthlyReporting
                 short year = Convert.ToInt16(this.ddlYear.SelectedValue);
                 short month = 0;
                 short reportId = 0;
-                short loginUserOrAlternateParty = 0;
 
                 try
                 {
@@ -476,7 +488,7 @@ namespace GMSWeb.Finance.MonthlyReporting
                     month = Convert.ToInt16(DateTime.Now.Month);
                 }
 
-                dacl.GetCompanySection(session.CompanyId, selectedvalue, reportId, loginUserOrAlternateParty, year, month, ref dsSections);
+                dacl.GetCompanySection(session.CompanyId, selectedvalue, reportId, session.UserId, year, month, ref dsSections);
                 foreach (DataRow dr in dsSections.Tables[0].Rows)
                 {
                     ddlDim3.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
