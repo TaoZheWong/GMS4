@@ -9,6 +9,7 @@ using GMSCore;
 using GMSCore.Activity;
 using GMSCore.Entity;
 using GMSWeb.CustomCtrl;
+using System.Linq;
 
 namespace GMSWeb.Finance.BankFacilities
 {
@@ -59,7 +60,7 @@ namespace GMSWeb.Finance.BankFacilities
                 }
             }
 
-            return items.ToArray();
+            return items.Distinct().ToArray();
         }
 
     }
