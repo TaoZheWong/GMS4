@@ -1777,6 +1777,8 @@ namespace GMSCore.Activity
                                 helper.CleanValue(companyID));
             stb.AppendFormat(" and {0} like {1} ", helper.GetFieldName("A21Account.AccountName"),
                                 helper.CleanValue(prefix));
+            stb.AppendFormat(" and {0} = {1} ", helper.GetFieldName("A21Account.Version"),
+                                helper.CleanValue(0));
 
             return A21Account.RetrieveQuery(stb.ToString(), string.Format(" {0} ASC ", helper.GetFieldName("A21Account.AccountName")));
         }
