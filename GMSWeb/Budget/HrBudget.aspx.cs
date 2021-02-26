@@ -706,7 +706,7 @@ namespace GMSWeb.Budget
             }
             else
             {
-                JScriptAlertMsg("Template not found!");
+                //JScriptAlertMsg("Template not found!");
             }
         }
 
