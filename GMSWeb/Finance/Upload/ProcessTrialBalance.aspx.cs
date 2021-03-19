@@ -231,8 +231,8 @@ namespace GMSWeb.Finance.Upload
                         Response.Flush();
 
                         bool hasFile = false;
-                        string excelDirectory = "D:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
-                        string archiveDirectory = "D:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
+                        string excelDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
+                        string archiveDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
                         string[] TBfiles = Directory.GetFiles(excelDirectory);
                         foreach (string filepath in TBfiles)
                         {
