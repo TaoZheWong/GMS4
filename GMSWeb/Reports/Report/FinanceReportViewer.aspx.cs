@@ -41,8 +41,17 @@ namespace GMSWeb.Reports.Report
             //if (uAccess == null)
             //    Response.Redirect("../../Unauthorized.htm");
 
+            this.reportId = GMSUtil.ToShort(Request.QueryString["REPORTID"]);
+            fileDescription = new ReportsActivity().RetrieveReportById(this.reportId).Description;
+            fileDescription = fileDescription.Substring(0, 1);
+
             DataSet lstAlterParty = new DataSet();
-            new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Finance Report", ref lstAlterParty);
+
+            if (fileDescription == "B")
+                new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Sales Detail", ref lstAlterParty);
+            else
+                new GMSGeneralDALC().GetAlternatePartyByAction(session.CompanyId, session.UserId, "Finance Report", ref lstAlterParty);
+
             if ((lstAlterParty != null) && (lstAlterParty.Tables[0].Rows.Count > 0))
             {
                 for (int i = 0; i < lstAlterParty.Tables[0].Rows.Count; i++)
@@ -849,6 +858,35 @@ namespace GMSWeb.Reports.Report
                     controlCount = controlCount + 1;
                 }
 
+                if (crReportDocument.ParameterFields["@HRType"] != null)
+                {
+
+                    pnlParameter.Controls.Add(new LiteralControl("<div style=\"visibility:hidden\" class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">HR Type :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlHRType = new DropDownList();
+                    ddlHRType.ID = "ddlHRType";
+                    ddlHRType.CssClass = "form-control";
+                    //ddlCurrency.AutoPostBack = true;
+                    //ddlCurrency.SelectedIndexChanged += DropDownListCurrency_SelectedIndexChanged;
+                    ddlHRType.Items.Clear();
+
+                    ddlHRType.Items.Add(new ListItem("A", "A"));
+                    ddlHRType.Items.Add(new ListItem("B", "B"));
+                    ddlHRType.Items.Add(new ListItem("C", "C"));
+                    ddlHRType.Items.Add(new ListItem("D", "D"));
+                    ddlHRType.Items.Add(new ListItem("E", "E"));
+
+                    pnlParameter.Controls.Add(ddlHRType);
+                    if (ViewState["ddlHRType"] == null)
+                        ViewState["ddlHRType"] = "A";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
+                    controlCount = controlCount + 1;
+                }
+
 
             }
             else if (IsCOA2016)
@@ -1212,6 +1250,36 @@ namespace GMSWeb.Reports.Report
                         ViewState["txtAccountCode"] = "";
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
                     pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+                }
+
+
+                if (crReportDocument.ParameterFields["@HRType"] != null)
+                {
+
+                    pnlParameter.Controls.Add(new LiteralControl("<div style=\"visibility:hidden\" class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">HR Type :"));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlHRType = new DropDownList();
+                    ddlHRType.ID = "ddlHRType";
+                    ddlHRType.CssClass = "form-control";
+                    //ddlCurrency.AutoPostBack = true;
+                    //ddlCurrency.SelectedIndexChanged += DropDownListCurrency_SelectedIndexChanged;
+                    ddlHRType.Items.Clear();
+
+                    ddlHRType.Items.Add(new ListItem("A", "A"));
+                    ddlHRType.Items.Add(new ListItem("B", "B"));
+                    ddlHRType.Items.Add(new ListItem("C", "C"));
+                    ddlHRType.Items.Add(new ListItem("D", "D"));
+                    ddlHRType.Items.Add(new ListItem("E", "E"));
+
+                    pnlParameter.Controls.Add(ddlHRType);
+                    if (ViewState["ddlHRType"] == null)
+                        ViewState["ddlHRType"] = "A";
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+
                     controlCount = controlCount + 1;
                 }
 
@@ -3047,6 +3115,8 @@ namespace GMSWeb.Reports.Report
             {
                 if (crReportDocument.ParameterFields["@BudgetYear"] != null)
                     ViewState["ddlBudgetYear"] = ((DropDownList)pnlParameter.FindControl("ddlBudgetYear")).SelectedValue.ToString();
+                if (crReportDocument.ParameterFields["@HRType"] != null)
+                    ViewState["ddlHRType"] = ((DropDownList)pnlParameter.FindControl("ddlHRType")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@Year"] != null)
                     ViewState["ddlYear"] = ((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@Month"] != null)
@@ -3154,6 +3224,8 @@ namespace GMSWeb.Reports.Report
                     ViewState["ddlMonth"] = ((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@Type"] != null || crReportDocument.ParameterFields["Type"] != null)
                     ViewState["ddlType"] = ((DropDownList)pnlParameter.FindControl("ddlType")).SelectedValue.ToString();
+                if (crReportDocument.ParameterFields["@HRType"] != null)
+                    ViewState["ddlHRType"] = ((DropDownList)pnlParameter.FindControl("ddlHRType")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@SelectedCurrency"] != null && session.DefaultCurrency != "SGD")
                     ViewState["ddlCurrency"] = ((DropDownList)pnlParameter.FindControl("ddlCurrency")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["Currency"] != null && session.DefaultCurrency != "SGD")
@@ -3367,6 +3439,9 @@ namespace GMSWeb.Reports.Report
                 {
                     if (crReportDocument.ParameterFields["@BudgetYear"] != null && ViewState["ddlBudgetYear"] != null)
                         crReportDocument.SetParameterValue("@BudgetYear", GMSUtil.ToInt(ViewState["ddlBudgetYear"].ToString()));
+
+                    if (crReportDocument.ParameterFields["@HRType"] != null && ViewState["ddlHRType"] != null)
+                        crReportDocument.SetParameterValue("@HRType", GMSUtil.ToInt(ViewState["ddlHRType"].ToString()));
                     if (crReportDocument.ParameterFields["@Year"] != null && ViewState["ddlYear"] != null)
                         crReportDocument.SetParameterValue("@Year", GMSUtil.ToInt(ViewState["ddlYear"].ToString()));
                     if (crReportDocument.ParameterFields["@Month"] != null && ViewState["ddlMonth"] != null)
@@ -3400,6 +3475,8 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@ClassType", ViewState["ddlClassType"].ToString());
                     if (crReportDocument.ParameterFields["@BudgetType"] != null && ViewState["ddlBudgetType"] != null)
                         crReportDocument.SetParameterValue("@BudgetType", ViewState["ddlBudgetType"].ToString());
+                    if (crReportDocument.ParameterFields["@HRType"] != null)
+                        ViewState["ddlHRType"] = ((DropDownList)pnlParameter.FindControl("ddlHRType")).SelectedValue.ToString();
                     if (crReportDocument.ParameterFields["@ProductID"] != null && ViewState["ddlRefillingProduct"] != null)
                         crReportDocument.SetParameterValue("@ProductID", GMSUtil.ToInt(ViewState["ddlRefillingProduct"].ToString()));
                 }

@@ -79,6 +79,9 @@ namespace GMSWeb.Finance.Upload
                     //Use By Excel to cater multiple upload - Adam -13/11/2015
                     DataTable dt = new DataTable();
                     dt.Columns.Add("DBName");
+                    dt.Columns.Add("Project");
+                    dt.Columns.Add("Department");
+                    dt.Columns.Add("Section");
                     dt.Columns.Add("Year");
                     dt.Columns.Add("Month");
                     dt.Columns.Add("AccountCode");
@@ -228,8 +231,8 @@ namespace GMSWeb.Finance.Upload
                         Response.Flush();
 
                         bool hasFile = false;
-                        string excelDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
-                        string archiveDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
+                        string excelDirectory = "D:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
+                        string archiveDirectory = "D:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
                         string[] TBfiles = Directory.GetFiles(excelDirectory);
                         foreach (string filepath in TBfiles)
                         {

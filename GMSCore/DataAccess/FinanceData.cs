@@ -125,11 +125,65 @@ namespace GMSCore
                 try
                 {
                     if (dr["Year"].ToString() == "") break;
-                    SQL += "INSERT INTO tbTempTransfer VALUES (" + coyId + ", -1, -1, -1, " + dr["Year"].ToString() + ", " + dr["Month"].ToString() +
-                           ", '" + dr["AccountCode"].ToString() + "', " +
-                           Convert.ToString(Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " +
-                           Convert.ToString(Convert.ToDecimal(dr["PrevBalance"]) + Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " +
-                           "1, '" + String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now) + "');";
+                
+
+                    if (coyId == 90 || coyId == 118)
+                    {
+                        //SQL += "INSERT INTO TbTempTransfer (CoyID, ProjectID, DepartmentID, SectionID, tbYear, tbMonth, COAID, MTDTotal, YTDTotal, CreatedBy, CreatedDate) SELECT " + coyId + ", isnull(p.ProjectID, -1) a s projectId, isnull(d.DepartmentID, -1) as departmentId, isnull(s.SectionID, -1) as sectionId, "+dr["Year"].ToString() + ", " + dr["Month"].ToString() + ", '" + dr["AccountCode"].ToString() + "', " + Convert.ToString(Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " + Convert.ToString(Convert.ToDecimal(dr["PrevBalance"]) + Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " + "1, '" + String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now) + "') from tbcompanyproject p left join tbcompanydepartment d on d.projectid = p.projectid and d.departmentcode = " + dr["Department"].ToString() + " left join tbCompanySection s on s.sectioncode = s.departmentid = d.departmentid and s.sectioncode = " + dr["Section"].ToString() + " where p.projectcode = " + dr["Project"].ToString() + "";
+                        //int project = -1;
+
+                        int project = -1;
+
+                        if (dr["DBName"].ToString() == "HTE")
+                        {
+                            if (dr["Project"].ToString() == "Admin")
+                                project = 1;
+                            else if (dr["Project"].ToString() == "Project")
+                                project = 2;
+                            else if (dr["Project"].ToString() == "Rfloors")
+                                project = 3;
+                            else if (dr["Project"].ToString() == "Service")
+                                project = 4;
+                            else if (dr["Project"].ToString() == "A&A")
+                                project = 5;
+                            else project = -1;
+
+                        }
+                        else if (dr["DBName"].ToString() == "LFS")
+                        {
+                            if (dr["Project"].ToString() == "Admin")
+                                project = 1;
+                            else if (dr["Project"].ToString() == "Grilles")
+                                project = 2;
+                            else if (dr["Project"].ToString() == "Dampers")
+                                project = 3;
+                            else if (dr["Project"].ToString() == "FDoors")
+                                project = 4;
+                            else if (dr["Project"].ToString() == "FSProds")
+                                project = 5;
+                            else if (dr["Project"].ToString() == "EEProds")
+                                project = 6;
+                            else if (dr["Project"].ToString() == "Service")
+                                project = 7;
+                            else if (dr["Project"].ToString() == "FRB")
+                                project = 8;
+                            else project = -1;
+                        }
+
+                        SQL += "INSERT INTO tbTempTransfer VALUES (" + coyId + ", " + project + ", -1, -1, " + dr["Year"].ToString() + ", " + dr["Month"].ToString() +
+                      ", '" + dr["AccountCode"].ToString() + "', " +
+                      Convert.ToString(Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " +
+                      Convert.ToString(Convert.ToDecimal(dr["PrevBalance"]) + Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " +
+                      "1, '" + String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now) + "');";
+                    }
+                    else
+                    {
+                        SQL += "INSERT INTO tbTempTransfer VALUES (" + coyId + ", -1, -1, -1, " + dr["Year"].ToString() + ", " + dr["Month"].ToString() +
+                          ", '" + dr["AccountCode"].ToString() + "', " +
+                          Convert.ToString(Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " +
+                          Convert.ToString(Convert.ToDecimal(dr["PrevBalance"]) + Convert.ToDecimal(dr["Debit"]) - Convert.ToDecimal(dr["Credit"])) + ", " +
+                          "1, '" + String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now) + "');";
+                }
                 }
                 catch (Exception ex)
                 {
