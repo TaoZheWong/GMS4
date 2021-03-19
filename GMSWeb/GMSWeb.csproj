@@ -86,6 +86,7 @@
     <Content Include="Budget\Budget.aspx" />
     <Content Include="Budget\BudgetExercise.aspx" />
     <Content Include="Budget\HrBudget.aspx" />
+    <Content Include="Budget\HRBudgetReport.aspx" />
     <Content Include="Claim\claim_detail.js" />
     <Content Include="Claim\Detail.aspx" />
     <Content Include="Claim\Default.aspx" />
@@ -1376,6 +1377,13 @@
     </Compile>
     <Compile Include="Budget\HRBudget.aspx.designer.cs">
       <DependentUpon>HrBudget.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Budget\HRBudgetReport.aspx.cs">
+      <DependentUpon>HRBudgetReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Budget\HRBudgetReport.aspx.designer.cs">
+      <DependentUpon>HRBudgetReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Bulletin.aspx.cs">
       <DependentUpon>Bulletin.aspx</DependentUpon>

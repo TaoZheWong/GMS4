@@ -437,12 +437,25 @@ namespace GMSWeb
                  //"</li>" +
 
 
-                 "<li class='has-sub recruitment-menu'>" +
-                    "<a href =\"" + appPath + "/Budget/HrBudget.aspx?CurrentLink=CompanyHR\">" +
-                    "<i class='ti-shield'></i>" +
-                    "<span>Budget</span>" +
-                    "</a>" +
-                   "</li>" +
+                 //"<li class='has-sub recruitment-menu'>" +
+                 //   "<a href =\"" + appPath + "/Budget/HrBudget.aspx?CurrentLink=CompanyHR\">" +
+                 //   "<i class='ti-shield'></i>" +
+                 //   "<span>Budget</span>" +
+                 //   "</a>" +
+                 //  "</li>" +
+
+
+                "<li class='has-sub hrbudget-menu'>" +
+                "<a href='javascript:;'>" +
+                "<i class='ti-shield'></i>" +
+                "<span>Budget</span>" +
+                "</a>" +
+                "<ul class=\"sub-menu\">" +
+                "<li class='sub-budget-input'><a href =\"" + appPath + "/Budget/HrBudget.aspx?CurrentLink=CompanyHR\"> Budget Input </a></li>" +
+                "<li class='sub-budget-report'><a href =\"" + appPath + "/Budget/HrBudgetReport.aspx?CurrentLink=CompanyHR\"> Budget Reports </a></li>" +
+                "</ul>" +
+                "</li>" +
+
 
                 //"<li class='has-sub'>" +
                 //"<a href='javascript:;'>" +
