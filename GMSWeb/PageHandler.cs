@@ -510,7 +510,7 @@ namespace GMSWeb
             else if (currentLink == "Products")
             {
                 sideMenu =
-                    "<li class='has-sub product-menu'>" +
+                    "<li class='has-sub products-info-menu'>" +
                     "<a href=\"" + appPath + "/Products/Products/ProductsSearch.aspx?CurrentLink=Products\">" +
                     "<i class='ti-layout-grid2'></i>" +
                     "<span>Product Info</span>" +

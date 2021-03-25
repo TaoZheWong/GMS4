@@ -81,25 +81,25 @@ namespace GMSWeb.Sales.Sales
             operationGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Filter, ShowLabel = true });
             homeToolBarTab.Groups.Add(operationGroup);
 
-            SpreadsheetToolbarGroup fontGroup = new SpreadsheetToolbarGroup();
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Bold, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Italic, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Underline, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.FontFamily, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.FontSize, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.BackgroundColor, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.TextColor, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.BorderType, ShowLabel = false });
-            fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.BorderColor, ShowLabel = false });
-            homeToolBarTab.Groups.Add(fontGroup);
+            //SpreadsheetToolbarGroup fontGroup = new SpreadsheetToolbarGroup();
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Bold, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Italic, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Underline, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.FontFamily, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.FontSize, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.BackgroundColor, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.TextColor, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.BorderType, ShowLabel = false });
+            //fontGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.BorderColor, ShowLabel = false });
+            //homeToolBarTab.Groups.Add(fontGroup);
 
-            SpreadsheetToolbarGroup alignmentGroup = new SpreadsheetToolbarGroup();
-            alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.HorizontalAlignment, ShowLabel = false });
-            alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.VerticalAlignment, ShowLabel = false });
-            alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.TextWrap, ShowLabel = false });
-            alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.MergeCells, ShowLabel = false });
-            alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Format, ShowLabel = false });
-            homeToolBarTab.Groups.Add(alignmentGroup);
+            //SpreadsheetToolbarGroup alignmentGroup = new SpreadsheetToolbarGroup();
+            //alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.HorizontalAlignment, ShowLabel = false });
+            //alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.VerticalAlignment, ShowLabel = false });
+            //alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.TextWrap, ShowLabel = false });
+            //alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.MergeCells, ShowLabel = false });
+            //alignmentGroup.Tools.Add(new SpreadsheetTool() { Name = SpreadsheetToolName.Format, ShowLabel = false });
+            //homeToolBarTab.Groups.Add(alignmentGroup);
             #endregion
         }
 
@@ -157,8 +157,15 @@ namespace GMSWeb.Sales.Sales
             workbook.Sheets = RadSpreadsheet1.Sheets;
 
             #region radspreadsheet Styling
-            workbook.Sheets[0].Columns[0].Width = 90;
-            workbook.Sheets[0].Columns[1].Width = 200;
+            workbook.Sheets[0].Columns[0].Width = 30;
+            workbook.Sheets[0].Columns[1].Width = 90;
+            workbook.Sheets[0].Columns[2].Width = 200;
+            workbook.Sheets[0].Columns[5].Width = 40;
+            workbook.Sheets[0].Columns[7].Width = 40;
+            workbook.Sheets[0].Columns[9].Width = 40;
+            workbook.Sheets[0].Columns[11].Width = 150;
+            workbook.Sheets[0].Columns[12].Width = 65;
+            workbook.Sheets[0].Columns[13].Width = 90;
             workbook.Sheets[0].Rows[0].Height = 40;
             foreach (var cell in workbook.Sheets[0].Rows[0].Cells)
             {
@@ -192,35 +199,42 @@ namespace GMSWeb.Sales.Sales
                     }
                 }
                 //disable cells
-                row.Cells[0].Enable = false;
-                row.Cells[1].Enable = false;
-                row.Cells[2].Enable = false;
-                row.Cells[4].Enable = false;
-                row.Cells[6].Enable = false;
-                row.Cells[8].Enable = false;
-                row.Cells[14].Enable = false;
+                //row.Cells[0].Enable = false;
+                //row.Cells[1].Enable = false;
+                //row.Cells[2].Enable = false;
+                //row.Cells[4].Enable = false;
+                //row.Cells[6].Enable = false;
+                //row.Cells[8].Enable = false;
+                //row.Cells[14].Enable = false;
                 //number validate
-                row.Cells[3].Format = "#.00";
-                row.Cells[5].Format = "#.00";
-                row.Cells[7].Format = "#.00";
+                row.Cells[4].Format = "#.00";
+                row.Cells[6].Format = "#.00";
+                row.Cells[8].Format = "#.00";
+                row.Cells[12].Value = double.Parse(row.Cells[12].Value.ToString());
+                row.Cells[12].Format = "#,##0.00";
+                row.Cells[13].Value = double.Parse(row.Cells[13].Value.ToString());
+                row.Cells[13].Format = "#,##0.00";
                 //text align
                 row.Cells[0].TextAlign = "center";
-                row.Cells[1].TextAlign = "left";
-                row.Cells[2].TextAlign = "right";
+                row.Cells[1].TextAlign = "center";
+                row.Cells[2].TextAlign = "left";
                 row.Cells[3].TextAlign = "right";
                 row.Cells[4].TextAlign = "right";
                 row.Cells[5].TextAlign = "right";
                 row.Cells[6].TextAlign = "right";
                 row.Cells[7].TextAlign = "right";
                 row.Cells[8].TextAlign = "right";
-                row.Cells[9].TextAlign = "center";
-                row.Cells[10].TextAlign = "left";
+                row.Cells[9].TextAlign = "right";
+                row.Cells[10].TextAlign = "center";
                 row.Cells[11].TextAlign = "center";
                 row.Cells[12].TextAlign = "right";
                 row.Cells[13].TextAlign = "right";
-                row.Cells[14].TextAlign = "right";
+                //itelic
+                row.Cells[5].Italic = true;
+                row.Cells[7].Italic = true;
+                row.Cells[9].Italic = true;
                 //Validation
-                row.Cells[3].Validation = new Validation()
+                row.Cells[4].Validation = new Validation()
                 {
                     AllowNulls = false,
                     DataType = "number",
@@ -232,7 +246,7 @@ namespace GMSWeb.Sales.Sales
                     MessageTemplate = "Invalid Number",
                 };
 
-                row.Cells[5].Validation = new Validation()
+                row.Cells[6].Validation = new Validation()
                 {
                     AllowNulls = false,
                     DataType = "number",
@@ -244,7 +258,7 @@ namespace GMSWeb.Sales.Sales
                     MessageTemplate = "Invalid Number",
                 };
 
-                row.Cells[7].Validation = new Validation()
+                row.Cells[8].Validation = new Validation()
                 {
                     AllowNulls = false,
                     DataType = "number",
@@ -256,41 +270,41 @@ namespace GMSWeb.Sales.Sales
                     MessageTemplate = "Invalid Number",
                 };
 
-                row.Cells[9].Validation = new Validation()
-                {
-                    AllowNulls = false,
-                    DataType = "list",
-                    ShowButton = true,
-                    ComparerType = "list",
-                    From = "\"Yes,No\"",
-                    Type = "reject"
-                };
+                //row.Cells[9].Validation = new Validation()
+                //{
+                //    AllowNulls = false,
+                //    DataType = "list",
+                //    ShowButton = true,
+                //    ComparerType = "list",
+                //    From = "\"Yes,No\"",
+                //    Type = "reject"
+                //};
 
-                row.Cells[12].Validation = new Validation()
-                {
-                    AllowNulls = false,
-                    DataType = "number",
-                    ComparerType = "notBetween",
-                    From = "-9999999",
-                    To = "-1",
-                    Type = "reject",
-                    TitleTemplate = "Invalid Number",
-                    MessageTemplate = "Invalid Number",
-                };
-                var date = DateTime.Parse(row.Cells[13].Value.ToString());
-                row.Cells[13].Value = date.ToOADate();
-                //add date picker
-                row.Cells[13].Format = "dd/mm/yyyy";
-                row.Cells[13].Validation = new Validation()
-                {
-                    AllowNulls = false,
-                    DataType = "date",
-                    ShowButton = true,
-                    ComparerType = "between",
-                    From = "DATEVALUE(\"1/1/1900\")",
-                    To = "DATEVALUE(\"12/31/2099\")",
-                    Type = "reject"
-                };
+                //row.Cells[12].Validation = new Validation()
+                //{
+                //    AllowNulls = false,
+                //    DataType = "number",
+                //    ComparerType = "notBetween",
+                //    From = "-9999999",
+                //    To = "-1",
+                //    Type = "reject",
+                //    TitleTemplate = "Invalid Number",
+                //    MessageTemplate = "Invalid Number",
+                //};
+                //    var date = DateTime.Parse(row.Cells[13].Value.ToString());
+                //    row.Cells[13].Value = date.ToOADate();
+                //    //add date picker
+                //    row.Cells[13].Format = "dd/mm/yyyy";
+                //    row.Cells[13].Validation = new Validation()
+                //    {
+                //        AllowNulls = false,
+                //        DataType = "date",
+                //        ShowButton = true,
+                //        ComparerType = "between",
+                //        From = "DATEVALUE(\"1/1/1900\")",
+                //        To = "DATEVALUE(\"12/31/2099\")",
+                //        Type = "reject"
+                //    };
             }
             #endregion
             var json = workbook.ToJson();
@@ -333,26 +347,26 @@ namespace GMSWeb.Sales.Sales
                             bool isRowChanged = listRowChanged.Contains(rowIndex);
                             if (isRowChanged)//save only the row changed
                             {
-                                string productCode = row.Cells[0].Value.ToString();
-                                double dealerPrice = double.Parse(row.Cells[3].Value.ToString());
-                                double userPrice = double.Parse(row.Cells[5].Value.ToString());
-                                double retailPrice = double.Parse(row.Cells[7].Value.ToString());
+                                string productCode = row.Cells[1].Value.ToString();
+                                double dealerPrice = double.Parse(row.Cells[4].Value.ToString());
+                                double userPrice = double.Parse(row.Cells[6].Value.ToString());
+                                double retailPrice = double.Parse(row.Cells[8].Value.ToString());
                                 bool clearingStock = false;
-                                if (row.Cells[9].Value.ToString() == "Yes")
-                                    clearingStock = true;
-                                else
-                                    clearingStock = false;
-                                string remarks = row.Cells[10].Value.ToString();
-                                string country = row.Cells[11].Value.ToString();
-                                int reorderLevel = int.Parse(row.Cells[12].Value.ToString());
+                                //if (row.Cells[9].Value.ToString() == "Yes")
+                                //    clearingStock = true;
+                                //else
+                                //    clearingStock = false;
+                                string remarks = "";
+                                string country = row.Cells[10].Value.ToString();
+                                int reorderLevel = 0;
                                 DateTime effectiveDate;
                                 try
                                 {
-                                    effectiveDate = DateTime.ParseExact(row.Cells[13].Value.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                                    effectiveDate = DateTime.ParseExact(row.Cells[11].Value.ToString().Replace("Effective Date:", "").Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                                 }
-                                catch (Exception ex)
+                                catch (Exception)
                                 {
-                                    effectiveDate = DateTime.Parse(DateTime.FromOADate(double.Parse(row.Cells[13].Value.ToString())).ToString("dd/MM/yyyy"));
+                                    effectiveDate = DateTime.Parse(DateTime.FromOADate(double.Parse(row.Cells[11].Value.ToString().Replace("Effective Date:", "").Trim())).ToString("dd/MM/yyyy"));
                                 }
 
                                 //if (effectiveDate <= DateTime.Now)
@@ -484,14 +498,12 @@ namespace GMSWeb.Sales.Sales
             else
                 loginUserOrAlternateParty = session.UserId;
 
-
             ProductCode = "%" + txtProductCode.Text.Trim() + "%";
             ProductName = "%" + txtProductName.Text.Trim() + "%";
             ProductGroupCode = "%" + txtProductGroupCode.Text.Trim() + "%";
             ProductGroup = "%" + txtProductGroup.Text.Trim() + "%";
             status = ddlSearchStatus.SelectedValue.Trim();
             resultList.Visible = true;
-
 
             try
             {
@@ -630,6 +642,7 @@ namespace GMSWeb.Sales.Sales
                 LinkButton lnkApprove = (LinkButton)item.FindControl("lnkApprove");
                 LinkButton lnkReject = (LinkButton)item.FindControl("lnkReject");
                 LinkButton lnkDelete = (LinkButton)item.FindControl("lnkDelete2");
+                string status = this.ddlSearchStatus.SelectedValue;
                 if (lnkDelete != null)
                     lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
 
@@ -637,9 +650,18 @@ namespace GMSWeb.Sales.Sales
                 {
                     if (isMgt)
                     {
-                        //RadGrid2.MasterTableView.GetColumn("Function").Display = true;
-                        lnkReject.Visible = true;
-                        lnkApprove.Visible = true;
+                        if (status != "Rejected")
+                        {
+                            this.btnUpdateSelected.Visible = true;
+                            RadGrid2.MasterTableView.GetColumn("TemplateCheckboxColumn").Visible = true;
+                            lnkReject.Visible = true;
+                            lnkApprove.Visible = true;
+                        }
+                        else
+                        {
+                            this.btnUpdateSelected.Visible = false;
+                            RadGrid2.MasterTableView.GetColumn("TemplateCheckboxColumn").Visible = false;
+                        }
                     }
                 }
             }
@@ -800,6 +822,35 @@ namespace GMSWeb.Sales.Sales
             }
         }
         #endregion
+
+        protected void btnUpdateSelected_Click(object sender, EventArgs e)
+        {
+            LogSession session = base.GetSessionInfo();
+            string emailProductCode = "";
+            try
+            {
+                foreach (GridDataItem item in RadGrid2.Items)
+                {
+                    RadCheckBox rCheckBox = item["TemplateCheckboxColumn"].FindControl("RowCheckBox") as RadCheckBox;
+                    if (rCheckBox.Checked == true)
+                    {
+                        string productCode = item.GetDataKeyValue("ProductCode").ToString();
+                        ProductPrice pp = ProductPrice.RetrieveByKeyPending(session.CompanyId, productCode);
+                        pp.Status = "";
+                        if (string.IsNullOrEmpty(emailProductCode))
+                            emailProductCode = productCode;
+                        else
+                            emailProductCode = emailProductCode + "," + productCode;
+                        pp.Save();
+                    }
+                }
+                this.RadGrid2.Rebind();
+                //ProductNoticeViaEmail(emailProductCode, "", email, "Approved", pmName);
+                JScriptAlertMsg("Selected Price are updated.");
+            }
+            catch (Exception) { }
+        }
+
         #endregion
 
         protected void alertMessage(string message)

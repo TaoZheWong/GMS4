@@ -220,7 +220,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".products-menu").addClass("active expand");
+            $(".products-info-menu").addClass("active expand");
             $(".sub-product-search-sale").addClass("active");
         });
 
