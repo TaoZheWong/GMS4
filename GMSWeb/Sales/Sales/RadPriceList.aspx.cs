@@ -846,6 +846,7 @@ namespace GMSWeb.Sales.Sales
                 }
                 this.RadGrid2.Rebind();
                 //ProductNoticeViaEmail(emailProductCode, "", email, "Approved", pmName);
+                new GMSGeneralDALC().UpdatePriceList();
                 JScriptAlertMsg("Selected Price are updated.");
             }
             catch (Exception) { }
