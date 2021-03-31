@@ -313,10 +313,13 @@ namespace GMSWeb.Sales.Sales
             if (!string.IsNullOrEmpty(txtProductGroupCode.Text.Trim()))
             {
                 DataSet dsEmail = new DataSet();
-                ggdal.GetPHEmail(session.CompanyId, txtProductGroupCode.Text.Trim(), ref dsEmail);
-                this.hidEmail.Value = dsEmail.Tables[0].Rows[0][0].ToString();
+                try
+                {
+                    ggdal.GetPHEmail(session.CompanyId, txtProductGroupCode.Text.Trim(), ref dsEmail);
+                    this.hidEmail.Value = dsEmail.Tables[0].Rows[0][0].ToString();
+                }
+                catch (Exception) { }
             }
-
             AddSpreadsheetControl();
         }
 
