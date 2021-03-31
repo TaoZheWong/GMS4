@@ -109,7 +109,6 @@ namespace GMSWeb.Reports.Report
             {
                 crReportDocument = new ReportDocument();
                 crReportDocument.Load(AppDomain.CurrentDomain.BaseDirectory + GMSCoreBase.DOC_PATH + "\\" + fileName);
-
             }
             catch (Exception ex)
             {
@@ -3754,7 +3753,6 @@ namespace GMSWeb.Reports.Report
                     if (crReportDocument.ParameterFields["Company"] != null)
                         crReportDocument.SetParameterValue("Company", ViewState["ddlCompany"].ToString());
 
-
                     if (crReportDocument.ParameterFields["Brand 1"] != null)
                     {
                         string[] listProductSelected = (string[])ViewState["lbProdctsSelected()"];
@@ -3771,17 +3769,12 @@ namespace GMSWeb.Reports.Report
                     if (crReportDocument.ParameterFields["@DocType"] != null)
                         crReportDocument.SetParameterValue("@DocType", ViewState["ddlDocType"].ToString());
                 }
-
                 cyReportViewer.ReportSource = crReportDocument;
-
-
             }
             catch (Exception ex)
             {
                 this.lblFeedback.Text = ex.Message;
             }
-
-
         }
     }
 }
