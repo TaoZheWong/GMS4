@@ -4273,10 +4273,21 @@ namespace GMSCore
             return;
         }
 
+
         public void GetSAPProductCategoryForReport(ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSAPProductCategoryForReportSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter.Fill(ds);
+            return;
+        }
+
+        public void GetBrandCategoryForReport(ref DataSet ds)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppBrandCategoryForReportSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
