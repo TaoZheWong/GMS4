@@ -793,6 +793,7 @@ function showButton(CEID, Revision){
                     CheckAccess(function(data){
                         var AccessAdmin = data[0].AccessEngineeringAdmin;
                         var Converted = data[0].Converted;
+                        var IsProjectCancelled = data[0].ProjectCancelled;
                        
                         if($("#txtCEStatusName").val()=="Pending for Approval"){
                             if(AccessAdmin == "1"){
@@ -818,7 +819,12 @@ function showButton(CEID, Revision){
                                 if(Converted == '0'){
                                     $("#btnConvertCE").css("display", '');
                                 }
-                                else{
+                                else {
+                                    if (IsProjectCancelled == "1") {
+                                        $("#btnCancelCE").css("display", '');
+                                    } else {
+                                        $("#btnCancelCE").css("display", 'none');
+                                    }
                                     $("#btnConvertCE").css("display", 'none');
                                 }
                             }

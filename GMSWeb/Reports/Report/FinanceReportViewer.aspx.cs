@@ -42,8 +42,13 @@ namespace GMSWeb.Reports.Report
             //    Response.Redirect("../../Unauthorized.htm");
 
             this.reportId = GMSUtil.ToShort(Request.QueryString["REPORTID"]);
-            fileDescription = new ReportsActivity().RetrieveReportById(this.reportId).Description;
-            fileDescription = fileDescription.Substring(0, 1);
+            try
+            {
+                fileDescription = new ReportsActivity().RetrieveReportById(this.reportId).Description;
+                fileDescription = fileDescription.Substring(0, 1);
+            }
+            catch (Exception) { }
+          
 
             DataSet lstAlterParty = new DataSet();
 
