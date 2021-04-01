@@ -1901,8 +1901,39 @@ namespace GMSWeb.Reports.Report
                     controlCount = controlCount + 1;
                 }
 
+            if (crReportDocument.ParameterFields["@BrandCategory"] != null || crReportDocument.ParameterFields["BrandCategory"] != null)
+            {
 
-                if (crReportDocument.ParameterFields["@Zcode"] != null)
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Brand Category :"));
+                pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                DropDownList ddlBrandCategory = new DropDownList();
+                ddlBrandCategory.ID = "ddlBrandCategory";
+                ddlBrandCategory.CssClass = "form-control";
+                ddlBrandCategory.Items.Clear();
+                ddlBrandCategory.Items.Add(new ListItem("All", "All"));
+
+                GMSGeneralDALC GSdacl = new GMSGeneralDALC();
+                DataSet dsPC = new DataSet();
+                GSdacl.GetBrandCategoryForReport(ref dsPC);
+                if (dsPC.Tables != null && dsPC.Tables[0] != null)
+                {
+                    foreach (DataRow dr in dsPC.Tables[0].Rows)
+                    {
+                        ddlBrandCategory.Items.Add(new ListItem(dr["Shortname"].ToString(), dr["Shortname"].ToString()));
+                    }
+                }
+
+                pnlParameter.Controls.Add(ddlBrandCategory);
+                if (ViewState["ddlCategory"] == null)
+                    ViewState["ddlCategory"] = "All";
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                controlCount = controlCount + 1;
+            }
+
+            if (crReportDocument.ParameterFields["@Zcode"] != null)
                 {
 
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -3331,6 +3362,8 @@ namespace GMSWeb.Reports.Report
                     ViewState["ddlCategory"] = ((DropDownList)pnlParameter.FindControl("ddlCategory")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@ProductCategory"] != null || crReportDocument.ParameterFields["ProductCategory"] != null)
                     ViewState["ddlProductCategory"] = ((DropDownList)pnlParameter.FindControl("ddlProductCategory")).SelectedValue.ToString();
+                if (crReportDocument.ParameterFields["@BrandCategory"] != null || crReportDocument.ParameterFields["BrandCategory"] != null)
+                ViewState["ddlBrandCategory"] = ((DropDownList)pnlParameter.FindControl("ddlBrandCategory")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@Zcode"] != null || crReportDocument.ParameterFields["Zcode"] != null)
                     ViewState["ddlZcode"] = ((DropDownList)pnlParameter.FindControl("ddlZcode")).SelectedValue.ToString();
                 if (crReportDocument.ParameterFields["@EC"] != null || crReportDocument.ParameterFields["EC"] != null)
@@ -3755,6 +3788,10 @@ namespace GMSWeb.Reports.Report
                         crReportDocument.SetParameterValue("@ProductCategory", ViewState["ddlProductCategory"].ToString());
                     if (crReportDocument.ParameterFields["ProductCategory"] != null && ViewState["ddlProductCategory"] != null)
                         crReportDocument.SetParameterValue("ProductCategory", ViewState["ddlProductCategory"].ToString());
+                    if (crReportDocument.ParameterFields["@BrandCategory"] != null && ViewState["ddlBrandCategory"] != null)
+                        crReportDocument.SetParameterValue("@BrandCategory", ViewState["ddlBrandCategory"].ToString());
+                    if (crReportDocument.ParameterFields["BrandCategory"] != null && ViewState["ddlBrandCategory"] != null)
+                        crReportDocument.SetParameterValue("BrandCategory", ViewState["ddlCategory"].ToString());
                     if (crReportDocument.ParameterFields["@Zcode"] != null && ViewState["ddlZcode"] != null)
                         crReportDocument.SetParameterValue("@Zcode", ViewState["ddlZcode"].ToString());
                     if (crReportDocument.ParameterFields["@EC"] != null && ViewState["ddlEC"] != null)
