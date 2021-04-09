@@ -685,6 +685,7 @@ namespace GMSWeb.Debtors.Debtors
 				this.txtAccountCode.Text = ds.Tables[0].Rows[0]["AccountCode"].ToString();
 				this.txtAccountName.Text = ds.Tables[0].Rows[0]["AccountName"].ToString();
                 this.txtAccountGroup.Text = ds.Tables[0].Rows[0]["AccountGroup"].ToString();
+                this.lblCreatedDate.Text = ds.Tables[0].Rows[0]["CreatedDate"].ToString();
 
                 double CreditUsedOnDO = GMSUtil.ToDouble(ds.Tables[0].Rows[0]["CreditUsedOnDO"].ToString());
 				if (CreditUsedOnDO > 0)
