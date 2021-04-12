@@ -1312,7 +1312,7 @@ namespace GMSWeb.Reports.Report
                     controlCount = controlCount + 1;
                 }
 
-                if (crReportDocument.ParameterFields["Brand Code"] != null || crReportDocument.ParameterFields["BrandCode"] != null)
+                if (crReportDocument.ParameterFields["Brand Code"] != null || crReportDocument.ParameterFields["BrandCode"] != null || crReportDocument.ParameterFields["@ProductGroupCode"] != null)
                 {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Brand/Product Code :"));
@@ -1350,7 +1350,7 @@ namespace GMSWeb.Reports.Report
                 }
 
 
-                if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null)
+                if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null || crReportDocument.ParameterFields["@ProductGroupName"] != null)
                 {
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Brand/Product Name :"));
@@ -1368,9 +1368,8 @@ namespace GMSWeb.Reports.Report
                     controlCount = controlCount + 1;
                 }
 
-                if (crReportDocument.ParameterFields["Product Code"] != null)
+                if (crReportDocument.ParameterFields["Product Code"] != null || crReportDocument.ParameterFields["@ProductCode"] != null)
                 {
-
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Item Code :"));
                     pnlParameter.Controls.Add(new LiteralControl("</label>"));
@@ -3321,13 +3320,13 @@ namespace GMSWeb.Reports.Report
                     ViewState["ddlUnitID"] = -1;
                 if (crReportDocument.ParameterFields["@Currency"] != null && session.DefaultCurrency != "SGD")
                     ViewState["ddlCurrencyCode"] = ((DropDownList)pnlParameter.FindControl("ddlCurrencyCode")).SelectedValue.ToString();
-                if (crReportDocument.ParameterFields["Brand Code"] != null)
-                    ViewState["txtBrandCode"] = ((TextBox)pnlParameter.FindControl("txtBrandCode")).Text.ToString();
+                if (crReportDocument.ParameterFields["Brand Code"] != null || crReportDocument.ParameterFields["@ProductGroupCode"] != null)
+                ViewState["txtBrandCode"] = ((TextBox)pnlParameter.FindControl("txtBrandCode")).Text.ToString();
                 if (crReportDocument.ParameterFields["BrandCode"] != null)
                     ViewState["txtBrandCode"] = ((TextBox)pnlParameter.FindControl("txtBrandCode")).Text.ToString();
-                if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null)
+                if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null || crReportDocument.ParameterFields["@ProductGroupName"] != null)
                     ViewState["txtBrand"] = ((TextBox)pnlParameter.FindControl("txtBrand")).Text.ToString();
-                if (crReportDocument.ParameterFields["Product Code"] != null)
+                if (crReportDocument.ParameterFields["Product Code"] != null || crReportDocument.ParameterFields["@ProductCode"] != null)
                     ViewState["txtProductCode"] = ((TextBox)pnlParameter.FindControl("txtProductCode")).Text.ToString();
                 if (crReportDocument.ParameterFields["@SalesPersonID"] != null || crReportDocument.ParameterFields["SalesPersonID"] != null)
                     ViewState["ddlSalesPersonID"] = ((DropDownList)pnlParameter.FindControl("ddlSalesPersonID")).SelectedValue.ToString();
@@ -3413,7 +3412,7 @@ namespace GMSWeb.Reports.Report
                     ViewState["txtPM"] = ((TextBox)pnlParameter.FindControl("txtPM")).Text.ToString();
                 if (crReportDocument.ParameterFields["Supplier"] != null)
                     ViewState["txtSupplier"] = ((TextBox)pnlParameter.FindControl("txtSupplier")).Text.ToString();
-                if (crReportDocument.ParameterFields["Brand Code"] != null)
+                if (crReportDocument.ParameterFields["Brand Code"] != null || crReportDocument.ParameterFields["@ProductGroupCode"] != null)
                     ViewState["txtBrandCode"] = ((TextBox)pnlParameter.FindControl("txtBrandCode")).Text.ToString();
                 if (crReportDocument.ParameterFields["BrandCode"] != null)
                     ViewState["txtBrandCode"] = ((TextBox)pnlParameter.FindControl("txtBrandCode")).Text.ToString();
@@ -3876,6 +3875,9 @@ namespace GMSWeb.Reports.Report
                     if (crReportDocument.ParameterFields["Brand Code"] != null && ViewState["txtBrandCode"] != null)
                         crReportDocument.SetParameterValue("Brand Code", ViewState["txtBrandCode"].ToString());
 
+                    if (crReportDocument.ParameterFields["@ProductGroupCode"] != null && ViewState["txtBrandCode"] != null)
+                        crReportDocument.SetParameterValue("@ProductGroupCode", ViewState["txtBrandCode"].ToString());
+
                     if (crReportDocument.ParameterFields["BrandCode"] != null && ViewState["txtBrandCode"] != null)
                         crReportDocument.SetParameterValue("BrandCode", ViewState["txtBrandCode"].ToString());
 
@@ -3884,6 +3886,12 @@ namespace GMSWeb.Reports.Report
 
                     if (crReportDocument.ParameterFields["Product Group"] != null && ViewState["txtBrand"] != null)
                         crReportDocument.SetParameterValue("Product Group", ViewState["txtBrand"].ToString());
+
+                    if (crReportDocument.ParameterFields["@ProductGroupName"] != null && ViewState["txtBrand"] != null)
+                        crReportDocument.SetParameterValue("@ProductGroupName", ViewState["txtBrand"].ToString());
+
+                    if (crReportDocument.ParameterFields["@ProductCode"] != null && ViewState["txtProductCode"] != null)
+                        crReportDocument.SetParameterValue("@ProductCode", ViewState["txtProductCode"].ToString());
 
                     if (crReportDocument.ParameterFields["Product Code"] != null && ViewState["txtProductCode"] != null)
                         crReportDocument.SetParameterValue("Product Code", ViewState["txtProductCode"].ToString());

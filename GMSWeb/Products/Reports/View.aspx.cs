@@ -92,7 +92,29 @@ namespace GMSWeb.Products.Reports
 				lstCategory.Add(cat1);
 			}
 
-			if (lstCategory != null && lstCategory.Count > 0)
+            ReportCategory cat2 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Stock Management");
+            if (cat2 != null)
+            {
+                cat2.Name = "Stock Management Reports";
+                lstCategory.Add(cat2);
+            }
+
+            ReportCategory cat3 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Product Sales");
+            if (cat3 != null)
+            {
+                cat3.Name = "Product Sales Reports";
+                lstCategory.Add(cat3);
+            }
+
+            ReportCategory cat4 = new ReportsActivity().RetrieveReportCategoryByCategoryName("Suppliers Info");
+            if (cat4 != null)
+            {
+                cat4.Name = "Suppliers Info Reports";
+                lstCategory.Add(cat4);
+            }
+
+
+            if (lstCategory != null && lstCategory.Count > 0)
 			{
 				rppCategoryList.DataSource = lstCategory;
 				rppCategoryList.DataBind();
