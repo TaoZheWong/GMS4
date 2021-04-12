@@ -387,7 +387,8 @@ namespace GMSConApp
 
         public void GMS_Insert_Account(short CoyID, string accountCode, string accountType, string accountName, string salesPersonID, string defaultCurrency, string gstType,
             short creditTerm, float creditLimit, string address1, string address2, string address3, string address4, string postalCode, string contactPerson, string officePhone,
-            string mobilePhone, string fax, string email, string industry, string country, DateTime createdDate, string accountGroupName, string accountClass, string gradeCode, float outstanding)
+            string mobilePhone, string fax, string email, string industry, string country, DateTime createdDate, string accountGroupName, string accountClass, string gradeCode, float outstanding,
+            string createdTime, DateTime modifiedDate, string modifiedTime)
         {
             CNCMGenerator();
             cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
@@ -416,6 +417,9 @@ namespace GMSConApp
             cm.Parameters.Add("@AccountClass", SqlDbType.NVarChar).Value = accountClass;
             cm.Parameters.Add("@GradeCode", SqlDbType.NVarChar).Value = gradeCode;
             cm.Parameters.Add("@Outstanding", SqlDbType.NVarChar).Value = outstanding;
+            cm.Parameters.Add("@CreatedTime", SqlDbType.NVarChar).Value = createdTime;
+            cm.Parameters.Add("@ModifiedDate", SqlDbType.DateTime).Value = modifiedDate;
+            cm.Parameters.Add("@ModifiedTime", SqlDbType.NVarChar).Value = modifiedTime;
             SPexecutor("procAppWSAccountInsert");
         }
 

@@ -28,7 +28,6 @@ namespace GMSWeb.Products.Products
 {
     public partial class AddEditMaterialRequisition : GMSBasePage
     {
-        
         protected void Page_Load(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
@@ -2219,6 +2218,18 @@ namespace GMSWeb.Products.Products
             bool canAccessProductStatus = false;
             bool isGasDivision = false;
             bool isWeldingDivision = false;
+            string userDivision = "";
+
+            DivisionUser du_ = DivisionUser.RetrieveByKey(coyId, UserId);
+            if (du_ != null)
+            {
+                if (du_.DivisionID == "GAS")
+                    userDivision = "GAS";
+                else if (du_.DivisionID == "WSD")
+                    userDivision = "WSD";
+            }
+            else
+                userDivision = "ALL";
 
             DataSet ds = new DataSet();
             DataSet ds_lms = new DataSet();
@@ -2254,14 +2265,59 @@ namespace GMSWeb.Products.Products
             else if (coy.StatusType.ToString() == "L")
             {
                 CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
-                if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+                if (coyId != 120 && userDivision == "ALL")
                 {
-                    sc1.Url = coy.CMSWebServiceAddress.Trim();
+                    if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+                        sc1.Url = coy.CMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+
+                    if (coy.CMSWebServiceAddress != null && coy.CMSWebServiceAddress.Trim() != "")
+                        ds2 = sc1.GetProductDetailByProductCode(prodCode);
                 }
-                else
-                    sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                if (coyId == 120 && userDivision == "GAS")
+                {
+                    if (coy.GASLMSWebServiceAddress != null && coy.GASLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = coy.GASLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+
+                    if (coy.GASLMSWebServiceAddress != null && coy.GASLMSWebServiceAddress.Trim() != "")
+                        ds2 = sc1.GetProductDetailByProductCode(prodCode);
+                }
+
+                if (coyId == 120 && userDivision == "WSD")
+                {
+                    if (coy.WSDLMSWebServiceAddress != null && coy.WSDLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = coy.WSDLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+
+                    if (coy.WSDLMSWebServiceAddress != null && coy.WSDLMSWebServiceAddress.Trim() != "")
+                        ds2 = sc1.GetProductDetailByProductCode(prodCode);
+                }
+
+                if (coyId == 120 && userDivision == "ALL")
+                {
+                    if (coy.GASLMSWebServiceAddress != null && coy.GASLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = coy.GASLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+
+                    if (coy.GASLMSWebServiceAddress != null && coy.GASLMSWebServiceAddress.Trim() != "")
+                        ds2 = sc1.GetProductDetailByProductCode(prodCode);
+
+                    if (coy.WSDLMSWebServiceAddress != null && coy.WSDLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = coy.WSDLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+
+                    if (coy.WSDLMSWebServiceAddress != null && coy.WSDLMSWebServiceAddress.Trim() != "")
+                        ds2 = sc1.GetProductDetailByProductCode(prodCode);
+                }
+
                 ds = sc1.GetProductWarehouse(prodCode);
-                ds2 = sc1.GetProductDetailByProductCode(prodCode);
+                //ds2 = sc1.GetProductDetailByProductCode(prodCode);
                 if (ds2 != null && ds.Tables.Count > 0 && ds2.Tables[0].Rows.Count > 0)
                 {
                     isGasDivision = Convert.ToBoolean(ds2.Tables[0].Rows[0]["IsGasDivision"].ToString());
