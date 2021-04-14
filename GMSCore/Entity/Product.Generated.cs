@@ -202,8 +202,23 @@ namespace GMSCore.Entity
 				}
 			}
 		}
-			
-		private string _ownerType = "";
+
+        private Nullable<double> _onHandQty;
+        ///<summary>Database mapping to column tbProduct.OnPOQty</summary>
+        public Nullable<double> OnHandQty
+        {
+            get { return _onHandQty; }
+            set
+            {
+                if (_onHandQty != value)
+                {
+                    _onHandQty = value;
+                    OnPropertyChanged("OnHandQty");
+                }
+            }
+        }
+
+        private string _ownerType = "";
 		///<summary>Database mapping to column tbProduct.OwnerType</summary>
 		public string OwnerType
 		{
@@ -323,6 +338,21 @@ namespace GMSCore.Entity
                 }
             }
         }
+
+        private bool _inactive;
+        ///<summary>Database mapping to column tbProduct.Brand</summary>       
+        public bool Inactive
+        {
+            get { return _inactive; }
+            set
+            {
+                if (_inactive != value)
+                {
+                    _inactive = value;
+                    OnPropertyChanged("Inactive");
+                }
+            }
+        }
         #endregion
 
         ///<summary>Initializes a new instance of this class</summary>
@@ -361,7 +391,8 @@ namespace GMSCore.Entity
 					case "_warehouseOthers": return _warehouseOthers;
 					case "_onSOQty": return _onSOQty;
 					case "_onPOQty": return _onPOQty;
-					case "_ownerType": return _ownerType;
+                    case "_onHandQty": return _onHandQty;
+                    case "_ownerType": return _ownerType;
 					case "_isNonTrackingTradingGas": return _isNonTrackingTradingGas;
 					case "_isOld": return _isOld;
                     case "_shortName": return _shortName;
@@ -369,6 +400,7 @@ namespace GMSCore.Entity
                     case "_productCategory": return _productCategory;
                     case "_categorySN": return _categorySN;
                     case "_brandID": return _brandID;
+                    case "_inactive": return _inactive;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Get is missing member case {0}", memberName));
 				}
@@ -391,13 +423,15 @@ namespace GMSCore.Entity
 					case "_warehouseOthers": _warehouseOthers = (Nullable<double>)value; break;
 					case "_onSOQty": _onSOQty = (Nullable<double>)value; break;
 					case "_onPOQty": _onPOQty = (Nullable<double>)value; break;
-					case "_ownerType": _ownerType = (string)value; break;
+                    case "_onHandQty": _onHandQty = (Nullable<double>)value; break;
+                    case "_ownerType": _ownerType = (string)value; break;
 					case "_isNonTrackingTradingGas": _isNonTrackingTradingGas = (bool)value; break;
 					case "_isOld": _isOld = (bool)value; break;
                     case "_shortName": _shortName = (string)value; break;
                     case "_productCategory": _productCategory = (string)value; break;
                     case "_categorySN": _categorySN = (string)value; break;
                     case "_brandID": _brandID = (short)value; break;
+                    case "_inactive": _inactive = (bool)value; break;
 
                     default: throw new Exception(string.Format("Mapping: IObjectHelper Set is missing member case {0}", memberName));
 				}
@@ -425,7 +459,8 @@ namespace GMSCore.Entity
 			stb.AppendFormat("_warehouseOthers={0}\n,", _warehouseOthers.ToString() );
 			stb.AppendFormat("_onSOQty={0}\n,", _onSOQty.ToString() );
 			stb.AppendFormat("_onPOQty={0}\n,", _onPOQty.ToString() );
-			stb.AppendFormat("_ownerType={0}\n,", _ownerType.ToString() );
+            stb.AppendFormat("_onHandQty={0}\n,", _onHandQty.ToString());
+            stb.AppendFormat("_ownerType={0}\n,", _ownerType.ToString() );
 			stb.AppendFormat("_isNonTrackingTradingGas={0}\n,", _isNonTrackingTradingGas.ToString() );
 			stb.AppendFormat("_isOld={0}\n,", _isOld.ToString() );
             stb.AppendFormat("_shortName={0}\n,", _shortName.ToString());
@@ -433,6 +468,7 @@ namespace GMSCore.Entity
             stb.AppendFormat("_productCategory={0}\n,", _productCategory.ToString());
             stb.AppendFormat("_categorySN={0}\n,", _categorySN.ToString());
             stb.AppendFormat("_brandID={0}\n,", _brandID.ToString());
+            stb.AppendFormat("_inactive={0}\n,", _inactive.ToString());
 
             return stb.ToString();
 		}

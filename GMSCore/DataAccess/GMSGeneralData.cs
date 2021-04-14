@@ -4294,7 +4294,7 @@ namespace GMSCore
             return;
         }
 
-        public void UpdateProductShortName(short companyId, string productCode, string shortName, string brandid)
+        public void UpdateProductShortName(short companyId, string productCode, string shortName, string brandid, bool inactive)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -4307,6 +4307,7 @@ namespace GMSCore
                 command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
                 command.Parameters.Add("@ShortName", SqlDbType.NVarChar).Value = shortName;
                 command.Parameters.Add("@BrandID", SqlDbType.SmallInt).Value = brandid;
+                command.Parameters.Add("@Inactive", SqlDbType.Bit).Value = inactive;
                 rdr = command.ExecuteReader();
             }
             finally
