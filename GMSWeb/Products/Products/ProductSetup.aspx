@@ -74,7 +74,7 @@
         </div>
         <div class="panel-body no-padding">
             <div class="table-responsive">
-                <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false" ShowFooter="true"
+                <asp:DataGrid ID="dgData" runat="server" AutoGenerateColumns="false" ShowFooter="false"
                     DataKeyField="ProductCode" OnCancelCommand="dgData_CancelCommand" OnEditCommand="dgData_EditCommand"
                     OnUpdateCommand="dgData_UpdateCommand" OnItemCommand="dgData_CreateCommand" GridLines="none"
                     OnItemDataBound="dgData_ItemDataBound" OnDeleteCommand="dgData_DeleteCommand"
@@ -136,6 +136,21 @@
                             </EditItemTemplate>
                             <FooterTemplate>
                                 <asp:DropDownList CssClass="form-control input-sm" ID="ddlNewBrand" runat="Server" DataTextField="Brand" DataValueField="BrandID" Width="100%"  />
+                            </FooterTemplate>
+                        </asp:TemplateColumn>
+                        <asp:TemplateColumn HeaderText="Inactive" HeaderStyle-Wrap="false"  SortExpression="Inactive">
+                            <ItemTemplate>
+                                <%# ( (bool)Eval( "Inactive" ) ) ? "Yes" : "No"%>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <div class="checkbox input-sm no-margin">
+                                    <asp:CheckBox ID="chkEditInactive" runat="server" Checked='<%# Eval("Inactive") %>' Text=" "/>
+                                </div>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <div class="checkbox input-sm no-margin">
+                                    <asp:CheckBox ID="chkNewInactive" runat="server" Checked="false" Text=" "/>
+                                </div>
                             </FooterTemplate>
                         </asp:TemplateColumn>
                         <asp:TemplateColumn HeaderStyle-HorizontalAlign="Center"

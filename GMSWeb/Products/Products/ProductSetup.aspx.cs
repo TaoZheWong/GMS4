@@ -49,7 +49,7 @@ namespace GMSWeb.Products.Products
             {
                 //preload
                 dgData.CurrentPageIndex = 0;
-                LoadData();
+                RetrieveProduct();
             }           
 
             string javaScript =
@@ -93,7 +93,7 @@ namespace GMSWeb.Products.Products
         {
             DataGrid dtg = (DataGrid)source;
             dtg.CurrentPageIndex = e.NewPageIndex;
-            LoadData();
+            RetrieveProduct();
         }
         #endregion
 
@@ -151,7 +151,7 @@ namespace GMSWeb.Products.Products
         protected void dgData_EditCommand(object sender, DataGridCommandEventArgs e)
         {
             this.dgData.EditItemIndex = e.Item.ItemIndex;
-            LoadData();
+            RetrieveProduct();
         }
         #endregion
 
@@ -159,7 +159,7 @@ namespace GMSWeb.Products.Products
         protected void dgData_CancelCommand(object sender, DataGridCommandEventArgs e)
         {
             this.dgData.EditItemIndex = -1;
-            LoadData();
+            RetrieveProduct();
         }
         #endregion
 
@@ -186,6 +186,7 @@ namespace GMSWeb.Products.Products
                 DropDownList ddlNewProduct = (DropDownList)e.Item.FindControl("ddlNewProduct");
                 TextBox txtNewShortName = (TextBox)e.Item.FindControl("txtNewShortName");
                 DropDownList ddlNewbrand = (DropDownList)e.Item.FindControl("ddlNewBrand");
+                CheckBox chkEditInactive = (CheckBox)e.Item.FindControl("chkEditInactive");
 
                 if (ddlNewProduct != null && !string.IsNullOrEmpty(ddlNewProduct.SelectedValue) &&
                    txtNewShortName != null && !string.IsNullOrEmpty(txtNewShortName.Text) &&
@@ -193,9 +194,19 @@ namespace GMSWeb.Products.Products
                 { 
                     try
                     {
-                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, ddlNewProduct.SelectedValue, txtNewShortName.Text.Trim(),ddlNewbrand.SelectedValue);     
+                        if (chkEditInactive.Checked)
+                        {
+                            Product product = Product.RetrieveByKey(session.CompanyId, ddlNewProduct.SelectedValue);
+                            if (product.WeightedCost != 0 && product.OnHandQty != 0)
+                            {
+                                JScriptAlertMsg("Please make sure cost & qty are empty before inactive this item," + ddlNewProduct.SelectedValue + ".");
+                                return;
+                            }
+                        }
+
+                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, ddlNewProduct.SelectedValue, txtNewShortName.Text.Trim(),ddlNewbrand.SelectedValue,chkEditInactive.Checked);     
                         this.dgData.EditItemIndex = -1;
-                        LoadData();
+                        RetrieveProduct();
                     }
                     catch (Exception ex)
                     {
@@ -224,6 +235,7 @@ namespace GMSWeb.Products.Products
             HtmlInputHidden hidProductCode = (HtmlInputHidden)e.Item.FindControl("hidProductCode");
             TextBox txtEditShortName = (TextBox)e.Item.FindControl("txtEditShortName");
             DropDownList ddlEditBrand = (DropDownList)e.Item.FindControl("ddlEditBrand");
+            CheckBox chkEditInactive = (CheckBox)e.Item.FindControl("chkEditInactive");
 
             if (hidProductCode != null &&
                 txtEditShortName != null && !string.IsNullOrEmpty(txtEditShortName.Text) &&
@@ -231,9 +243,19 @@ namespace GMSWeb.Products.Products
             {
                 try
                 {
-                    new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, txtEditShortName.Text.Trim(),ddlEditBrand.SelectedValue);
+                    if (chkEditInactive.Checked)
+                    {
+                        Product product = Product.RetrieveByKey(session.CompanyId,hidProductCode.Value);
+                        if(product.WeightedCost != 0 && product.OnHandQty != 0)
+                        {
+                            JScriptAlertMsg("Please make sure cost & qty are empty before inactive this item,"+hidProductCode.Value+".");
+                            return;
+                        }
+                    }
+
+                    new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, txtEditShortName.Text.Trim(),ddlEditBrand.SelectedValue,chkEditInactive.Checked);
                     this.dgData.EditItemIndex = -1;
-                    LoadData();
+                    RetrieveProduct();
                 }
                 catch (Exception ex)
                 {
@@ -266,10 +288,10 @@ namespace GMSWeb.Products.Products
                 {
                     try
                     {
-                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, "","0");                    
+                        new GMSGeneralDALC().UpdateProductShortName(session.CompanyId, hidProductCode.Value, "","0",false);                    
                         this.dgData.EditItemIndex = -1;
                         this.dgData.CurrentPageIndex = 0;
-                        LoadData();
+                        RetrieveProduct();
                     }
                     catch (Exception ex)
                     {
@@ -301,19 +323,19 @@ namespace GMSWeb.Products.Products
             string ProductName = "";
             string ShortName = "";
             string Brand = "";
-            if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()) && string.IsNullOrEmpty(txtBrand.Text.Trim()))
-            {
-                this.MsgPanel2.ShowMessage("Please input product to search", MessagePanelControl.MessageEnumType.Alert);
-                resultList.Visible = false;
-            }
-            else
-            {
+            //if (string.IsNullOrEmpty(txtProductCode.Text.Trim()) && string.IsNullOrEmpty(txtProductName.Text.Trim()) && string.IsNullOrEmpty(txtShortName.Text.Trim()) && string.IsNullOrEmpty(txtBrand.Text.Trim()))
+            //{
+            //    this.MsgPanel2.ShowMessage("Please input product to search", MessagePanelControl.MessageEnumType.Alert);
+            //    resultList.Visible = false;
+            //}
+            //else
+            //{
                 ProductCode = "%" + txtProductCode.Text.Trim() + "%";
                 ProductName = "%" + txtProductName.Text.Trim() + "%";
                 ShortName = "%" + txtShortName.Text.Trim() + "%";
                 Brand = "%" + txtBrand.Text.Trim() + "%";
                 resultList.Visible = true;
-            }
+            //}
             try
             {
                 proddacl.GetProductCodeWithShortName(session.CompanyId, ProductCode, ProductName, ShortName, Brand, ref dsProducts);
