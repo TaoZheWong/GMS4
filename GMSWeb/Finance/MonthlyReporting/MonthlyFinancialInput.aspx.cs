@@ -156,7 +156,7 @@ namespace GMSWeb.Finance.MonthlyReporting
             tab3.Text = tab3Text;
             RadTab tab4 = (RadTab)this.RadTabStrip1.FindTabByValue("4");
             string year = "";
-            if (int.Parse(this.ddlMonth.SelectedValue) <= 3)
+            if (int.Parse(this.ddlMonth.SelectedValue) <= 2)
                 year = (int.Parse(this.ddlYear.SelectedValue) - 1).ToString() + "/" + this.ddlYear.SelectedValue.Substring(2);
             else
                 year = this.ddlYear.SelectedValue + "/" + (int.Parse(this.ddlYear.SelectedValue) + 1).ToString().Substring(2);
