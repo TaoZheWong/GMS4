@@ -315,7 +315,7 @@
                                     <telerik:GridBoundColumn SortExpression="ItemName" FilterCheckListEnableLoadOnDemand="true" HeaderText="Item" HeaderButtonType="TextButton"
                                         DataField="ItemName" UniqueName="ItemName" HeaderStyle-Width="12%" FilterControlWidth="70%" GroupByExpression="ItemName group by ItemName">
                                     </telerik:GridBoundColumn>
-                                     <telerik:GridTemplateColumn SortExpression="Actual" FilterCheckListEnableLoadOnDemand="true" HeaderText="Actual" HeaderButtonType="TextButton"
+                                     <telerik:GridTemplateColumn SortExpression="Actual" FilterCheckListEnableLoadOnDemand="true" HeaderText="Forecast" HeaderButtonType="TextButton"
                                         DataField="Actual" UniqueName="Actual" HeaderStyle-Width="12%" FilterControlWidth="70%" GroupByExpression="Actual group by Actual">
                                         <ItemTemplate>
                                             <telerik:RadTextBox RenderMode="Lightweight" Width="100%" ID="txtActual" runat="server" Text='<%#Eval( "Actual")%>'
