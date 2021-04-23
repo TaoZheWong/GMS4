@@ -179,7 +179,9 @@ namespace GMSWeb.Finance.MonthlyReporting
             GMSGeneralDALC ggdal = new GMSGeneralDALC();
             short year = short.Parse(this.ddlYear.SelectedValue);
             short month = short.Parse(this.ddlMonth.SelectedValue);
-            short dim1 = short.Parse(this.ddlSearchDim1.SelectedValue);
+            short dim1 = -1;
+            if (!string.IsNullOrEmpty(this.ddlSearchDim1.SelectedValue))
+                dim1 = short.Parse(this.ddlSearchDim1.SelectedValue);
             short dim2 = -1;
             if (!string.IsNullOrEmpty(this.ddlSearchDim2.SelectedValue))
                 dim2 = short.Parse(this.ddlSearchDim2.SelectedValue);
