@@ -103,12 +103,13 @@ namespace GMSCore.Activity
                         setNextLevel = true;
                     }
                 }
-
-                if (setNextLevel)
-                    InsertApprovaLevelInfo(coyID, MRNo, 4, purchaserUserId, "P", "-", "N", "N", "N", "Y", 0);       
-                else
-                    InsertApprovaLevelInfo(coyID, MRNo, 4, purchaserUserId, "P", "-", "Y", "N", "N", "Y", 0);       
-
+                if (purchaserUserId > 0)
+                {
+                    if (setNextLevel)
+                        InsertApprovaLevelInfo(coyID, MRNo, 4, purchaserUserId, "P", "-", "N", "N", "N", "Y", 0);
+                    else
+                        InsertApprovaLevelInfo(coyID, MRNo, 4, purchaserUserId, "P", "-", "Y", "N", "N", "Y", 0);
+                }
             }
             else if (userId.ToString() == PMUserId.ToString() && userId.ToString() == PHUserId.ToString())
             {
@@ -121,11 +122,13 @@ namespace GMSCore.Activity
                     
                 }
 
-                if (setNextLevel)
-                    InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "N", "N", "N", "Y", 0);
-                else
-                    InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "Y", "N", "N", "Y", 0);
-
+                if (purchaserUserId > 0)
+                {
+                    if (setNextLevel)
+                        InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "N", "N", "N", "Y", 0);
+                    else
+                        InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "Y", "N", "N", "Y", 0);
+                }
             }
             else if (userId.ToString() == PMUserId.ToString())
             {
@@ -147,12 +150,13 @@ namespace GMSCore.Activity
                         setNextLevel = true;
                     }
                 }
-
-                if (setNextLevel)
-                    InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "N", "N", "N", "Y", 0);
-                else
-                    InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "Y", "N", "N", "Y", 0);
-
+                if (purchaserUserId > 0)
+                {
+                    if (setNextLevel)
+                        InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "N", "N", "N", "Y", 0);
+                    else
+                        InsertApprovaLevelInfo(coyID, MRNo, 3, purchaserUserId, "P", "-", "Y", "N", "N", "Y", 0);
+                }
             }
             else if (userId.ToString() == PHUserId.ToString())
             {
@@ -162,21 +166,27 @@ namespace GMSCore.Activity
                     InsertApprovaLevelInfo(coyID, MRNo, 2, PH3UserId, "P", "-", "Y", "Y", "N", "N", 0);
                     setNextLevel = true;
                 }
-
-                if (setNextLevel)
-                    InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "N", "Y", "N", "Y", 0);
-                else
-                    InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "Y", "Y", "N", "Y", 0);
+                if (purchaserUserId > 0)
+                {
+                    if (setNextLevel)
+                        InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "N", "Y", "N", "Y", 0);
+                    else
+                        InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "Y", "Y", "N", "Y", 0);
+                }
             }
             else if (userId.ToString() == PH3UserId.ToString())
             {
                 InsertApprovaLevelInfo(coyID, MRNo, 1, userId, "C", "-", "N", "Y", "Y", "N", alternateParty);
-                InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "Y", "Y", "N", "Y", 0);
+                if (purchaserUserId > 0)
+                {
+                    InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "Y", "Y", "N", "Y", 0);
+                }
             }
             else if (userId.ToString() == purchaserUserId.ToString())
             {
                 InsertApprovaLevelInfo(coyID, MRNo, 1, userId, "C", "-", "N", "Y", "Y", "N", alternateParty);
-                InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "Y", "Y", "N", "Y", 0);
+                if (purchaserUserId > 0)
+                    InsertApprovaLevelInfo(coyID, MRNo, 2, purchaserUserId, "P", "-", "Y", "Y", "N", "Y", 0);
             }
 
             int i = 1;

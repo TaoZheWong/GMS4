@@ -22,11 +22,17 @@
             <asp:ServiceReference Path="../Training/AutoCompleteEmployeeName.asmx" />
         </Services>
     </asp:ScriptManager>
-     <div class="note note-info">
-        <h4 class="block"><i class="ti-info-alt"></i> Info! </h4>
-        <p>For upload by batch see the following files for example:
-            <a href="<%= Request.ApplicationPath %>/Documents/Staff.xls">Staff.xls</a>
-         </p>
+    <div class="note note-info">
+        <h4 class="block"><i class="ti-info-alt"></i>Info! </h4>
+        <p>
+            For upload by batch see the following files for example:
+        </p>
+        <ul>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/Staff.xls">Staff.xls</a></li>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/EducationQualification.xls">EducationQualification.xls</a></li>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/EmploymentHistory.xls">EmploymentHistory.xls</a></li>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/CareerProgression.xls">CareerProgression.xls</a></li>
+        </ul>
     </div>
     <div class="row">
         <div class="col-lg-6 col-sm-12">
@@ -189,7 +195,7 @@
                                     <div class="col-sm-8">
                                         <div class="radio-inline m-b-3">
                                             <asp:RadioButton ID="rbIsUnitHead" runat="server" Text="Yes" GroupName="IsUnitHead" />
-                                            <asp:RadioButton  ID="rbIsNotUnitHead" runat="server" Text="No" Checked="true" GroupName="IsUnitHead" />
+                                            <asp:RadioButton ID="rbIsNotUnitHead" runat="server" Text="No" Checked="true" GroupName="IsUnitHead" />
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +213,7 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <input type="text" class="form-control" readonly>
-                                             <label class="input-group-btn">
+                                            <label class="input-group-btn">
                                                 <span class="btn btn-primary btn-sm btn-upload">
                                                     <i class="ti-files" data-toggle="tooltip" data-placement="top" title="Upload"></i>
                                                     <asp:FileUpload CssClass="form-control hidden" ID="FileUpload2" runat="server" />
@@ -249,39 +255,39 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-horizontal form-group-sm row m-t-20">
-                                    <div runat="server" id="trCompany2" class="form-group col-lg-12 col-sm-12">
-                                            <piece:ExtendedDropDownList CssClass="form-control" ID="ddlCompany" runat="server">
-                                            </piece:ExtendedDropDownList>
+                                <div runat="server" id="trCompany2" class="form-group col-lg-12 col-sm-12">
+                                    <piece:ExtendedDropDownList CssClass="form-control" ID="ddlCompany" runat="server">
+                                    </piece:ExtendedDropDownList>
+                                </div>
+                                <div class="form-group col-lg-12 col-sm-12">
+                                    <asp:DropDownList runat="server" ID="ddlType" CssClass="form-control">
+                                        <asp:ListItem Text="Basic Employee Info" Value="EmployeeInfo" />
+                                        <asp:ListItem Text="Educational Qualification" Value="Qualification" />
+                                        <asp:ListItem Text="Employment History" Value="History" />
+                                        <asp:ListItem Text="Career Progression" Value="Progression" />
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="form-group col-lg-12 col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" readonly>
+                                        <label class="input-group-btn">
+                                            <span class="btn btn-primary btn-sm btn-upload">
+                                                <i class="ti-files" data-toggle="tooltip" data-placement="top" title="Upload"></i>
+                                                <asp:FileUpload CssClass="form-control hidden" ID="FileUpload1" runat="server" />
+                                            </span>
+                                        </label>
                                     </div>
-                                     <div class="form-group col-lg-12 col-sm-12">
-                                        <asp:DropDownList runat="server" ID="ddlType" CssClass="form-control">
-                                            <asp:ListItem Text="Basic Employee Info" Value="EmployeeInfo" />
-                                            <asp:ListItem Text="Educational Qualification" Value="Qualification" />
-                                            <asp:ListItem Text="Employment History" Value="History" />
-                                            <asp:ListItem Text="Career Progression" Value="Progression" />
-                                        </asp:DropDownList>
-                                    </div>
-                                    <div class="form-group col-lg-12 col-sm-12">
-                                       <div class="input-group">
-                                            <input type="text" class="form-control" readonly>
-                                             <label class="input-group-btn">
-                                                <span class="btn btn-primary btn-sm btn-upload">
-                                                    <i class="ti-files" data-toggle="tooltip" data-placement="top" title="Upload"></i>
-                                                    <asp:FileUpload CssClass="form-control hidden" ID="FileUpload1" runat="server" />
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                        
-                                   <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%"
-                                                style="display: none"></iframe>
-       
-                                            <asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
+                                </div>
+
+                                <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%"
+                                    style="display: none"></iframe>
+
+                                <asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
                             </div>
                         </div>
                         <div class="panel-footer clearfix">
-                              <asp:Button ID="btnUpload" runat="server" CausesValidation="true" Text="Upload" CssClass="btn btn-primary pull-right"
-                                        OnClick="btnUpload_Click" />
+                            <asp:Button ID="btnUpload" runat="server" CausesValidation="true" Text="Upload" CssClass="btn btn-primary pull-right"
+                                OnClick="btnUpload_Click" />
                         </div>
                     </div>
                     <div class="TABCOMMAND">

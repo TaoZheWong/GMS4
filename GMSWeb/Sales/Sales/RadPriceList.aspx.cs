@@ -163,9 +163,9 @@ namespace GMSWeb.Sales.Sales
             workbook.Sheets[0].Columns[5].Width = 40;
             workbook.Sheets[0].Columns[7].Width = 40;
             workbook.Sheets[0].Columns[9].Width = 40;
-            workbook.Sheets[0].Columns[11].Width = 150;
-            workbook.Sheets[0].Columns[12].Width = 65;
-            workbook.Sheets[0].Columns[13].Width = 90;
+            //workbook.Sheets[0].Columns[11].Width = 150;
+            workbook.Sheets[0].Columns[11].Width = 65;
+            workbook.Sheets[0].Columns[12].Width = 90;
             workbook.Sheets[0].Rows[0].Height = 40;
             foreach (var cell in workbook.Sheets[0].Rows[0].Cells)
             {
@@ -210,10 +210,10 @@ namespace GMSWeb.Sales.Sales
                 row.Cells[4].Format = "#.00";
                 row.Cells[6].Format = "#.00";
                 row.Cells[8].Format = "#.00";
+                row.Cells[11].Value = double.Parse(row.Cells[11].Value.ToString());
+                row.Cells[11].Format = "#,##0.00";
                 row.Cells[12].Value = double.Parse(row.Cells[12].Value.ToString());
                 row.Cells[12].Format = "#,##0.00";
-                row.Cells[13].Value = double.Parse(row.Cells[13].Value.ToString());
-                row.Cells[13].Format = "#,##0.00";
                 //text align
                 row.Cells[0].TextAlign = "center";
                 row.Cells[1].TextAlign = "center";
@@ -226,9 +226,9 @@ namespace GMSWeb.Sales.Sales
                 row.Cells[8].TextAlign = "right";
                 row.Cells[9].TextAlign = "right";
                 row.Cells[10].TextAlign = "center";
-                row.Cells[11].TextAlign = "center";
+                //row.Cells[11].TextAlign = "center";
+                row.Cells[11].TextAlign = "right";
                 row.Cells[12].TextAlign = "right";
-                row.Cells[13].TextAlign = "right";
                 //itelic
                 row.Cells[5].Italic = true;
                 row.Cells[7].Italic = true;
@@ -351,9 +351,15 @@ namespace GMSWeb.Sales.Sales
                             if (isRowChanged)//save only the row changed
                             {
                                 string productCode = row.Cells[1].Value.ToString();
-                                double dealerPrice = double.Parse(row.Cells[4].Value.ToString());
-                                double userPrice = double.Parse(row.Cells[6].Value.ToString());
-                                double retailPrice = double.Parse(row.Cells[8].Value.ToString());
+                                double dealerPrice = 0;
+                                if (!string.IsNullOrEmpty(row.Cells[4].Value.ToString()))
+                                    dealerPrice = double.Parse(row.Cells[4].Value.ToString());
+                                double userPrice = 0;
+                                if (!string.IsNullOrEmpty(row.Cells[6].Value.ToString()))
+                                    userPrice = double.Parse(row.Cells[6].Value.ToString());
+                                double retailPrice = 0;
+                                if (!string.IsNullOrEmpty(row.Cells[8].Value.ToString()))
+                                    retailPrice = double.Parse(row.Cells[8].Value.ToString());
                                 bool clearingStock = false;
                                 //if (row.Cells[9].Value.ToString() == "Yes")
                                 //    clearingStock = true;
@@ -362,44 +368,7 @@ namespace GMSWeb.Sales.Sales
                                 string remarks = "";
                                 string country = row.Cells[10].Value.ToString();
                                 int reorderLevel = 0;
-                                DateTime effectiveDate;
-                                try
-                                {
-                                    effectiveDate = DateTime.ParseExact(row.Cells[11].Value.ToString().Replace("Effective Date:", "").Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                                }
-                                catch (Exception)
-                                {
-                                    effectiveDate = DateTime.Parse(DateTime.FromOADate(double.Parse(row.Cells[11].Value.ToString().Replace("Effective Date:", "").Trim())).ToString("dd/MM/yyyy"));
-                                }
-
-                                //if (effectiveDate <= DateTime.Now)
-                                //{
-                                //    alertMessage("Date must be greater than today.");
-                                //    LoadSpreadSheet();
-                                //    return;
-                                //}
-
-                                if (effectiveDate == DateTime.Parse("1/01/1900 12:00:00 AM"))
-                                {
-                                    effectiveDate = DateTime.Now.Date;
-                                }
-
-                                ProductPrice pp = ProductPrice.RetrieveByProdCodeEffectiveDate(session.CompanyId, productCode, effectiveDate);
-                                if (pp != null)
-                                {
-                                    double ppDealer = double.Parse(Math.Round(pp.DealerPrice, 2).ToString());
-                                    double ppUser = double.Parse(Math.Round(pp.UserPrice, 2).ToString());
-                                    double ppRetail = double.Parse(Math.Round(pp.RetailPrice, 2).ToString());
-
-                                    if (!(ppDealer == dealerPrice &&
-                                        ppUser == userPrice &&
-                                        ppRetail == retailPrice) && pp.EffectiveDate == effectiveDate)
-                                    {
-                                        alertMessage("This product," + productCode + " already has a price with same effective date.");
-                                        LoadSpreadSheet();
-                                        return;
-                                    }
-                                }
+                                DateTime effectiveDate = DateTime.Now;
 
                                 ggdal.SubmitPriceForApproval(session.CompanyId, productCode, dealerPrice, userPrice, retailPrice,
                                         session.UserId, remarks, country, reorderLevel, effectiveDate, clearingStock);
