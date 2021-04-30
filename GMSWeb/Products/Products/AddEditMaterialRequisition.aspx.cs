@@ -113,6 +113,8 @@ namespace GMSWeb.Products.Products
             MRRole purchaser = new MRRoleActivity().RetrieveMainPurchaser(CompanyId);
             if (purchaser != null)
                 hidMainPurchaserUserID.Value = purchaser.UserNumID.ToString();
+            else
+                hidMainPurchaserUserID.Value = "0";
         }
 
         public static DataSet CanUserAccessDocument(short CompanyId, short UserId, string mrno)
