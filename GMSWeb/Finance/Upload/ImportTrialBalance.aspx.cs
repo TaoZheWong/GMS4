@@ -11,7 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.IO;
 using System.Data.SqlClient;
-using System.Text; 
+using System.Text;
 
 //using DTS;
 using GMSCore;
@@ -30,7 +30,7 @@ namespace GMSWeb.Finance.Upload
         #region Page_Load
         protected void Page_Load(object sender, EventArgs e)
         {
-         
+
             string currentLink = "CompanyFinance";
 
             if (Request.Params["CurrentLink"] != null)
@@ -49,7 +49,7 @@ namespace GMSWeb.Finance.Upload
                 Response.Redirect(base.SessionTimeOutPage("CompanyFinance"));
                 return;
             }
-            coyId = session.CompanyId; 
+            coyId = session.CompanyId;
 
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             68);
@@ -76,9 +76,9 @@ namespace GMSWeb.Finance.Upload
 
                 this.ddlYear.DataSource = dtt1;
                 this.ddlYear.DataBind();
-                
+
                 DateTime lastMonthDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
-                this.ddlYear.SelectedValue = lastMonthDate.Year.ToString();  
+                this.ddlYear.SelectedValue = lastMonthDate.Year.ToString();
 
                 // load month ddl
                 DataTable dtt2 = new DataTable();
@@ -92,7 +92,10 @@ namespace GMSWeb.Finance.Upload
                 }
 
                 this.ddlMonth.DataSource = dtt2;
-                this.ddlMonth.DataBind();               
+                this.ddlMonth.DataBind();
+
+                if (session.TBType != "M")
+                    this.FileControl.Visible = false;
             }
             //btnImport.Attributes.Add("onclick", "javascript:" + btnImport.ClientID + ".disabled=true;" + this.GetPostBackEventReference(btnImport));
         }
@@ -102,11 +105,45 @@ namespace GMSWeb.Finance.Upload
         //Revamped by Siew Siew Ong on 2015-10-14 
         protected void btnImport_Click(object sender, EventArgs e)
         {
+            LogSession session = base.GetSessionInfo();
+            if (session.TBType == "M")
+            {
+                try
+                {
+                    if (this.FileUpload.HasFile)
+                    {
+                        if ((Path.GetExtension(this.FileUpload.FileName)).ToUpper() != ".XLS")
+                        {
+                            JScriptAlertMsg("Only Excel file, '.xls' allowed!");
+                            return;
+                        }
+                        string folderPath = @"C:\\inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\";
+                        if (!Directory.Exists(folderPath))
+                            Directory.CreateDirectory(folderPath);
+
+                        string archivePath = @"C:\\inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\Archive\\\\";
+                        if (!Directory.Exists(archivePath))
+                            Directory.CreateDirectory(archivePath);
+
+                        FileUpload.SaveAs(folderPath + "/" + this.FileUpload.FileName);
+                        this.FileUpload.Attributes.Clear();
+                    }
+                    else
+                    {
+                        JScriptAlertMsg("Please upload excel file.");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    JScriptAlertMsg(ex.Message);
+                }
+            }
+            
             this.IFrame1.Attributes["style"] = "";
             this.IFrame1.Attributes["src"] = String.Format("ProcessTrialBalance.aspx?CoyID={0}&Year={1}&Month={2}",
-                                                        coyId,ddlYear.SelectedValue,ddlMonth.SelectedValue);
+                                                        coyId, ddlYear.SelectedValue, ddlMonth.SelectedValue);
         }
         #endregion
-                
     }
 }

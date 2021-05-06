@@ -23,23 +23,40 @@
             <div class="panel-heading-btn">
                 <a data-init="true" title="" data-original-title="" href="javascript:;" class="btn" data-toggle="panel-collapse"><i class="glyphicon glyphicon-chevron-up"></i></a>
             </div>
-            <h4 class="panel-title">
-                1. Import Trial Balance
+            <h4 class="panel-title">1. Import Trial Balance
                 <small>Click <b>Import</b> button below to import trial balance data into from A21 to GMS.</small>
             </h4>
         </div>
         <div class="panel-body row">
             <div class="form-horizontal m-t-20">
                 <div class="form-group col-lg-4 col-sm-6">
-                    <label class="col-sm-6 control-label text-left"><asp:Label CssClass="tbLabel" ID="lblYear" runat="server">Year</asp:Label></label>
+                    <label class="col-sm-6 control-label text-left">
+                        <asp:Label CssClass="tbLabel" ID="lblYear" runat="server">Year</asp:Label></label>
                     <div class="col-sm-6">
                         <asp:DropDownList CssClass="form-control" ID="ddlYear" runat="server" DataTextField="Year" DataValueField="Year" />
                     </div>
                 </div>
                 <div class="form-group col-lg-4 col-sm-6">
-                    <label class="col-sm-6 control-label text-left"><asp:Label CssClass="tbLabel" ID="lblMonth" runat="server" Style="margin-left: 10px">Month</asp:Label></label>
+                    <label class="col-sm-6 control-label text-left">
+                        <asp:Label CssClass="tbLabel" ID="lblMonth" runat="server" Style="margin-left: 10px">Month</asp:Label></label>
                     <div class="col-sm-6">
                         <asp:DropDownList CssClass="form-control" ID="ddlMonth" runat="server" DataTextField="Month" DataValueField="Month" />
+                    </div>
+                </div>
+                <div class="form-group col-lg-4 col-sm-6" runat="server" id="FileControl">
+                    <label class="col-sm-6 control-label text-left">
+                        <asp:Label CssClass="tbLabel" ID="lblFile" runat="server">File</asp:Label>
+                    </label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" readonly>
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary btn-upload">
+                                    <i class="ti-files" data-toggle="tooltip" data-placement="top" title="Upload"></i>
+                                    <asp:FileUpload CssClass="form-control hidden" ID="FileUpload" runat="server" />
+                                </span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,15 +65,15 @@
             <asp:Button ID="btnImport" runat="server" Style="margin-left: 60px" CausesValidation="true" Text="Import" CssClass="btn btn-primary pull-right" OnClick="btnImport_Click" />
         </div>
     </div>
-    <iframe  id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>                   
-       
-    <div class="TABCOMMAND">
-        <atlas:UpdatePanel ID="udpMsgUpdater" runat="server" Mode="Always">
-            <ContentTemplate>
-                <uctrl:MsgPanel ID="PageMsgPanel" runat="server" EnableViewState="false" />
-            </ContentTemplate>
-        </atlas:UpdatePanel>
-    </div>
+    <iframe id="IFrame1" frameborder="0" scrolling="YES" runat="Server" width="100%" style="display: none"></iframe>
+
+        <div class="TABCOMMAND">
+            <atlas:UpdatePanel ID="udpMsgUpdater" runat="server" Mode="Always">
+                <ContentTemplate>
+                    <uctrl:MsgPanel ID="PageMsgPanel" runat="server" EnableViewState="false" />
+                </ContentTemplate>
+            </atlas:UpdatePanel>
+        </div>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script type="text/javascript">
