@@ -352,13 +352,13 @@ namespace GMSWeb.Sales.Sales
                             {
                                 string productCode = row.Cells[1].Value.ToString();
                                 double dealerPrice = 0;
-                                if (!string.IsNullOrEmpty(row.Cells[4].Value.ToString()))
+                                if (row.Cells[4].Value!=null)
                                     dealerPrice = double.Parse(row.Cells[4].Value.ToString());
                                 double userPrice = 0;
-                                if (!string.IsNullOrEmpty(row.Cells[6].Value.ToString()))
+                                if (row.Cells[6].Value != null)
                                     userPrice = double.Parse(row.Cells[6].Value.ToString());
                                 double retailPrice = 0;
-                                if (!string.IsNullOrEmpty(row.Cells[8].Value.ToString()))
+                                if (row.Cells[8].Value != null)
                                     retailPrice = double.Parse(row.Cells[8].Value.ToString());
                                 bool clearingStock = false;
                                 //if (row.Cells[9].Value.ToString() == "Yes")
@@ -366,7 +366,9 @@ namespace GMSWeb.Sales.Sales
                                 //else
                                 //    clearingStock = false;
                                 string remarks = "";
-                                string country = row.Cells[10].Value.ToString();
+                                string country = "";
+                                if (row.Cells[10].Value != null)
+                                    country = row.Cells[10].Value.ToString();
                                 int reorderLevel = 0;
                                 DateTime effectiveDate = DateTime.Now;
 
