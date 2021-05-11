@@ -78,9 +78,9 @@ namespace GMSCore.Activity
             }
             else if (coyID == 120 && mr.MRScheme == "Product")
             {
-                if (PHUserId == 140)
+                if (PHUserId == 140 || PHUserId == 62)
                     purchaserUserId = 905;
-                else if (PHUserId == 56)
+                else if (PHUserId == 56 || PHUserId == 856)
                     purchaserUserId = 906;
                 else
                     purchaserUserId = 905;
@@ -237,9 +237,9 @@ namespace GMSCore.Activity
                 }
                 else if (coyID == 120 && mr_.MRScheme == "Product")
                 {
-                    if (PHUserId == 140)
+                    if (PHUserId == 140 || PHUserId == 62)
                         mainPurchaserUserId = 905;
-                    else if (PHUserId == 56)
+                    else if (PHUserId == 56 || PHUserId == 856)
                         mainPurchaserUserId = 906;
                     else
                         mainPurchaserUserId = 905;
