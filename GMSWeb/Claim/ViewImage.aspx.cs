@@ -20,7 +20,7 @@ namespace GMSWeb.Claim
                     this.fileName = Request.Params["FileName"].ToString();
                     this.coyID =Request.Params["ID"].ToString();
                     Response.ContentType = "image/png";
-                    Response.WriteFile("D://GMSDocuments//Claim//" + this.coyID + "/" + this.fileName);
+                    Response.WriteFile("F://GMSDocuments//Claim//" + this.coyID + "/" + this.fileName);
                     Response.Flush();
                     Response.End();
                 }

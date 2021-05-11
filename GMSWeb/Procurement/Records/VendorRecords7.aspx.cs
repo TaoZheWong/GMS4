@@ -254,7 +254,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.PoliciesManagementFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/PoliciesManagenent/" + vendorapplicationform.PoliciesManagementFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/PoliciesManagenent/" + vendorapplicationform.PoliciesManagementFileName);
                 Response.End();
             }
         }

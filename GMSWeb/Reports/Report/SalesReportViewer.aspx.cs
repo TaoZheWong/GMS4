@@ -1021,6 +1021,145 @@ namespace GMSWeb.Reports.Report
             //}
             #endregion
 
+            #region PROJECTID
+            if (crReportDocument.ParameterFields["ProjectID"] != null || crReportDocument.ParameterFields["@ProjectID"] != null)
+            {
+                //GMSGeneralDALC dacl = new GMSGeneralDALC();
+                DataSet dsProjects = new DataSet();
+                dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
+
+                if (dsProjects.Tables[0].Rows.Count > 0)
+                {
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 1 : "));
+                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+                    DropDownList ddlProjectID = new DropDownList();
+                    ddlProjectID.ID = "ddlProjectID";
+                    ddlProjectID.CssClass = "form-control";
+                    ddlProjectID.AutoPostBack = true;
+                    ddlProjectID.SelectedIndexChanged += new EventHandler(ddlProjectID_SelectedIndexChanged);
+                    ddlProjectID.Items.Clear();
+
+                    for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
+                    {
+                        ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ReportProjectID"].ToString()));
+                    }
+
+                    pnlParameter.Controls.Add(ddlProjectID);
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                    controlCount = controlCount + 1;
+
+                    if (ViewState["ddlProjectID"] == null)
+                        ViewState["ddlProjectID"] = -1;
+
+                    if (crReportDocument.ParameterFields["DepartmentID"] != null || crReportDocument.ParameterFields["@DepartmentID"] != null)
+                    {
+                        //Add in Department DropDown
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 2 : "));
+                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+
+                        DropDownList ddlDepartmentID = new DropDownList();
+                        ddlDepartmentID.ID = "ddlDepartmentID";
+                        ddlDepartmentID.CssClass = "form-control";
+                        ddlDepartmentID.Enabled = false;
+                        ddlDepartmentID.AutoPostBack = true;
+                        ddlDepartmentID.SelectedIndexChanged += new EventHandler(ddlDepartmentID_SelectedIndexChanged);
+                        ddlDepartmentID.Items.Clear();
+
+                        pnlParameter.Controls.Add(ddlDepartmentID);
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                        controlCount = controlCount + 1;
+
+                        if (ViewState["ddlDepartmentID"] == null)
+                            ViewState["ddlDepartmentID"] = -1;
+
+
+
+                        //Add in Section DropDown
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 3 : "));
+                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+
+                        DropDownList ddlSectionID = new DropDownList();
+                        ddlSectionID.ID = "ddlSectionID";
+                        ddlSectionID.CssClass = "form-control";
+                        ddlSectionID.Enabled = false;
+                        ddlSectionID.AutoPostBack = true;
+                        ddlSectionID.SelectedIndexChanged += new EventHandler(ddlSectionID_SelectedIndexChanged);
+                        ddlSectionID.Items.Clear();
+
+                        pnlParameter.Controls.Add(ddlSectionID);
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                        controlCount = controlCount + 1;
+
+                        if (ViewState["ddlSectionID"] == null)
+                            ViewState["ddlSectionID"] = -1;
+
+
+                        //Add in Unit DropDown
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
+                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 4 : "));
+                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
+                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
+
+                        DropDownList ddlUnitID = new DropDownList();
+                        ddlUnitID.ID = "ddlUnitID";
+                        ddlUnitID.CssClass = "form-control";
+                        ddlUnitID.Enabled = false;
+                        ddlUnitID.Items.Clear();
+
+                        pnlParameter.Controls.Add(ddlUnitID);
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
+                        controlCount = controlCount + 1;
+
+                        if (ViewState["ddlUnitID"] == null)
+                            ViewState["ddlUnitID"] = -1;
+
+
+                        //Bind Department if Project > 0
+                        if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0 && !IsPostBack)
+                        {
+                            ddlDepartmentID.Enabled = true;
+                            DataSet dsDepartments = new DataSet();
+                            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
+                            short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
+
+
+                            dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
+
+                            foreach (DataRow dr in dsDepartments.Tables[0].Rows)
+                            {
+                                ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
+                            }
+
+                            //Bind Section if Department > 0
+                            if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack)
+                            {
+                                DataSet dsSections = new DataSet();
+
+
+                                dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
+                                foreach (DataRow dr in dsSections.Tables[0].Rows)
+                                {
+                                    ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
+                                }
+                                ddlSectionID.Enabled = true;
+                            }
+                        }
+                    }
+                }
+                if (ViewState["ddlProjectID"] == null)
+                    ViewState["ddlProjectID"] = -1;
+            }
+            #endregion
 
 
             if (crReportDocument.ParameterFields["@Date"] != null || crReportDocument.ParameterFields["@AsOfDate"] != null)
@@ -1278,148 +1417,8 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
-            #region PROJECTID
-            if (crReportDocument.ParameterFields["ProjectID"] != null || crReportDocument.ParameterFields["@ProjectID"] != null)
-            {
-                //GMSGeneralDALC dacl = new GMSGeneralDALC();
-                DataSet dsProjects = new DataSet();
-                dacl.GetCompanyProject(session.CompanyId, loginUserOrAlternateParty, reportId, ref dsProjects);
-
-                if (dsProjects.Tables[0].Rows.Count > 0)
-                {
-                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                    pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 1 : "));
-                    pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-                    DropDownList ddlProjectID = new DropDownList();
-                    ddlProjectID.ID = "ddlProjectID";
-                    ddlProjectID.CssClass = "form-control";
-                    ddlProjectID.AutoPostBack = true;
-                    ddlProjectID.SelectedIndexChanged += new EventHandler(ddlProjectID_SelectedIndexChanged);
-                    ddlProjectID.Items.Clear();
-
-                    for (int j = 0; j < dsProjects.Tables[0].Rows.Count; j++)
-                    {
-                        ddlProjectID.Items.Add(new ListItem(dsProjects.Tables[0].Rows[j]["ProjectName"].ToString(), dsProjects.Tables[0].Rows[j]["ReportProjectID"].ToString()));
-                    }
-
-                    pnlParameter.Controls.Add(ddlProjectID);
-                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                    pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                    controlCount = controlCount + 1;
-
-                    if (ViewState["ddlProjectID"] == null)
-                        ViewState["ddlProjectID"] = -1;
-
-                    if (crReportDocument.ParameterFields["DepartmentID"] != null || crReportDocument.ParameterFields["@DepartmentID"] != null)
-                    {
-                        //Add in Department DropDown
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 2 : "));
-                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-
-                        DropDownList ddlDepartmentID = new DropDownList();
-                        ddlDepartmentID.ID = "ddlDepartmentID";
-                        ddlDepartmentID.CssClass = "form-control";
-                        ddlDepartmentID.Enabled = false;
-                        ddlDepartmentID.AutoPostBack = true;
-                        ddlDepartmentID.SelectedIndexChanged += new EventHandler(ddlDepartmentID_SelectedIndexChanged);
-                        ddlDepartmentID.Items.Clear();
-
-                        pnlParameter.Controls.Add(ddlDepartmentID);
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        controlCount = controlCount + 1;
-
-                        if (ViewState["ddlDepartmentID"] == null)
-                            ViewState["ddlDepartmentID"] = -1;
 
 
-
-                        //Add in Section DropDown
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 3 : "));
-                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-
-                        DropDownList ddlSectionID = new DropDownList();
-                        ddlSectionID.ID = "ddlSectionID";
-                        ddlSectionID.CssClass = "form-control";
-                        ddlSectionID.Enabled = false;
-                        ddlSectionID.AutoPostBack = true;
-                        ddlSectionID.SelectedIndexChanged += new EventHandler(ddlSectionID_SelectedIndexChanged);
-                        ddlSectionID.Items.Clear();
-
-                        pnlParameter.Controls.Add(ddlSectionID);
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        controlCount = controlCount + 1;
-
-                        if (ViewState["ddlSectionID"] == null)
-                            ViewState["ddlSectionID"] = -1;
-
-
-                        //Add in Unit DropDown
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
-                        pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">Dim 4 : "));
-                        pnlParameter.Controls.Add(new LiteralControl("</label>"));
-                        pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
-
-                        DropDownList ddlUnitID = new DropDownList();
-                        ddlUnitID.ID = "ddlUnitID";
-                        ddlUnitID.CssClass = "form-control";
-                        ddlUnitID.Enabled = false;
-                        ddlUnitID.Items.Clear();
-
-                        pnlParameter.Controls.Add(ddlUnitID);
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        pnlParameter.Controls.Add(new LiteralControl("</div>"));
-                        controlCount = controlCount + 1;
-
-                        if (ViewState["ddlUnitID"] == null)
-                            ViewState["ddlUnitID"] = -1;
-
-
-                        //Bind Department if Project > 0
-                        if (Convert.ToInt16(ddlProjectID.SelectedValue) > 0 && !IsPostBack)
-                        {
-                            ddlDepartmentID.Enabled = true;
-                            DataSet dsDepartments = new DataSet();
-                            short year = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlYear")).SelectedValue);
-                            short month = Convert.ToInt16(((DropDownList)pnlParameter.FindControl("ddlMonth")).SelectedValue);
-
-
-                            dacl.GetCompanyDepartment(session.CompanyId, Convert.ToInt16(ddlProjectID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsDepartments);
-
-                            foreach (DataRow dr in dsDepartments.Tables[0].Rows)
-                            {
-                                ddlDepartmentID.Items.Add(new ListItem(dr["DepartmentName"].ToString(), dr["DepartmentID"].ToString()));
-                            }
-
-                            //Bind Section if Department > 0
-                            if (Convert.ToInt16(ddlDepartmentID.SelectedValue) > 0 && !IsPostBack)
-                            {
-                                DataSet dsSections = new DataSet();
-
-
-                                dacl.GetCompanySection(session.CompanyId, Convert.ToInt16(ddlDepartmentID.SelectedValue), reportId, loginUserOrAlternateParty, year, month, ref dsSections);
-                                foreach (DataRow dr in dsSections.Tables[0].Rows)
-                                {
-                                    ddlSectionID.Items.Add(new ListItem(dr["SectionName"].ToString(), dr["SectionID"].ToString()));
-                                }
-                                ddlSectionID.Enabled = true;
-                            }
-                        }
-                    }
-                }
-                if (ViewState["ddlProjectID"] == null)
-                    ViewState["ddlProjectID"] = -1;
-            }
-            #endregion
-
-
-          
             if (crReportDocument.ParameterFields["Supplier"] != null)
             {
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -1456,7 +1455,7 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
-         
+
 
             if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null || crReportDocument.ParameterFields["@ProductGroupName"] != null)
             {
@@ -4110,7 +4109,7 @@ namespace GMSWeb.Reports.Report
                     if (crReportDocument.ParameterFields["@TeamID"] != null && ViewState["ddlTeam"] != null)
                         crReportDocument.SetParameterValue("@TeamID", GMSUtil.ToInt(ViewState["ddlTeam"].ToString()));
 
-                   
+
                     if (crReportDocument.ParameterFields["Requestor"] != null && ViewState["txtRequestor"] != null)
                         crReportDocument.SetParameterValue("Requestor", ViewState["txtRequestor"].ToString());
                     if (crReportDocument.ParameterFields["RefNo"] != null && ViewState["txtRefNo"] != null)

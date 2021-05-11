@@ -133,12 +133,12 @@ namespace GMSWeb.SysFinance.Administration
 
             //string fileName = "FST70" + ddlYear.SelectedValue.ToString() + ddlMonth.SelectedValue.ToString().PadLeft(2,'0') + ".txt"; 
             //string folderPath = @"D:\GMSDocuments\Group Finance\"; 
-            string folderPath = @"D:\GMSFinance\";  //+ DateTime.Now.ToString("yyyyMMdd_HHmmss"); 
+            string folderPath = @"F:\GMSFinance\";  //+ DateTime.Now.ToString("yyyyMMdd_HHmmss"); 
             string zipFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".zip";
             string zipFilePath = folderPath + zipFileName;
 
             //delete all files from the folder
-            string[] deleteFilePaths = Directory.GetFiles(@"D:\GMSFinance\");
+            string[] deleteFilePaths = Directory.GetFiles(@"F:\GMSFinance\");
             foreach (string deleteFilePath in deleteFilePaths)
                 File.Delete(deleteFilePath);
 

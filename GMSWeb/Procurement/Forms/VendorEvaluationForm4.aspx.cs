@@ -23,7 +23,7 @@ namespace GMSWeb.Procurement.Forms
     
     public partial class VendorEvaluationForm4 : GMSBasePage
     {
-        protected string folderPath = @"D:\GMSDocuments\VendorDocuments\CompanyOrganisation";
+        protected string folderPath = @"F:\GMSDocuments\VendorDocuments\CompanyOrganisation";
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -317,7 +317,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.CompanyOrganisationFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/CompanyOrganisation/" + vendorapplicationform.CompanyOrganisationFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/CompanyOrganisation/" + vendorapplicationform.CompanyOrganisationFileName);
                 Response.End();
             }
         }

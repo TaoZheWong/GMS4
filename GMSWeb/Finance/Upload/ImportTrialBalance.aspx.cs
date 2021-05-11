@@ -117,11 +117,12 @@ namespace GMSWeb.Finance.Upload
                             JScriptAlertMsg("Only Excel file, '.xls' allowed!");
                             return;
                         }
-                        string folderPath = @"C:\\inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\";
+                        //string folderPath = @"C:\\inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\";
+                        string folderPath = @"F:\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\";
                         if (!Directory.Exists(folderPath))
                             Directory.CreateDirectory(folderPath);
-
-                        string archivePath = @"C:\\inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\Archive\\\\";
+                        //string archivePath = @"C:\\inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\Archive\\\\";
+                        string archivePath = @"F:\\GMSOtherSystemMapping\\" + session.DBName + "\\\\IncomingMap\\\\Archive\\\\";
                         if (!Directory.Exists(archivePath))
                             Directory.CreateDirectory(archivePath);
 

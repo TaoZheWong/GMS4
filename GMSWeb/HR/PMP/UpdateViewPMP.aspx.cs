@@ -21,7 +21,7 @@ namespace GMSWeb.HR.PMP
     {
         private string employeeID = "";
         private string employeeNo = "";
-        protected string folderPath = @"D:\GMSDocuments\PMP\";
+        protected string folderPath = @"F:\GMSDocuments\PMP\";
         private short coyId;
         public bool CanDelete = false;
         private Employee emp; 
@@ -211,7 +211,7 @@ namespace GMSWeb.HR.PMP
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/PMP/" + this.employeeNo + "/" + e.CommandArgument.ToString());
+                    Response.TransmitFile(@"F:/GMSDocuments/PMP/" + this.employeeNo + "/" + e.CommandArgument.ToString());
                 }
                 catch (Exception ex)
                 {

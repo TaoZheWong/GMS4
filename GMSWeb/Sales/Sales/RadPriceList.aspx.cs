@@ -352,7 +352,7 @@ namespace GMSWeb.Sales.Sales
                             {
                                 string productCode = row.Cells[1].Value.ToString();
                                 double dealerPrice = 0;
-                                if (row.Cells[4].Value!=null)
+                                if (row.Cells[4].Value != null)
                                     dealerPrice = double.Parse(row.Cells[4].Value.ToString());
                                 double userPrice = 0;
                                 if (row.Cells[6].Value != null)
@@ -434,15 +434,22 @@ namespace GMSWeb.Sales.Sales
         #region btnSearch_Click
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //this.RadGrid1.CurrentPageIndex = 0;
-            this.RadGrid2.CurrentPageIndex = 0;
-            if (ddlSearchStatus.SelectedValue.Trim() != "")
-                RetrieveProduct();
-            else
-                LoadSpreadSheet();
+            try
+            {
+                //this.RadGrid1.CurrentPageIndex = 0;
+                this.RadGrid2.CurrentPageIndex = 0;
+                if (ddlSearchStatus.SelectedValue.Trim() != "")
+                    RetrieveProduct();
+                else
+                    LoadSpreadSheet();
 
-            //this.RadGrid1.DataBind();
-            this.RadGrid2.DataBind();
+                //this.RadGrid1.DataBind();
+                this.RadGrid2.DataBind();
+            }
+            catch (Exception ex)
+            {
+                JScriptAlertMsg(ex.ToString());
+            }
         }
         #endregion
 

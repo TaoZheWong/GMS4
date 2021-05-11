@@ -120,7 +120,7 @@ namespace GMSWeb.Claim
             {
                 DataSet dsTemp = new DataSet();
                 string randomFileName = DateTime.Now.Ticks.ToString() + ".jpg";
-                string imagePath = @"D:\\GMSDocuments\\Claim\\"+CompanyID+"\\";
+                string imagePath = @"F:\\GMSDocuments\\Claim\\"+CompanyID+"\\";
                 string base64StringData = data;
                 if (!base64StringData.Contains("image"))
                 {

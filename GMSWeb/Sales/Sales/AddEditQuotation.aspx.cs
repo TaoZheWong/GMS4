@@ -5247,7 +5247,7 @@ namespace GMSWeb.Sales.Sales
 			mail.BodyEncoding = System.Text.Encoding.UTF8;
 		   
 			mail.Subject = txtEmailSubject.Text.Trim();
-			System.Net.Mail.Attachment atth = new System.Net.Mail.Attachment("D:\\GMSDocuments\\Quotation\\" + "Quotation_" + lblQuotationNo.Text + ".pdf");
+			System.Net.Mail.Attachment atth = new System.Net.Mail.Attachment("F:\\GMSDocuments\\Quotation\\" + "Quotation_" + lblQuotationNo.Text + ".pdf");
 			mail.Attachments.Add(atth);
 
 

@@ -240,7 +240,7 @@ namespace GMSWeb.HR.Staff
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/PMP/" + this.employeeNo + "/" + e.CommandArgument.ToString());
+                    Response.TransmitFile(@"F:/GMSDocuments/PMP/" + this.employeeNo + "/" + e.CommandArgument.ToString());
                 }
                 catch (Exception ex)
                 {

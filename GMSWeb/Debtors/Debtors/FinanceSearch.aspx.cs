@@ -164,7 +164,7 @@ namespace GMSWeb.Debtors.Debtors
 
                     Response.ContentType = ContentType.ToString();
                     Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
-                    Response.TransmitFile("D://GMSDocuments/CRM/" + e.CommandArgument.ToString());
+                    Response.TransmitFile("F://GMSDocuments/CRM/" + e.CommandArgument.ToString());
                     Response.End();
                     break;
 

@@ -231,12 +231,13 @@ namespace GMSWeb.Finance.Upload
                         Response.Flush();
 
                         bool hasFile = false;
-                        string excelDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
-                        string archiveDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
+                        string excelDirectory = "F:\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
+                        string archiveDirectory = "F:\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
+                        //string excelDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\";
+                        //string archiveDirectory = "C:\\Inetpub\\ftproot\\GMSOtherSystemMapping\\" + session.DBName + "\\IncomingMap\\Archive\\";
                         string[] TBfiles = Directory.GetFiles(excelDirectory);
                         foreach (string filepath in TBfiles)
                         {
-
                             Response.Output.Write("Reading excel data [" + Path.GetFileName(filepath) + "]...<br>");
                             Response.Output.Write(new string(' ', 5000));
                             Response.Flush();

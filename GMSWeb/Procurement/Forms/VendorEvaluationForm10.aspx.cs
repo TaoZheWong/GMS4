@@ -21,7 +21,7 @@ namespace GMSWeb.Procurement.Forms
 {
     public partial class VendorEvaluationForm10 : GMSBasePage
     {
-        protected string folderPath = @"D:\GMSDocuments\VendorDocuments\ACRA";
+        protected string folderPath = @"F:\GMSDocuments\VendorDocuments\ACRA";
         protected void Page_Load(object sender, EventArgs e)
         {
          
@@ -278,7 +278,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.ACRAFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/ACRA/" + vendorapplicationform.ACRAFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/ACRA/" + vendorapplicationform.ACRAFileName);
                 Response.End();
             }
         }

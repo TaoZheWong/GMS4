@@ -16,7 +16,7 @@ namespace GMSWeb.Sales.Sales
     {
         public bool CanDelete = false;
         string isPriceList = "";
-        protected string folderPath = @"D:\GMSDocuments\Resources\";
+        protected string folderPath = @"F:\GMSDocuments\Resources\";
         protected void Page_Load(object sender, EventArgs e)
         {
             LogSession session = base.GetSessionInfo();
@@ -282,7 +282,7 @@ namespace GMSWeb.Sales.Sales
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/Resources/" + e.CommandArgument.ToString());
+                    Response.TransmitFile(@"F:/GMSDocuments/Resources/" + e.CommandArgument.ToString());
                 }
                 catch (Exception ex)
                 {

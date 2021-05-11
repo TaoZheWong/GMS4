@@ -21,8 +21,8 @@ namespace GMSWeb.Procurement.Forms
 {
     public partial class VendorEvaluationForm5 : GMSBasePage
     {
-        protected string folderPath = @"D:\GMSDocuments\VendorDocuments\QualitySafetyEnvironment";
-        protected string folderPath2 = @"D:\GMSDocuments\VendorDocuments\Certificates";
+        protected string folderPath = @"F:\GMSDocuments\VendorDocuments\QualitySafetyEnvironment";
+        protected string folderPath2 = @"F:\GMSDocuments\VendorDocuments\Certificates";
         protected void Page_Load(object sender, EventArgs e)
         {
           
@@ -379,7 +379,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.QAManualFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/QualitySafetyEnvironment/" + vendorapplicationform.QAManualFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/QualitySafetyEnvironment/" + vendorapplicationform.QAManualFileName);
                 Response.End();
             }
         }
@@ -468,7 +468,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.CertificatesFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/Certificates/" + vendorapplicationform.CertificatesFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/Certificates/" + vendorapplicationform.CertificatesFileName);
                 Response.End();
             }
         }
