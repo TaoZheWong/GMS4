@@ -24,7 +24,7 @@ namespace GMSWeb.HR.Recruitment
                     this.fileName = Decrypt(Request.Params["FileName"].ToString());
                     this.coyID = Decrypt(Request.Params["ID"].ToString());
                     Response.ContentType = "image/png";
-                    Response.WriteFile("D://GMSDocuments/Resume/"+this.coyID+"/"+this.fileName+"_/"+this.fileName+".png");
+                    Response.WriteFile("F://GMSDocuments/Resume/"+this.coyID+"/"+this.fileName+"_/"+this.fileName+".png");
                     Response.Flush();
                     Response.End();
                 }

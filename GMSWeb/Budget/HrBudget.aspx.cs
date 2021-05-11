@@ -696,7 +696,7 @@ namespace GMSWeb.Budget
         protected void LoadHrTemplate()
         {
             LogSession session = base.GetSessionInfo();
-            var path = @"D:/GMSDocuments/HrBudget/" + session.CompanyId + "/HrTemplate_"+ this.ddlType.SelectedValue +".xlsx";
+            var path = @"F:/GMSDocuments/HrBudget/" + session.CompanyId + "/HrTemplate_"+ this.ddlType.SelectedValue +".xlsx";
             if (File.Exists(path))
             {
                 SpreadsheetDocumentProvider provider = new SpreadsheetDocumentProvider(path);

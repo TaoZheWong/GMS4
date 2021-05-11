@@ -21,7 +21,7 @@ namespace GMSWeb.Procurement.Forms
 {
     public partial class VendorEvaluationForm2 : GMSBasePage
     {
-        protected string folderPath = @"D:\GMSDocuments\VendorDocuments\AgentDistributor";
+        protected string folderPath = @"F:\GMSDocuments\VendorDocuments\AgentDistributor";
         protected void Page_Load(object sender, EventArgs e)
         {
          
@@ -413,7 +413,7 @@ namespace GMSWeb.Procurement.Forms
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/AgentDistributor" + e.CommandArgument.ToString());
+                    Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/AgentDistributor" + e.CommandArgument.ToString());
                 }
                 catch (Exception ex)
                 {
@@ -467,7 +467,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.AgentDistributorFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/AgentDistributor/" + vendorapplicationform.AgentDistributorFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/AgentDistributor/" + vendorapplicationform.AgentDistributorFileName);
                 Response.End();
             }
         }
@@ -493,7 +493,7 @@ namespace GMSWeb.Procurement.Forms
                         vendorapplicationform.AgentDistributorDocumentName = txtDocumentName.Text.Trim();
                     fileName = string.Concat(vendorapplicationform.VendorID, vendorapplicationform.AgentDistributorDocumentName, vendorapplicationform.FormID, Path.GetExtension(this.FileUpload1.FileName));
                     vendorapplicationform.AgentDistributorFileName = fileName;
-                    FileUpload1.SaveAs(@"D:\GMSDocuments\VendorDocuments\AgentDistributor" + "\\" + FileUpload1.FileName);
+                    FileUpload1.SaveAs(@"F:\GMSDocuments\VendorDocuments\AgentDistributor" + "\\" + FileUpload1.FileName);
 
                     vendorapplicationform.Save();
                     vendorapplicationform.Resync();

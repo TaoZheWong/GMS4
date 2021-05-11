@@ -22,7 +22,7 @@ namespace GMSWeb.HR.PMP
     {
         public bool CanDelete = false;
 
-        protected string folderPath = @"D:\GMSDocuments\Resources\"; 
+        protected string folderPath = @"F:\GMSDocuments\Resources\"; 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -387,7 +387,7 @@ namespace GMSWeb.HR.PMP
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename);
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/PMP/" + emp.EmployeeNo + "/" + filename);
+                    Response.TransmitFile(@"F:/GMSDocuments/PMP/" + emp.EmployeeNo + "/" + filename);
                 }
                 catch (Exception ex)
                 {
@@ -483,7 +483,7 @@ namespace GMSWeb.HR.PMP
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/Resources/" + e.CommandArgument.ToString());
+                    Response.TransmitFile(@"F:/GMSDocuments/Resources/" + e.CommandArgument.ToString());
                 } catch(Exception ex)
                 {
                     JScriptAlertMsg(ex.Message); 
@@ -542,7 +542,7 @@ namespace GMSWeb.HR.PMP
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename);
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/PMP/" + emp.EmployeeNo + "/" + filename);
+                    Response.TransmitFile(@"F:/GMSDocuments/PMP/" + emp.EmployeeNo + "/" + filename);
                 }
                 catch (Exception ex)
                 {
@@ -625,7 +625,7 @@ namespace GMSWeb.HR.PMP
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename);
                 try
                 {
-                    Response.TransmitFile(@"D:/GMSDocuments/PMP/" + emp.EmployeeNo + "/" + filename);
+                    Response.TransmitFile(@"F:/GMSDocuments/PMP/" + emp.EmployeeNo + "/" + filename);
                 }
                 catch (Exception ex)
                 {

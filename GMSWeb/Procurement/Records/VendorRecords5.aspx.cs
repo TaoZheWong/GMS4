@@ -374,7 +374,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.QAManualFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/QualitySafetyEnvironment/" + vendorapplicationform.QAManualFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/QualitySafetyEnvironment/" + vendorapplicationform.QAManualFileName);
                 Response.End();
             }
         }
@@ -422,7 +422,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.CertificatesFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/Certificates/" + vendorapplicationform.CertificatesFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/Certificates/" + vendorapplicationform.CertificatesFileName);
                 Response.End();
             }
         }

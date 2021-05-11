@@ -22,9 +22,9 @@ namespace GMSWeb.Procurement.Forms
 {
     public partial class VendorEvaluationForm8 : GMSBasePage
     {
-        protected string folderPath = @"D:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\ReferenceProjects";
-        protected string folderPath2 = @"D:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\QualificationCertificates";
-        protected string folderPath3 = @"D:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\RelevantRecords";
+        protected string folderPath = @"F:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\ReferenceProjects";
+        protected string folderPath2 = @"F:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\QualificationCertificates";
+        protected string folderPath3 = @"F:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\RelevantRecords";
         protected void Page_Load(object sender, EventArgs e)
         {
           
@@ -302,7 +302,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.ReferenceProjectsFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/ReferenceProjects/" + vendorapplicationform.ReferenceProjectsFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/ReferenceProjects/" + vendorapplicationform.ReferenceProjectsFileName);
                 Response.End();
             }
         }
@@ -391,7 +391,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.QualificationCertificatesFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/QualificationCertificates/" + vendorapplicationform.QualificationCertificatesFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/QualificationCertificates/" + vendorapplicationform.QualificationCertificatesFileName);
                 Response.End();
             }
         }
@@ -481,7 +481,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.RelevantRecordsFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/RelevantRecords" + vendorapplicationform.RelevantRecordsFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/RelevantRecords" + vendorapplicationform.RelevantRecordsFileName);
                 Response.End();
             }
         }

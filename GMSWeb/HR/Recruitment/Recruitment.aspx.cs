@@ -124,7 +124,7 @@ namespace GMSWeb.HR.Recruitment
                         switch (result)
                         {
                             case ResultType.Ok:
-                                string path = @"D:\\GMSDocuments\\Resume\\" + session.CompanyId.ToString() + "\\" + hidFileName.Value.ToString()+"_";
+                                string path = @"F:\\GMSDocuments\\Resume\\" + session.CompanyId.ToString() + "\\" + hidFileName.Value.ToString()+"_";
                                 Directory.Delete(path,true);
                                 this.dgAttachment.EditItemIndex = -1;
                                 this.dgAttachment.CurrentPageIndex = 0;
@@ -212,12 +212,12 @@ namespace GMSWeb.HR.Recruitment
                         ScriptManager.RegisterStartupScript(upAttachment, upAttachment.GetType(), "Alert", "alert('Executable File Extensions is not allow!');", true);
                         return;
                     }
-                    string folderPath = @"D:\\GMSDocuments\\Resume\\" + session.CompanyId;
+                    string folderPath = @"F:\\GMSDocuments\\Resume\\" + session.CompanyId;
                     if (!Directory.Exists(folderPath))
                         Directory.CreateDirectory(folderPath);
                     
                     string randomIDFileName = (txtName.Text.Trim() + "-Resume" + Path.GetExtension(this.FileUpload.FileName)).Replace(" ","");
-                    string imagePath = @"D:\\GMSDocuments\\Resume\\" + session.CompanyId + "\\" + randomIDFileName + "_";
+                    string imagePath = @"F:\\GMSDocuments\\Resume\\" + session.CompanyId + "\\" + randomIDFileName + "_";
                     if (!Directory.Exists(imagePath))
                        Directory.CreateDirectory(imagePath);
                     try
@@ -242,7 +242,7 @@ namespace GMSWeb.HR.Recruitment
                                 //merge all images into single image here
                                 combineImage(imagePath, randomIDFileName);  
 
-                                string path = @"D:\\GMSDocuments\\Resume\\" + session.CompanyId.ToString() + "\\" + randomIDFileName;
+                                string path = @"F:\\GMSDocuments\\Resume\\" + session.CompanyId.ToString() + "\\" + randomIDFileName;
                                 File.Delete(path);
 
                                 ScriptManager.RegisterStartupScript(upAttachment, upAttachment.GetType(), "Report1", "alert('File has been uploaded!');", true);

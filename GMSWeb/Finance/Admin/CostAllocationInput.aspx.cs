@@ -760,7 +760,7 @@ namespace GMSWeb.Finance.Admin
         {
             LogSession session = base.GetSessionInfo();
             string randomFileName = DateTime.Now.Ticks.ToString() + e.File.GetExtension();
-            string folderPath = @"D:\\GMSDocuments\\CostAllocation\\" + session.CompanyId + "\\";
+            string folderPath = @"F:\\GMSDocuments\\CostAllocation\\" + session.CompanyId + "\\";
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
 
@@ -799,7 +799,7 @@ namespace GMSWeb.Finance.Admin
         {
             LogSession session = base.GetSessionInfo();
 
-            string folderPath = @"D:\\GMSDocuments\\CostAllocation\\" + session.CompanyId ;
+            string folderPath = @"F:\\GMSDocuments\\CostAllocation\\" + session.CompanyId ;
 
             GridEditableItem item = (sender as Control).NamingContainer as GridEditableItem;//get current row grid editable item in radgrid
             HtmlInputHidden hidDetailItemNo = (HtmlInputHidden)item.FindControl("hidDetailItemNo");

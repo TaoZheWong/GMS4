@@ -64,7 +64,7 @@ namespace GMSWeb
 
                             Response.ContentType = ContentType.ToString();
                             Response.AppendHeader("Content-Disposition", "attachment; filename=" + this.fileName.ToString());
-                            Response.TransmitFile("D://GMSDocuments/Salesman/" + this.coyID + "/" + this.fileName.ToString());
+                            Response.TransmitFile("F://GMSDocuments/Salesman/" + this.coyID + "/" + this.fileName.ToString());
                             Response.End();
                         }
                         catch (Exception ex)

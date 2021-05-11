@@ -22,7 +22,7 @@ namespace GMSWeb.Procurement.Forms
 {
     public partial class VendorEvaluationForm7 : GMSBasePage
     {
-        protected string folderPath = @"D:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\PoliciesManagement";
+        protected string folderPath = @"F:\GMSDocuments\VendorDocuments\HealthSafetyEnvironment\PoliciesManagement";
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -306,7 +306,7 @@ namespace GMSWeb.Procurement.Forms
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.PoliciesManagementFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/PoliciesManagenent/" + vendorapplicationform.PoliciesManagementFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/PoliciesManagenent/" + vendorapplicationform.PoliciesManagementFileName);
                 Response.End();
             }
         }

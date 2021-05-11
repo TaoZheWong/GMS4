@@ -308,7 +308,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.ReferenceProjectsFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/ReferenceProjects/" + vendorapplicationform.ReferenceProjectsFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/ReferenceProjects/" + vendorapplicationform.ReferenceProjectsFileName);
                 Response.End();
             }
         }
@@ -356,7 +356,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.QualificationCertificatesFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/QualificationCertificates/" + vendorapplicationform.QualificationCertificatesFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/QualificationCertificates/" + vendorapplicationform.QualificationCertificatesFileName);
                 Response.End();
             }
         }
@@ -404,7 +404,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.RelevantRecordsFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/RelevantRecords" + vendorapplicationform.RelevantRecordsFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/HealthSafetyEnvironment/RelevantRecords" + vendorapplicationform.RelevantRecordsFileName);
                 Response.End();
             }
         }

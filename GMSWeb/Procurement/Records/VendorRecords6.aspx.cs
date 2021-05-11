@@ -405,7 +405,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.CertificatesFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/Insurances/" + vendorapplicationform.CertificatesFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/Insurances/" + vendorapplicationform.CertificatesFileName);
                 Response.End();
             }
         }
@@ -453,7 +453,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.ProjectRecordsFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/ProjectRecords/" + vendorapplicationform.ProjectRecordsFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/ProjectRecords/" + vendorapplicationform.ProjectRecordsFileName);
                 Response.End();
             }
         }

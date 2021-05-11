@@ -176,7 +176,7 @@ namespace GMSWeb.Sales.Sales
                         return;
                     }
 
-                    string folderPath = "D://GMSDocuments/Salesman/" + session.CompanyId;
+                    string folderPath = "F://GMSDocuments/Salesman/" + session.CompanyId;
                     if (!Directory.Exists(folderPath))
                     {
                         Directory.CreateDirectory(folderPath);

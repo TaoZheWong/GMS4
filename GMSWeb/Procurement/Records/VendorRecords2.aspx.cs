@@ -357,7 +357,7 @@ namespace GMSWeb.Procurement.Records
 
                 Response.ContentType = ContentType.ToString();
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + vendorapplicationform.AgentDistributorFileName);
-                Response.TransmitFile(@"D:/GMSDocuments/VendorDocuments/AgentDistributor/" + vendorapplicationform.AgentDistributorFileName);
+                Response.TransmitFile(@"F:/GMSDocuments/VendorDocuments/AgentDistributor/" + vendorapplicationform.AgentDistributorFileName);
                 Response.End();
             }
         }

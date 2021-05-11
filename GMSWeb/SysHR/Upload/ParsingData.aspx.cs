@@ -64,7 +64,7 @@ namespace GMSWeb.SysHR.Upload
 
             if (coy != null)
             {
-                string filePath = @"D:\HRFolder\\" + coy.Code + "\\" + Request.Params["Year"].ToString() + "\\" + Request.Params["Year"].ToString() + Request.Params["Month"].ToString().PadLeft(2, '0') + ".xls";
+                string filePath = @"F:\HRFolder\\" + coy.Code + "\\" + Request.Params["Year"].ToString() + "\\" + Request.Params["Year"].ToString() + Request.Params["Month"].ToString().PadLeft(2, '0') + ".xls";
 
                 if (File.Exists(filePath))
                 {                   

@@ -88,7 +88,7 @@ namespace GMSWeb.Finance.BankFacilities
             this.trnNo = Request.QueryString["TRNNO"].Trim();
 
             //Session["Rpt_Name"] = "Quotation_" + this.trnNo;
-            this.filePath = "D://GMS/GMSWeb/PDF/" + "Quotation_" + this.trnNo.ToString() + ".pdf";
+            this.filePath = "F://GMS/GMSWeb/PDF/" + "Quotation_" + this.trnNo.ToString() + ".pdf";
 
             if (reportId != -1 && reportId != -2 && reportId != -3)
             {

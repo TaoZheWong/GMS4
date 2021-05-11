@@ -24,7 +24,7 @@ namespace GMSWeb.GMSWebService {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="GMSWebServiceSoap", Namespace="http://tempuri.org/")]
@@ -149,6 +149,30 @@ namespace GMSWeb.GMSWebService {
         private System.Threading.SendOrPostCallback Login_AuthenticateOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetInvoiceTotalOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportProductOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportProductGroupOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportAccountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportAccountInformationOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportSalesPersonOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportSalesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportSalesDetailOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportReceiptOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportPurchaseOrderOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportPurchaseDetailOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportGRNOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportStockMovementOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -367,6 +391,42 @@ namespace GMSWeb.GMSWebService {
         
         /// <remarks/>
         public event GetInvoiceTotalCompletedEventHandler GetInvoiceTotalCompleted;
+        
+        /// <remarks/>
+        public event ImportProductCompletedEventHandler ImportProductCompleted;
+        
+        /// <remarks/>
+        public event ImportProductGroupCompletedEventHandler ImportProductGroupCompleted;
+        
+        /// <remarks/>
+        public event ImportAccountCompletedEventHandler ImportAccountCompleted;
+        
+        /// <remarks/>
+        public event ImportAccountInformationCompletedEventHandler ImportAccountInformationCompleted;
+        
+        /// <remarks/>
+        public event ImportSalesPersonCompletedEventHandler ImportSalesPersonCompleted;
+        
+        /// <remarks/>
+        public event ImportSalesCompletedEventHandler ImportSalesCompleted;
+        
+        /// <remarks/>
+        public event ImportSalesDetailCompletedEventHandler ImportSalesDetailCompleted;
+        
+        /// <remarks/>
+        public event ImportReceiptCompletedEventHandler ImportReceiptCompleted;
+        
+        /// <remarks/>
+        public event ImportPurchaseOrderCompletedEventHandler ImportPurchaseOrderCompleted;
+        
+        /// <remarks/>
+        public event ImportPurchaseDetailCompletedEventHandler ImportPurchaseDetailCompleted;
+        
+        /// <remarks/>
+        public event ImportGRNCompletedEventHandler ImportGRNCompleted;
+        
+        /// <remarks/>
+        public event ImportStockMovementCompletedEventHandler ImportStockMovementCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProduct", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -2454,6 +2514,382 @@ namespace GMSWeb.GMSWebService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportProduct", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportProduct(short companyId) {
+            object[] results = this.Invoke("ImportProduct", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportProductAsync(short companyId) {
+            this.ImportProductAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportProductAsync(short companyId, object userState) {
+            if ((this.ImportProductOperationCompleted == null)) {
+                this.ImportProductOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportProductOperationCompleted);
+            }
+            this.InvokeAsync("ImportProduct", new object[] {
+                        companyId}, this.ImportProductOperationCompleted, userState);
+        }
+        
+        private void OnImportProductOperationCompleted(object arg) {
+            if ((this.ImportProductCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportProductCompleted(this, new ImportProductCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportProductGroup", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportProductGroup(short companyId) {
+            object[] results = this.Invoke("ImportProductGroup", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportProductGroupAsync(short companyId) {
+            this.ImportProductGroupAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportProductGroupAsync(short companyId, object userState) {
+            if ((this.ImportProductGroupOperationCompleted == null)) {
+                this.ImportProductGroupOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportProductGroupOperationCompleted);
+            }
+            this.InvokeAsync("ImportProductGroup", new object[] {
+                        companyId}, this.ImportProductGroupOperationCompleted, userState);
+        }
+        
+        private void OnImportProductGroupOperationCompleted(object arg) {
+            if ((this.ImportProductGroupCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportProductGroupCompleted(this, new ImportProductGroupCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportAccount", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportAccount(short companyId) {
+            object[] results = this.Invoke("ImportAccount", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportAccountAsync(short companyId) {
+            this.ImportAccountAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportAccountAsync(short companyId, object userState) {
+            if ((this.ImportAccountOperationCompleted == null)) {
+                this.ImportAccountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportAccountOperationCompleted);
+            }
+            this.InvokeAsync("ImportAccount", new object[] {
+                        companyId}, this.ImportAccountOperationCompleted, userState);
+        }
+        
+        private void OnImportAccountOperationCompleted(object arg) {
+            if ((this.ImportAccountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportAccountCompleted(this, new ImportAccountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportAccountInformation", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportAccountInformation(short companyId) {
+            object[] results = this.Invoke("ImportAccountInformation", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportAccountInformationAsync(short companyId) {
+            this.ImportAccountInformationAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportAccountInformationAsync(short companyId, object userState) {
+            if ((this.ImportAccountInformationOperationCompleted == null)) {
+                this.ImportAccountInformationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportAccountInformationOperationCompleted);
+            }
+            this.InvokeAsync("ImportAccountInformation", new object[] {
+                        companyId}, this.ImportAccountInformationOperationCompleted, userState);
+        }
+        
+        private void OnImportAccountInformationOperationCompleted(object arg) {
+            if ((this.ImportAccountInformationCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportAccountInformationCompleted(this, new ImportAccountInformationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportSalesPerson", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportSalesPerson(short companyId) {
+            object[] results = this.Invoke("ImportSalesPerson", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportSalesPersonAsync(short companyId) {
+            this.ImportSalesPersonAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportSalesPersonAsync(short companyId, object userState) {
+            if ((this.ImportSalesPersonOperationCompleted == null)) {
+                this.ImportSalesPersonOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportSalesPersonOperationCompleted);
+            }
+            this.InvokeAsync("ImportSalesPerson", new object[] {
+                        companyId}, this.ImportSalesPersonOperationCompleted, userState);
+        }
+        
+        private void OnImportSalesPersonOperationCompleted(object arg) {
+            if ((this.ImportSalesPersonCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportSalesPersonCompleted(this, new ImportSalesPersonCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportSales", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportSales(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportSales", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportSalesAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportSalesAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportSalesAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportSalesOperationCompleted == null)) {
+                this.ImportSalesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportSalesOperationCompleted);
+            }
+            this.InvokeAsync("ImportSales", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportSalesOperationCompleted, userState);
+        }
+        
+        private void OnImportSalesOperationCompleted(object arg) {
+            if ((this.ImportSalesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportSalesCompleted(this, new ImportSalesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportSalesDetail", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportSalesDetail(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportSalesDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportSalesDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportSalesDetailAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportSalesDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportSalesDetailOperationCompleted == null)) {
+                this.ImportSalesDetailOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportSalesDetailOperationCompleted);
+            }
+            this.InvokeAsync("ImportSalesDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportSalesDetailOperationCompleted, userState);
+        }
+        
+        private void OnImportSalesDetailOperationCompleted(object arg) {
+            if ((this.ImportSalesDetailCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportSalesDetailCompleted(this, new ImportSalesDetailCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportReceipt", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportReceipt(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportReceipt", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportReceiptAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportReceiptAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportReceiptAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportReceiptOperationCompleted == null)) {
+                this.ImportReceiptOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportReceiptOperationCompleted);
+            }
+            this.InvokeAsync("ImportReceipt", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportReceiptOperationCompleted, userState);
+        }
+        
+        private void OnImportReceiptOperationCompleted(object arg) {
+            if ((this.ImportReceiptCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportReceiptCompleted(this, new ImportReceiptCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportPurchaseOrder", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportPurchaseOrder(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportPurchaseOrder", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseOrderAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportPurchaseOrderAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseOrderAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportPurchaseOrderOperationCompleted == null)) {
+                this.ImportPurchaseOrderOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportPurchaseOrderOperationCompleted);
+            }
+            this.InvokeAsync("ImportPurchaseOrder", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportPurchaseOrderOperationCompleted, userState);
+        }
+        
+        private void OnImportPurchaseOrderOperationCompleted(object arg) {
+            if ((this.ImportPurchaseOrderCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportPurchaseOrderCompleted(this, new ImportPurchaseOrderCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportPurchaseDetail", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportPurchaseDetail(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportPurchaseDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportPurchaseDetailAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportPurchaseDetailOperationCompleted == null)) {
+                this.ImportPurchaseDetailOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportPurchaseDetailOperationCompleted);
+            }
+            this.InvokeAsync("ImportPurchaseDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportPurchaseDetailOperationCompleted, userState);
+        }
+        
+        private void OnImportPurchaseDetailOperationCompleted(object arg) {
+            if ((this.ImportPurchaseDetailCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportPurchaseDetailCompleted(this, new ImportPurchaseDetailCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportGRN", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportGRN(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportGRN", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportGRNAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportGRNAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportGRNAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportGRNOperationCompleted == null)) {
+                this.ImportGRNOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportGRNOperationCompleted);
+            }
+            this.InvokeAsync("ImportGRN", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportGRNOperationCompleted, userState);
+        }
+        
+        private void OnImportGRNOperationCompleted(object arg) {
+            if ((this.ImportGRNCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportGRNCompleted(this, new ImportGRNCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportStockMovement", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportStockMovement(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportStockMovement", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportStockMovementAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportStockMovementAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportStockMovementAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportStockMovementOperationCompleted == null)) {
+                this.ImportStockMovementOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportStockMovementOperationCompleted);
+            }
+            this.InvokeAsync("ImportStockMovement", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportStockMovementOperationCompleted, userState);
+        }
+        
+        private void OnImportStockMovementOperationCompleted(object arg) {
+            if ((this.ImportStockMovementCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportStockMovementCompleted(this, new ImportStockMovementCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -2473,7 +2909,7 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -2506,11 +2942,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductCompletedEventHandler(object sender, GetProductCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2532,11 +2968,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductFullDetailCompletedEventHandler(object sender, GetProductFullDetailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductFullDetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2558,11 +2994,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductFullDetailByWarehouseCompletedEventHandler(object sender, GetProductFullDetailByWarehouseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductFullDetailByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2584,11 +3020,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductDetailCompletedEventHandler(object sender, GetProductDetailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductDetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2610,11 +3046,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductStockStatusCompletedEventHandler(object sender, GetProductStockStatusCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductStockStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2636,11 +3072,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductStockStatusByWarehouseCompletedEventHandler(object sender, GetProductStockStatusByWarehouseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductStockStatusByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2662,11 +3098,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductListStockStatusByWarehouseCompletedEventHandler(object sender, GetProductListStockStatusByWarehouseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductListStockStatusByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2688,11 +3124,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductListStockStatusCompletedEventHandler(object sender, GetProductListStockStatusCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductListStockStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2714,11 +3150,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductStockStatusForPanelCompletedEventHandler(object sender, GetProductStockStatusForPanelCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductStockStatusForPanelCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2740,11 +3176,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductOnSODetailCompletedEventHandler(object sender, GetProductOnSODetailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductOnSODetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2766,11 +3202,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductOnBODetailCompletedEventHandler(object sender, GetProductOnBODetailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductOnBODetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2792,11 +3228,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductOnPODetailCompletedEventHandler(object sender, GetProductOnPODetailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductOnPODetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2818,11 +3254,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductDetailByProductCodeCompletedEventHandler(object sender, GetProductDetailByProductCodeCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductDetailByProductCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2844,11 +3280,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductCostByProductCodeCompletedEventHandler(object sender, GetProductCostByProductCodeCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductCostByProductCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2870,11 +3306,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductStockMovementCompletedEventHandler(object sender, GetProductStockMovementCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductStockMovementCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2896,11 +3332,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductStockMovementByWarehouseCompletedEventHandler(object sender, GetProductStockMovementByWarehouseCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductStockMovementByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2922,11 +3358,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void IsProductCodeValidCompletedEventHandler(object sender, IsProductCodeValidCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class IsProductCodeValidCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2948,11 +3384,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void InsertA21QuotationHeaderCompletedEventHandler(object sender, InsertA21QuotationHeaderCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class InsertA21QuotationHeaderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2974,23 +3410,23 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void InsertUpdateA21QuotationDetailCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void UpdateA21QuotationHeaderCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void DeleteA21QuotationDetailCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void A21QuotationUpdateStatusCompletedEventHandler(object sender, A21QuotationUpdateStatusCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class A21QuotationUpdateStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3012,11 +3448,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void A21QuotationUpdateStatusByA21TrnNoCompletedEventHandler(object sender, A21QuotationUpdateStatusByA21TrnNoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class A21QuotationUpdateStatusByA21TrnNoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3038,11 +3474,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void A21CurrencyRateByCurrencyCodeCompletedEventHandler(object sender, A21CurrencyRateByCurrencyCodeCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class A21CurrencyRateByCurrencyCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3064,11 +3500,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetSalesOrderCompletedEventHandler(object sender, GetSalesOrderCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetSalesOrderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3090,11 +3526,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetSalesOrderByTrnNoCompletedEventHandler(object sender, GetSalesOrderByTrnNoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetSalesOrderByTrnNoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3116,11 +3552,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetSalesOrderDetailsCompletedEventHandler(object sender, GetSalesOrderDetailsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetSalesOrderDetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3142,11 +3578,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetSalesOrderProductDescCompletedEventHandler(object sender, GetSalesOrderProductDescCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetSalesOrderProductDescCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3168,11 +3604,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetDeliveryOrderCompletedEventHandler(object sender, GetDeliveryOrderCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetDeliveryOrderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3194,11 +3630,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetDeliveryOrderByTrnNoCompletedEventHandler(object sender, GetDeliveryOrderByTrnNoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetDeliveryOrderByTrnNoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3220,11 +3656,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetDeliveryOrderDetailsCompletedEventHandler(object sender, GetDeliveryOrderDetailsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetDeliveryOrderDetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3246,11 +3682,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetDeliveryProductDescCompletedEventHandler(object sender, GetDeliveryProductDescCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetDeliveryProductDescCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3272,11 +3708,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetInvoicelistCompletedEventHandler(object sender, GetInvoicelistCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetInvoicelistCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3298,11 +3734,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetInvoiceByTrnNoCompletedEventHandler(object sender, GetInvoiceByTrnNoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetInvoiceByTrnNoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3324,11 +3760,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetInvoiceDetailsCompletedEventHandler(object sender, GetInvoiceDetailsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetInvoiceDetailsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3350,11 +3786,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetInvoiceProductDescCompletedEventHandler(object sender, GetInvoiceProductDescCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetInvoiceProductDescCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3376,11 +3812,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankUtilisationFromA21CompletedEventHandler(object sender, GetBankUtilisationFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankUtilisationFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3402,11 +3838,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankAccountFromA21CompletedEventHandler(object sender, GetBankAccountFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankAccountFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3428,11 +3864,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankAccountCOA10BalanceFromA21CompletedEventHandler(object sender, GetBankAccountCOA10BalanceFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankAccountCOA10BalanceFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3454,11 +3890,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankAccountCOAUtilisedBalanceFromA21CompletedEventHandler(object sender, GetBankAccountCOAUtilisedBalanceFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankAccountCOAUtilisedBalanceFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3480,11 +3916,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetPODetailFromA21CompletedEventHandler(object sender, GetPODetailFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetPODetailFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3506,11 +3942,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetGRNDetailFromA21CompletedEventHandler(object sender, GetGRNDetailFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetGRNDetailFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3532,11 +3968,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetGRNHeaderFromA21CompletedEventHandler(object sender, GetGRNHeaderFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetGRNHeaderFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3558,11 +3994,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetMRGRNDetailFromA21CompletedEventHandler(object sender, GetMRGRNDetailFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetMRGRNDetailFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3584,11 +4020,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetPOHeaderFromA21CompletedEventHandler(object sender, GetPOHeaderFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetPOHeaderFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3610,11 +4046,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductFromA21CompletedEventHandler(object sender, GetProductFromA21CompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductFromA21CompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3636,11 +4072,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankAccountCOA10BalanceFromA21HQCompletedEventHandler(object sender, GetBankAccountCOA10BalanceFromA21HQCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankAccountCOA10BalanceFromA21HQCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3662,11 +4098,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankAccountCOAUtilisedBalanceFromA21HQCompletedEventHandler(object sender, GetBankAccountCOAUtilisedBalanceFromA21HQCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankAccountCOAUtilisedBalanceFromA21HQCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3688,11 +4124,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetBankAccountFromA21HQCompletedEventHandler(object sender, GetBankAccountFromA21HQCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetBankAccountFromA21HQCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3714,11 +4150,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetPOFromA21ForWMSCompletedEventHandler(object sender, GetPOFromA21ForWMSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetPOFromA21ForWMSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3740,11 +4176,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetDOFromA21ForWMSCompletedEventHandler(object sender, GetDOFromA21ForWMSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetDOFromA21ForWMSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3766,11 +4202,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetSOFromA21ForWMSCompletedEventHandler(object sender, GetSOFromA21ForWMSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetSOFromA21ForWMSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3792,11 +4228,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetAllProductCompletedEventHandler(object sender, GetAllProductCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetAllProductCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3818,11 +4254,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetAllAccountCompletedEventHandler(object sender, GetAllAccountCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetAllAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3844,11 +4280,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductExtendedDescriptionByProductCodeCompletedEventHandler(object sender, GetProductExtendedDescriptionByProductCodeCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductExtendedDescriptionByProductCodeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3870,11 +4306,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetTrialBalanceCompletedEventHandler(object sender, GetTrialBalanceCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetTrialBalanceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3896,11 +4332,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetTrialBalanceForPDSCompletedEventHandler(object sender, GetTrialBalanceForPDSCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetTrialBalanceForPDSCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3922,11 +4358,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductCostCompletedEventHandler(object sender, GetProductCostCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetProductCostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3948,11 +4384,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void Login_AuthenticateCompletedEventHandler(object sender, Login_AuthenticateCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class Login_AuthenticateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3974,11 +4410,11 @@ namespace GMSWeb.GMSWebService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetInvoiceTotalCompletedEventHandler(object sender, GetInvoiceTotalCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetInvoiceTotalCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -3986,6 +4422,318 @@ namespace GMSWeb.GMSWebService {
         private object[] results;
         
         internal GetInvoiceTotalCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportProductCompletedEventHandler(object sender, ImportProductCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportProductCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportProductCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportProductGroupCompletedEventHandler(object sender, ImportProductGroupCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportProductGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportProductGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportAccountCompletedEventHandler(object sender, ImportAccountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportAccountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportAccountInformationCompletedEventHandler(object sender, ImportAccountInformationCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportAccountInformationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportAccountInformationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportSalesPersonCompletedEventHandler(object sender, ImportSalesPersonCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportSalesPersonCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportSalesPersonCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportSalesCompletedEventHandler(object sender, ImportSalesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportSalesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportSalesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportSalesDetailCompletedEventHandler(object sender, ImportSalesDetailCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportSalesDetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportSalesDetailCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportReceiptCompletedEventHandler(object sender, ImportReceiptCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportReceiptCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportReceiptCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportPurchaseOrderCompletedEventHandler(object sender, ImportPurchaseOrderCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportPurchaseOrderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportPurchaseOrderCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportPurchaseDetailCompletedEventHandler(object sender, ImportPurchaseDetailCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportPurchaseDetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportPurchaseDetailCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportGRNCompletedEventHandler(object sender, ImportGRNCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportGRNCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportGRNCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportStockMovementCompletedEventHandler(object sender, ImportStockMovementCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportStockMovementCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportStockMovementCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

@@ -50,6 +50,9 @@ namespace GMSWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Redirect to new GMS in LMS Cloud for old GMS
+            //Response.Redirect(Request.Url.AbsoluteUri.Replace("https://gms.leedenlimited.com/GMS4/", "https://lms.leedennox.com/GMS4/"));
+
             string LID = "0";
             string RANDOMID = "0";
 

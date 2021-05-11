@@ -34,9 +34,17 @@ namespace GMSConApp.GMSWebService {
         
         private System.Threading.SendOrPostCallback GetProductFullDetailOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetProductFullDetailByWarehouseOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetProductDetailOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetProductStockStatusOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetProductStockStatusByWarehouseOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetProductListStockStatusByWarehouseOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetProductListStockStatusOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetProductStockStatusForPanelOperationCompleted;
         
@@ -51,6 +59,8 @@ namespace GMSConApp.GMSWebService {
         private System.Threading.SendOrPostCallback GetProductCostByProductCodeOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetProductStockMovementOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetProductStockMovementByWarehouseOperationCompleted;
         
         private System.Threading.SendOrPostCallback IsProductCodeValidOperationCompleted;
         
@@ -134,6 +144,36 @@ namespace GMSConApp.GMSWebService {
         
         private System.Threading.SendOrPostCallback GetTrialBalanceForPDSOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetProductCostOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback Login_AuthenticateOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetInvoiceTotalOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportProductOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportProductGroupOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportAccountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportAccountInformationOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportSalesPersonOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportSalesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportSalesDetailOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportReceiptOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportPurchaseOrderOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportPurchaseDetailOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportGRNOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ImportStockMovementOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -179,10 +219,22 @@ namespace GMSConApp.GMSWebService {
         public event GetProductFullDetailCompletedEventHandler GetProductFullDetailCompleted;
         
         /// <remarks/>
+        public event GetProductFullDetailByWarehouseCompletedEventHandler GetProductFullDetailByWarehouseCompleted;
+        
+        /// <remarks/>
         public event GetProductDetailCompletedEventHandler GetProductDetailCompleted;
         
         /// <remarks/>
         public event GetProductStockStatusCompletedEventHandler GetProductStockStatusCompleted;
+        
+        /// <remarks/>
+        public event GetProductStockStatusByWarehouseCompletedEventHandler GetProductStockStatusByWarehouseCompleted;
+        
+        /// <remarks/>
+        public event GetProductListStockStatusByWarehouseCompletedEventHandler GetProductListStockStatusByWarehouseCompleted;
+        
+        /// <remarks/>
+        public event GetProductListStockStatusCompletedEventHandler GetProductListStockStatusCompleted;
         
         /// <remarks/>
         public event GetProductStockStatusForPanelCompletedEventHandler GetProductStockStatusForPanelCompleted;
@@ -204,6 +256,9 @@ namespace GMSConApp.GMSWebService {
         
         /// <remarks/>
         public event GetProductStockMovementCompletedEventHandler GetProductStockMovementCompleted;
+        
+        /// <remarks/>
+        public event GetProductStockMovementByWarehouseCompletedEventHandler GetProductStockMovementByWarehouseCompleted;
         
         /// <remarks/>
         public event IsProductCodeValidCompletedEventHandler IsProductCodeValidCompleted;
@@ -329,6 +384,51 @@ namespace GMSConApp.GMSWebService {
         public event GetTrialBalanceForPDSCompletedEventHandler GetTrialBalanceForPDSCompleted;
         
         /// <remarks/>
+        public event GetProductCostCompletedEventHandler GetProductCostCompleted;
+        
+        /// <remarks/>
+        public event Login_AuthenticateCompletedEventHandler Login_AuthenticateCompleted;
+        
+        /// <remarks/>
+        public event GetInvoiceTotalCompletedEventHandler GetInvoiceTotalCompleted;
+        
+        /// <remarks/>
+        public event ImportProductCompletedEventHandler ImportProductCompleted;
+        
+        /// <remarks/>
+        public event ImportProductGroupCompletedEventHandler ImportProductGroupCompleted;
+        
+        /// <remarks/>
+        public event ImportAccountCompletedEventHandler ImportAccountCompleted;
+        
+        /// <remarks/>
+        public event ImportAccountInformationCompletedEventHandler ImportAccountInformationCompleted;
+        
+        /// <remarks/>
+        public event ImportSalesPersonCompletedEventHandler ImportSalesPersonCompleted;
+        
+        /// <remarks/>
+        public event ImportSalesCompletedEventHandler ImportSalesCompleted;
+        
+        /// <remarks/>
+        public event ImportSalesDetailCompletedEventHandler ImportSalesDetailCompleted;
+        
+        /// <remarks/>
+        public event ImportReceiptCompletedEventHandler ImportReceiptCompleted;
+        
+        /// <remarks/>
+        public event ImportPurchaseOrderCompletedEventHandler ImportPurchaseOrderCompleted;
+        
+        /// <remarks/>
+        public event ImportPurchaseDetailCompletedEventHandler ImportPurchaseDetailCompleted;
+        
+        /// <remarks/>
+        public event ImportGRNCompletedEventHandler ImportGRNCompleted;
+        
+        /// <remarks/>
+        public event ImportStockMovementCompletedEventHandler ImportStockMovementCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProduct", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet GetProduct(short companyId, string productCode, string productName, string productGroupCode, string productGroup) {
             object[] results = this.Invoke("GetProduct", new object[] {
@@ -403,6 +503,45 @@ namespace GMSConApp.GMSWebService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductFullDetailByWarehouse", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetProductFullDetailByWarehouse(short companyId, string productCode, string productName, string productGroupCode, string productGroup, string warehouse) {
+            object[] results = this.Invoke("GetProductFullDetailByWarehouse", new object[] {
+                        companyId,
+                        productCode,
+                        productName,
+                        productGroupCode,
+                        productGroup,
+                        warehouse});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetProductFullDetailByWarehouseAsync(short companyId, string productCode, string productName, string productGroupCode, string productGroup, string warehouse) {
+            this.GetProductFullDetailByWarehouseAsync(companyId, productCode, productName, productGroupCode, productGroup, warehouse, null);
+        }
+        
+        /// <remarks/>
+        public void GetProductFullDetailByWarehouseAsync(short companyId, string productCode, string productName, string productGroupCode, string productGroup, string warehouse, object userState) {
+            if ((this.GetProductFullDetailByWarehouseOperationCompleted == null)) {
+                this.GetProductFullDetailByWarehouseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetProductFullDetailByWarehouseOperationCompleted);
+            }
+            this.InvokeAsync("GetProductFullDetailByWarehouse", new object[] {
+                        companyId,
+                        productCode,
+                        productName,
+                        productGroupCode,
+                        productGroup,
+                        warehouse}, this.GetProductFullDetailByWarehouseOperationCompleted, userState);
+        }
+        
+        private void OnGetProductFullDetailByWarehouseOperationCompleted(object arg) {
+            if ((this.GetProductFullDetailByWarehouseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetProductFullDetailByWarehouseCompleted(this, new GetProductFullDetailByWarehouseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductDetail", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Data.DataSet GetProductDetail(short companyId, string productCode) {
             object[] results = this.Invoke("GetProductDetail", new object[] {
@@ -461,6 +600,103 @@ namespace GMSConApp.GMSWebService {
             if ((this.GetProductStockStatusCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetProductStockStatusCompleted(this, new GetProductStockStatusCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductStockStatusByWarehouse", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetProductStockStatusByWarehouse(short companyId, string prodCode, string warehouse) {
+            object[] results = this.Invoke("GetProductStockStatusByWarehouse", new object[] {
+                        companyId,
+                        prodCode,
+                        warehouse});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetProductStockStatusByWarehouseAsync(short companyId, string prodCode, string warehouse) {
+            this.GetProductStockStatusByWarehouseAsync(companyId, prodCode, warehouse, null);
+        }
+        
+        /// <remarks/>
+        public void GetProductStockStatusByWarehouseAsync(short companyId, string prodCode, string warehouse, object userState) {
+            if ((this.GetProductStockStatusByWarehouseOperationCompleted == null)) {
+                this.GetProductStockStatusByWarehouseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetProductStockStatusByWarehouseOperationCompleted);
+            }
+            this.InvokeAsync("GetProductStockStatusByWarehouse", new object[] {
+                        companyId,
+                        prodCode,
+                        warehouse}, this.GetProductStockStatusByWarehouseOperationCompleted, userState);
+        }
+        
+        private void OnGetProductStockStatusByWarehouseOperationCompleted(object arg) {
+            if ((this.GetProductStockStatusByWarehouseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetProductStockStatusByWarehouseCompleted(this, new GetProductStockStatusByWarehouseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductListStockStatusByWarehouse", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetProductListStockStatusByWarehouse(short companyId, string prodList, string warehouse) {
+            object[] results = this.Invoke("GetProductListStockStatusByWarehouse", new object[] {
+                        companyId,
+                        prodList,
+                        warehouse});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetProductListStockStatusByWarehouseAsync(short companyId, string prodList, string warehouse) {
+            this.GetProductListStockStatusByWarehouseAsync(companyId, prodList, warehouse, null);
+        }
+        
+        /// <remarks/>
+        public void GetProductListStockStatusByWarehouseAsync(short companyId, string prodList, string warehouse, object userState) {
+            if ((this.GetProductListStockStatusByWarehouseOperationCompleted == null)) {
+                this.GetProductListStockStatusByWarehouseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetProductListStockStatusByWarehouseOperationCompleted);
+            }
+            this.InvokeAsync("GetProductListStockStatusByWarehouse", new object[] {
+                        companyId,
+                        prodList,
+                        warehouse}, this.GetProductListStockStatusByWarehouseOperationCompleted, userState);
+        }
+        
+        private void OnGetProductListStockStatusByWarehouseOperationCompleted(object arg) {
+            if ((this.GetProductListStockStatusByWarehouseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetProductListStockStatusByWarehouseCompleted(this, new GetProductListStockStatusByWarehouseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductListStockStatus", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetProductListStockStatus(short companyId, string prodList) {
+            object[] results = this.Invoke("GetProductListStockStatus", new object[] {
+                        companyId,
+                        prodList});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetProductListStockStatusAsync(short companyId, string prodList) {
+            this.GetProductListStockStatusAsync(companyId, prodList, null);
+        }
+        
+        /// <remarks/>
+        public void GetProductListStockStatusAsync(short companyId, string prodList, object userState) {
+            if ((this.GetProductListStockStatusOperationCompleted == null)) {
+                this.GetProductListStockStatusOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetProductListStockStatusOperationCompleted);
+            }
+            this.InvokeAsync("GetProductListStockStatus", new object[] {
+                        companyId,
+                        prodList}, this.GetProductListStockStatusOperationCompleted, userState);
+        }
+        
+        private void OnGetProductListStockStatusOperationCompleted(object arg) {
+            if ((this.GetProductListStockStatusCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetProductListStockStatusCompleted(this, new GetProductListStockStatusCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -678,6 +914,39 @@ namespace GMSConApp.GMSWebService {
             if ((this.GetProductStockMovementCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetProductStockMovementCompleted(this, new GetProductStockMovementCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductStockMovementByWarehouse", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetProductStockMovementByWarehouse(short companyId, string productCode, string warehouse) {
+            object[] results = this.Invoke("GetProductStockMovementByWarehouse", new object[] {
+                        companyId,
+                        productCode,
+                        warehouse});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetProductStockMovementByWarehouseAsync(short companyId, string productCode, string warehouse) {
+            this.GetProductStockMovementByWarehouseAsync(companyId, productCode, warehouse, null);
+        }
+        
+        /// <remarks/>
+        public void GetProductStockMovementByWarehouseAsync(short companyId, string productCode, string warehouse, object userState) {
+            if ((this.GetProductStockMovementByWarehouseOperationCompleted == null)) {
+                this.GetProductStockMovementByWarehouseOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetProductStockMovementByWarehouseOperationCompleted);
+            }
+            this.InvokeAsync("GetProductStockMovementByWarehouse", new object[] {
+                        companyId,
+                        productCode,
+                        warehouse}, this.GetProductStockMovementByWarehouseOperationCompleted, userState);
+        }
+        
+        private void OnGetProductStockMovementByWarehouseOperationCompleted(object arg) {
+            if ((this.GetProductStockMovementByWarehouseCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetProductStockMovementByWarehouseCompleted(this, new GetProductStockMovementByWarehouseCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2079,22 +2348,23 @@ namespace GMSConApp.GMSWebService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetTrialBalance", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet GetTrialBalance(short companyId, short year, short month, short FYE) {
+        public System.Data.DataSet GetTrialBalance(short companyId, short year, short month, short FYE, bool Is2016COA) {
             object[] results = this.Invoke("GetTrialBalance", new object[] {
                         companyId,
                         year,
                         month,
-                        FYE});
+                        FYE,
+                        Is2016COA});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void GetTrialBalanceAsync(short companyId, short year, short month, short FYE) {
-            this.GetTrialBalanceAsync(companyId, year, month, FYE, null);
+        public void GetTrialBalanceAsync(short companyId, short year, short month, short FYE, bool Is2016COA) {
+            this.GetTrialBalanceAsync(companyId, year, month, FYE, Is2016COA, null);
         }
         
         /// <remarks/>
-        public void GetTrialBalanceAsync(short companyId, short year, short month, short FYE, object userState) {
+        public void GetTrialBalanceAsync(short companyId, short year, short month, short FYE, bool Is2016COA, object userState) {
             if ((this.GetTrialBalanceOperationCompleted == null)) {
                 this.GetTrialBalanceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetTrialBalanceOperationCompleted);
             }
@@ -2102,7 +2372,8 @@ namespace GMSConApp.GMSWebService {
                         companyId,
                         year,
                         month,
-                        FYE}, this.GetTrialBalanceOperationCompleted, userState);
+                        FYE,
+                        Is2016COA}, this.GetTrialBalanceOperationCompleted, userState);
         }
         
         private void OnGetTrialBalanceOperationCompleted(object arg) {
@@ -2114,22 +2385,23 @@ namespace GMSConApp.GMSWebService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetTrialBalanceForPDS", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public System.Data.DataSet GetTrialBalanceForPDS(short companyId, short year, short month, short FYE) {
+        public System.Data.DataSet GetTrialBalanceForPDS(short companyId, short year, short month, short FYE, bool Is2016COA) {
             object[] results = this.Invoke("GetTrialBalanceForPDS", new object[] {
                         companyId,
                         year,
                         month,
-                        FYE});
+                        FYE,
+                        Is2016COA});
             return ((System.Data.DataSet)(results[0]));
         }
         
         /// <remarks/>
-        public void GetTrialBalanceForPDSAsync(short companyId, short year, short month, short FYE) {
-            this.GetTrialBalanceForPDSAsync(companyId, year, month, FYE, null);
+        public void GetTrialBalanceForPDSAsync(short companyId, short year, short month, short FYE, bool Is2016COA) {
+            this.GetTrialBalanceForPDSAsync(companyId, year, month, FYE, Is2016COA, null);
         }
         
         /// <remarks/>
-        public void GetTrialBalanceForPDSAsync(short companyId, short year, short month, short FYE, object userState) {
+        public void GetTrialBalanceForPDSAsync(short companyId, short year, short month, short FYE, bool Is2016COA, object userState) {
             if ((this.GetTrialBalanceForPDSOperationCompleted == null)) {
                 this.GetTrialBalanceForPDSOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetTrialBalanceForPDSOperationCompleted);
             }
@@ -2137,13 +2409,483 @@ namespace GMSConApp.GMSWebService {
                         companyId,
                         year,
                         month,
-                        FYE}, this.GetTrialBalanceForPDSOperationCompleted, userState);
+                        FYE,
+                        Is2016COA}, this.GetTrialBalanceForPDSOperationCompleted, userState);
         }
         
         private void OnGetTrialBalanceForPDSOperationCompleted(object arg) {
             if ((this.GetTrialBalanceForPDSCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetTrialBalanceForPDSCompleted(this, new GetTrialBalanceForPDSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetProductCost", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetProductCost(short companyId, string prodCodeStr) {
+            object[] results = this.Invoke("GetProductCost", new object[] {
+                        companyId,
+                        prodCodeStr});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetProductCostAsync(short companyId, string prodCodeStr) {
+            this.GetProductCostAsync(companyId, prodCodeStr, null);
+        }
+        
+        /// <remarks/>
+        public void GetProductCostAsync(short companyId, string prodCodeStr, object userState) {
+            if ((this.GetProductCostOperationCompleted == null)) {
+                this.GetProductCostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetProductCostOperationCompleted);
+            }
+            this.InvokeAsync("GetProductCost", new object[] {
+                        companyId,
+                        prodCodeStr}, this.GetProductCostOperationCompleted, userState);
+        }
+        
+        private void OnGetProductCostOperationCompleted(object arg) {
+            if ((this.GetProductCostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetProductCostCompleted(this, new GetProductCostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Login_Authenticate", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string Login_Authenticate(UserModel data) {
+            object[] results = this.Invoke("Login_Authenticate", new object[] {
+                        data});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void Login_AuthenticateAsync(UserModel data) {
+            this.Login_AuthenticateAsync(data, null);
+        }
+        
+        /// <remarks/>
+        public void Login_AuthenticateAsync(UserModel data, object userState) {
+            if ((this.Login_AuthenticateOperationCompleted == null)) {
+                this.Login_AuthenticateOperationCompleted = new System.Threading.SendOrPostCallback(this.OnLogin_AuthenticateOperationCompleted);
+            }
+            this.InvokeAsync("Login_Authenticate", new object[] {
+                        data}, this.Login_AuthenticateOperationCompleted, userState);
+        }
+        
+        private void OnLogin_AuthenticateOperationCompleted(object arg) {
+            if ((this.Login_AuthenticateCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.Login_AuthenticateCompleted(this, new Login_AuthenticateCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetInvoiceTotal", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetInvoiceTotal(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("GetInvoiceTotal", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetInvoiceTotalAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.GetInvoiceTotalAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void GetInvoiceTotalAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.GetInvoiceTotalOperationCompleted == null)) {
+                this.GetInvoiceTotalOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetInvoiceTotalOperationCompleted);
+            }
+            this.InvokeAsync("GetInvoiceTotal", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.GetInvoiceTotalOperationCompleted, userState);
+        }
+        
+        private void OnGetInvoiceTotalOperationCompleted(object arg) {
+            if ((this.GetInvoiceTotalCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetInvoiceTotalCompleted(this, new GetInvoiceTotalCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportProduct", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportProduct(short companyId) {
+            object[] results = this.Invoke("ImportProduct", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportProductAsync(short companyId) {
+            this.ImportProductAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportProductAsync(short companyId, object userState) {
+            if ((this.ImportProductOperationCompleted == null)) {
+                this.ImportProductOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportProductOperationCompleted);
+            }
+            this.InvokeAsync("ImportProduct", new object[] {
+                        companyId}, this.ImportProductOperationCompleted, userState);
+        }
+        
+        private void OnImportProductOperationCompleted(object arg) {
+            if ((this.ImportProductCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportProductCompleted(this, new ImportProductCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportProductGroup", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportProductGroup(short companyId) {
+            object[] results = this.Invoke("ImportProductGroup", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportProductGroupAsync(short companyId) {
+            this.ImportProductGroupAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportProductGroupAsync(short companyId, object userState) {
+            if ((this.ImportProductGroupOperationCompleted == null)) {
+                this.ImportProductGroupOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportProductGroupOperationCompleted);
+            }
+            this.InvokeAsync("ImportProductGroup", new object[] {
+                        companyId}, this.ImportProductGroupOperationCompleted, userState);
+        }
+        
+        private void OnImportProductGroupOperationCompleted(object arg) {
+            if ((this.ImportProductGroupCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportProductGroupCompleted(this, new ImportProductGroupCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportAccount", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportAccount(short companyId) {
+            object[] results = this.Invoke("ImportAccount", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportAccountAsync(short companyId) {
+            this.ImportAccountAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportAccountAsync(short companyId, object userState) {
+            if ((this.ImportAccountOperationCompleted == null)) {
+                this.ImportAccountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportAccountOperationCompleted);
+            }
+            this.InvokeAsync("ImportAccount", new object[] {
+                        companyId}, this.ImportAccountOperationCompleted, userState);
+        }
+        
+        private void OnImportAccountOperationCompleted(object arg) {
+            if ((this.ImportAccountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportAccountCompleted(this, new ImportAccountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportAccountInformation", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportAccountInformation(short companyId) {
+            object[] results = this.Invoke("ImportAccountInformation", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportAccountInformationAsync(short companyId) {
+            this.ImportAccountInformationAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportAccountInformationAsync(short companyId, object userState) {
+            if ((this.ImportAccountInformationOperationCompleted == null)) {
+                this.ImportAccountInformationOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportAccountInformationOperationCompleted);
+            }
+            this.InvokeAsync("ImportAccountInformation", new object[] {
+                        companyId}, this.ImportAccountInformationOperationCompleted, userState);
+        }
+        
+        private void OnImportAccountInformationOperationCompleted(object arg) {
+            if ((this.ImportAccountInformationCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportAccountInformationCompleted(this, new ImportAccountInformationCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportSalesPerson", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportSalesPerson(short companyId) {
+            object[] results = this.Invoke("ImportSalesPerson", new object[] {
+                        companyId});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportSalesPersonAsync(short companyId) {
+            this.ImportSalesPersonAsync(companyId, null);
+        }
+        
+        /// <remarks/>
+        public void ImportSalesPersonAsync(short companyId, object userState) {
+            if ((this.ImportSalesPersonOperationCompleted == null)) {
+                this.ImportSalesPersonOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportSalesPersonOperationCompleted);
+            }
+            this.InvokeAsync("ImportSalesPerson", new object[] {
+                        companyId}, this.ImportSalesPersonOperationCompleted, userState);
+        }
+        
+        private void OnImportSalesPersonOperationCompleted(object arg) {
+            if ((this.ImportSalesPersonCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportSalesPersonCompleted(this, new ImportSalesPersonCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportSales", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportSales(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportSales", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportSalesAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportSalesAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportSalesAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportSalesOperationCompleted == null)) {
+                this.ImportSalesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportSalesOperationCompleted);
+            }
+            this.InvokeAsync("ImportSales", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportSalesOperationCompleted, userState);
+        }
+        
+        private void OnImportSalesOperationCompleted(object arg) {
+            if ((this.ImportSalesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportSalesCompleted(this, new ImportSalesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportSalesDetail", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportSalesDetail(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportSalesDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportSalesDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportSalesDetailAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportSalesDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportSalesDetailOperationCompleted == null)) {
+                this.ImportSalesDetailOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportSalesDetailOperationCompleted);
+            }
+            this.InvokeAsync("ImportSalesDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportSalesDetailOperationCompleted, userState);
+        }
+        
+        private void OnImportSalesDetailOperationCompleted(object arg) {
+            if ((this.ImportSalesDetailCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportSalesDetailCompleted(this, new ImportSalesDetailCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportReceipt", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportReceipt(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportReceipt", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportReceiptAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportReceiptAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportReceiptAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportReceiptOperationCompleted == null)) {
+                this.ImportReceiptOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportReceiptOperationCompleted);
+            }
+            this.InvokeAsync("ImportReceipt", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportReceiptOperationCompleted, userState);
+        }
+        
+        private void OnImportReceiptOperationCompleted(object arg) {
+            if ((this.ImportReceiptCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportReceiptCompleted(this, new ImportReceiptCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportPurchaseOrder", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportPurchaseOrder(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportPurchaseOrder", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseOrderAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportPurchaseOrderAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseOrderAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportPurchaseOrderOperationCompleted == null)) {
+                this.ImportPurchaseOrderOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportPurchaseOrderOperationCompleted);
+            }
+            this.InvokeAsync("ImportPurchaseOrder", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportPurchaseOrderOperationCompleted, userState);
+        }
+        
+        private void OnImportPurchaseOrderOperationCompleted(object arg) {
+            if ((this.ImportPurchaseOrderCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportPurchaseOrderCompleted(this, new ImportPurchaseOrderCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportPurchaseDetail", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportPurchaseDetail(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportPurchaseDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportPurchaseDetailAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportPurchaseDetailAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportPurchaseDetailOperationCompleted == null)) {
+                this.ImportPurchaseDetailOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportPurchaseDetailOperationCompleted);
+            }
+            this.InvokeAsync("ImportPurchaseDetail", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportPurchaseDetailOperationCompleted, userState);
+        }
+        
+        private void OnImportPurchaseDetailOperationCompleted(object arg) {
+            if ((this.ImportPurchaseDetailCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportPurchaseDetailCompleted(this, new ImportPurchaseDetailCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportGRN", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportGRN(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportGRN", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportGRNAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportGRNAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportGRNAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportGRNOperationCompleted == null)) {
+                this.ImportGRNOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportGRNOperationCompleted);
+            }
+            this.InvokeAsync("ImportGRN", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportGRNOperationCompleted, userState);
+        }
+        
+        private void OnImportGRNOperationCompleted(object arg) {
+            if ((this.ImportGRNCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportGRNCompleted(this, new ImportGRNCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ImportStockMovement", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet ImportStockMovement(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            object[] results = this.Invoke("ImportStockMovement", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ImportStockMovementAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo) {
+            this.ImportStockMovementAsync(companyId, dateFrom, dateTo, null);
+        }
+        
+        /// <remarks/>
+        public void ImportStockMovementAsync(short companyId, System.DateTime dateFrom, System.DateTime dateTo, object userState) {
+            if ((this.ImportStockMovementOperationCompleted == null)) {
+                this.ImportStockMovementOperationCompleted = new System.Threading.SendOrPostCallback(this.OnImportStockMovementOperationCompleted);
+            }
+            this.InvokeAsync("ImportStockMovement", new object[] {
+                        companyId,
+                        dateFrom,
+                        dateTo}, this.ImportStockMovementOperationCompleted, userState);
+        }
+        
+        private void OnImportStockMovementOperationCompleted(object arg) {
+            if ((this.ImportStockMovementCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ImportStockMovementCompleted(this, new ImportStockMovementCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2163,6 +2905,39 @@ namespace GMSConApp.GMSWebService {
                 return true;
             }
             return false;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UserModel {
+        
+        private string userNameField;
+        
+        private string passwordField;
+        
+        /// <remarks/>
+        public string UserName {
+            get {
+                return this.userNameField;
+            }
+            set {
+                this.userNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                this.passwordField = value;
+            }
         }
     }
     
@@ -2220,6 +2995,32 @@ namespace GMSConApp.GMSWebService {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetProductFullDetailByWarehouseCompletedEventHandler(object sender, GetProductFullDetailByWarehouseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetProductFullDetailByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetProductFullDetailByWarehouseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     public delegate void GetProductDetailCompletedEventHandler(object sender, GetProductDetailCompletedEventArgs e);
     
     /// <remarks/>
@@ -2257,6 +3058,84 @@ namespace GMSConApp.GMSWebService {
         private object[] results;
         
         internal GetProductStockStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetProductStockStatusByWarehouseCompletedEventHandler(object sender, GetProductStockStatusByWarehouseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetProductStockStatusByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetProductStockStatusByWarehouseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetProductListStockStatusByWarehouseCompletedEventHandler(object sender, GetProductListStockStatusByWarehouseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetProductListStockStatusByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetProductListStockStatusByWarehouseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetProductListStockStatusCompletedEventHandler(object sender, GetProductListStockStatusCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetProductListStockStatusCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetProductListStockStatusCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -2439,6 +3318,32 @@ namespace GMSConApp.GMSWebService {
         private object[] results;
         
         internal GetProductStockMovementCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetProductStockMovementByWarehouseCompletedEventHandler(object sender, GetProductStockMovementByWarehouseCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetProductStockMovementByWarehouseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetProductStockMovementByWarehouseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -3439,6 +4344,396 @@ namespace GMSConApp.GMSWebService {
         private object[] results;
         
         internal GetTrialBalanceForPDSCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetProductCostCompletedEventHandler(object sender, GetProductCostCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetProductCostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetProductCostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void Login_AuthenticateCompletedEventHandler(object sender, Login_AuthenticateCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class Login_AuthenticateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal Login_AuthenticateCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void GetInvoiceTotalCompletedEventHandler(object sender, GetInvoiceTotalCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetInvoiceTotalCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetInvoiceTotalCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportProductCompletedEventHandler(object sender, ImportProductCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportProductCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportProductCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportProductGroupCompletedEventHandler(object sender, ImportProductGroupCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportProductGroupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportProductGroupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportAccountCompletedEventHandler(object sender, ImportAccountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportAccountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportAccountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportAccountInformationCompletedEventHandler(object sender, ImportAccountInformationCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportAccountInformationCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportAccountInformationCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportSalesPersonCompletedEventHandler(object sender, ImportSalesPersonCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportSalesPersonCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportSalesPersonCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportSalesCompletedEventHandler(object sender, ImportSalesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportSalesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportSalesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportSalesDetailCompletedEventHandler(object sender, ImportSalesDetailCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportSalesDetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportSalesDetailCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportReceiptCompletedEventHandler(object sender, ImportReceiptCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportReceiptCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportReceiptCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportPurchaseOrderCompletedEventHandler(object sender, ImportPurchaseOrderCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportPurchaseOrderCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportPurchaseOrderCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportPurchaseDetailCompletedEventHandler(object sender, ImportPurchaseDetailCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportPurchaseDetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportPurchaseDetailCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportGRNCompletedEventHandler(object sender, ImportGRNCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportGRNCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportGRNCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void ImportStockMovementCompletedEventHandler(object sender, ImportStockMovementCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ImportStockMovementCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ImportStockMovementCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
