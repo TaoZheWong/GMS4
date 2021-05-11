@@ -1417,8 +1417,8 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
-         
-          
+
+
             if (crReportDocument.ParameterFields["Supplier"] != null)
             {
                 pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
@@ -1455,7 +1455,7 @@ namespace GMSWeb.Reports.Report
                 controlCount = controlCount + 1;
             }
 
-         
+
 
             if (crReportDocument.ParameterFields["Brand"] != null || crReportDocument.ParameterFields["Product Group"] != null || crReportDocument.ParameterFields["@ProductGroupName"] != null)
             {
@@ -4109,7 +4109,7 @@ namespace GMSWeb.Reports.Report
                     if (crReportDocument.ParameterFields["@TeamID"] != null && ViewState["ddlTeam"] != null)
                         crReportDocument.SetParameterValue("@TeamID", GMSUtil.ToInt(ViewState["ddlTeam"].ToString()));
 
-                   
+
                     if (crReportDocument.ParameterFields["Requestor"] != null && ViewState["txtRequestor"] != null)
                         crReportDocument.SetParameterValue("Requestor", ViewState["txtRequestor"].ToString());
                     if (crReportDocument.ParameterFields["RefNo"] != null && ViewState["txtRefNo"] != null)
