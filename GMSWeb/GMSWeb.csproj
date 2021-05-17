@@ -91,6 +91,7 @@
     <Content Include="Claim\Detail.aspx" />
     <Content Include="Claim\Default.aspx" />
     <Content Include="Claim\ViewImage.aspx" />
+    <Content Include="Common\ImageToByte.aspx" />
     <Content Include="CustomCtrl\CalendarControl.ascx" />
     <Content Include="CustomCtrl\MessagePanelControl.ascx" />
     <Content Include="Finance\Admin\CostAllocationInput.aspx" />
@@ -1427,6 +1428,13 @@
     <Compile Include="Common\GMSWebService.asmx.cs">
       <DependentUpon>GMSWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\ImageToByte.aspx.cs">
+      <DependentUpon>ImageToByte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\ImageToByte.aspx.designer.cs">
+      <DependentUpon>ImageToByte.aspx</DependentUpon>
     </Compile>
     <Compile Include="Common\NewsPage.Master.cs">
       <DependentUpon>NewsPage.Master</DependentUpon>
@@ -10334,7 +10342,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

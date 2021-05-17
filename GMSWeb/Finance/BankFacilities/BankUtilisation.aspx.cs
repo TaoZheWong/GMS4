@@ -63,7 +63,7 @@ namespace GMSWeb.Finance.BankFacilities
                 trnDateFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
                 trnDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
-                
+
                 PopulateBankAccountList();
                 dgData.CurrentPageIndex = 0;
                 LoadData();
@@ -102,11 +102,11 @@ function changeCurrency(ddl1)
 </script>
 ";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
-        }        
+        }
 
         private void ImportBankAccountData()
         {
-            LogSession session = base.GetSessionInfo();           
+            LogSession session = base.GetSessionInfo();
             DataSet ds = new DataSet();
             try
             {
@@ -119,7 +119,7 @@ function changeCurrency(ddl1)
                         sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
                     ds = sc.GetBankAccountFromA21(session.CompanyId);
                 }
-                else if (session.StatusType.ToString() == "L")
+                else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                 {
                     string query = "CALL \"AF_API_GET_SAP_BANK_INFO\" ()";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
@@ -129,7 +129,7 @@ function changeCurrency(ddl1)
 
                 }
 
-                GMSGeneralDALC dacl = new GMSGeneralDALC();               
+                GMSGeneralDALC dacl = new GMSGeneralDALC();
                 string strCurrency = "SGD";
                 int bankid = 29;
 
@@ -141,11 +141,11 @@ function changeCurrency(ddl1)
                     {
                         try
                         {
-                            strCurrency = getCurrency(ds.Tables[0].Rows[j]["bankcoa"].ToString());  
-                            
+                            strCurrency = getCurrency(ds.Tables[0].Rows[j]["bankcoa"].ToString());
+
                             GMSCore.Entity.Bank bank = new BankActivity().RetrieveBankByNumericCode(ds.Tables[0].Rows[j]["bankcoa"].ToString().Substring(2, 2).ToString());
-                            if (bank != null)                          
-                                bankid = GMSUtil.ToInt(bank.BankID);                           
+                            if (bank != null)
+                                bankid = GMSUtil.ToInt(bank.BankID);
 
                             GMSCore.Entity.BankAccount bankAccount = new BankActivity().RetrieveBankAccountByBankCOAByCompanyId(session.CompanyId, ds.Tables[0].Rows[j]["bankcoa"].ToString());
 
@@ -177,56 +177,56 @@ function changeCurrency(ddl1)
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 this.PageMsgPanel.ShowMessage("The connection to the server has failed! <br />For more information, please contact your System Administrator. ", MessagePanelControl.MessageEnumType.Alert);
-            }            
+            }
         }
 
         private string getCurrency(string bankCOA)
         {
             string strCurrency = "";
-                    if (bankCOA.Substring(4, 1) == "A")
-                        strCurrency = "AUD";
-                    else if (bankCOA.Substring(4, 1) == "P")
-                        strCurrency = "PHP";
-                    else if (bankCOA.Substring(4, 1) == "C")
-                        strCurrency = "CNY";
-                    else if (bankCOA.Substring(4, 1) == "E")
-                        strCurrency = "EUR";
-                    else if (bankCOA.Substring(4, 1) == "B")
-                        strCurrency = "GBP";
-                    else if (bankCOA.Substring(4, 1) == "H")
-                        strCurrency = "HKD";
-                    else if (bankCOA.Substring(4, 1) == "I")
-                        strCurrency = "IDR";
-                    else if (bankCOA.Substring(4, 1) == "J")
-                        strCurrency = "JPY";
-                    else if (bankCOA.Substring(4, 1) == "M")
-                        strCurrency = "MYR";
-                    else if (bankCOA.Substring(4, 1) == "S")
-                        strCurrency = "SGD";
-                    else if (bankCOA.Substring(4, 1) == "T")
-                        strCurrency = "THB";
-                    else if (bankCOA.Substring(4, 1) == "U")
-                        strCurrency = "USD";
-                    else if (bankCOA.Substring(4, 2) == "KW")
-                        strCurrency = "NOK";
-                    else if (bankCOA.Substring(4, 2) == "TW")
-                        strCurrency = "NTD";
-                    else if (bankCOA.Substring(4, 2) == "SK")
-                        strCurrency = "SEK";
-                    else if (bankCOA.Substring(4, 2) == "SF")
-                        strCurrency = "SFR";
-                    else if (bankCOA.Substring(4, 2) == "CD")
-                        strCurrency = "CAD";
+            if (bankCOA.Substring(4, 1) == "A")
+                strCurrency = "AUD";
+            else if (bankCOA.Substring(4, 1) == "P")
+                strCurrency = "PHP";
+            else if (bankCOA.Substring(4, 1) == "C")
+                strCurrency = "CNY";
+            else if (bankCOA.Substring(4, 1) == "E")
+                strCurrency = "EUR";
+            else if (bankCOA.Substring(4, 1) == "B")
+                strCurrency = "GBP";
+            else if (bankCOA.Substring(4, 1) == "H")
+                strCurrency = "HKD";
+            else if (bankCOA.Substring(4, 1) == "I")
+                strCurrency = "IDR";
+            else if (bankCOA.Substring(4, 1) == "J")
+                strCurrency = "JPY";
+            else if (bankCOA.Substring(4, 1) == "M")
+                strCurrency = "MYR";
+            else if (bankCOA.Substring(4, 1) == "S")
+                strCurrency = "SGD";
+            else if (bankCOA.Substring(4, 1) == "T")
+                strCurrency = "THB";
+            else if (bankCOA.Substring(4, 1) == "U")
+                strCurrency = "USD";
+            else if (bankCOA.Substring(4, 2) == "KW")
+                strCurrency = "NOK";
+            else if (bankCOA.Substring(4, 2) == "TW")
+                strCurrency = "NTD";
+            else if (bankCOA.Substring(4, 2) == "SK")
+                strCurrency = "SEK";
+            else if (bankCOA.Substring(4, 2) == "SF")
+                strCurrency = "SFR";
+            else if (bankCOA.Substring(4, 2) == "CD")
+                strCurrency = "CAD";
 
-                    return strCurrency; 
-        }       
-       
+            return strCurrency;
+        }
+
         private void ImportData(DateTime tDateFrom, DateTime tDateTo)
         {
-            LogSession session = base.GetSessionInfo();   
-            GMSGeneralDALC dacl = new GMSGeneralDALC();                              
+            LogSession session = base.GetSessionInfo();
+            GMSGeneralDALC dacl = new GMSGeneralDALC();
 
             DataSet ds = new DataSet();
             try
@@ -246,33 +246,33 @@ function changeCurrency(ddl1)
                 {
                     string from = tDateFrom.ToString("yyyy-MM-dd");
                     string to = tDateTo.ToString("yyyy-MM-dd");
-                    string query = "CALL \"AF_API_GET_SAP_BANK_UTILISATION\" ('"+ from + "','"+ to + "')";
+                    string query = "CALL \"AF_API_GET_SAP_BANK_UTILISATION\" ('" + from + "','" + to + "')";
                     SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                     ds = sop.GET_SAP_QueryData(session.CompanyId, query,
                     "trntype", "cname", "mode", "trnno", "trndate", "bankcoa", "ChequeDate", "currency", "Amount", "acctcode", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
                     "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
                 }
 
-            string strCurrency = "";
-            double debitamount = 0;
-            double creditamount = 0;           
+                string strCurrency = "";
+                double debitamount = 0;
+                double creditamount = 0;
 
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
-            {
-                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
-                        strCurrency = getCurrency(ds.Tables[0].Rows[j]["bankcoa"].ToString());
-                    else
-                        strCurrency = ds.Tables[0].Rows[j]["currency"].ToString();
-                    try
+                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                     {
-                        GMSCore.Entity.BankAccount bankAccount = new BankActivity().RetrieveBankAccountByBankCOAByCompanyId(session.CompanyId, ds.Tables[0].Rows[j]["bankcoa"].ToString());
-                        if (bankAccount != null)
+                        if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
+                            strCurrency = getCurrency(ds.Tables[0].Rows[j]["bankcoa"].ToString());
+                        else
+                            strCurrency = ds.Tables[0].Rows[j]["currency"].ToString();
+                        try
                         {
-                            GMSCore.Entity.BankUtilisation existingBankUtilisation = new BankActivity().RetrieveBankUtilisationByCoyIDTransactionNo(session.CompanyId, ds.Tables[0].Rows[j]["trnno"].ToString(), ds.Tables[0].Rows[j]["trntype"].ToString(), (short)bankAccount.COAID);
-                            if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
+                            GMSCore.Entity.BankAccount bankAccount = new BankActivity().RetrieveBankAccountByBankCOAByCompanyId(session.CompanyId, ds.Tables[0].Rows[j]["bankcoa"].ToString());
+                            if (bankAccount != null)
                             {
+                                GMSCore.Entity.BankUtilisation existingBankUtilisation = new BankActivity().RetrieveBankUtilisationByCoyIDTransactionNo(session.CompanyId, ds.Tables[0].Rows[j]["trnno"].ToString(), ds.Tables[0].Rows[j]["trntype"].ToString(), (short)bankAccount.COAID);
+                                if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
+                                {
                                     if (ds.Tables[0].Rows[j]["currency"].ToString() != strCurrency)
                                     {
                                         debitamount = (double)ds.Tables[0].Rows[j]["debitamount"] * (double)ds.Tables[0].Rows[j]["exchangerate"];
@@ -283,21 +283,21 @@ function changeCurrency(ddl1)
                                         debitamount = (double)ds.Tables[0].Rows[j]["debitamount"];
                                         creditamount = (double)ds.Tables[0].Rows[j]["creditamount"];
                                     }
-                            }
+                                }
 
-                            if (existingBankUtilisation != null)
-                            {
-                                if (ds.Tables[0].Rows[j]["mode"] == DBNull.Value || ds.Tables[0].Rows[j]["mode"].ToString() == "")
-                                    existingBankUtilisation.Mode = "nil";
-                                else if (ds.Tables[0].Rows[j]["mode"].ToString().Length > 10)
-                                    existingBankUtilisation.Mode = ds.Tables[0].Rows[j]["mode"].ToString().Substring(0, 9);
-                                else
-                                    existingBankUtilisation.Mode = ds.Tables[0].Rows[j]["mode"].ToString();
-
-                                existingBankUtilisation.AccountCode = ds.Tables[0].Rows[j]["acctcode"].ToString();
-
-                                try
+                                if (existingBankUtilisation != null)
                                 {
+                                    if (ds.Tables[0].Rows[j]["mode"] == DBNull.Value || ds.Tables[0].Rows[j]["mode"].ToString() == "")
+                                        existingBankUtilisation.Mode = "nil";
+                                    else if (ds.Tables[0].Rows[j]["mode"].ToString().Length > 10)
+                                        existingBankUtilisation.Mode = ds.Tables[0].Rows[j]["mode"].ToString().Substring(0, 9);
+                                    else
+                                        existingBankUtilisation.Mode = ds.Tables[0].Rows[j]["mode"].ToString();
+
+                                    existingBankUtilisation.AccountCode = ds.Tables[0].Rows[j]["acctcode"].ToString();
+
+                                    try
+                                    {
                                         if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
                                         {
                                             if (ds.Tables[0].Rows[j]["trntype"].ToString() == "PV")
@@ -325,76 +325,76 @@ function changeCurrency(ddl1)
                                         else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                         {
                                             double tmpAmt = 0;
-                                            if (Double.TryParse(ds.Tables[0].Rows[j]["Amount"].ToString(), out tmpAmt))   
-                                            existingBankUtilisation.Amount = tmpAmt;
+                                            if (Double.TryParse(ds.Tables[0].Rows[j]["Amount"].ToString(), out tmpAmt))
+                                                existingBankUtilisation.Amount = tmpAmt;
                                         }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.PageMsgPanel.ShowMessage("Invalid amount!", MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
+
+                                    try
+                                    {
+                                        existingBankUtilisation.TransactionDate = DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString());
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.PageMsgPanel.ShowMessage("Invalid Transaction Date!", MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
+
+                                    existingBankUtilisation.Currency = strCurrency;
+                                    existingBankUtilisation.BankCOAID = (short)bankAccount.COAID;
+
+                                    try
+                                    {
+                                        ResultType result = new BankActivity().UpdateBankUtilisation(ref existingBankUtilisation, session);
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
+
                                 }
-                                catch (Exception ex)
+                                else if (existingBankUtilisation == null)
                                 {
-                                    this.PageMsgPanel.ShowMessage("Invalid amount!", MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
 
-                                try
-                                {
-                                    existingBankUtilisation.TransactionDate = DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString());
-                                }
-                                catch (Exception ex)
-                                {
-                                    this.PageMsgPanel.ShowMessage("Invalid Transaction Date!", MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
+                                    GMSCore.Entity.BankUtilisation bu = new GMSCore.Entity.BankUtilisation();
+                                    bu.Type = ds.Tables[0].Rows[j]["trntype"].ToString().Substring(0, 2);
 
-                                existingBankUtilisation.Currency = strCurrency;
-                                existingBankUtilisation.BankCOAID = (short)bankAccount.COAID;
+                                    if (ds.Tables[0].Rows[j]["cname"].ToString().Length > 100)
+                                        bu.Name = ds.Tables[0].Rows[j]["cname"].ToString().Substring(0, 99);
+                                    else
+                                        bu.Name = ds.Tables[0].Rows[j]["cname"].ToString();
 
-                                try
-                                {
-                                    ResultType result = new BankActivity().UpdateBankUtilisation(ref existingBankUtilisation, session);
+                                    if (ds.Tables[0].Rows[j]["mode"] == DBNull.Value || ds.Tables[0].Rows[j]["mode"].ToString() == "")
+                                        bu.Mode = "nil";
+                                    else if (ds.Tables[0].Rows[j]["mode"].ToString().Length > 10)
+                                        bu.Mode = ds.Tables[0].Rows[j]["mode"].ToString().Substring(0, 9);
+                                    else
+                                        bu.Mode = ds.Tables[0].Rows[j]["mode"].ToString();
 
-                                }
-                                catch (Exception ex)
-                                {
-                                    this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
+                                    bu.BankCOAID = (short)bankAccount.COAID;
 
-                            }
-                            else if (existingBankUtilisation == null)
-                            {
+                                    try
+                                    {
+                                        if (DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString()) != GMSCoreBase.DEFAULT_NO_DATE)
+                                            bu.ChequeDate = DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString());
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.PageMsgPanel.ShowMessage("Invalid Cheque Date!", MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
 
-                                GMSCore.Entity.BankUtilisation bu = new GMSCore.Entity.BankUtilisation();
-                                bu.Type = ds.Tables[0].Rows[j]["trntype"].ToString().Substring(0, 2);
+                                    bu.Currency = strCurrency;
 
-                                if (ds.Tables[0].Rows[j]["cname"].ToString().Length > 100)
-                                    bu.Name = ds.Tables[0].Rows[j]["cname"].ToString().Substring(0, 99);
-                                else
-                                    bu.Name = ds.Tables[0].Rows[j]["cname"].ToString();
-
-                                if (ds.Tables[0].Rows[j]["mode"] == DBNull.Value || ds.Tables[0].Rows[j]["mode"].ToString() == "")
-                                    bu.Mode = "nil";
-                                else if (ds.Tables[0].Rows[j]["mode"].ToString().Length > 10)
-                                    bu.Mode = ds.Tables[0].Rows[j]["mode"].ToString().Substring(0, 9);
-                                else
-                                    bu.Mode = ds.Tables[0].Rows[j]["mode"].ToString();
-
-                                bu.BankCOAID = (short)bankAccount.COAID;
-
-                                try
-                                {
-                                    if (DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString()) != GMSCoreBase.DEFAULT_NO_DATE)
-                                        bu.ChequeDate = DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString());
-                                }
-                                catch (Exception ex)
-                                {
-                                    this.PageMsgPanel.ShowMessage("Invalid Cheque Date!", MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
-
-                                bu.Currency = strCurrency;
-
-                                try
-                                {
+                                    try
+                                    {
                                         if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
                                         {
                                             if (ds.Tables[0].Rows[j]["trntype"].ToString() == "PV")
@@ -422,90 +422,90 @@ function changeCurrency(ddl1)
                                         else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                                         {
                                             double tmpAmt = 0;
-                                            if (Double.TryParse(ds.Tables[0].Rows[j]["Amount"].ToString(), out tmpAmt))                                               
-                                            bu.Amount = tmpAmt;
+                                            if (Double.TryParse(ds.Tables[0].Rows[j]["Amount"].ToString(), out tmpAmt))
+                                                bu.Amount = tmpAmt;
                                         }
 
                                     }
-                                catch (Exception ex)
-                                {
-                                    this.PageMsgPanel.ShowMessage("Invalid amount!", MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
-                                bu.Marking1 = true;
-                                bu.Marking2 = true;
-                                bu.TransactionNo = ds.Tables[0].Rows[j]["trnno"].ToString();
-                                bu.CreatedBy = session.UserId;
-                                bu.CreatedDate = DateTime.Now;
-                                bu.CoyID = session.CompanyId;
-                                bu.AccountCode = ds.Tables[0].Rows[j]["acctcode"].ToString();
-
-                                try
-                                {
-                                    bu.TransactionDate = DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString());
-                                }
-                                catch (Exception ex)
-                                {
-                                    this.PageMsgPanel.ShowMessage("Invalid Transaction Date!", MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
-                                
-                                if(bu.Name != "")
-                                { 
-                                    //update customer list
-                                    IList<A21Account> lstBRP = new SystemDataActivity().RetrieveAllCustomerAccountsListByPrefixByCompanyIDSortByAccountName(bu.Name, session.CompanyId);
-                                    if (lstBRP.Count == 0)
+                                    catch (Exception ex)
                                     {
-                                        BankReceiverPayer bankReceiverPayer = new BankReceiverPayerActivity().RetrieveBankReceiverPayerByNameCompanyId(bu.Name, session.CompanyId);
-                                        if (bankReceiverPayer == null)
+                                        this.PageMsgPanel.ShowMessage("Invalid amount!", MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
+                                    bu.Marking1 = true;
+                                    bu.Marking2 = true;
+                                    bu.TransactionNo = ds.Tables[0].Rows[j]["trnno"].ToString();
+                                    bu.CreatedBy = session.UserId;
+                                    bu.CreatedDate = DateTime.Now;
+                                    bu.CoyID = session.CompanyId;
+                                    bu.AccountCode = ds.Tables[0].Rows[j]["acctcode"].ToString();
+
+                                    try
+                                    {
+                                        bu.TransactionDate = DateTime.Parse(ds.Tables[0].Rows[j]["trndate"].ToString());
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.PageMsgPanel.ShowMessage("Invalid Transaction Date!", MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
+
+                                    if (bu.Name != "")
+                                    {
+                                        //update customer list
+                                        IList<A21Account> lstBRP = new SystemDataActivity().RetrieveAllCustomerAccountsListByPrefixByCompanyIDSortByAccountName(bu.Name, session.CompanyId);
+                                        if (lstBRP.Count == 0)
                                         {
-                                            bankReceiverPayer = new BankReceiverPayer();
-                                            bankReceiverPayer.CoyID = bu.CoyID;
-                                            bankReceiverPayer.Name = bu.Name;
-                                            new BankReceiverPayerActivity().CreateBankReceiverPayer(ref bankReceiverPayer, session);
+                                            BankReceiverPayer bankReceiverPayer = new BankReceiverPayerActivity().RetrieveBankReceiverPayerByNameCompanyId(bu.Name, session.CompanyId);
+                                            if (bankReceiverPayer == null)
+                                            {
+                                                bankReceiverPayer = new BankReceiverPayer();
+                                                bankReceiverPayer.CoyID = bu.CoyID;
+                                                bankReceiverPayer.Name = bu.Name;
+                                                new BankReceiverPayerActivity().CreateBankReceiverPayer(ref bankReceiverPayer, session);
+                                            }
                                         }
                                     }
-                                }
-                                
-                                //create bank utilisation
-                                try
-                                {
-                                    ResultType result = new BankActivity().CreateBankUtilisation(ref bu, session);
-                                }
-                                catch (Exception ex)
-                                {                                  
-                                    this.PageMsgPanel.ShowMessage("The connection to the server has failed! <br />For more information, please contact your System Administrator. ", MessagePanelControl.MessageEnumType.Alert);
-                                    return;
-                                }
+
+                                    //create bank utilisation
+                                    try
+                                    {
+                                        ResultType result = new BankActivity().CreateBankUtilisation(ref bu, session);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        this.PageMsgPanel.ShowMessage("The connection to the server has failed! <br />For more information, please contact your System Administrator. ", MessagePanelControl.MessageEnumType.Alert);
+                                        return;
+                                    }
 
 
+                                }
                             }
+
                         }
-                            
+                        catch (Exception ex)
+                        {
+                            JScriptAlertMsg(ex.Message);
+                        }
+
                     }
-                    catch (Exception ex)
-                    {
-                        JScriptAlertMsg(ex.Message);
-                    }                   
-                    
+
                 }
+
+                //ModalPopupExtender1.Hide();
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "progress_stop", "progress_stop();", true);
+                JScriptAlertMsg("Finished importing.");
+                LoadData();
+
+            }
+            catch (Exception ex)
+            {
+                //this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
+                this.PageMsgPanel.ShowMessage("The connection to the server has failed! <br />For more information, please contact your System Administrator. ", MessagePanelControl.MessageEnumType.Alert);
 
             }
 
-            //ModalPopupExtender1.Hide();
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "progress_stop", "progress_stop();", true);  
-            JScriptAlertMsg("Finished importing.");
-            LoadData();
 
-        }
-        catch (Exception ex)
-        {
-            //this.PageMsgPanel.ShowMessage(ex.Message, MessagePanelControl.MessageEnumType.Alert);
-            this.PageMsgPanel.ShowMessage("The connection to the server has failed! <br />For more information, please contact your System Administrator. ", MessagePanelControl.MessageEnumType.Alert);
-
-        }
-
-            
         }
 
         #region LoadData
@@ -522,7 +522,7 @@ function changeCurrency(ddl1)
             if (string.IsNullOrEmpty(trnDateFrom.Text)) trnDateFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
             if (string.IsNullOrEmpty(trnDateTo.Text)) trnDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");
             DateTime cDateFrom = GMSCoreBase.DEFAULT_NO_DATE.AddYears(3);
-            DateTime cDateTo = GMSCoreBase.DEFAULT_NO_DATE.AddYears(3);           
+            DateTime cDateTo = GMSCoreBase.DEFAULT_NO_DATE.AddYears(3);
 
             if (GMSUtil.ToDate(chequeDateTo.Text) != GMSCore.GMSCoreBase.DEFAULT_NO_DATE || GMSUtil.ToDate(chequeDateFrom.Text) != GMSCore.GMSCoreBase.DEFAULT_NO_DATE)
             {
@@ -694,7 +694,7 @@ function changeCurrency(ddl1)
                 LinkButton lnkDelete = (LinkButton)e.Item.FindControl("lnkDelete");
                 if (lnkDelete != null)
                     lnkDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
-                
+
             }
         }
         #endregion
@@ -767,7 +767,7 @@ function changeCurrency(ddl1)
             HtmlInputHidden hidTransactionType = (HtmlInputHidden)e.Item.FindControl("hidTransactionType");
             HtmlInputHidden hidBankCoaID = (HtmlInputHidden)e.Item.FindControl("hidBankCoaID");
 
-            GMSCore.Entity.BankUtilisation bUtilisation = new BankActivity().RetrieveBankUtilisationByCoyIDTransactionNo(session.CompanyId, hidTransactionNo.Value,hidTransactionType.Value,GMSUtil.ToShort(hidBankCoaID.Value));
+            GMSCore.Entity.BankUtilisation bUtilisation = new BankActivity().RetrieveBankUtilisationByCoyIDTransactionNo(session.CompanyId, hidTransactionNo.Value, hidTransactionType.Value, GMSUtil.ToShort(hidBankCoaID.Value));
             if (bUtilisation.CreatedDate.Date != DateTime.Now.Date)
             {
                 UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
@@ -1182,7 +1182,7 @@ function changeCurrency(ddl1)
             for (int i = 0; i < this.dgData.Items.Count; i++)
             {
                 CheckBox chkSelect = (CheckBox)this.dgData.Items[i].FindControl("chkPrint");
-                HtmlInputHidden hidTrnNo = (HtmlInputHidden)this.dgData.Items[i].FindControl("hidBUID");                
+                HtmlInputHidden hidTrnNo = (HtmlInputHidden)this.dgData.Items[i].FindControl("hidBUID");
                 HtmlInputHidden hidBankCOA = (HtmlInputHidden)this.dgData.Items[i].FindControl("hidBankCOA");
                 HtmlInputHidden hidChequeFormatCode = (HtmlInputHidden)this.dgData.Items[i].FindControl("hidChequeFormatCode");
 
@@ -1240,12 +1240,12 @@ function changeCurrency(ddl1)
         #region btnImport_Click
         protected void btnImport_Click(object sender, EventArgs e)
         {
-            
+
             ImportBankAccountData();
             DateTime dateFrom = GMSUtil.ToDate(trnDateFrom.Text.Trim());
             DateTime dateTo = GMSUtil.ToDate(trnDateTo.Text.Trim());
             ImportData(dateFrom, dateTo);
-            
+
         }
         #endregion
 
@@ -1259,19 +1259,19 @@ function changeCurrency(ddl1)
             TimeSpan difference = tDateTo - tDateFrom;
             int diff = GMSUtil.ToShort(difference.TotalDays);
 
-            
+
             if (diff > 4)
             {
-                JScriptAlertMsg("Please select maximum of 5 days range to import.");  
+                JScriptAlertMsg("Please select maximum of 5 days range to import.");
             }
-            else 
+            else
             {
                 ImportBankAccountData();
                 ImportData(tDateFrom, tDateTo);
             }
 
-            
-            
+
+
         }
     }
 }

@@ -652,14 +652,12 @@ namespace GMSWeb.Sales.Sales
         {
             RadGrid dtg = (RadGrid)source;
             dtg.CurrentPageIndex = e.NewPageIndex;
-            RetrieveProduct();
         }
 
         protected void radGrid2_OnPageSizeChanged(object source, GridPageSizeChangedEventArgs e)
         {
             RadGrid dtg = (RadGrid)source;
             dtg.CurrentPageIndex = e.NewPageSize;
-            RetrieveProduct();
         }
 
         protected void radGrid2_OnCancel(object source, GridCommandEventArgs e)
