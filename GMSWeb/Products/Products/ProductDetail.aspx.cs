@@ -212,11 +212,12 @@ function ViewMultipleUOM()
 
             string productCode = this.hidProductCode.Value.Trim();
 
-            string folderPath = Server.MapPath("~/images/Product/"+session.CompanyId+"/"+ productCode);
+            //string folderPath = Server.MapPath("~/images/Product/"+session.CompanyId+"/"+ productCode);
+            string folderPath = @"F:/GMSDocuments/Product/images/" + session.CompanyId + "/" + productCode;
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
 
-            this.RadAsycnUpload1.TargetFolder = "~/images/Product/" + session.CompanyId + "/"+ productCode;
+            this.RadAsycnUpload1.TargetFolder = folderPath;
 
             this.btnDelete.Attributes.Add("onclick", "return confirm('Confirm deletion of this record?')");
 
@@ -1120,7 +1121,7 @@ function ViewMultipleUOM()
         {
             LogSession session = base.GetSessionInfo();
             string productCode = this.hidProductCode.Value.Trim();
-            string folderPath = Server.MapPath("~/images/Product/" + session.CompanyId + "/" + productCode + "/");
+            string folderPath = @"F:/GMSDocuments/Product/images/" + session.CompanyId + "/" + productCode;
             DirectoryInfo info = new DirectoryInfo(folderPath);
 
             FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
@@ -1131,13 +1132,21 @@ function ViewMultipleUOM()
             table.Columns.Add("Description", typeof(string));
             table.Columns.Add("ImageData", typeof(string));
             table.Columns.Add("ThumbnailData", typeof(string));
+            string appPath = HttpRuntime.AppDomainAppVirtualPath;
 
             foreach (FileInfo file in files)
             {
-                table.Rows.Add(file.Name, "", "~/images/Product/" + session.CompanyId + "/" + productCode + "/" + file.Name, "~/images/Product/" + session.CompanyId + "/" + productCode + "/" + file.Name);
+                string filepath = @"F:/GMSDocuments/Product/images/" + session.CompanyId + "/" + productCode + "/" + file.Name;
+                table.Rows.Add(file.Name, "", appPath+"/Common/ImageToByte.aspx?Path="+filepath, appPath + "/Common/ImageToByte.aspx?Path=" + filepath);
             }
-
             return table;
+        }
+
+        public string convertFiletoBase64(string filepath)
+        {
+            byte[] fileByte = File.ReadAllBytes(filepath);
+            string s = Convert.ToBase64String(fileByte);
+            return s;
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -1146,7 +1155,7 @@ function ViewMultipleUOM()
 
             string productCode = this.hidProductCode.Value.Trim();
             DataSet dsProductInfo = new DataSet();
-            string folderPath = Server.MapPath("~/images/Product/" + session.CompanyId + "/" + productCode + "/");
+            string folderPath = @"F:/GMSDocuments/Product/images/" + session.CompanyId + "/" + productCode+"/";
 
             int selectedIndex = this.RadImageGallery.CurrentItemIndex;
             int i = 0;
