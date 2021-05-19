@@ -27,12 +27,13 @@ namespace GMSCore
         /// <summary>
         /// Retrieve active documents
         /// </summary>
-        public void GetActiveDocuments(short documentCategoryID, ref DataSet ds)
+        public void GetActiveDocuments(short coyid,short documentCategoryID, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppDocumentSelectByDocumentCategoryID", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@DocumentCategoryID", SqlDbType.SmallInt).Value = documentCategoryID;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;

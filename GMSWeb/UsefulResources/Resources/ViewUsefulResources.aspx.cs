@@ -101,10 +101,10 @@ namespace GMSWeb.UsefulResources.Resources
             //this.ddlDocument.DataSource = lstDocument;
             //this.ddlDocument.DataBind();
             //}
-
+            LogSession session = base.GetSessionInfo();
             DocumentDataDALC dalc = new DocumentDataDALC();
             DataSet ds = new DataSet();
-            dalc.GetActiveDocuments(short.Parse(this.ddlDocumentCategory.SelectedValue), ref ds);
+            dalc.GetActiveDocuments(session.CompanyId,short.Parse(this.ddlDocumentCategory.SelectedValue), ref ds);
             this.ddlDocument.DataSource = ds.Tables[0]; 
             this.ddlDocument.DataBind();
                         
@@ -162,7 +162,7 @@ namespace GMSWeb.UsefulResources.Resources
                     //lstDocument = new SystemDataActivity().RetrieveAllDocumentBySeqID(rCategory.DocumentCategoryID);
                     DocumentDataDALC dalc = new DocumentDataDALC();
                     DataSet ds = new DataSet();
-                    dalc.GetActiveDocuments(rCategory.DocumentCategoryID, ref ds);
+                    dalc.GetActiveDocuments(session.CompanyId,rCategory.DocumentCategoryID, ref ds);
 
                     // Bind Data to sub repeater
                     RepeaterItem item = this.rppCategoryList.Items[i];
