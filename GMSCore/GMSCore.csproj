@@ -351,6 +351,10 @@
     <Compile Include="Entity\DocumentNumber.Generated.cs">
       <DependentUpon>DocumentNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Entity\DocumentByCompany.cs" />
+    <Compile Include="Entity\DocumentByCompany.Generated.cs">
+      <DependentUpon>DocumentByCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity\Employee.cs" />
     <Compile Include="Entity\Employee.Generated.cs">
       <DependentUpon>Employee.cs</DependentUpon>

@@ -81,7 +81,7 @@ namespace GMSWeb.UsefulResources.Resources
 		    }
 		    </script>";
 
-            
+
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
         }
@@ -89,9 +89,8 @@ namespace GMSWeb.UsefulResources.Resources
         protected void LoadDDLs()
         {
             IList<DocumentCategory> lstCategory = null;
-               
 
-                if (this.hidDocumentCateogryID.Value!="")
+            if (this.hidDocumentCateogryID.Value != "")
                 lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryIDByDocumentCategoryID(short.Parse(this.hidModuleCategoryID.Value), this.hidDocumentCateogryID.Value);
             else
                 lstCategory = new SystemDataActivity().RetrieveAllDocumentCategoryByModuleCategoryID(short.Parse(this.hidModuleCategoryID.Value));
@@ -114,10 +113,10 @@ namespace GMSWeb.UsefulResources.Resources
             //this.ddlDocument.DataSource = lstDocument;
             //this.ddlDocument.DataBind();
             //}
-
+            LogSession session = base.GetSessionInfo();
             DocumentDataDALC dalc = new DocumentDataDALC();
             DataSet ds = new DataSet();
-            dalc.GetActiveDocuments(short.Parse(this.ddlDocumentCategory.SelectedValue), ref ds);
+            dalc.GetActiveDocuments(session.CompanyId,short.Parse(this.ddlDocumentCategory.SelectedValue), ref ds);
             this.ddlDocument.DataSource = ds.Tables[0];
             this.ddlDocument.DataBind();
 
@@ -183,7 +182,7 @@ namespace GMSWeb.UsefulResources.Resources
                     //lstDocument = new SystemDataActivity().RetrieveAllDocumentBySeqID(rCategory.DocumentCategoryID);
                     DocumentDataDALC dalc = new DocumentDataDALC();
                     DataSet ds = new DataSet();
-                    dalc.GetActiveDocuments(rCategory.DocumentCategoryID, ref ds);
+                    dalc.GetActiveDocuments(session.CompanyId,rCategory.DocumentCategoryID, ref ds);
 
                     // Bind Data to sub repeater
                     RepeaterItem item = this.rppCategoryList.Items[i];
@@ -194,8 +193,6 @@ namespace GMSWeb.UsefulResources.Resources
                         rppReportList.DataSource = ds.Tables[0];
                         rppReportList.DataBind();
                     }
-         
-
                     /*
                     lstDocument = ds.Tables[0].
 
@@ -215,7 +212,6 @@ namespace GMSWeb.UsefulResources.Resources
                         }
                     }*/
                     i++;
-
                 }
             }
         }
@@ -240,7 +236,6 @@ namespace GMSWeb.UsefulResources.Resources
         protected void rppReportList_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             LogSession session = base.GetSessionInfo();
-
             if (e.CommandName == "Delete")
             {
                 short documentId = short.Parse(e.CommandArgument.ToString());
@@ -249,6 +244,14 @@ namespace GMSWeb.UsefulResources.Resources
                 string filePath = folderPath + doc.FileName;
                 doc.Delete();
                 doc.Resync();
+                try
+                {
+                    DocumentByCompany docByCoy = DocumentByCompany.RetrieveByKey(documentId);
+                    docByCoy.Delete();
+                    docByCoy.Resync();
+                }
+                catch (Exception) { }
+                
 
                 try
                 {
@@ -422,6 +425,12 @@ namespace GMSWeb.UsefulResources.Resources
                         doc.DateUploaded = DateTime.Now;
                         doc.Save();
                         doc.Resync();
+
+                        DocumentByCompany docOrg = new DocumentByCompany();
+                        docOrg.CoyID = session.CompanyId;
+                        docOrg.DocumentID = doc.DocumentID;
+                        docOrg.Save();
+                        docOrg.Resync();
                     }
                 }
 
