@@ -2122,6 +2122,51 @@ namespace GMSConApp
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Purchase Order data insertion.");
                     ds.Dispose();
                 }
+
+                if (execute)
+                {
+                    // Delete Supplier Open Invoice
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Supplier Open Invoice data in GMS...");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSupplierOpenInvoice");
+
+                    string supplierCodeFrom = "0"; // "0" if no specific
+                    string supplierCodeTo = "Z"; // "Z" if no specific
+                    //Retrieve Supplier Open Invoice
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Supplier Open Invoice data...");
+                    query = "SELECT T0.\"CardCode\", T0.\"CardName\", T1.\"DocNum\", TO_VARCHAR(T1.\"DocDate\") as PD, TO_VARCHAR(T1.\"TaxDate\") as DD, TO_VARCHAR(T1.\"DocDueDate\") as Due, T1.\"NumAtCard\" as Ref, T1.\"DocCur\", T1.\"DocRate\", CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"DocTotal\" ELSE T1.\"DocTotalFC\" END AS DocTotal, " +
+             "CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"PaidToDate\" ELSE T1.\"PaidFC\" END AS PaidTotal, CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"DocTotal\" - T1.\"PaidToDate\" ELSE T1.\"DocTotalFC\" - T1.\"PaidFC\" END AS BalanceTotal, T2.\"SlpName\", T2.\"U_AF_SLPDIV\", T2.\"U_AF_BRANCH\" ,T1.\"ExtraDays\" FROM OCRD T0 " +
+             "LEFT OUTER JOIN OPCH T1 ON T0.\"CardCode\" = T1.\"CardCode\" LEFT OUTER JOIN OSLP T2 ON T1.\"SlpCode\" = T2.\"SlpCode\" INNER JOIN OCTG T3 ON T0.\"GroupNum\" = T3.\"GroupNum\" WHERE T0.\"CardType\" = 'S' AND T1.\"CANCELED\" = 'N' AND T1.\"DocStatus\" <> 'C' AND T0.\"CardCode\" BETWEEN '" + supplierCodeFrom + "' AND '" + supplierCodeTo + "' ";
+                    ds = sop.GET_SAP_QueryData(1, query,
+           "SupplierCode", "SupplierName", "TrnNo", "PostingDate", "DocumentDate", "DocumentDueDate", "RefNo", "CurrencyCode", "CurrencyRate",
+           "DocumentTotal", "PaidTotal", "BalanceTotal", "Buyer", "Division", "Branch", "CreditTerm", "Field17", "Field18", "Field19", "Field20",
+           "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    //Insert Supplier Open Invoice data into GMS
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Supplier Open Invoice data into GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        oDAL.GMS_Insert_SupplierOpenInvoice(CoyID,
+                        dr["SupplierCode"].ToString(),
+                        dr["SupplierName"].ToString(),
+                        GMSUtil.ToInt(dr["TrnNo"].ToString()),
+                        DateTime.Parse(dr["PostingDate"].ToString()),
+                        DateTime.Parse(dr["DocumentDate"].ToString()),
+                        DateTime.Parse(dr["DocumentDueDate"].ToString()),
+                        dr["RefNo"].ToString(),
+                        dr["CurrencyCode"].ToString(),
+                        GMSUtil.ToDouble(dr["CurrencyRate"].ToString()),
+                        GMSUtil.ToDouble(dr["DocumentTotal"].ToString()),
+                        GMSUtil.ToDouble(dr["PaidTotal"].ToString()),
+                        GMSUtil.ToDouble(dr["BalanceTotal"].ToString()),
+                        dr["Buyer"].ToString(),
+                        dr["Division"].ToString(),
+                        dr["Branch"].ToString(),
+                        GMSUtil.ToInt(dr["CreditTerm"].ToString())
+                        );
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Supplier Open Invoice data insertion.");
+                    ds.Dispose();
+                }
             }
         }
 
@@ -2268,7 +2313,7 @@ namespace GMSConApp
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         string accountClass = "";
-                        foreach(DataRow dr2 in dsAccountInfo.Tables[0].Rows)
+                        foreach (DataRow dr2 in dsAccountInfo.Tables[0].Rows)
                         {
                             if (dr2["Code"].ToString() == dr["AccountCode"].ToString())
                                 accountClass = dr2["CreditClass"].ToString();
@@ -2575,7 +2620,7 @@ namespace GMSConApp
 
                     //Retrieve Purchase Order
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Order data...");
-                    ds = ws.ImportPurchaseOrder(CoyID,from,to);
+                    ds = ws.ImportPurchaseOrder(CoyID, from, to);
                     tempProductName = "";
                     //Insert Purchase Order data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Purchase Order data into GMS...");

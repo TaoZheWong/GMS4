@@ -4695,7 +4695,6 @@ namespace GMSCore
                     rdr.Close();
                 }
             }
-
             return;
         }
 
