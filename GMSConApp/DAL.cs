@@ -786,5 +786,30 @@ namespace GMSConApp
             cm.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrno;
             SPexecutor("procAppWSUpdateMRStatus");
         }
+
+        public void GMS_Insert_SupplierOpenInvoice(short CoyID, string SupplierCode, string SupplierName,int TrnNo, DateTime PostingDate,
+DateTime DocumentDate, DateTime DocumentDueDate, string RefNo, string CurrencyCode,double CurrencyRate,
+double DocumentTotal, double PaidTotal, double BalanceTotal, string Buyer, string Division, string Branch, int CreditTerm)
+        {
+            CNCMGenerator();
+            cm.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = CoyID;
+            cm.Parameters.Add("@SupplierCode", SqlDbType.NVarChar).Value = SupplierCode;
+            cm.Parameters.Add("@SupplierName", SqlDbType.NVarChar).Value = SupplierName;
+            cm.Parameters.Add("@TrnNo", SqlDbType.Int).Value = TrnNo;
+            cm.Parameters.Add("@PostingDate", SqlDbType.DateTime).Value = PostingDate;
+            cm.Parameters.Add("@DocumentDate", SqlDbType.DateTime).Value = DocumentDate;
+            cm.Parameters.Add("@DocumentDueDate", SqlDbType.DateTime).Value = DocumentDueDate;
+            cm.Parameters.Add("@RefNo", SqlDbType.NVarChar).Value = RefNo;
+            cm.Parameters.Add("@CurrencyCode", SqlDbType.NVarChar).Value = CurrencyCode;
+            cm.Parameters.Add("@CurrencyRate", SqlDbType.Float).Value = CurrencyRate;
+            cm.Parameters.Add("@DocumentTotal", SqlDbType.Float).Value = DocumentTotal;
+            cm.Parameters.Add("@PaidTotal", SqlDbType.Float).Value = PaidTotal;
+            cm.Parameters.Add("@BalanceTotal", SqlDbType.Float).Value = BalanceTotal;
+            cm.Parameters.Add("@Buyer", SqlDbType.NVarChar).Value = Buyer;
+            cm.Parameters.Add("@Division", SqlDbType.NVarChar).Value = Division;
+            cm.Parameters.Add("@Branch", SqlDbType.NVarChar).Value = Branch;
+            cm.Parameters.Add("@CreditTerm", SqlDbType.Int).Value = CreditTerm;
+            SPexecutor("procAppWSSupplierOpenInvoiceInsert");
+        }
     }
 }

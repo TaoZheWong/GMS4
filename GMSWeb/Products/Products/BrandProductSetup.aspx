@@ -151,7 +151,7 @@
                                 ItemStyle-HorizontalAlign="Center" AllowFiltering="false" headerstyle-Width="7%" DataField="IsBudget" GroupByExpression="IsBudget group by IsBudget" Visible="false">
                             </telerik:GridCheckBoxColumn>
                             <telerik:GridCheckBoxColumn SortExpression="IsActive"  HeaderText="Active" UniqueName="IsActive"
-                                ItemStyle-HorizontalAlign="Center" AllowFiltering="false" headerstyle-Width="7%" DataField="IsActive" Display="false">
+                                ItemStyle-HorizontalAlign="Center" AllowFiltering="true" headerstyle-Width="7%" DataField="IsActive" Display="true">
                             </telerik:GridCheckBoxColumn>
                         </Columns>
                     </MasterTableView>
