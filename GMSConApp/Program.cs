@@ -1704,36 +1704,38 @@ namespace GMSConApp
                     //query = "CALL \"AF_API_GET_SAP_STOCK_MOVEMENT\" ('', '', '', '', '', '')";
                     ds = sop.GET_SAP_QueryData(CoyID, query,
                     "TrnType", "TrnNo", "TrnDate", "RefNo", "AccountCode", "AccountName", "ProductCode", "ProductName", "ProductGroupCode", "ProductGroupName", "ReceivedQty", "IssuedQty", "BalanceQty", "Cost", "CostWT", "Currency", "ExchangeRate", "Narration", "DocNo", "Warehouse",
-                    "TransNum", "UnitPrice", "WarehouseName", "FromWarehouse", "FromWarehouseName", "ToWarehouse", "ToWarehouseName", "DueDate", "DocumentDate", "Field30");
+                    "TransNum", "UnitPrice", "WarehouseName", "FromWarehouse", "FromWarehouseName", "ToWarehouse", "ToWarehouseName", "DueDate", "DocumentDate", "Cancel");
                     tempProductName = "";
                     string tempNarration = "";
                     //Insert StockMovement data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Stock Movement data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        tempProductName = dr["ProductName"].ToString().Replace("'", "''");
-                        tempNarration = dr["Narration"].ToString().Replace("'", "''");
-                        oDAL.GMS_Insert_StockMovement(CoyID,
-                         dr["TrnType"].ToString(),
-                         GMSUtil.ToInt(dr["TrnNo"].ToString()),
-                         GMSUtil.ToDate(dr["TrnDate"].ToString()),
-                         dr["RefNo"].ToString().Replace("'", "''"),
-                         dr["AccountCode"].ToString(),
-                         dr["AccountName"].ToString(),
-                         dr["ProductCode"].ToString(),
-                         tempProductName,
-                         dr["ProductGroupCode"].ToString(),
-                         dr["ProductGroupName"].ToString().Replace("'", "''"),
-                         GMSUtil.ToDouble(dr["ReceivedQty"].ToString()),
-                         GMSUtil.ToDouble(dr["IssuedQty"].ToString()),
-                         GMSUtil.ToDouble(dr["BalanceQty"].ToString()),
-                         GMSUtil.ToDouble(dr["Cost"].ToString()),
-                         GMSUtil.ToDouble(dr["CostWT"].ToString()),
-                         dr["Currency"].ToString(),
-                         GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
-                        tempNarration
-                        );
-
+                        if (dr["Cancel"].ToString() == "N")
+                        {
+                            tempProductName = dr["ProductName"].ToString().Replace("'", "''");
+                            tempNarration = dr["Narration"].ToString().Replace("'", "''");
+                            oDAL.GMS_Insert_StockMovement(CoyID,
+                             dr["TrnType"].ToString(),
+                             GMSUtil.ToInt(dr["TrnNo"].ToString()),
+                             GMSUtil.ToDate(dr["TrnDate"].ToString()),
+                             dr["RefNo"].ToString().Replace("'", "''"),
+                             dr["AccountCode"].ToString(),
+                             dr["AccountName"].ToString(),
+                             dr["ProductCode"].ToString(),
+                             tempProductName,
+                             dr["ProductGroupCode"].ToString(),
+                             dr["ProductGroupName"].ToString().Replace("'", "''"),
+                             GMSUtil.ToDouble(dr["ReceivedQty"].ToString()),
+                             GMSUtil.ToDouble(dr["IssuedQty"].ToString()),
+                             GMSUtil.ToDouble(dr["BalanceQty"].ToString()),
+                             GMSUtil.ToDouble(dr["Cost"].ToString()),
+                             GMSUtil.ToDouble(dr["CostWT"].ToString()),
+                             dr["Currency"].ToString(),
+                             GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
+                            tempNarration
+                            );
+                        }
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Stock Movement data insertion");
                     ds.Dispose();
