@@ -8,12 +8,13 @@ namespace GMSConApp
     class Program
     {
         static string _DBConn = "server=LMS;database=GMS;user=lms_sa;password=Leeden628128!";
+        static string _LMSDBConn = "server=LMS;database=LNOX_Master;user=lms_sa;password=Leeden628128!";
         //static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
         //static string _DBConn = "server=ldlnb17;database=GMS_20210503;user=sa;password=eason";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
         static string _CMSDefaultURL = "http://10.1.1.21/CMS.WebServices/Recipe.asmx";
         static DAL oDAL = null;
-
+        static LMSDAL lmsDAL = null;
         // GMSConApp Tasks Menu: 
         // 1. MR with COYID         : MR
         // 2. TB                    : Trial Balance
@@ -25,7 +26,9 @@ namespace GMSConApp
             {
                 string TaskName = string.Empty;
                 short CoyID = 0;
+                string Code = "";
                 oDAL = new DAL(_DBConn);
+                lmsDAL = new LMSDAL(_LMSDBConn);
                 if (args[0] == null)
                 {
                     Console.WriteLine("Task Name is null"); // Check for null array
@@ -103,6 +106,28 @@ namespace GMSConApp
                             else
                             {
                                 Task_LMSImportSalesPerson(CoyID);
+                            }
+                            break;
+                        case "NewLMSImportData":
+                            Code = args[1];
+                            if (args[1] == null)
+                            {
+                                Console.WriteLine("Company is null"); // Check for null array
+                            }
+                            else
+                            {
+                                Task_NewLMSImport(Code);
+                            }
+                            break;
+                        case "NewLMSHourlyImportData":
+                            Code = args[1];
+                            if (args[1] == null)
+                            {
+                                Console.WriteLine("Company is null"); // Check for null array
+                            }
+                            else
+                            {
+                                Task_NewLMSHourlyImport(Code);
                             }
                             break;
                         default:
@@ -1062,6 +1087,122 @@ namespace GMSConApp
             }
         }
 
+        static void Task_NewLMSImport(string Code)
+        {
+            string from = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
+            string to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
+
+            DataTable dtCompany = lmsDAL.LMS_Get_CompanyByCode(Code);
+            if (dtCompany.Rows.Count > 0)
+            {
+                Task_NewLMSImportData(Code, true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim());
+            }
+        }
+
+        static void Task_NewLMSImportData(string Code, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB)
+        {
+            Console.WriteLine(DateTime.Now.ToString() + " -- Start Task : LMSImport");
+            Console.WriteLine(DateTime.Now.ToString() + " -- Coy = " + Code);
+
+            DataTable dtCompany = lmsDAL.LMS_Get_CompanyByCode(Code);
+            if (dtCompany.Rows.Count > 0)
+            {
+                DataSet ds = new DataSet();
+                string query = "";
+                SAPOperation sop = new SAPOperation();
+                sop.BaseAddress = SAPURI;
+                sop.SAPKey = SAPKEY;
+                sop.SAPDB = SAPDB;
+
+                if (execute)
+                {
+                    //Retrieve Closed PRNo from PO
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Account Data...");
+                    query = "SELECT " +
+                            "T0.\"CardCode\"," +
+                            "T0.\"CardName\"," +
+                            "T1.\"Address\"," +
+                            "T1.\"Street\"," +
+                            "T1.\"Block\"," +
+                            "T1.\"City\"," +
+                            "T1.\"County\"," +
+                            "T1.\"ZipCode\"," +
+                            "T2.\"Name\"," +
+                            "T1.\"U_AF_PHONE\"," +
+                            "T1.\"U_AF_MOBILE\"," +
+                            "T1.\"U_AF_FAX\"," +
+                            "T1.\"U_AF_EMAIL\"," +
+                            "T1.\"U_AF_CONTACT\"," +
+                            "T1.\"AdresType\" " +
+                            "FROM OCRD T0 " +
+                            "LEFT JOIN CRD1 T1 ON T0.\"CardCode\" = T1.\"CardCode\" " +
+                            "LEFT JOIN OCRY T2 ON T1.\"Country\" = T2.\"Code\" ";
+
+                    ds = sop.LMS_GET_SAP_QueryData(Code, query,
+                        "AccountCode", "AccountName", "AddressName", "Address1", "Address2", "Address3", "Address4", "PostalCode", "Country", "OfficePhone", "MobilePhone", "Fax", "Email", "ContactPerson", "AddressType", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Updating Account Data in LMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        lmsDAL.LMS_Update_SAPAddress(Code, dr["AccountCode"].ToString(), dr["AddressType"].ToString(),
+                             dr["Address1"].ToString(), dr["Address2"].ToString(), dr["Address3"].ToString(), dr["Address4"].ToString(),
+                              dr["PostalCode"].ToString(), dr["OfficePhone"].ToString(), dr["MobilePhone"].ToString(), dr["Fax"].ToString(),
+                              dr["Email"].ToString(), dr["ContactPerson"].ToString(), dr["ContacAddressNametPerson"].ToString());
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Closed MR status update");
+                    ds.Dispose();
+                }
+            }
+        }
+
+        static void Task_NewLMSHourlyImport(string Code)
+        {
+            string from = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
+            string to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
+
+            DataTable dtCompany = lmsDAL.LMS_Get_CompanyByCode(Code);
+            if (dtCompany.Rows.Count > 0)
+            {
+                Task_NewLMSHourlyImportData(Code, true, from, to, dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim());
+            }
+        }
+
+        static void Task_NewLMSHourlyImportData(string Code, bool execute, string from, string to, string SAPURI, string SAPKEY, string SAPDB)
+        {
+            Console.WriteLine(DateTime.Now.ToString() + " -- Start Task : LMSImport");
+            Console.WriteLine(DateTime.Now.ToString() + " -- CoyID = " + Code);
+
+            DataTable dtCompany = lmsDAL.LMS_Get_CompanyByCode(Code);
+            if (dtCompany.Rows.Count > 0)
+            {
+                DataSet ds = new DataSet();
+                string query = "";
+                SAPOperation sop = new SAPOperation();
+                sop.BaseAddress = SAPURI;
+                sop.SAPKey = SAPKEY;
+                sop.SAPDB = SAPDB;
+
+                if (execute)
+                {
+                    //Retrieve Closed PRNo from PO
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Closed MR Data...");
+                    query = "SELECT \"U_AF_DOCNUM\" FROM OPOR WHERE \"DocStatus\" = 'C' AND  \"U_AF_DOCNUM\" <> ''";
+                    ds = sop.LMS_GET_SAP_QueryData(Code, query,
+                        "MRNo", "Field2", "Field3", "Field4", "Field5", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    Console.WriteLine(DateTime.Now.ToString() + " -- Updating Closed MR status in GMS...");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        lmsDAL.LMS_Update_ClosePRStatus(Code, dr["MRNo"].ToString());
+                    }
+                    Console.WriteLine(DateTime.Now.ToString() + " -- End Closed MR status update");
+                    ds.Dispose();
+                }
+            }
+        }
+
         static void Task_LMSImportSalesPerson(short CoyID)
         {
 
@@ -1120,31 +1261,6 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales Person & Purchaser data insertion");
                     ds.Dispose();
-                    /*
-                    string from4 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-3).ToString("yyyy-MM-dd");
-                    //string to4 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-3).ToString("yyyy-MM-dd");
-                    string to4 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-2).AddDays(-1).ToString("yyyy-MM-dd");
-
-                    string from3 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-2).ToString("yyyy-MM-dd");
-                    //string to3 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-2).ToString("yyyy-MM-dd");
-                    string to3 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).AddDays(-1).ToString("yyyy-MM-dd");
-
-                    string from1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(-1).ToString("yyyy-MM-dd");
-                    //string to1 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddMonths(-1).ToString("yyyy-MM-dd");
-                    string to1 = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddDays(-1).ToString("yyyy-MM-dd");
-
-                    string from2 = DateTime.Now.AddDays(1 - DateTime.Now.Day).ToString("yyyy-MM-dd");
-                    string to2 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).ToString("yyyy-MM-dd");
-
-                    Console.WriteLine(from4 + " " + to4);
-                    Task_ImportDataJobTraveller(CoyID, from4, to4, sop);
-                    Console.WriteLine(from3 + " " + to3);
-                    Task_ImportDataJobTraveller(CoyID, from3, to3, sop);
-                    Console.WriteLine(from1 + " " + to1);
-                    Task_ImportDataJobTraveller(CoyID, from1, to1, sop);
-                    Console.WriteLine(from2 + " " + to2);
-                    Task_ImportDataJobTraveller(CoyID, from2, to2, sop);
-                    */
                 }
 
                 if (execute)
@@ -1840,7 +1956,6 @@ namespace GMSConApp
                     }
                     Console.WriteLine(DateTime.Now.ToString() + " -- End Sales I data insertion.");
                     ds.Dispose();
-
                 }
 
                 if (execute)
@@ -1918,36 +2033,36 @@ namespace GMSConApp
                             GMSUtil.ToDouble(dr["ExchangeRate"].ToString()),
                             GMSUtil.ToDouble(dr["TaxRate"].ToString()) / 100,
                             dr["CustomerSalesPersonID"].ToString(),
-                            "",
+                            dr["CustomerSalesPersonID"].ToString(),
                             GMSUtil.ToDate(dr["DocDate"].ToString()), GMSUtil.ToDate(dr["DueDate"].ToString())
                         );
 
 
-                        if (dr["ReconNum"].ToString() != "")
-                        {
-                            double TotalAppliedAmount = 0;
-                            if (dr["TrnType"].ToString() == "JE")
-                                TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString()) * -1;
-                            else
-                                TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString());
+                        //if (dr["ReconNum"].ToString() != "")
+                        //{
+                        //    double TotalAppliedAmount = 0;
+                        //    if (dr["TrnType"].ToString() == "JE")
+                        //        TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString()) * -1;
+                        //    else
+                        //        TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString());
 
-                            //Insert Receipt II data into GMS (Overpayment)                      
-                            Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt II data into GMS...");
-                            oDAL.GMS_Insert_Receipt(CoyID,
-                                    dr["TrnType"].ToString(),
-                                    dr["TrnNo"].ToString(),
-                                    GMSUtil.ToDate(dr["ReconDate"].ToString()),
-                                    dr["AccountCode"].ToString(),
-                                    dr["AccountName"].ToString(),
-                                    dr["TrnType"].ToString(),
-                                    dr["TrnNo"].ToString(),
-                                    "",
-                                    dr["ReconNum"].ToString(),
-                                    TotalAppliedAmount,
-                                    dr["Currency"].ToString(),
-                                    GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
-                            );
-                        }
+                        //    //Insert Receipt II data into GMS (Overpayment)                      
+                        //    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt II data into GMS...");
+                        //    oDAL.GMS_Insert_Receipt(CoyID,
+                        //            dr["TrnType"].ToString(),
+                        //            dr["TrnNo"].ToString(),
+                        //            GMSUtil.ToDate(dr["ReconDate"].ToString()),
+                        //            dr["AccountCode"].ToString(),
+                        //            dr["AccountName"].ToString(),
+                        //            dr["TrnType"].ToString(),
+                        //            dr["TrnNo"].ToString(),
+                        //            "",
+                        //            dr["ReconNum"].ToString(),
+                        //            TotalAppliedAmount,
+                        //            dr["Currency"].ToString(),
+                        //            GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
+                        //    );
+                        //}
                     }
 
                     if (execute)
@@ -2001,22 +2116,25 @@ namespace GMSConApp
                                 else
                                     TotalAppliedAmount = GMSUtil.ToDouble(dr["ReconAmount"].ToString());
 
-                                //Insert Receipt III data into GMS (Overpayment)                      
-                                Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt III data into GMS...");
-                                oDAL.GMS_Insert_Receipt(CoyID,
-                                        dr["TrnType"].ToString(),
-                                        dr["TrnNo"].ToString(),
-                                        GMSUtil.ToDate(dr["ReconDate"].ToString()),
-                                        dr["AccountCode"].ToString(),
-                                        dr["AccountName"].ToString(),
-                                        dr["TrnType"].ToString(),
-                                        dr["TrnNo"].ToString(),
-                                        "",
-                                        dr["ReconNum"].ToString(),
-                                        TotalAppliedAmount,
-                                        dr["Currency"].ToString(),
-                                        GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
-                                );
+                                if (!(dr["TrnType"].ToString() == "RR" && GMSUtil.ToDouble(dr["ReconAmount"].ToString()) > 0 && GMSUtil.ToDouble(dr["ReconAmount"].ToString()) == GMSUtil.ToDouble(dr["TotalPaymentAmount"].ToString())))
+                                {
+                                    //Insert Receipt III data into GMS (Overpayment)                      
+                                    Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Receipt III data into GMS...");
+                                    oDAL.GMS_Insert_Receipt(CoyID,
+                                            dr["TrnType"].ToString(),
+                                            dr["TrnNo"].ToString(),
+                                            GMSUtil.ToDate(dr["ReconDate"].ToString()),
+                                            dr["AccountCode"].ToString(),
+                                            dr["AccountName"].ToString(),
+                                            dr["TrnType"].ToString(),
+                                            dr["TrnNo"].ToString(),
+                                            "",
+                                            dr["ReconNum"].ToString(),
+                                            TotalAppliedAmount,
+                                            dr["Currency"].ToString(),
+                                            GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
+                                    );
+                                }
                             }
                         }
                         Console.WriteLine(DateTime.Now.ToString() + " -- End Sales II data insertion.");
