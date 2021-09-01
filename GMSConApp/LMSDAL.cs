@@ -114,5 +114,14 @@ namespace GMSConApp
             cm.Parameters.Add("@AddressName", SqlDbType.NVarChar).Value = addressName;
             SPexecutor("procWSSAPAddressUpdate");
         }
+
+        public void LMS_Update_SAPProductGroup1(string Code, string productCode, string productName)
+        {
+            CNCMGenerator();
+            cm.Parameters.Add("@CoyCode", SqlDbType.NVarChar).Value = Code;
+            cm.Parameters.Add("@Code", SqlDbType.NVarChar).Value = productCode;
+            cm.Parameters.Add("@Name", SqlDbType.NVarChar).Value = productName;
+            SPexecutor("procWSSAPProductGroup1Update");
+        }
     }
 }

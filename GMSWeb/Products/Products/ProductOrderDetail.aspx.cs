@@ -322,7 +322,7 @@ namespace GMSWeb.Products.Products
                     }
                     else if (session.StatusType.ToString() == "L" || session.StatusType.ToString() == "S")
                     {
-                        string query = "CALL \"AF_API_GET_SAP_PO_ON_PO_TRANSACTION\" ('','','','','" + productCode + "','" + productCode + "')";
+                        string query = "CALL \"AF_API_GET_SAP_PO_ON_PO_TRANSACTION\" ('','','','','" + productCode + "','" + productCode + "','','','','','')";
                         SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
                         ds = sop.GET_SAP_QueryData(session.CompanyId, query, 
                         "PONo", "TrnNo", "OrderQuantity", "DelQuantity", "AccountName", "Qty", "DelDate", "DelMode", "CrtUser", "Narration", "TrnDate", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
