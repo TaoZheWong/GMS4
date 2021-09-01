@@ -9,6 +9,7 @@ namespace GMSConApp
     {
         static string _DBConn = "server=LMS;database=GMS;user=lms_sa;password=Leeden628128!";
         static string _LMSDBConn = "server=LMS;database=LNOX_Master;user=lms_sa;password=Leeden628128!";
+        //static string _LMSDBConn = "server=ldlnb17;database=LNOX_Master;user=sa;password=eason";
         //static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
         //static string _DBConn = "server=ldlnb17;database=GMS_20210503;user=sa;password=eason";
         static string _GMSDefaultURL = "https://gms.leedenlimited.com/GMSWebService/GMSWebService.asmx";
@@ -1114,45 +1115,56 @@ namespace GMSConApp
                 sop.SAPKey = SAPKEY;
                 sop.SAPDB = SAPDB;
 
-                if (execute)
+                Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Account Data...");
+                query = "SELECT " +
+                        "T0.\"CardCode\"," +
+                        "T0.\"CardName\"," +
+                        "T1.\"Address\"," +
+                        "T1.\"Street\"," +
+                        "T1.\"Block\"," +
+                        "T1.\"City\"," +
+                        "T1.\"County\"," +
+                        "T1.\"ZipCode\"," +
+                        "T2.\"Name\"," +
+                        "T1.\"U_AF_PHONE\"," +
+                        "T1.\"U_AF_MOBILE\"," +
+                        "T1.\"U_AF_FAX\"," +
+                        "T1.\"U_AF_EMAIL\"," +
+                        "T1.\"U_AF_CONTACT\"," +
+                        "T1.\"AdresType\" " +
+                        "FROM OCRD T0 " +
+                        "LEFT JOIN CRD1 T1 ON T0.\"CardCode\" = T1.\"CardCode\" " +
+                        "LEFT JOIN OCRY T2 ON T1.\"Country\" = T2.\"Code\" ";
+
+                ds = sop.LMS_GET_SAP_QueryData(Code, query,
+                    "AccountCode", "AccountName", "AddressName", "Address1", "Address2", "Address3", "Address4", "PostalCode", "Country", "OfficePhone", "MobilePhone", "Fax", "Email", "ContactPerson", "AddressType", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                Console.WriteLine(DateTime.Now.ToString() + " -- Updating Account Data in LMS...");
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    //Retrieve Closed PRNo from PO
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Account Data...");
-                    query = "SELECT " +
-                            "T0.\"CardCode\"," +
-                            "T0.\"CardName\"," +
-                            "T1.\"Address\"," +
-                            "T1.\"Street\"," +
-                            "T1.\"Block\"," +
-                            "T1.\"City\"," +
-                            "T1.\"County\"," +
-                            "T1.\"ZipCode\"," +
-                            "T2.\"Name\"," +
-                            "T1.\"U_AF_PHONE\"," +
-                            "T1.\"U_AF_MOBILE\"," +
-                            "T1.\"U_AF_FAX\"," +
-                            "T1.\"U_AF_EMAIL\"," +
-                            "T1.\"U_AF_CONTACT\"," +
-                            "T1.\"AdresType\" " +
-                            "FROM OCRD T0 " +
-                            "LEFT JOIN CRD1 T1 ON T0.\"CardCode\" = T1.\"CardCode\" " +
-                            "LEFT JOIN OCRY T2 ON T1.\"Country\" = T2.\"Code\" ";
-
-                    ds = sop.LMS_GET_SAP_QueryData(Code, query,
-                        "AccountCode", "AccountName", "AddressName", "Address1", "Address2", "Address3", "Address4", "PostalCode", "Country", "OfficePhone", "MobilePhone", "Fax", "Email", "ContactPerson", "AddressType", "Field16", "Field17", "Field18", "Field19", "Field20",
-                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Updating Account Data in LMS...");
-                    foreach (DataRow dr in ds.Tables[0].Rows)
-                    {
-                        lmsDAL.LMS_Update_SAPAddress(Code, dr["AccountCode"].ToString(), dr["AddressType"].ToString(),
-                             dr["Address1"].ToString(), dr["Address2"].ToString(), dr["Address3"].ToString(), dr["Address4"].ToString(),
-                              dr["PostalCode"].ToString(), dr["OfficePhone"].ToString(), dr["MobilePhone"].ToString(), dr["Fax"].ToString(),
-                              dr["Email"].ToString(), dr["ContactPerson"].ToString(), dr["ContacAddressNametPerson"].ToString());
-                    }
-                    Console.WriteLine(DateTime.Now.ToString() + " -- End Closed MR status update");
-                    ds.Dispose();
+                    lmsDAL.LMS_Update_SAPAddress(Code, dr["AccountCode"].ToString(), dr["AddressType"].ToString(),
+                         dr["Address1"].ToString(), dr["Address2"].ToString(), dr["Address3"].ToString(), dr["Address4"].ToString(),
+                          dr["PostalCode"].ToString(), dr["OfficePhone"].ToString(), dr["MobilePhone"].ToString(), dr["Fax"].ToString(),
+                          dr["Email"].ToString(), dr["ContactPerson"].ToString(), dr["AddressName"].ToString());
                 }
+                Console.WriteLine(DateTime.Now.ToString() + " -- End Closed Account Data update");
+                ds.Dispose();
+
+                Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Product Group 1 Data...");
+                query = "SELECT \"Code\", \"Name\"  FROM \"@AF_PRODGRP1\"";
+
+                ds = sop.LMS_GET_SAP_QueryData(Code, query,
+                    "Code", "Name", "Field3", "Field4", "Field5", "Field6", "Field7", "Field8", "Field9", "Field10", "Field11", "Field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                Console.WriteLine(DateTime.Now.ToString() + " -- Updating Product Group 1 Data in LMS...");
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    lmsDAL.LMS_Update_SAPProductGroup1(Code, dr["Code"].ToString(), dr["Name"].ToString());
+                }
+                Console.WriteLine(DateTime.Now.ToString() + " -- End Closed Product Group 1 Data update");
+                ds.Dispose();
             }
         }
 
