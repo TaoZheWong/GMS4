@@ -1050,6 +1050,7 @@ namespace GMSConApp
             {
                 if (dtCompany.Rows[0]["StatusType"].ToString().Trim() == "A")
                 {
+                    from = "1990-01-01";
                     Task_A21ImportData(CoyID, dtCompany.Rows[0]["WebServiceAddress"].ToString().Trim(), true, DateTime.Parse(from), DateTime.Parse(to), dtCompany.Rows[0]["SAPURI"].ToString().Trim(), dtCompany.Rows[0]["SAPKEY"].ToString().Trim(), dtCompany.Rows[0]["SAPDB"].ToString().Trim(), true, Convert.ToBoolean(dtCompany.Rows[0]["ImplementedJobTraveller"].ToString()));
                 }
                 else
@@ -2496,7 +2497,7 @@ namespace GMSConApp
                 {
                     // Delete GRN
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete GRN data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteGRN");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllGRN");
 
                     //Retrieve Last Month GRN
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving GRN data...");
@@ -2534,7 +2535,7 @@ namespace GMSConApp
                 {
                     // Delete Stock Movement
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Product Movement data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteStockMovement");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllStockMovement");
                     ds = ws.ImportStockMovement(CoyID, from, to);
                     tempProductName = "";
                     string tempNarration = "";
@@ -2575,7 +2576,7 @@ namespace GMSConApp
                 {
                     //Delete Sales Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Sales Detail data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSalesDetail");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllSalesDetail");
                     //Retrieve Sales Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Detail data...");
                     ds = ws.ImportSalesDetail(CoyID, from, to);
@@ -2627,7 +2628,7 @@ namespace GMSConApp
                 {
                     //Delete Sales
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Sales data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteSales");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllSales");
                     //Retrieve Sales I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales I data...");
                     ds = ws.ImportSales(CoyID, from, to);
@@ -2666,7 +2667,7 @@ namespace GMSConApp
                     string lmsDoc = "";
                     // Delete Receipt
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Receipt data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteReceipt");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllReceipt");
                     //Retrieve Receipt I
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Receipt I data...");
                     ds = ws.ImportReceipt(CoyID, from, to);
@@ -2710,7 +2711,7 @@ namespace GMSConApp
                 {
                     // Delete Purchase Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Purchase Detail data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeletePurchaseDetail");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllPurchaseDetail");
                     //Retrieve Purchase Detail
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Detail data...");
                     ds = ws.ImportPurchaseDetail(CoyID, from, to);
@@ -2748,7 +2749,7 @@ namespace GMSConApp
                 {
                     // Delete Purchase Order
                     Console.WriteLine(DateTime.Now.ToString() + " -- Clean up Delete Purchase Order data in GMS...");
-                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeletePurchaseOrder");
+                    oDAL.GMS_ImportUpdateDataByAction(CoyID, "DeleteAllPurchaseOrder");
 
                     //Retrieve Purchase Order
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Purchase Order data...");
