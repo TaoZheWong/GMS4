@@ -88,7 +88,7 @@ namespace GMSWeb.Debtors.Debtors
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                if (ds.Tables[0].Rows.Count <= 50)
+                if (ds.Tables[0].Rows.Count <= 60)
                 {
                     int startIndex = ((dgData.CurrentPageIndex + 1) * this.dgData.PageSize) - (this.dgData.PageSize - 1);
                     int endIndex = (dgData.CurrentPageIndex + 1) * this.dgData.PageSize;
@@ -115,15 +115,12 @@ namespace GMSWeb.Debtors.Debtors
             else
             {
                 this.lblSearchSummary.Text = "No records.";
-
                 this.lblSearchSummary.Visible = true;
                 this.dgData.DataSource = null;
                 this.dgData.DataBind();
             }
             this.txtAccountName.Focus();
-
             resultList.Visible = true;
-
         }
         #endregion
     }
