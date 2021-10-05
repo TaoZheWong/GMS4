@@ -858,7 +858,7 @@ namespace GMSWeb.Reports.Report
                 if (crReportDocument.ParameterFields["@HRType"] != null)
                 {
 
-                    pnlParameter.Controls.Add(new LiteralControl("<div style=\"visibility:hidden\" class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">HR Type :"));
                     pnlParameter.Controls.Add(new LiteralControl("</label>"));
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
@@ -1254,7 +1254,7 @@ namespace GMSWeb.Reports.Report
                 if (crReportDocument.ParameterFields["@HRType"] != null)
                 {
 
-                    pnlParameter.Controls.Add(new LiteralControl("<div style=\"visibility:hidden\" class=\"form-group col-lg-6 col-sm-6\">"));
+                    pnlParameter.Controls.Add(new LiteralControl("<div class=\"form-group col-lg-6 col-sm-6\">"));
                     pnlParameter.Controls.Add(new LiteralControl("<label class=\"col-sm-6 control-label text-left\">HR Type :"));
                     pnlParameter.Controls.Add(new LiteralControl("</label>"));
                     pnlParameter.Controls.Add(new LiteralControl("<div class=\"col-sm-6\">"));
