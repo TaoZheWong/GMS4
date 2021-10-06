@@ -32,7 +32,7 @@ namespace GMSWeb.Products.Products
         protected void Page_Load(object sender, EventArgs e)
         {
             string currentLink = "Products";
-           
+
             lblPageHeader.Text = "Products";
 
             if (Request.Params["CurrentLink"] != null)
@@ -49,7 +49,7 @@ namespace GMSWeb.Products.Products
                 return;
             }
 
-            if(session.IsOffline.ToString() == "True")
+            if (session.IsOffline.ToString() == "True")
                 Response.Redirect(base.OfflinePage(currentLink));
 
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
@@ -79,14 +79,14 @@ namespace GMSWeb.Products.Products
                 ViewState["SortDirection"] = "ASC";
             }
 
-            getUserDivision(session,loginUserOrAlternateParty);//get user's division
+            getUserDivision(session, loginUserOrAlternateParty);//get user's division
             hidCoyID.Value = session.CompanyId.ToString();
             hidUserID.Value = session.UserId.ToString();
         }
         #endregion
 
         #region getUserDivision
-        protected void getUserDivision(LogSession session,short usernumid)
+        protected void getUserDivision(LogSession session, short usernumid)
         {
             DivisionUser du = DivisionUser.RetrieveByKey(session.CompanyId, usernumid);
             if (du != null)
@@ -134,7 +134,7 @@ namespace GMSWeb.Products.Products
             bse.Save();
             
             GMSCore.Entity.BudgetSalesTeam bsd = new BudgetActivity().RetrieveBudgetSalesTeamByName(session.CompanyId, "Gas");
-            bsd.Delete();*/           
+            bsd.Delete();*/
         }
         #endregion
 
@@ -160,7 +160,7 @@ namespace GMSWeb.Products.Products
             copyDataTable.Columns.Remove("IsActive");
 
             GridView GridView1 = new GridView();
-            GridView1.AllowPaging = false;            
+            GridView1.AllowPaging = false;
             GridView1.DataSource = copyDataTable;
             GridView1.DataBind();
 
@@ -185,7 +185,7 @@ namespace GMSWeb.Products.Products
                 //Change Color back to white
                 row.BackColor = System.Drawing.Color.White;
                 //Apply text style to each Row
-                row.Attributes.Add("class", "textmode");                   
+                row.Attributes.Add("class", "textmode");
             }
             GridView1.RenderControl(hw);
 
@@ -222,33 +222,43 @@ namespace GMSWeb.Products.Products
         #endregion
         */
         #region LoadData
-        private void LoadData() {
+        private void LoadData()
+        {
             LogSession session = base.GetSessionInfo();
             DataSet dsWarehouseSearch = new DataSet();
             List<string> warehouseArray = new List<string>();
             UserAccessModule accessSearchWarehouse = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                             151);
-            if (accessSearchWarehouse != null) {
+            if (accessSearchWarehouse != null)
+            {
                 new GMSGeneralDALC().GetWarehouseSearch(session.CompanyId, ref dsWarehouseSearch);
-                if (dsWarehouseSearch.Tables[0].Rows.Count > 0) {
-                    for (int i = 0; i < dsWarehouseSearch.Tables[0].Rows.Count; i++) {
+                if (dsWarehouseSearch.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < dsWarehouseSearch.Tables[0].Rows.Count; i++)
+                    {
                         warehouseArray.Add(dsWarehouseSearch.Tables[0].Rows[i]["Warehouse"].ToString());
                     }
                 }
                 if (this.txtProductCode.Text.Trim() == "" && this.txtProductName.Text.Trim() == "" &&
-                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == ""&&this.txtWarehouse.Text.Trim()==""&&this.txtProductManager.Text.Trim()=="") {
-                    if (this.txtWarehouse.Text.Trim() == ""){
+                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == "" && this.txtWarehouse.Text.Trim() == "" && this.txtProductManager.Text.Trim() == "")
+                {
+                    if (this.txtWarehouse.Text.Trim() == "")
+                    {
                         base.JScriptAlertMsg("Please input a product or warehouse to search.");
                         return;
-                    }else if (!warehouseArray.Contains(this.txtWarehouse.Text.Trim().ToUpper())) {
+                    }
+                    else if (!warehouseArray.Contains(this.txtWarehouse.Text.Trim().ToUpper()))
+                    {
                         base.JScriptAlertMsg("Please input a product to search for this warehouse.");
                         return;
                     }
                 }
             }
-            else {
+            else
+            {
                 if (this.txtProductCode.Text.Trim() == "" && this.txtProductName.Text.Trim() == "" &&
-                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == "" && this.txtWarehouse.Text.Trim() == "" && this.txtProductManager.Text.Trim() == "") {
+                this.txtProductGroup.Text.Trim() == "" && this.txtProductGroupCode.Text.Trim() == "" && this.txtWarehouse.Text.Trim() == "" && this.txtProductManager.Text.Trim() == "")
+                {
                     base.JScriptAlertMsg("Please input a product to search.");
                     return;
                 }
@@ -321,300 +331,295 @@ namespace GMSWeb.Products.Products
         #endregion
 
         #region getProduct
-        private void getProduct(LogSession session,string productCode, string productName,string productGroupCode, string productGroupName,string productForeignName, string prodNameSQL)
+        private void getProduct(LogSession session, string productCode, string productName, string productGroupCode, string productGroupName, string productForeignName, string prodNameSQL)
         {
             #region getProductData
-                if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
+            if (session.StatusType.ToString() == "H" || session.StatusType.ToString() == "A")
+            {
+                GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
+                if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
                 {
-                    GMSWebService.GMSWebService sc = new GMSWebService.GMSWebService();
-                    if (session.WebServiceAddress != null && session.WebServiceAddress.Trim() != "")
-                    {
-                        sc.Url = session.WebServiceAddress.Trim();
-                    }
-                    else
-                        sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
-
-                    if (txtWarehouse.Text.Trim() == "")
-                        ds = sc.GetProductFullDetail(session.CompanyId, productCode, productName, productGroupCode, productGroupName);
-                    else
-                        ds = sc.GetProductFullDetailByWarehouse(session.CompanyId, productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim());
+                    sc.Url = session.WebServiceAddress.Trim();
                 }
+                else
+                    sc.Url = "http://localhost/GMSWebService/GMSWebService.asmx";
 
-                if (session.StatusType.ToString() == "H")
+                if (txtWarehouse.Text.Trim() == "")
+                    ds = sc.GetProductFullDetail(session.CompanyId, productCode, productName, productGroupCode, productGroupName);
+                else
+                    ds = sc.GetProductFullDetailByWarehouse(session.CompanyId, productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim());
+            }
+
+            if (session.StatusType.ToString() == "H")
+            {
+                CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
+                if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
+                    sc1.Url = session.CMSWebServiceAddress.Trim();
+                else
+                    sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                if (session.StatusType.ToString() == "H" && txtWarehouse.Text.Trim() == "")
+                    ds1 = sc1.GetUnpostedProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
+                else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "")
+                    ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
+                else if (session.StatusType.ToString() == "H" && txtWarehouse.Text.Trim() != "")
+                    ds1 = sc1.GetUnpostedProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+                else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "")
+                    ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+            }
+            else if (session.StatusType.ToString() == "L")
+            {
+                CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
+                if (session.CompanyId != 120 && userDivision == "ALL")
                 {
-                    CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
                     if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
                         sc1.Url = session.CMSWebServiceAddress.Trim();
                     else
                         sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                    if (session.StatusType.ToString() == "H" && txtWarehouse.Text.Trim() == "")
-                        ds1 = sc1.GetUnpostedProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                    else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "")
+                    if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "")
                         ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                    else if (session.StatusType.ToString() == "H" && txtWarehouse.Text.Trim() != "")
-                        ds1 = sc1.GetUnpostedProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
                     else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "")
                         ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+
+
                 }
-                else if (session.StatusType.ToString() == "L")
+                if (session.CompanyId == 120 && userDivision == "GAS")
                 {
-                    CMSWebService.CMSWebService sc1 = new CMSWebService.CMSWebService();
-                    if(session.CompanyId != 120 && userDivision =="ALL")
-                    {
-                        if (session.CMSWebServiceAddress != null && session.CMSWebServiceAddress.Trim() != "")
-                            sc1.Url = session.CMSWebServiceAddress.Trim();
-                        else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "")
-                            ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                        else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "")
-                            ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
-
-                      
-                    }
-                    if(session.CompanyId == 120 && userDivision == "GAS")
-                    {
-                        if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
-                            sc1.Url = session.GASLMSWebServiceAddress.Trim();
-                        else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.GASLMSWebServiceAddress.Trim() != "")
-                            ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                        else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.GASLMSWebServiceAddress.Trim() != "")
-                            ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
-                    }
-
-                    if (session.CompanyId == 120 && userDivision == "WSD")
-                    {
-                        if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
-                            sc1.Url = session.WSDLMSWebServiceAddress.Trim();
-                        else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.WSDLMSWebServiceAddress.Trim() != "")
-                            ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                        else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.WSDLMSWebServiceAddress.Trim() != "")
-                            ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
-                    }
-
-                    if(session.CompanyId == 120 && userDivision == "ALL")
-                    {
-                        if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
-                            sc1.Url = session.GASLMSWebServiceAddress.Trim();
-                        else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.GASLMSWebServiceAddress.Trim() != "")
-                            ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                        else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.GASLMSWebServiceAddress.Trim() != "")
-                            ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
-
-                        if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
-                            sc1.Url = session.WSDLMSWebServiceAddress.Trim();
-                        else
-                            sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
-                        if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.WSDLMSWebServiceAddress.Trim() != "")
-                            ds1 = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
-                        else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.WSDLMSWebServiceAddress.Trim() != "")
-                            ds1 = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
-                    }
-                }
-                else if (session.StatusType.ToString() == "S")
-                {
-                    string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroupName.Replace("%", "") + "', '" + productForeignName.Replace("%", "") + "', '" + txtWarehouse.Text.Trim() + "')";
-                    SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
-                    ds = sop.GET_SAP_QueryData(session.CompanyId, query,
-                    "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
-                    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
-
-                    DataView dvOri = new DataView(ds.Tables[0]);
-                    dvOri.RowFilter = "ProductName NOT LIKE '%DO NOT USE%'";
-                    DataTable dtOri = dvOri.ToTable();
-                    ds.Reset();
-                    ds.Tables.Add(dtOri);
-                }
-                string dealerPrice = "0.00";
-                string userPrice = "0.00";
-                string retailPrice = "0.00";
-                ds.Tables[0].Columns.Add("DealerPrice", typeof(string));
-                ds.Tables[0].Columns.Add("UserPrice", typeof(string));
-                ds.Tables[0].Columns.Add("RetailPrice", typeof(string));
-                
-
-                if (session.StatusType.ToString()=="S")
-                {
-                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                    {
-                        ds.Tables[0].Rows[j]["OnHandQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnHandQuantity"].ToString()), 0);
-                        ds.Tables[0].Rows[j]["AvailableQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["AvailableQuantity"].ToString()), 0);
-                        ds.Tables[0].Rows[j]["OnOrderQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnOrderQuantity"].ToString()), 0); // SO
-                        ds.Tables[0].Rows[j]["OnPOQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnPOQuantity"].ToString()), 0); // BO 
-                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
-                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
-                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
-                    }
-     
-                    DataSet ds2 = new DataSet();
-                    new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
-
-                    if (ds2.Tables[0].Rows.Count != 0)
-                    {
-                        for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
-                        {
-                            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                            {
-                                if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
-                                {
-                                    ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.GASLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.GASLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
+                    else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.GASLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
                 }
 
-                if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
+                if (session.CompanyId == 120 && userDivision == "WSD")
                 {
-                    for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                    if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.WSDLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.WSDLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
+                    else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.WSDLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+                }
+
+                if (session.CompanyId == 120 && userDivision == "ALL")
+                {
+                    if (session.GASLMSWebServiceAddress != null && session.GASLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.GASLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.GASLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
+                    else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.GASLMSWebServiceAddress.Trim() != "")
+                        ds = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+
+                    if (session.WSDLMSWebServiceAddress != null && session.WSDLMSWebServiceAddress.Trim() != "")
+                        sc1.Url = session.WSDLMSWebServiceAddress.Trim();
+                    else
+                        sc1.Url = "http://localhost/CMS.WebServices/CMSWebService.asmx";
+                    if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() == "" && session.WSDLMSWebServiceAddress.Trim() != "")
+                        ds1 = sc1.GetProductFullDetail(productCode, productName, productGroupCode, productGroupName, productForeignName);
+                    else if (session.StatusType.ToString() == "L" && txtWarehouse.Text.Trim() != "" && session.WSDLMSWebServiceAddress.Trim() != "")
+                        ds1 = sc1.GetProductFullDetailByWarehouse(productCode, productName, productGroupCode, productGroupName, txtWarehouse.Text.Trim(), productForeignName);
+                }
+            }
+            else if (session.StatusType.ToString() == "S")
+            {
+                string query = "CALL \"AF_API_GET_SAP_ITEMMASTERINFO\" ('" + productCode.Replace("%", "") + "', '" + productName.Replace("%", "") + "', '" + productGroupCode.Replace("%", "") + "', '" + productGroupName.Replace("%", "") + "', '" + productForeignName.Replace("%", "") + "', '" + txtWarehouse.Text.Trim() + "')";
+                SAPOperation sop = new SAPOperation(session.SAPURI.ToString(), session.SAPKEY.ToString(), session.SAPDB.ToString());
+                ds = sop.GET_SAP_QueryData(session.CompanyId, query,
+                "ProductCode", "ProductName", "ProductGroupCode", "Volume", "UOM", "WeightedCost", "OnOrderQuantity", "OnPOQuantity", "OnBOQuantity", "AvailableQuantity", "IsGasDivision", "IsWeldingDivision", "ProdForeignName", "TrackedByBatch", "TrackedBySerial", "ProductNotes", "IsActive", "ItemType", "ProductGroupName", "OnHandQuantity",
+                "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                DataView dvOri = new DataView(ds.Tables[0]);
+                dvOri.RowFilter = "ProductName NOT LIKE '%DO NOT USE%'";
+                DataTable dtOri = dvOri.ToTable();
+                ds.Reset();
+                ds.Tables.Add(dtOri);
+            }
+            string dealerPrice = "0.00";
+            string userPrice = "0.00";
+            string retailPrice = "0.00";
+            ds.Tables[0].Columns.Add("DealerPrice", typeof(string));
+            ds.Tables[0].Columns.Add("UserPrice", typeof(string));
+            ds.Tables[0].Columns.Add("RetailPrice", typeof(string));
+
+
+            if (session.StatusType.ToString() == "S")
+            {
+                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                {
+                    ds.Tables[0].Rows[j]["OnHandQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnHandQuantity"].ToString()), 0);
+                    ds.Tables[0].Rows[j]["AvailableQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["AvailableQuantity"].ToString()), 0);
+                    ds.Tables[0].Rows[j]["OnOrderQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnOrderQuantity"].ToString()), 0); // SO
+                    ds.Tables[0].Rows[j]["OnPOQuantity"] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j]["OnPOQuantity"].ToString()), 0); // BO 
+                    ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                    ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                    ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
+                }
+
+                DataSet ds2 = new DataSet();
+                new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
+
+                if (ds2.Tables[0].Rows.Count != 0)
+                {
+                    for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
                     {
                         for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                         {
-                            if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
+                            if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                             {
-                                ds.Tables[0].Rows[j][4] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][4].ToString());
-                                ds.Tables[0].Rows[j][5] = GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString());
-                                ds.Tables[0].Rows[j][6] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString());
-                                ds.Tables[0].Rows[j][7] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][7].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][7].ToString());
-                                ds.Tables[0].Rows[j][8] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]), 0);
-                                ds.Tables[0].Rows[j][10] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][10].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][10].ToString());
+                                ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
+                                ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
+                                ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
                                 break;
                             }
                         }
                     }
+                }
+            }
+
+            if ((session.StatusType.ToString() == "H") && ds1 != null && ds1.Tables.Count > 0)
+            {
+                for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+                {
                     for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                     {
-                        ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
-                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
-                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
-                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
-                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
-                    }
-
-                    DataSet ds2 = new DataSet();
-                    new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
-
-                    if (ds2.Tables[0].Rows.Count != 0)
-                    {
-                        for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+                        if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                         {
-                            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                            ds.Tables[0].Rows[j][4] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][4].ToString());
+                            ds.Tables[0].Rows[j][5] = GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString());
+                            ds.Tables[0].Rows[j][6] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString());
+                            ds.Tables[0].Rows[j][7] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][7].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][7].ToString());
+                            ds.Tables[0].Rows[j][8] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]), 0);
+                            ds.Tables[0].Rows[j][10] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][10].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][10].ToString());
+                            break;
+                        }
+                    }
+                }
+                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                {
+                    ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
+                    ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
+                    ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                    ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                    ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
+                }
+
+                DataSet ds2 = new DataSet();
+                new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
+
+                if (ds2.Tables[0].Rows.Count != 0)
+                {
+                    for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+                    {
+                        for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                        {
+                            if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                             {
-                                if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
-                                {
-                                    ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
-                                    break;
-                                }
+                                ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
+                                ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
+                                ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
+                                break;
                             }
                         }
                     }
                 }
-                if (session.StatusType.ToString() == "L" && userDivision !="ALL")
+            }
+            if (session.StatusType.ToString() == "L" && userDivision != "ALL")
+            {
+                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                 {
-                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                    {
-                        ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
-                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO                             
-                        ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
-                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
-                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
-                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
-                    }
-                   
-                    DataSet ds2 = new DataSet();
-                    new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
+                    ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
+                    ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO                             
+                    ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
+                    ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                    ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                    ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
+                }
 
-                    if (ds2.Tables[0].Rows.Count != 0)
+                DataSet ds2 = new DataSet();
+                new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
+
+                if (ds2.Tables[0].Rows.Count != 0)
+                {
+                    for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
                     {
-                        for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+                        for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                         {
-                            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                            if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                             {
-                                if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
-                                {
-                                    ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
-                                    break;
-                                }
+                                ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
+                                ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
+                                ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
+                                break;
                             }
                         }
                     }
                 }
-                if (session.StatusType.ToString() == "L"  && userDivision == "ALL")
+            }
+            if (session.StatusType.ToString() == "L" && userDivision == "ALL")
+            {
+                if (ds1 != null && ds1.Tables.Count > 0)
                 {
-                    if(ds1 != null && ds1.Tables.Count > 0)
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
                         for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
-                            {
-                                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                                {
-                                    if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
-                                    {
-                                        ds.Tables[0].Rows[j][5] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString()); // SO
-                                        ds.Tables[0].Rows[j][6] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString()); // BO                               
-                               
-                                        /*string x = "";
-                                        foreach (DataColumn clmn in ds.Tables[0].Columns)
-                                        {
-                                            x = x + "," + clmn.ColumnName;
-                                        }
-                                        foreach (DataRow row in ds.Tables[0].Rows)
-                                        {
-                                            foreach (var item in row.ItemArray)
-                                            {
-                                                x = x + "," + item;
-                                            }
-                                            break;
-                                        }
-                                        this.PageMsgPanel.ShowMessage(x, MessagePanelControl.MessageEnumType.Alert);*/
-                                        break;
-                                    }
-                                }
-
-                            }
-                    }
-                    
-                    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-                    {
-                        ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
-                        ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
-                        ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
-                        ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
-                        ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
-                        ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
-                    }
-                    DataSet ds2 = new DataSet();
-                    new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
-
-                    if (ds2.Tables[0].Rows.Count != 0)
-                    {
-                        for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
                         {
                             for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                             {
-                                if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
+                                if (ds1.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
                                 {
-                                    ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
-                                    ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
+                                    ds.Tables[0].Rows[j][5] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][5].ToString()); // SO
+                                    ds.Tables[0].Rows[j][6] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()) + GMSUtil.ToDecimal(ds1.Tables[0].Rows[i][6].ToString()); // BO                               
                                     break;
                                 }
                             }
                         }
                     }
+                    else
+                    {
+                        ds.Tables.Clear();
+                        ds.Tables.Add(ds1.Tables[0].Copy());
+                        ds.Tables[0].Columns.Add("DealerPrice", typeof(string));
+                        ds.Tables[0].Columns.Add("UserPrice", typeof(string));
+                        ds.Tables[0].Columns.Add("RetailPrice", typeof(string));
+                    }
                 }
+
+                for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                {
+                    ds.Tables[0].Rows[j][5] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5].ToString()), 0); // SO
+                    ds.Tables[0].Rows[j][6] = Math.Round(GMSUtil.ToDecimal(ds.Tables[0].Rows[j][6].ToString()), 0); // BO 
+                    ds.Tables[0].Rows[j][8] = GMSUtil.ToDecimal(ds.Tables[0].Rows[j][4]) - GMSUtil.ToDecimal(ds.Tables[0].Rows[j][5]); // OnHand - SO
+                    ds.Tables[0].Rows[j]["DealerPrice"] = dealerPrice;
+                    ds.Tables[0].Rows[j]["UserPrice"] = userPrice;
+                    ds.Tables[0].Rows[j]["RetailPrice"] = retailPrice;
+                }
+                DataSet ds2 = new DataSet();
+                new GMSGeneralDALC().SelectProductPriceByProductCode(session.CompanyId, productCode, productName, productGroupCode, productGroupName, prodNameSQL, ref ds2);
+
+                if (ds2.Tables[0].Rows.Count != 0)
+                {
+                    for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+                    {
+                        for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+                        {
+                            if (ds2.Tables[0].Rows[i][0].ToString() == ds.Tables[0].Rows[j][0].ToString())
+                            {
+                                ds.Tables[0].Rows[j]["DealerPrice"] = ds2.Tables[0].Rows[i]["DealerPrice"].ToString();
+                                ds.Tables[0].Rows[j]["UserPrice"] = ds2.Tables[0].Rows[i]["UserPrice"].ToString();
+                                ds.Tables[0].Rows[j]["RetailPrice"] = ds2.Tables[0].Rows[i]["RetailPrice"].ToString();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             #endregion
         }
@@ -626,7 +631,7 @@ namespace GMSWeb.Products.Products
             string productCode = e.CommandArgument.ToString();
 
             string strPopup = "<script language='javascript' ID='script1'>"
-           + "window.open('ProductOrderDetail.aspx?PRODUCTCODE="+ productCode + "&TYPE=SO"
+           + "window.open('ProductOrderDetail.aspx?PRODUCTCODE=" + productCode + "&TYPE=SO"
            + "','new window', 'width=900,height=400 ,resizable=yes,status=yes,menubar=no,scrollbars=yes')"
            + "</script>";
             ScriptManager.RegisterStartupScript((Page)HttpContext.Current.Handler, typeof(Page), "Script1", strPopup, false);
@@ -698,10 +703,10 @@ namespace GMSWeb.Products.Products
                 productGroupCode = ds.Tables[0].Rows[0]["ProductGroupCode"].ToString();
             }
             #endregion
-                string strPopup = "<script language='javascript' ID='script1'>"
-           + "window.open('ProductOrderDetail.aspx?PRODUCTGROUPCODE=" + productGroupCode + "&PRODUCTCODE=" + productCode + "&TYPE=PO"
-           + "','new window', 'width=900,height=400 ,resizable=yes,status=yes,menubar=no,scrollbars=yes')"
-           + "</script>";
+            string strPopup = "<script language='javascript' ID='script1'>"
+       + "window.open('ProductOrderDetail.aspx?PRODUCTGROUPCODE=" + productGroupCode + "&PRODUCTCODE=" + productCode + "&TYPE=PO"
+       + "','new window', 'width=900,height=400 ,resizable=yes,status=yes,menubar=no,scrollbars=yes')"
+       + "</script>";
             ScriptManager.RegisterStartupScript((Page)HttpContext.Current.Handler, typeof(Page), "Script1", strPopup, false);
         }
         #endregion
