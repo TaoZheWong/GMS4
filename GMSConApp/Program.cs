@@ -2519,8 +2519,8 @@ namespace GMSConApp
                          dr["ProductGroupName"].ToString().Replace("'", "''"),
                          GMSUtil.ToDouble(dr["Quantity"].ToString()),
                          GMSUtil.ToDouble(dr["UnitPrice"].ToString()),
-                         GMSUtil.ToDouble(dr["LanderCostUnitPrice"].ToString()) == 0 ? GMSUtil.ToDouble(dr["LanderCostUnitPrice"].ToString()) : GMSUtil.ToDouble(GMSUtil.ToDecimal(dr["LanderCostUnitPrice"].ToString()) / GMSUtil.ToDecimal(dr["ExchangeRate"].ToString())),
-                         GMSUtil.ToDouble(dr["Cost"].ToString()) == 0 ? GMSUtil.ToDouble(dr["Cost"].ToString()) : GMSUtil.ToDouble(GMSUtil.ToDecimal(dr["Cost"].ToString()) / GMSUtil.ToDecimal(dr["ExchangeRate"].ToString())),
+                         GMSUtil.ToDouble(dr["LanderCostUnitPrice"].ToString()),
+                         GMSUtil.ToDouble(dr["Cost"].ToString()),
                          dr["Currency"].ToString(),
                          GMSUtil.ToDouble(dr["ExchangeRate"].ToString())
                         );
