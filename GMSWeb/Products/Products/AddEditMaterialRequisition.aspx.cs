@@ -480,6 +480,18 @@ namespace GMSWeb.Products.Products
                 */
 
                 MR mr = new MRActivity().RetrieveMRByMRNo(CompanyId, MRNo);
+                //clear all pending approval level to prevent duplicate of approval inserted when user submit in multiple tab
+                MRFormApproval latest = new MRFormApprovalActivity().RetrieveCurrentLevelPendingFormApproval(CompanyId, MRNo);
+                if (latest != null)
+                {
+                    IList<MRFormApproval> lstApprove = new MRFormApprovalActivity().RetrieveListFormApprovalByCoyIDByMRNoByLevelId(CompanyId, MRNo, latest.LevelID);
+                    foreach (MRFormApproval approve in lstApprove)
+                    {
+                        if (approve.Status.ToString() == "P")
+                            new MRFormApprovalActivity().DeleteMRApproval(approve.LevelID);
+                    }
+                }
+
                 new ApprovalActivity().InsertApprovaLevelInfoList(CompanyId, loginUserOrAlternateParty, MRNo, mr.PMUserId, mr.PHUserId, mr.PH3UserId, UserID);
 
                 if (mr != null)
