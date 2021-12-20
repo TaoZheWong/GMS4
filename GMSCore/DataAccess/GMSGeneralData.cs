@@ -100,7 +100,7 @@ namespace GMSCore
             return;
         }
 
-        public void GetEmployeeListWildcardSelect(short coyid, string employeeNo, 
+        public void GetEmployeeListWildcardSelect(short coyid, string employeeNo,
             string name, string designation, string nric, string grade, bool isActive, short userId, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -133,12 +133,12 @@ namespace GMSCore
             command.Parameters.Add("@Grade", SqlDbType.NVarChar).Value = grade;
             command.Parameters.Add("@IsInactive", SqlDbType.Bit).Value = !isActive;
             command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = userId;
-            command.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = userName; 
+            command.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = userName;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
         }
-       
+
         public void GetCountryListSelectUserNumID(short userId, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -257,7 +257,7 @@ namespace GMSCore
         #endregion
 
         #region RetrieveTeamSetupSalesGroupWithNoShortName
-        public void RetrieveTeamSetupSalesGroupWithNoShortName(short companyId,  ref DataSet ds)
+        public void RetrieveTeamSetupSalesGroupWithNoShortName(short companyId, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppTeamSetupSalesPersonWithNoShortNameSelect", (SqlConnection)conn);
@@ -310,9 +310,9 @@ namespace GMSCore
             return;
         }
         #endregion
-        
 
-        
+
+
         /// <summary>
         /// Retrieve a list of products for auto complete
         /// </summary>
@@ -467,7 +467,7 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectBankByFirstTwoDigitsCOA", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@BankCOA", SqlDbType.NVarChar).Value = bankcoa;            
+            command.Parameters.Add("@BankCOA", SqlDbType.NVarChar).Value = bankcoa;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -485,7 +485,7 @@ namespace GMSCore
             {
                 conn.Open();
                 SqlCommand command = new SqlCommand("procAppBankAccountIsMajorBankUpdate", (SqlConnection)conn);
-                
+
 
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
@@ -503,8 +503,8 @@ namespace GMSCore
                 {
                     rdr.Close();
                 }
-            }           
-            
+            }
+
             return;
         }
 
@@ -515,9 +515,9 @@ namespace GMSCore
             try
             {
                 conn.Open();
-                SqlCommand command = new SqlCommand("procAppImportBankUtilisationData", (SqlConnection)conn);         
+                SqlCommand command = new SqlCommand("procAppImportBankUtilisationData", (SqlConnection)conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;                
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -530,15 +530,15 @@ namespace GMSCore
                 {
                     rdr.Close();
                 }
-            }           
-            
+            }
+
             return;
         }
 
         /// <summary>
         /// Retrieve a list of Bank Account
         /// </summary>
-        public void GetListBankAccountSelect(short companyId,string bankcoa, ref DataSet ds)
+        public void GetListBankAccountSelect(short companyId, string bankcoa, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectListBankAccount", (SqlConnection)conn);
@@ -559,7 +559,7 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectBank", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@bankNumericCode", SqlDbType.NVarChar).Value = bankNumericCode;           
+            command.Parameters.Add("@bankNumericCode", SqlDbType.NVarChar).Value = bankNumericCode;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -579,7 +579,7 @@ namespace GMSCore
                 SqlCommand command = new SqlCommand("procAppBankFacilityAndBankUtilisationDelete", (SqlConnection)conn);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-                command.Parameters.Add("@strBankListInA21", SqlDbType.NVarChar).Value = strBankListInA21;                
+                command.Parameters.Add("@strBankListInA21", SqlDbType.NVarChar).Value = strBankListInA21;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -613,7 +613,7 @@ namespace GMSCore
             return;
         }
 
-       
+
         /// <summary>
         /// Retrieve a list of CashFlowProjection
         /// </summary>
@@ -621,7 +621,7 @@ namespace GMSCore
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectCashFlowProjection", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;            
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@Year", SqlDbType.NVarChar).Value = year;
             command.Parameters.Add("@Week", SqlDbType.NVarChar).Value = week;
@@ -681,7 +681,7 @@ namespace GMSCore
                 command.Parameters.Add("@Year", SqlDbType.NVarChar).Value = year;
                 command.Parameters.Add("@Week", SqlDbType.NVarChar).Value = week;
                 rdr = command.ExecuteReader();
-               
+
             }
             finally
             {
@@ -698,18 +698,18 @@ namespace GMSCore
             return;
         }
 
-        
+
 
         /// <summary>
         /// Insert CashFlowProjection
         /// </summary>
-        public void InsertCashFlowProjection(short companyId, short year, short month, short week, 
-            double CollectionFromSales, double OtherIncome,double TotalCashInflow,double PaymentToOverseasSupplier,double PaymentToLocalSupplier,
+        public void InsertCashFlowProjection(short companyId, short year, short month, short week,
+            double CollectionFromSales, double OtherIncome, double TotalCashInflow, double PaymentToOverseasSupplier, double PaymentToLocalSupplier,
             double SalesmanClaim, double SalaryPayment, double OtherPayment, double TaxsPayment, double TotalOperatingExpenses,
             double NetOperatingCashFlow, double PurchaseofFixedAssets, double Investments, double DisposalOfFixedAssets, double DisposalOfInvestmentsOthers,
             double LoanToIntercompany, double InterestReceived, double DividendReceived, double DividendPaid, double NetCashFlowFromInvesting,
             double ProceedsOfBankLoans, double RepaymentOfBankLoans, double RepaymentOfTradeFinancing, double PaymentOfInterests, double NewCapitalConvertibleLoan,
-            double LoanFromIntercompany, double RepaymentOfIntercompanyLoan, double NetCashFlowFromFinancing, double NetCashFlowSurplusDeficit, 
+            double LoanFromIntercompany, double RepaymentOfIntercompanyLoan, double NetCashFlowFromFinancing, double NetCashFlowSurplusDeficit,
             int userid, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -766,7 +766,7 @@ namespace GMSCore
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@UserNumId", SqlDbType.NVarChar).Value = userid;
             command.Parameters.Add("@ReportId", SqlDbType.NVarChar).Value = reportid;
-            
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -872,7 +872,7 @@ namespace GMSCore
             SqlCommand command = new SqlCommand("procAppQuotationEmailSalesPersonSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@UserNumID", SqlDbType.NVarChar).Value = UserId;                       
+            command.Parameters.Add("@UserNumID", SqlDbType.NVarChar).Value = UserId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -944,13 +944,13 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppCollections", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;            
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@UserNumID", SqlDbType.SmallInt).Value = userId;
             command.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountcode;
             command.Parameters.Add("@ReceiptDateFrom", SqlDbType.DateTime).Value = dateFrom;
             command.Parameters.Add("@ReceiptDateTo", SqlDbType.DateTime).Value = dateTo;
             command.Parameters.Add("@InvoiceNo", SqlDbType.NVarChar).Value = invoiceNo;
-            command.Parameters.Add("@ReceiptNo", SqlDbType.NVarChar).Value = receiptNo;            
+            command.Parameters.Add("@ReceiptNo", SqlDbType.NVarChar).Value = receiptNo;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
@@ -962,8 +962,8 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppAccountPurchasesSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;            
-            command.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountcode;            
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+            command.Parameters.Add("@AccountCode", SqlDbType.NVarChar).Value = accountcode;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
@@ -1050,7 +1050,7 @@ namespace GMSCore
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSalutationSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;            
+            command.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1064,13 +1064,13 @@ namespace GMSCore
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppCurrentYearCreatedDateSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;            
+            command.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
         }
 
-        public void GetCurrentYearMonthCreatedDateSelect(short year, short month ,ref DataSet ds)
+        public void GetCurrentYearMonthCreatedDateSelect(short year, short month, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppCurrentYearMonthCreatedDateSelect", (SqlConnection)conn);
@@ -1121,7 +1121,7 @@ namespace GMSCore
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectCompanyName", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;          
+            command.CommandType = CommandType.StoredProcedure;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
@@ -1208,7 +1208,7 @@ namespace GMSCore
         /// <summary>
         /// Retrieve MR UserRole
         /// </summary>
-        public void GetAlternatePartyByAction(short companyId, short userId, string action ,ref DataSet ds)
+        public void GetAlternatePartyByAction(short companyId, short userId, string action, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppUserAlternatePartySelect", (SqlConnection)conn);
@@ -1216,7 +1216,7 @@ namespace GMSCore
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = userId;
             command.Parameters.Add("@Action", SqlDbType.NChar).Value = action;
-            
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1254,7 +1254,7 @@ namespace GMSCore
             command.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrNo;
             command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = userId;
             command.Parameters.Add("@SupplierInfo", SqlDbType.NVarChar).Value = supplierInfo;
-            
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1269,7 +1269,7 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppMRWareHouseByCoyIDSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;           
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1312,7 +1312,7 @@ namespace GMSCore
         /// <summary>
         /// Retrieve list of ALL MaterialRequisition requestor by usernumid.
         /// </summary>
-        public void GetMaterialRequisitionRequestorByUserNumIDCoyID(short companyId, short userId, string MRScheme ,ref DataSet ds)
+        public void GetMaterialRequisitionRequestorByUserNumIDCoyID(short companyId, short userId, string MRScheme, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppMaterialRequisitionRequestorByUserNumIDCoyIDSelect", (SqlConnection)conn);
@@ -1328,7 +1328,7 @@ namespace GMSCore
         /// <summary>
         /// Retrieve list of ALL MaterialRequisition PM PH and requestor by coyid.
         /// </summary>
-        public void GetMaterialRequisitionPMPHRequestorByCoyID(short companyId, short userId, string MRScheme , ref DataSet ds)
+        public void GetMaterialRequisitionPMPHRequestorByCoyID(short companyId, short userId, string MRScheme, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppMaterialRequisitionPMPHRequestorByCoyIDSelect", (SqlConnection)conn);
@@ -1375,7 +1375,7 @@ namespace GMSCore
         /// Material Requisition select
         /// </summary>
         public void GetMaterialRequisition(short companyId, short userId, DateTime dateFrom, DateTime dateTo, string status, string accountCode,
-                                        string accountName, string productCode, string productName, string productGroup, string productGroupName, string PMUserID, string requestor, string role, string mrNo, string vendor, string poNo, string purchaser, string refNo, string budgetCode, string projectNo, string requestorRemarks, string MRScheme ,ref DataSet ds)
+                                        string accountName, string productCode, string productName, string productGroup, string productGroupName, string PMUserID, string requestor, string role, string mrNo, string vendor, string poNo, string purchaser, string refNo, string budgetCode, string projectNo, string requestorRemarks, string MRScheme, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppMaterialRequisitionsWildcardSelect", (SqlConnection)conn);
@@ -1418,7 +1418,7 @@ namespace GMSCore
             SqlCommand command = new SqlCommand("procAppMaterialRequisitionsByMRNoSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrNo;            
+            command.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrNo;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1439,7 +1439,7 @@ namespace GMSCore
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
-            
+
         }
 
         /// <summary>
@@ -1601,7 +1601,7 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppCountryByCoySelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;          
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1636,7 +1636,7 @@ namespace GMSCore
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@PONo", SqlDbType.NVarChar).Value = poNo;
             command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = prodCode;
-           
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -1711,7 +1711,7 @@ namespace GMSCore
         /// <summary>
         /// ComputePerformanceIndicator
         /// </summary>
-        public void procUpdateBudgetPerformanceIndicators(short companyId, int FYE, short projectId, short departmentId, short sectionId, short unitId ,short year)
+        public void procUpdateBudgetPerformanceIndicators(short companyId, int FYE, short projectId, short departmentId, short sectionId, short unitId, short year)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -1761,7 +1761,7 @@ namespace GMSCore
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
                 command.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrno;
                 command.Parameters.Add("@Level", SqlDbType.SmallInt).Value = level;
-                command.Parameters.Add("@LevelID", SqlDbType.SmallInt).Value = levelId;        
+                command.Parameters.Add("@LevelID", SqlDbType.SmallInt).Value = levelId;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -1821,7 +1821,7 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppGetBankAccountFromA21", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;                        
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -2000,7 +2000,7 @@ namespace GMSCore
                 command.Parameters.Add("@ProductCode", SqlDbType.NVarChar).Value = productCode;
                 command.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = remarks;
                 command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userNumId;
-               
+
                 rdr = command.ExecuteReader();
             }
             finally
@@ -2184,7 +2184,7 @@ namespace GMSCore
             SqlCommand command = new SqlCommand("procAppGRNForEmailNotificationSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-           
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -2198,7 +2198,7 @@ namespace GMSCore
             {
                 conn.Open();
                 SqlCommand command = new SqlCommand("procAppProductFromScheduledTaskProductUpdate", (SqlConnection)conn);
-                command.CommandType = CommandType.StoredProcedure; 
+                command.CommandType = CommandType.StoredProcedure;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -2281,7 +2281,7 @@ namespace GMSCore
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
                 command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
-                command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;            
+                command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
                 rdr = command.ExecuteReader();
 
 
@@ -2316,7 +2316,7 @@ namespace GMSCore
                 command.Parameters.Add("@Year", SqlDbType.SmallInt).Value = year;
                 command.Parameters.Add("@Month", SqlDbType.SmallInt).Value = month;
                 command.Parameters.Add("@CostCentre", SqlDbType.NVarChar).Value = costCentre;
-                command.Parameters.Add("@ItemName", SqlDbType.NVarChar).Value = itemName;               
+                command.Parameters.Add("@ItemName", SqlDbType.NVarChar).Value = itemName;
                 command.Parameters.Add("@Amount", SqlDbType.Float).Value = amount;
                 rdr = command.ExecuteReader();
 
@@ -2341,23 +2341,23 @@ namespace GMSCore
         public DateTime GetNewCOADate(short companyId)
         {
             DateTime dt;
-                try
-                {
-                    IDbConnection conn = cm.GetConnection();
-                    SqlCommand command = new SqlCommand("procAppGetNewCOADate", (SqlConnection)conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-                    command.Parameters.Add("@dt", SqlDbType.DateTime).Direction = ParameterDirection.Output;
-                    conn.Open();
-                    command.ExecuteScalar();
-                    dt = Convert.ToDateTime(command.Parameters["@dt"].Value);
-                    conn.Close();
-                    conn.Dispose();
-                }
-                catch
-                {
-                    return DateTime.Now;
-                }
+            try
+            {
+                IDbConnection conn = cm.GetConnection();
+                SqlCommand command = new SqlCommand("procAppGetNewCOADate", (SqlConnection)conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
+                command.Parameters.Add("@dt", SqlDbType.DateTime).Direction = ParameterDirection.Output;
+                conn.Open();
+                command.ExecuteScalar();
+                dt = Convert.ToDateTime(command.Parameters["@dt"].Value);
+                conn.Close();
+                conn.Dispose();
+            }
+            catch
+            {
+                return DateTime.Now;
+            }
             return dt;
         }
 
@@ -2424,7 +2424,7 @@ namespace GMSCore
                 command.Parameters.Add("@CylinderTypeID", SqlDbType.NVarChar).Value = CylinderTypeID;
                 command.Parameters.Add("@Remarks", SqlDbType.NVarChar).Value = Remarks;
 
-                rdr = command.ExecuteReader();               
+                rdr = command.ExecuteReader();
 
 
             }
@@ -2465,7 +2465,7 @@ namespace GMSCore
                 command.Parameters.Add("@RequiredSpecification", SqlDbType.Bit).Value = RequiredSpecification;
                 command.Parameters.Add("@BlendTolerance", SqlDbType.Float).Value = BlendTolerance;
                 command.Parameters.Add("@CertificationAccuracy", SqlDbType.Float).Value = CertificationAccuracy;
-                 
+
                 rdr = command.ExecuteReader();
 
             }
@@ -2524,7 +2524,7 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppPurchasingEmailByCoyIDSelect", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;           
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -2684,7 +2684,7 @@ namespace GMSCore
             return;
         }
 
-        
+
         public void GetAccountList(short companyid, string account, short userNumId, bool exact, string accounttype, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -2790,7 +2790,7 @@ namespace GMSCore
             return;
         }
 
-        public void GetApprover1List(short companyId, short userId, string userRealName, string MRScheme ,ref DataSet ds)
+        public void GetApprover1List(short companyId, short userId, string userRealName, string MRScheme, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppMRApprover1ListSelect", (SqlConnection)conn);
@@ -2931,7 +2931,7 @@ namespace GMSCore
             return;
         }
 
-        public void GetTaxType(short companyId, bool IsCustomerSales ,ref DataSet ds)
+        public void GetTaxType(short companyId, bool IsCustomerSales, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppTaxTypeSelect", (SqlConnection)conn);
@@ -3019,7 +3019,7 @@ namespace GMSCore
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppMRHeaderByPIIDSelect", (SqlConnection)conn);
-            command.CommandType = CommandType.StoredProcedure;           
+            command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@PIID", SqlDbType.UniqueIdentifier).Value = piid;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
@@ -3031,7 +3031,7 @@ namespace GMSCore
         /// Retrieve MR UserRole
         /// </summary>
         public void SendEmailNotificationForMR(string action, Guid piid)
-        { 
+        {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
             try
@@ -3072,7 +3072,7 @@ namespace GMSCore
             command.Parameters.Add("@DocumentNo", SqlDbType.NVarChar).Value = mrno;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
-            return;            
+            return;
         }
 
 
@@ -3089,7 +3089,7 @@ namespace GMSCore
                 command.Parameters.Add("@MRNo", SqlDbType.NVarChar).Value = mrno;
                 command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                 command.Parameters.Add("@OnBehalfUserID", SqlDbType.Int).Value = onbehalf;
-                command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;                
+                command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -3210,7 +3210,7 @@ namespace GMSCore
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyID;
                 command.Parameters.Add("@DocumentNo", SqlDbType.NVarChar).Value = documentNo;
-                command.Parameters.Add("@Module", SqlDbType.NVarChar).Value = module;                
+                command.Parameters.Add("@Module", SqlDbType.NVarChar).Value = module;
                 command.Parameters.Add("@Count", SqlDbType.Int).Direction = ParameterDirection.Output;
                 conn.Open();
                 command.ExecuteScalar();
@@ -3336,7 +3336,7 @@ namespace GMSCore
                 command.Parameters.Add("@DocumentNo", SqlDbType.NVarChar).Value = documentNo;
                 command.Parameters.Add("@Module", SqlDbType.NVarChar).Value = module;
                 command.Parameters.Add("@CancelledReason", SqlDbType.NVarChar).Value = cancelledReason;
-                command.Parameters.Add("@SAPNo", SqlDbType.Int).Value = SAPNo;                
+                command.Parameters.Add("@SAPNo", SqlDbType.Int).Value = SAPNo;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -3366,7 +3366,7 @@ namespace GMSCore
                 command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
                 command.Parameters.Add("@Method", SqlDbType.NVarChar).Value = method;
                 command.Parameters.Add("@JSON", SqlDbType.NVarChar).Value = json;
-                command.Parameters.Add("@ExceptionMessage", SqlDbType.NVarChar).Value = exceptionMessage;               
+                command.Parameters.Add("@ExceptionMessage", SqlDbType.NVarChar).Value = exceptionMessage;
                 rdr = command.ExecuteReader();
             }
             finally
@@ -3402,7 +3402,7 @@ namespace GMSCore
             SqlCommand command = new SqlCommand("procAppCheckUserAccessCost", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@ProdCode", SqlDbType.NVarChar).Value = prodCode;            
+            command.Parameters.Add("@ProdCode", SqlDbType.NVarChar).Value = prodCode;
             command.Parameters.Add("@UserNumID", SqlDbType.Int).Value = userId;
             command.Parameters.Add("@IsGasDivision", SqlDbType.Bit).Value = isGasDivision;
             command.Parameters.Add("@IsWeldingDivision", SqlDbType.Bit).Value = isWeldingDivision;
@@ -3451,7 +3451,7 @@ namespace GMSCore
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@DocumentType", SqlDbType.NVarChar).Value = documentType;
             command.Parameters.Add("@DocumentNo", SqlDbType.NVarChar).Value = documentNo;
-            command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;           
+            command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -3635,7 +3635,7 @@ namespace GMSCore
             string Desig1, string Desig2, string Desig3,
             string Person1, string Person2, string Person3,
             string Phone1, string Phone2, string Phone3,
-            string DepartureDate, string ReturnDate, string Destination, 
+            string DepartureDate, string ReturnDate, string Destination,
             string ProjectName, string TravelWith, string PurposeOfTravel)
         {
 
@@ -3733,9 +3733,9 @@ namespace GMSCore
             return;
         }
 
-        public void UpdateClaimDetail(int ClaimDetailID, string type, string date, 
+        public void UpdateClaimDetail(int ClaimDetailID, string type, string date,
             string remark, string currencyCode, float currencyRate, float amount, string chargeto,
-            float GST, string receiptNum,string destination)
+            float GST, string receiptNum, string destination)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -3948,7 +3948,7 @@ namespace GMSCore
             SqlCommand command = new SqlCommand("procAppSelectionGetCustomerListByID", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
-            command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = '%'+name+'%';
+            command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = '%' + name + '%';
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
@@ -3981,7 +3981,7 @@ namespace GMSCore
             return;
         }
 
-        
+
         public void GetClaimSalesPersonID(int companyId, int claimantId, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
@@ -4093,7 +4093,7 @@ namespace GMSCore
             return;
         }
 
-        public void GetSalesExecForReport(short companyId, short userid, int year, int month, string department,ref DataSet ds)
+        public void GetSalesExecForReport(short companyId, short userid, int year, int month, string department, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSalesPersonSelectForReport", (SqlConnection)conn);
@@ -4114,16 +4114,17 @@ namespace GMSCore
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppSelectCompanyDivisionForSalesReport", (SqlConnection)conn);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;            
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = companyId;
             command.Parameters.Add("@ReportID", SqlDbType.SmallInt).Value = reportid;
-            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userid;   
+            command.Parameters.Add("@UserNumId", SqlDbType.SmallInt).Value = userid;
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             adapter.Fill(ds);
             return;
         }
 
-        public void GetWarehouseSearch(short companyId, ref DataSet ds) {
+        public void GetWarehouseSearch(short companyId, ref DataSet ds)
+        {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand(@"Select * from tbWarehouseSearch where CoyID = @p1", (SqlConnection)conn);
             command.Parameters.AddWithValue("@p1", companyId);
@@ -4205,7 +4206,7 @@ namespace GMSCore
         public void SendVendorEmail(short companyID, string companyName, string email, string link)
         {
             IDbConnection conn = cm.GetConnection();
-            SqlDataReader rdr = null; 
+            SqlDataReader rdr = null;
             try
             {
                 conn.Open();
@@ -4232,7 +4233,7 @@ namespace GMSCore
             return;
         }
 
-        public void SendResumeEmail(string email,string cc, string link,string hr, string subject)
+        public void SendResumeEmail(string email, string cc, string link, string hr, string subject)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -4326,7 +4327,7 @@ namespace GMSCore
         }
 
         #region RetrieveProductBrand
-        public void RetrieveProductBrand( ref DataSet ds)
+        public void RetrieveProductBrand(ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procSelectProductBrand", (SqlConnection)conn);
@@ -4350,7 +4351,7 @@ namespace GMSCore
         #endregion
 
         #region RetrieveProductPriceWithoutAgeingStock
-        public void RetrieveProductPriceWithoutAgeingStock(short companyId, int brand, string productCode, string productName,string productGroupCode, ref DataSet ds)
+        public void RetrieveProductPriceWithoutAgeingStock(short companyId, int brand, string productCode, string productName, string productGroupCode, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppProductPriceSelectExcludeAgeingStock", (SqlConnection)conn);
@@ -4384,7 +4385,7 @@ namespace GMSCore
         #endregion
 
         #region RetrieveProductPriceProductGroup
-        public void RetrieveProductPriceProductGroup(short companyId, int brand,ref DataSet ds)
+        public void RetrieveProductPriceProductGroup(short companyId, int brand, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppProductPriceProductGroupSelect", (SqlConnection)conn);
@@ -4511,7 +4512,7 @@ namespace GMSCore
         #endregion
 
         #region AuthKeyUpdate
-        public void UpdateAuthKey( short userId, string randomID,short coyid)
+        public void UpdateAuthKey(short userId, string randomID, short coyid)
         {
             IDbConnection conn = cm.GetConnection();
             SqlDataReader rdr = null;
@@ -5095,8 +5096,8 @@ namespace GMSCore
         #endregion
 
         #region RetrieveBudgetCustomerMonthlySales
-        public void RetrieveBudgetCustomerMonthlySales(short companyId, short year, short userid, string salespersonID, string accountCode, 
-            string budgetType, short d1, short d2, short d3, short d4,string type, ref DataSet ds)
+        public void RetrieveBudgetCustomerMonthlySales(short companyId, short year, short userid, string salespersonID, string accountCode,
+            string budgetType, short d1, short d2, short d3, short d4, string type, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procReportBudgetMonthlySalesByCustomer", (SqlConnection)conn);
@@ -5564,7 +5565,7 @@ namespace GMSCore
         #endregion
 
         #region SelectHrBudgetDim
-        public void SelectHrBudgetDim(short companyId, short usernumid, string type, short year, short d1, short d2, short d3,  ref DataSet ds)
+        public void SelectHrBudgetDim(short companyId, short usernumid, string type, short year, short d1, short d2, short d3, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppHrBudgetDimSelect", (SqlConnection)conn);
@@ -5583,7 +5584,7 @@ namespace GMSCore
         #endregion
 
         #region SelectHrBudgetReport
-        public void SelectHrBudgetReport(short companyId, short usernumid, string type, short year, short d1, short d2, short d3,short d4,string budgetType, ref DataSet ds)
+        public void SelectHrBudgetReport(short companyId, short usernumid, string type, short year, short d1, short d2, short d3, short d4, string budgetType, ref DataSet ds)
         {
             IDbConnection conn = cm.GetConnection();
             SqlCommand command = new SqlCommand("procAppHrBudgetSelect", (SqlConnection)conn);
@@ -5637,6 +5638,30 @@ namespace GMSCore
             return;
         }
         #endregion
-    }
 
+        #region Select Document close date
+        public DateTime GetDocCloseDate(short coyid, string type)
+        {
+            IDbConnection conn = cm.GetConnection();
+            SqlCommand command = new SqlCommand("procAppDocCloseDateSelect", (SqlConnection)conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@CoyID", SqlDbType.SmallInt).Value = coyid;
+            command.Parameters.Add("@Type", SqlDbType.NVarChar).Value = type;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataSet ds = new DataSet();
+            adapter.Fill(ds);
+            DateTime docCloseDate = DateTime.Now;
+            try
+            {
+                docCloseDate = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString());
+            }
+            catch (Exception)
+            {
+            }
+
+            return docCloseDate;
+        }
+        #endregion
+    }
 }

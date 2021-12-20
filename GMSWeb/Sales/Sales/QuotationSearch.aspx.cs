@@ -27,7 +27,7 @@ namespace GMSWeb.Sales.Sales
                 Response.Redirect(base.SessionTimeOutPage("Sales"));
                 return;
             }
-           
+
             UserAccessModule uAccess = new GMSUserActivity().RetrieveUserAccessModuleByUserIdModuleId(session.UserId,
                                                                            101);
 
@@ -44,21 +44,25 @@ namespace GMSWeb.Sales.Sales
                 trnDateFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
                 trnDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 PopulateSalesman();
-                PopulateStatus();              
+                PopulateStatus();
 
                 ViewState["SortField"] = "QuotationNo";
                 ViewState["SortDirection"] = "DESC";
             }
 
-            
             if (session.CompanyId.ToString() == "115" || session.CompanyId.ToString() == "116")
                 btnAdd.Visible = false;
-            
 
             string javaScript =
             @"<script language=""javascript"" type=""text/javascript"" src=""/GMS4/scripts/popcalendar.js""></script>";
 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", javaScript);
+
+            //hide "Create" btn by Shut Down Date
+            if (DateTime.Now > new GMSGeneralDALC().GetDocCloseDate(session.CompanyId, "Quotation"))
+            {
+                btnAdd.Visible = false;
+            }
         }
 
         #region PopulateSalesman

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GMSWeb.Products.Products {
-    
-    
-    public partial class MaterialRequisitionSearch {
-        
+namespace GMSWeb.Products.Products
+{
+
+
+    public partial class MaterialRequisitionSearch
+    {
+
         /// <summary>
         /// hidCoyID control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCoyID;
-        
+
         /// <summary>
         /// hidUserID control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidUserID;
-        
+
         /// <summary>
         /// hidUserRole control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidUserRole;
-        
+
         /// <summary>
         /// hidCurrentLink control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCurrentLink;
-        
+
         /// <summary>
         /// hidMRScheme control.
         /// </summary>
@@ -56,15 +58,26 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidMRScheme;
-        
+
+        /// <summary>
+        /// btnAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnAdd;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new GMSWeb.Site Master {
-            get {
+        public new GMSWeb.Site Master
+        {
+            get
+            {
                 return ((GMSWeb.Site)(base.Master));
             }
         }
