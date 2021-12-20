@@ -55,6 +55,12 @@ namespace GMSWeb.Products.Products
             hidUserRole.Value = userRole;
             hidCurrentLink.Value = currentLink;
             hidMRScheme.Value = session.MRScheme;
+
+            //hide "Create" btn by Shut Down Date
+            if (DateTime.Now > new GMSGeneralDALC().GetDocCloseDate(session.CompanyId, "MR-"+ session.MRScheme))
+            {
+                btnAdd.Visible = false;
+            }
         }
 
         public static bool CheckUserAccessPage(short CompanyId, short UserId)

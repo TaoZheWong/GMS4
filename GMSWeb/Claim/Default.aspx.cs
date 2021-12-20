@@ -34,10 +34,9 @@ namespace GMSWeb.Claim
             if (Request.Params["CurrentLink"] != null)
             {
                 currentLink = Request.Params["CurrentLink"].ToString().Trim();
-                
             }
 
-            Master.setCurrentLink(currentLink); 
+            Master.setCurrentLink(currentLink);
 
             LogSession session = base.GetSessionInfo();
 
@@ -72,6 +71,10 @@ namespace GMSWeb.Claim
             hidUserID.Value = session.UserId.ToString();
             hidCurrentLink.Value = currentLink;
 
+            if (DateTime.Now > new GMSGeneralDALC().GetDocCloseDate(session.CompanyId, "Claim"))
+            {
+                btnAdd.Visible = false;
+            }
         }
 
         public class ResponseModel
@@ -137,7 +140,8 @@ namespace GMSWeb.Claim
 
 
         [WebMethod]
-        public static ResponseModel CreateClaim(short CompanyID,short UserID,string ClaimDate,string Desc) {
+        public static ResponseModel CreateClaim(short CompanyID, short UserID, string ClaimDate, string Desc)
+        {
 
             var m = new ResponseModel();
 
@@ -198,5 +202,5 @@ namespace GMSWeb.Claim
             return m;
 
         }
-     }
+    }
 }

@@ -128,8 +128,10 @@
                  </div>
              </div>
             <div class="panel-footer clearfix">
-			    <a href="#" class="btn btn-primary pull-right" id="Search">Search</a>       
-                <a href="#" class="btn btn-default m-r-10 pull-right " id="Add" style="display:none">Add</a>
+			    <a href="#" class="btn btn-primary pull-right" id="Search">Search</a>
+                <div id="btnAdd" runat="server">
+                     <a href="#" class="btn btn-default m-r-10 pull-right " id="Add" style="display:none">Add</a>
+                </div>
             </div>
         </div>
 
