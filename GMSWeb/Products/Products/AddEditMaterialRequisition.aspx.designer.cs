@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GMSWeb.Products.Products {
-    
-    
-    public partial class AddEditMaterialRequisition {
-        
+namespace GMSWeb.Products.Products
+{
+
+
+    public partial class AddEditMaterialRequisition
+    {
+
         /// <summary>
         /// hidUserID control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidUserID;
-        
+
         /// <summary>
         /// hidUserRole control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidUserRole;
-        
+
         /// <summary>
         /// hidCurrentLink control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCurrentLink;
-        
+
         /// <summary>
         /// hidMainPurchaserUserID control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidMainPurchaserUserID;
-        
+
         /// <summary>
         /// hidMRScheme control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidMRScheme;
-        
+
         /// <summary>
         /// hidDimensionL1 control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidDimensionL1;
-        
+
         /// <summary>
         /// hidWarehouse control.
         /// </summary>
@@ -74,15 +76,26 @@ namespace GMSWeb.Products.Products {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidWarehouse;
-        
+
+        /// <summary>
+        /// btnDuplicate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnDuplicate;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new GMSWeb.Site Master {
-            get {
+        public new GMSWeb.Site Master
+        {
+            get
+            {
                 return ((GMSWeb.Site)(base.Master));
             }
         }
