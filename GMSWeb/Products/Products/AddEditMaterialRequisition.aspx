@@ -18,7 +18,7 @@
             </h4>
         </div>
         <div id="FormSearch">
-            
+
             <div class="panel-body">
                 <input type="hidden" id="hidUserID" runat="server" value="" />
                 <input type='hidden' id='hidUserRole' runat="server" name='hidUserRole' value="" />
@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="form-group col-lg-12">
                             <label class="control-label">Intended Use * :</label>
-                            <div class="well clearfix" >
+                            <div class="well clearfix">
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="checkbox-inline">
                                         <input type="checkbox" name="Stock" id="Stock" value="Stock" disabled>
@@ -81,85 +81,85 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Sales" id="Sales" value="Sales" disabled>
-                                    <label for="Sales">
-                                        Sales
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Repair-Maintenance" id="Repair-Maintenance" value="Repair & Maintenance" disabled>
-                                    <label for="Repair-Maintenance">
-                                        Repair & Maintenance (For PM use only)
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Sample" id="Sample" value="Sample" disabled>
-                                    <label for="Sample">
-                                        Sample
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Workshop" id="Workshop" value="Workshop" disabled>
-                                    <label for="Workshop">
-                                        Workshop
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Project" id="Project" value="Project" disabled>
-                                    <label for="Project">
-                                        Project
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Raw-Material" id="Raw-Material" value="Raw Material" disabled>
-                                    <label for="Raw-Material">
-                                        Raw Material
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="Staff-Welfare" id="Staff-Welfare" value="Staff Welfare" disabled>
-                                    <label for="Staff-Welfare">
-                                        Staff Welfare
-                                    </label>
-                                </div>
-                                    </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="checkbox-inline">
-                                    <span class="additional-info-wrap">
-                                        <input type="checkbox" name="Asset" id="Asset" value="Asset" disabled>
-                                        <label for="Asset">
-                                            Asset, GL Code
+                                        <input type="checkbox" name="Sales" id="Sales" value="Sales" disabled>
+                                        <label for="Sales">
+                                            Sales
                                         </label>
-                                        <div class="additional-info hide">
-                                            <input type="text" id="GLCode" name="GLCode" placeholder="GL Code" class="form-control" disabled>
-                                        </div>
-                                    </span>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     <div class="checkbox-inline">
-                                    <span class="additional-info-wrap">
-                                        <input type="checkbox" name="Others" id="Others" value="Others" disabled>
-                                        <label for="Others">
-                                           Others
+                                        <input type="checkbox" name="Repair-Maintenance" id="Repair-Maintenance" value="Repair & Maintenance" disabled>
+                                        <label for="Repair-Maintenance">
+                                            Repair & Maintenance (For PM use only)
                                         </label>
-                                        <div class="additional-info hide">
-                                            <input type="text" id="OthersRemarks" name="OthersRemarks" placeholder="Others" class="form-control" disabled>
-                                        </div>
-                                    </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="Sample" id="Sample" value="Sample" disabled>
+                                        <label for="Sample">
+                                            Sample
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="Workshop" id="Workshop" value="Workshop" disabled>
+                                        <label for="Workshop">
+                                            Workshop
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="Project" id="Project" value="Project" disabled>
+                                        <label for="Project">
+                                            Project
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="Raw-Material" id="Raw-Material" value="Raw Material" disabled>
+                                        <label for="Raw-Material">
+                                            Raw Material
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="Staff-Welfare" id="Staff-Welfare" value="Staff Welfare" disabled>
+                                        <label for="Staff-Welfare">
+                                            Staff Welfare
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <span class="additional-info-wrap">
+                                            <input type="checkbox" name="Asset" id="Asset" value="Asset" disabled>
+                                            <label for="Asset">
+                                                Asset, GL Code
+                                            </label>
+                                            <div class="additional-info hide">
+                                                <input type="text" id="GLCode" name="GLCode" placeholder="GL Code" class="form-control" disabled>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="checkbox-inline">
+                                        <span class="additional-info-wrap">
+                                            <input type="checkbox" name="Others" id="Others" value="Others" disabled>
+                                            <label for="Others">
+                                                Others
+                                            </label>
+                                            <div class="additional-info hide">
+                                                <input type="text" id="OthersRemarks" name="OthersRemarks" placeholder="Others" class="form-control" disabled>
+                                            </div>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                             </select>
                         </div>
                     </div>
-                  
+
                     <div class="row">
                         <div class="form-group col-lg-3 col-md-6 col-sm-12">
                             <label class="control-label text-left" for="mr-no">Budget Code:</label>
@@ -290,7 +290,7 @@
                         </div>
                     </div>
                 </div>
-         </div>
+            </div>
 
             <div class="panel-tab tab-v2">
                 <ul class="nav nav-tabs">
@@ -365,11 +365,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="table-responsive">
-                           <table id="tblProduct" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"></table>
-                         </div>
-                            
+                            <table id="tblProduct" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"></table>
+                        </div>
+
                         <br />
 
                         <div class="container" style="width: 50%; float: right; clear: both; display: inline-block;">
@@ -400,13 +400,13 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                    <label for="Created"></label>
+                        <label for="Created"></label>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label for="Modified"></label>
                     </div>
                 </div>
-                
+
                 <input type="hidden" id="CreatedBy-id">
                 <br />
 
@@ -448,563 +448,565 @@
                         </tbody>
                     </table>
                 </div>
-                
-               <div class="table-responsive">
+
+                <div class="table-responsive">
                     <table id="tblRouting" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"></table>
-               </div>
-                  
+                </div>
+
             </div>
-             <div class="panel-footer clearfix">
-                    <div id="displayButton">
-                        <div class="col-sm-12" align="right">
-                                <div class="btn-group">
-                                    <div class="btn-group" id="PrintReport">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="Print" style="display: none">
-                                            Print <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#" id="PrintMR">Material Requisition</a></li>
-                                            <li id="li-PO"><a href="#" id="PrintPO">PO</a></li>
-                                        </ul>
+            <div class="panel-footer clearfix">
+                <div id="displayButton">
+                    <div class="col-sm-12" align="right">
+                        <div class="btn-group">
+                            <div class="btn-group" id="PrintReport">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="Print" style="display: none">
+                                    Print <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" id="PrintMR">Material Requisition</a></li>
+                                    <li id="li-PO"><a href="#" id="PrintPO">PO</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-info" id="ImportRecipe" style="display: none">Import Recipe</a>
+                        <a href="#" class="btn btn-warning" id="ConfirmVendor" style="display: none">Confirm Vendor</a>
+                        <a href="#" class="btn btn-info " id="SubmitForApproval" style="display: none">SubmitForApproval</a>
+                        <a href="#" class="btn btn-success " id="Approve" style="display: none">Approve</a>
+                        <a href="#" class="btn btn-danger " id="Reject" style="display: none">Reject</a>
+                        <div id="btnDuplicate" runat="server">
+                            <a href="#" class="btn btn-primary " id="Duplicate" style="display: none">Duplicate</a>
+                        </div>
+                        <a href="#" class="btn btn-warning " id="Cancel" style="display: none">Cancel</a>
+                        <a href="#" class="btn btn-danger " id="UndoCancel" style="display: none">Undo Cancellation</a>
+                        <a href="#" class="btn btn-primary" id="Save" style="display: none">Save</a>
+                        <a href="#" class="btn btn-success " id="CreatePO" style="display: none">Post To SAP</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Confirmed Sales -->
+            <div class="modal fade" id="ModalConfirmSales" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="H4_1">Confirmed Sales</h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="DivCustomerCode" class="form-group has-feedback">
+                                            <label for="txtCustomerCode">Customer Code / Customer Name (min. 3 char)</label>
+                                            <input type="text" class="form-control" id="CustomerAccountCode" name='CustomerAccountCode' maxlength="12" onkeypress="GetAccount(this,'tblSales','C', false);" required />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-info" id="ImportRecipe" style="display: none">Import Recipe</a>
-                                <a href="#" class="btn btn-warning" id="ConfirmVendor" style="display: none">Confirm Vendor</a>
-                                <a href="#" class="btn btn-info " id="SubmitForApproval" style="display: none">SubmitForApproval</a>
-                                <a href="#" class="btn btn-success " id="Approve" style="display: none">Approve</a>
-                                <a href="#" class="btn btn-danger " id="Reject" style="display: none">Reject</a>
-                                <a href="#" class="btn btn-primary " id="Duplicate" style="display: none">Duplicate</a>
-                                <a href="#" class="btn btn-warning " id="Cancel" style="display: none">Cancel</a>
-                                <a href="#" class="btn btn-danger " id="UndoCancel" style="display: none">Undo Cancellation</a>
-                                <a href="#" class="btn btn-primary" id="Save" style="display: none">Save</a>
-                                <a href="#" class="btn btn-success " id="CreatePO" style="display: none">Post To SAP</a>
-                        </div>
-                    </div>    
-                </div>   
-                <!-- Modal Confirmed Sales -->
-                <div class="modal fade" id="ModalConfirmSales" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="H4_1">Confirmed Sales</h4>
-                            </div>
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div id="DivCustomerCode" class="form-group has-feedback">
-                                                <label for="txtCustomerCode">Customer Code / Customer Name (min. 3 char)</label>
-                                                <input type="text" class="form-control" id="CustomerAccountCode" name='CustomerAccountCode' maxlength="12" onkeypress="GetAccount(this,'tblSales','C', false);" required />
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="DivCustomerName" class="form-group has-feedback">
+                                            <label for="txtCustomerName">Customer Name</label>
+                                            <input type="text" class="form-control" id="CustomerAccountName" name='CustomerAccountName' maxlength="100" readonly />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="DivSONo" class="form-group has-feedback">
+                                            <label for="lblSONo">Customer PO No.</label>
+                                            <input type="text" class="form-control" id="SONo" placeholder="" name='SONo' maxlength="50" required />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="DivSODate" class="form-group has-feedback">
+                                            <label for="lblSupplierName">Customer PO Date</label>
+                                            <div class='input-group date' id='SO-Date'>
+                                                <input type='text' class="form-control" id='SODate' name='SODate' required />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
                                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                                 <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div id="DivCustomerName" class="form-group has-feedback">
-                                                <label for="txtCustomerName">Customer Name</label>
-                                                <input type="text" class="form-control" id="CustomerAccountName" name='CustomerAccountName' maxlength="100" readonly />
+                                    <div class="col-sm-6">
+                                        <div id="DivRequiredDate" class="form-group has-feedback">
+                                            <label for="lblRequiredDate">Required Date</label>
+                                            <div class='input-group date' id='required-date'>
+                                                <input type='text' class="form-control" id='RequiredDate' name='RequiredDate' required />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
                                                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                                 <div class="help-block with-errors"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div id="DivSONo" class="form-group has-feedback">
-                                                <label for="lblSONo">Customer PO No.</label>
-                                                <input type="text" class="form-control" id="SONo" placeholder="" name='SONo' maxlength="50" required />
-                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                <div class="help-block with-errors"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div id="DivSODate" class="form-group has-feedback">
-                                                <label for="lblSupplierName">Customer PO Date</label>
-                                                <div class='input-group date' id='SO-Date'>
-                                                    <input type='text' class="form-control" id='SODate' name='SODate' required />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                    <div class="help-block with-errors"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div id="DivRequiredDate" class="form-group has-feedback">
-                                                <label for="lblRequiredDate">Required Date</label>
-                                                <div class='input-group date' id='required-date'>
-                                                    <input type='text' class="form-control" id='RequiredDate' name='RequiredDate' required />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                    <div class="help-block with-errors"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="save-confirmedSales" name="Edit">Save</button>
-                            </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="save-confirmedSales" name="Edit">Save</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- ModalVendor -->
-                <div class="modal fade" id="ModalVendor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="H4_2">Vendor</h4>
-                            </div>
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblVendorCode">Vendor Code</label>
-                                                <input type="text" class="form-control" id="VendorCode" name='VendorCode' maxlength="10" onkeypress="GetAccount(this,'tblVendor','S', true);" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblVendorName">Vendor Name</label>
-                                                <input type="text" class="form-control" id="VendorName" name='VendorName' maxlength="50" onkeypress="GetAccount(this,'tblVendor','S', false);" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblVendorContact">Vendor Contact</label>
-                                                <input type="text" class="form-control" id="VendorContact" placeholder="" name='VendorContact' maxlength="100" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblVendorTel">Vendor Tel.</label>
-                                                <input type="text" class="form-control" id="VendorTel" placeholder="" name='VendorTel' maxlength="50" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblVendorFax">Vendor Fax</label>
-                                                <input type="text" class="form-control" id="VendorFax" placeholder="" name='VendorFax' maxlength="50" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblVendorEmail">Vendor Email</label>
-                                                <input type="text" class="form-control" id="VendorEmail" placeholder="" name='VendorEmail' maxlength="100" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="save-vendor" name="Edit" data-dismiss="modal">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ModalDelivery -->
-                <div class="modal fade" id="ModalDelivery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="H4_3">Delivery</h4>
-                            </div>
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblPONo">PO No</label>
-                                                <input type="text" class="form-control" id="PONo" name='PONo' maxlength="20" required />
-                                                <input type="hidden" class="form-control" id="Purchaser" name='Purchaser' />
-                                                <input type="hidden" class="form-control" id="PODate" name='PODate' />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblCRDDate">CRD Date</label>
-                                                <div class='input-group date' id='crd-date'>
-                                                    <input type='text' class="form-control" id='CRD' name='CRD' />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblETDDate">ETD Date</label>
-                                                <div class='input-group date' id='etd-date'>
-                                                    <input type='text' class="form-control" id='ETD' name='ETD' />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblETADate">ETA Date</label>
-                                                <div class='input-group date' id='eta-date'>
-                                                    <input type='text' class="form-control" id='ETA' name='ETA' />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="save-delivery" name="Edit" data-dismiss="modal">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ModalAttachment -->
-                <div class="modal fade" id="ModalAttachment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="H4_4">Attachment</h4>
-                            </div>
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblFileDisplayName">Display Name</label>
-                                                <input type="text" class="form-control" id="FileDisplayName" name='FileDisplayName' maxlength="100" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblFileName">File Name</label>
-                                                <input type="text" class="form-control" id="FileName" placeholder="" name='FileName' readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblDocumentCategory">Category</label>
-                                                <input type="text" class="form-control" id="DocumentCategory" placeholder="" name='DocumentCategory' onmousedown="GetDocumentCategory(this);" maxlength="100" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="save-attachment" name="Edit" data-dismiss="modal">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Product -->
-                <div class="modal fade" id="ModalProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="H4_5">Product</h4>
-                            </div>
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div id="DivProdCode" class="form-group has-feedback">
-                                                <label for="lblProdCode">ProdCode / ProdName (min. 3 char)</label>
-                                                <input type="text" class="form-control" id="ProdCode" name='ProdCode' tablename="tblProduct" maxlength="100" required />
-                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                <div class="help-block with-errors"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblNewProdCode">New Product Code</label>
-                                                <input type="text" class="form-control" id="NewProdCode" placeholder="" name='NewProdCode' maxlength="11" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblProdName">Product Name</label>
-                                                <input type="text" class="form-control" id="ProdName" placeholder="" name='ProdName' maxlength="100" />
-                                                <input type='hidden' class='form-control' id='ProductGroupCode' name='ProductGroupCode'>
-                                                <input type='hidden' class='form-control' id='KeyToSplit' name='KeyToSplit'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblUOM">UOM</label>
-                                                <input type="text" class="form-control" id="UOM" placeholder="" name='UOM' onkeypress="GetUOM(this,'tblProduct');" maxlength="20" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblConfirmedOrderQty">Sales Qty</label>
-                                                <input type="text" class="form-control" id="ConfirmedOrderQty" placeholder="" name='ConfirmedOrderQty' pattern="^[0-9]+(\.[0-9]{1,2})?$" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblForStockingQty">Stk Qty</label>
-                                                <input type="text" class="form-control" id="ForStockingQty" placeholder="" name='ForStockingQty' pattern="^[0-9]+(\.[0-9]{1,2})?$" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div id="DivOrderQty" class="form-group has-feedback">
-                                                <label for="lblOrderQty">Order Qty</label>
-                                                <input type="text" class="form-control" id="OrderQty" placeholder="" name='OrderQty' pattern="^[0-9]+(\.[0-9]{1,2})?$" onkeyup="CalculatePurchasePrice();" />
-                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                <div class="help-block with-errors"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblSellingCurrency">Selling Currency</label>
-                                                <input type="text" class="form-control" id="SellingCurrency" placeholder="" name='SellingCurrency' onmousedown="GetCurrency(this);" maxlength="10" required readonly />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblUnitSellingPrice">Selling Price</label>&nbsp;<a data-toggle="popover" data-placement="left" data-trigger='hover' title='Stock Status' data-content='' data-html='true' onmouseover="GetProductInfo1(this);"><span class="glyphicon glyphicon-info-sign"></span></a>
-                                                <input type="text" class="form-control" id="UnitSellingPrice" placeholder="" name='UnitSellingPrice' pattern="(^(\+|\-)(0|([1-9][0-9]*))(\.[0-9]{1,4})?$)|(^(0{0,1}|([1-9][0-9]*))(\.[0-9]{1,4})?$)" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" id="PurchaseInfo" style="display: none">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblPurchaseCurrency">Purchase Currency</label>
-                                                <input type="text" class="form-control" id="PurchaseCurrency" placeholder="" name='PurchaseCurrency' onmousedown="GetCurrency(this);" maxlength="10" required readonly />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblUnitPurchasePrice">Purchase Price</label>&nbsp;<a data-toggle="popover" data-placement="left" data-trigger='hover' title='Stock Status' data-content='' data-html='true' onmouseover="GetProductInfo1(this);"><span class="glyphicon glyphicon-info-sign"></span></a>
-                                                <input type="text" class="form-control" id="UnitPurchasePrice" placeholder="" name='UnitPurchasePrice' pattern="(^(\+|\-)(0|([1-9][0-9]*))(\.[0-9]{1,4})?$)|(^(0{0,1}|([1-9][0-9]*))(\.[0-9]{1,4})?$)" onkeyup="CalculatePurchasePrice();" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" id="PurchaseInfoTotal" style="display: none">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblTotalPurchasePrice">Total Purchase Price</label>
-                                                <input type="text" class="form-control" id="TotalPurchasePrice" placeholder="" name='TotalPurchasePrice' />
-                                                <input type='hidden' class='form-control' id='PriceStatus' name='PriceStatus'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblApprover1">Approver (1)</label>
-                                                <input type='hidden' id='Approver1ID' class='form-control' name='Approver1ID' value='0'>
-                                                <input type="text" class="form-control" id="Approver1" placeholder="" name='Approver1' onmousedown="GetApprover1(this,'Approver1ID','Approver2ID','Approver2','Approver3ID','Approver3', 'Approver4ID', 'Approver4');" readonly />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblApprover2">Approver (2)</label>
-                                                <input type='hidden' id='Approver2ID' class='form-control' name='Approver2ID' value='0'>
-                                                <input type="text" class="form-control" id="Approver2" placeholder="" name='Approver2' onmousedown="GetApprover2(this,'Approver2ID', 'Approver3ID','Approver3');" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblApprover2">Approver (3)</label>
-                                                <input type='hidden' id='Approver3ID' class='form-control' name='Approver3ID' value='0'>
-                                                <input type="text" class="form-control" id="Approver3" placeholder="" name='Approver3' onmousedown="GetApprover3(this,'Approver3ID', 'Approver4ID', 'Approver4');" readonly />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="lblApprover2">Approver (4)</label>
-                                                <input type='hidden' id='Approver4ID' class='form-control' name='Approver4ID' value='0'>
-                                                <input type="text" class="form-control" id="Approver4" placeholder="" name='Approver4' onmousedown="GetApprover4(this,'Approver4ID');" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" id="RecipeInfo" style="display: none">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="lblTotalPurchasePrice">Recipe No.</label>
-                                                <input type="text" class="form-control" id="RecipeNo" placeholder="" name='RecipeNo' />
-                                                <input type='hidden' class='form-control' id='PriceStatus' name='PriceStatus'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div id="DivProductReason" class="form-group has-feedback">
-                                                <label for="lblReason">Reason</label>
-                                                <textarea class="form-control" rows="5" id="ProductReason" name='ProductReason' maxlength="100"></textarea>
-                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                <div class="help-block with-errors"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" id="save-product" name="Edit">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="ModalReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="H4_7">Reason</h4>
-                            </div>
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <form role="form">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div id="DivReason" class="form-group has-feedback">
-                                                <textarea class="form-control" rows="5" id="Reason" name='Reason' maxlength="500" required></textarea>
-                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                                                <div class="help-block with-errors"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="cancel-reject" name="Edit">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                <span id="message" name="message"></span>
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btnClose" name="Close">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal Body -->
-                            <div class="modal-body">
-                                Are you sure?
-                            </div>
-                            <!-- Modal Footer -->
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-                                <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- ModalVendor -->
+            <div class="modal fade" id="ModalVendor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="H4_2">Vendor</h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblVendorCode">Vendor Code</label>
+                                            <input type="text" class="form-control" id="VendorCode" name='VendorCode' maxlength="10" onkeypress="GetAccount(this,'tblVendor','S', true);" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblVendorName">Vendor Name</label>
+                                            <input type="text" class="form-control" id="VendorName" name='VendorName' maxlength="50" onkeypress="GetAccount(this,'tblVendor','S', false);" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblVendorContact">Vendor Contact</label>
+                                            <input type="text" class="form-control" id="VendorContact" placeholder="" name='VendorContact' maxlength="100" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblVendorTel">Vendor Tel.</label>
+                                            <input type="text" class="form-control" id="VendorTel" placeholder="" name='VendorTel' maxlength="50" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblVendorFax">Vendor Fax</label>
+                                            <input type="text" class="form-control" id="VendorFax" placeholder="" name='VendorFax' maxlength="50" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblVendorEmail">Vendor Email</label>
+                                            <input type="text" class="form-control" id="VendorEmail" placeholder="" name='VendorEmail' maxlength="100" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="save-vendor" name="Edit" data-dismiss="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ModalDelivery -->
+            <div class="modal fade" id="ModalDelivery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="H4_3">Delivery</h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblPONo">PO No</label>
+                                            <input type="text" class="form-control" id="PONo" name='PONo' maxlength="20" required />
+                                            <input type="hidden" class="form-control" id="Purchaser" name='Purchaser' />
+                                            <input type="hidden" class="form-control" id="PODate" name='PODate' />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblCRDDate">CRD Date</label>
+                                            <div class='input-group date' id='crd-date'>
+                                                <input type='text' class="form-control" id='CRD' name='CRD' />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblETDDate">ETD Date</label>
+                                            <div class='input-group date' id='etd-date'>
+                                                <input type='text' class="form-control" id='ETD' name='ETD' />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblETADate">ETA Date</label>
+                                            <div class='input-group date' id='eta-date'>
+                                                <input type='text' class="form-control" id='ETA' name='ETA' />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="save-delivery" name="Edit" data-dismiss="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ModalAttachment -->
+            <div class="modal fade" id="ModalAttachment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="H4_4">Attachment</h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblFileDisplayName">Display Name</label>
+                                            <input type="text" class="form-control" id="FileDisplayName" name='FileDisplayName' maxlength="100" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblFileName">File Name</label>
+                                            <input type="text" class="form-control" id="FileName" placeholder="" name='FileName' readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblDocumentCategory">Category</label>
+                                            <input type="text" class="form-control" id="DocumentCategory" placeholder="" name='DocumentCategory' onmousedown="GetDocumentCategory(this);" maxlength="100" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="save-attachment" name="Edit" data-dismiss="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Product -->
+            <div class="modal fade" id="ModalProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-toggle="validator">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="H4_5">Product</h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="DivProdCode" class="form-group has-feedback">
+                                            <label for="lblProdCode">ProdCode / ProdName (min. 3 char)</label>
+                                            <input type="text" class="form-control" id="ProdCode" name='ProdCode' tablename="tblProduct" maxlength="100" required />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblNewProdCode">New Product Code</label>
+                                            <input type="text" class="form-control" id="NewProdCode" placeholder="" name='NewProdCode' maxlength="11" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblProdName">Product Name</label>
+                                            <input type="text" class="form-control" id="ProdName" placeholder="" name='ProdName' maxlength="100" />
+                                            <input type='hidden' class='form-control' id='ProductGroupCode' name='ProductGroupCode'>
+                                            <input type='hidden' class='form-control' id='KeyToSplit' name='KeyToSplit'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblUOM">UOM</label>
+                                            <input type="text" class="form-control" id="UOM" placeholder="" name='UOM' onkeypress="GetUOM(this,'tblProduct');" maxlength="20" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblConfirmedOrderQty">Sales Qty</label>
+                                            <input type="text" class="form-control" id="ConfirmedOrderQty" placeholder="" name='ConfirmedOrderQty' pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblForStockingQty">Stk Qty</label>
+                                            <input type="text" class="form-control" id="ForStockingQty" placeholder="" name='ForStockingQty' pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="DivOrderQty" class="form-group has-feedback">
+                                            <label for="lblOrderQty">Order Qty</label>
+                                            <input type="text" class="form-control" id="OrderQty" placeholder="" name='OrderQty' pattern="^[0-9]+(\.[0-9]{1,2})?$" onkeyup="CalculatePurchasePrice();" />
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblSellingCurrency">Selling Currency</label>
+                                            <input type="text" class="form-control" id="SellingCurrency" placeholder="" name='SellingCurrency' onmousedown="GetCurrency(this);" maxlength="10" required readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblUnitSellingPrice">Selling Price</label>&nbsp;<a data-toggle="popover" data-placement="left" data-trigger='hover' title='Stock Status' data-content='' data-html='true' onmouseover="GetProductInfo1(this);"><span class="glyphicon glyphicon-info-sign"></span></a>
+                                            <input type="text" class="form-control" id="UnitSellingPrice" placeholder="" name='UnitSellingPrice' pattern="(^(\+|\-)(0|([1-9][0-9]*))(\.[0-9]{1,4})?$)|(^(0{0,1}|([1-9][0-9]*))(\.[0-9]{1,4})?$)" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="PurchaseInfo" style="display: none">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblPurchaseCurrency">Purchase Currency</label>
+                                            <input type="text" class="form-control" id="PurchaseCurrency" placeholder="" name='PurchaseCurrency' onmousedown="GetCurrency(this);" maxlength="10" required readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblUnitPurchasePrice">Purchase Price</label>&nbsp;<a data-toggle="popover" data-placement="left" data-trigger='hover' title='Stock Status' data-content='' data-html='true' onmouseover="GetProductInfo1(this);"><span class="glyphicon glyphicon-info-sign"></span></a>
+                                            <input type="text" class="form-control" id="UnitPurchasePrice" placeholder="" name='UnitPurchasePrice' pattern="(^(\+|\-)(0|([1-9][0-9]*))(\.[0-9]{1,4})?$)|(^(0{0,1}|([1-9][0-9]*))(\.[0-9]{1,4})?$)" onkeyup="CalculatePurchasePrice();" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="PurchaseInfoTotal" style="display: none">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblTotalPurchasePrice">Total Purchase Price</label>
+                                            <input type="text" class="form-control" id="TotalPurchasePrice" placeholder="" name='TotalPurchasePrice' />
+                                            <input type='hidden' class='form-control' id='PriceStatus' name='PriceStatus'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblApprover1">Approver (1)</label>
+                                            <input type='hidden' id='Approver1ID' class='form-control' name='Approver1ID' value='0'>
+                                            <input type="text" class="form-control" id="Approver1" placeholder="" name='Approver1' onmousedown="GetApprover1(this,'Approver1ID','Approver2ID','Approver2','Approver3ID','Approver3', 'Approver4ID', 'Approver4');" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblApprover2">Approver (2)</label>
+                                            <input type='hidden' id='Approver2ID' class='form-control' name='Approver2ID' value='0'>
+                                            <input type="text" class="form-control" id="Approver2" placeholder="" name='Approver2' onmousedown="GetApprover2(this,'Approver2ID', 'Approver3ID','Approver3');" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblApprover2">Approver (3)</label>
+                                            <input type='hidden' id='Approver3ID' class='form-control' name='Approver3ID' value='0'>
+                                            <input type="text" class="form-control" id="Approver3" placeholder="" name='Approver3' onmousedown="GetApprover3(this,'Approver3ID', 'Approver4ID', 'Approver4');" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="lblApprover2">Approver (4)</label>
+                                            <input type='hidden' id='Approver4ID' class='form-control' name='Approver4ID' value='0'>
+                                            <input type="text" class="form-control" id="Approver4" placeholder="" name='Approver4' onmousedown="GetApprover4(this,'Approver4ID');" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="RecipeInfo" style="display: none">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="lblTotalPurchasePrice">Recipe No.</label>
+                                            <input type="text" class="form-control" id="RecipeNo" placeholder="" name='RecipeNo' />
+                                            <input type='hidden' class='form-control' id='PriceStatus' name='PriceStatus'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="DivProductReason" class="form-group has-feedback">
+                                            <label for="lblReason">Reason</label>
+                                            <textarea class="form-control" rows="5" id="ProductReason" name='ProductReason' maxlength="100"></textarea>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="save-product" name="Edit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ModalReason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="H4_7">Reason</h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="DivReason" class="form-group has-feedback">
+                                            <textarea class="form-control" rows="5" id="Reason" name='Reason' maxlength="500" required></textarea>
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="cancel-reject" name="Edit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <span id="message" name="message"></span>
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnClose" name="Close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            Are you sure?
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-   
+
 </asp:Content>
-    
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContentPlaceHolder" runat="server">
     <script>
         var $el2 = $("#input-706");
@@ -1013,20 +1015,20 @@
         // custom footer template for the scenario
         // the custom tags are in braces
         var footerTemplate = '<div class="file-thumbnail-footer">\n' +
-        '   <div style="margin:5px 0">\n' +
-        '       <input class="kv-input kv-new form-control input-sm text-center {TAG_CSS_NEW}" value="{caption}" placeholder="Enter caption...">\n' +
-        '       <input class="kv-input kv-init form-control input-sm text-center {TAG_CSS_INIT}" value="{TAG_VALUE}" placeholder="Enter caption...">\n' +
-        '       <select class="kv-input kv-category form-control input-sm text-center {TAG_CSS_NEW}">' +
-        '           <option value="PO">PO</option>' +
-        '           <option value="Service Job Sheet">Service Job Sheet</option>' +
-        '           <option value="End User Form">End User Form</option>' +
-        '           <option value="Others">Others</option>' +
-        '       </select>\n' +
-        '       <input class="kv-input kv-coyid form-control input-sm text-center {TAG_CSS_NEW}" value="' + CoyID + '" placeholder="Enter caption..." readonly>\n' +
-        '   </div>\n' +
-        '   {size}\n' +
-        '   {actions}\n' +
-        '</div>';
+            '   <div style="margin:5px 0">\n' +
+            '       <input class="kv-input kv-new form-control input-sm text-center {TAG_CSS_NEW}" value="{caption}" placeholder="Enter caption...">\n' +
+            '       <input class="kv-input kv-init form-control input-sm text-center {TAG_CSS_INIT}" value="{TAG_VALUE}" placeholder="Enter caption...">\n' +
+            '       <select class="kv-input kv-category form-control input-sm text-center {TAG_CSS_NEW}">' +
+            '           <option value="PO">PO</option>' +
+            '           <option value="Service Job Sheet">Service Job Sheet</option>' +
+            '           <option value="End User Form">End User Form</option>' +
+            '           <option value="Others">Others</option>' +
+            '       </select>\n' +
+            '       <input class="kv-input kv-coyid form-control input-sm text-center {TAG_CSS_NEW}" value="' + CoyID + '" placeholder="Enter caption..." readonly>\n' +
+            '   </div>\n' +
+            '   {size}\n' +
+            '   {actions}\n' +
+            '</div>';
 
         $el2.fileinput({
             uploadUrl: 'FileUploadHandler.ashx',

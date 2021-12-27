@@ -115,6 +115,11 @@ namespace GMSWeb.Products.Products
                 hidMainPurchaserUserID.Value = purchaser.UserNumID.ToString();
             else
                 hidMainPurchaserUserID.Value = "0";
+
+            if (DateTime.Now > new GMSGeneralDALC().GetDocCloseDate(session.CompanyId, "MR-" + session.MRScheme))
+            {
+                btnDuplicate.Visible = false;
+            }
         }
 
         public static DataSet CanUserAccessDocument(short CompanyId, short UserId, string mrno)
