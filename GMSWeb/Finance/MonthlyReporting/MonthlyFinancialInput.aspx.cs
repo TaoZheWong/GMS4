@@ -73,6 +73,7 @@ namespace GMSWeb.Finance.MonthlyReporting
             var startYear = int.Parse(DateTime.Now.AddYears(-10).ToString("yyyy"));
             var rangeCount = 10;
             var ranges = Enumerable.Range(startYear, rangeCount).Select(y => (y + 1)).OrderByDescending(y => (y + 1));
+            this.ddlYear.SelectedValue = DateTime.Now.AddMonths(-1).Year.ToString();
             this.ddlYear.DataSource = ranges;
             this.ddlYear.DataBind();
 
