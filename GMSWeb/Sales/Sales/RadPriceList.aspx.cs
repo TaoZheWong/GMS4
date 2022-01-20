@@ -384,10 +384,10 @@ namespace GMSWeb.Sales.Sales
                         rowIndex++;
                     }
 
-                    string phEmail = this.hidEmail.Value;
-
-                    ProductNoticeViaEmail(productList, "-", phEmail, "Submit", "-");
-                    alertMessage("Price Changes are submitted for approval.");
+                    //string phEmail = this.hidEmail.Value;
+                    //ProductNoticeViaEmail(productList, "-", phEmail, "Submit", "-");
+                    //alertMessage("Price Changes are submitted for approval.");
+                    alertMessage("Please proceed price changes in New LMS.");
                     LoadSpreadSheet();
                 }
                 catch (Exception ex)

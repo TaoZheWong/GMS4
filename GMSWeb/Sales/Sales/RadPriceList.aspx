@@ -104,10 +104,12 @@
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a data-init="true" title="" data-original-title="" href="javascript:;" class="btn" data-toggle="panel-collapse"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                 
                 <a href="javascript:;" class="btn" data-toggle="panel-expand"><i class="glyphicon glyphicon-resize-full"></i></a>
             </div>
             <h4 class="panel-title">
                 <i class="ti-align-justify"></i>
+                 Please Submit New Price Changes in <a target="_blank" href="https://leeden.azurewebsites.net/LMS/">https://leeden.azurewebsites.net/LMS/</a>.
                 <asp:Label ID="lblSearchSummary" Visible="false" runat="server" />
             </h4>
         </div>
