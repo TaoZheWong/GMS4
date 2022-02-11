@@ -397,7 +397,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <asp:Button ID="ButtonOk" runat="server" Text="Save" OnCommand="EditCommentCommand" CssClass="btn btn-primary" />
+                <%--<asp:Button ID="ButtonOk" runat="server" Text="Save" OnCommand="EditCommentCommand" CssClass="btn btn-primary" />--%>
                 <asp:Button ID="ButtonCancel" runat="server" Text="Cancel" CssClass="btn btn-default" />
             </div>
         </div>
