@@ -2267,11 +2267,11 @@ namespace GMSConApp
                     //Retrieve Supplier Open Invoice
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Supplier Open Invoice data...");
                     query = "SELECT T0.\"CardCode\", T0.\"CardName\", T1.\"DocNum\", TO_VARCHAR(T1.\"DocDate\") as PD, TO_VARCHAR(T1.\"TaxDate\") as DD, TO_VARCHAR(T1.\"DocDueDate\") as Due, T1.\"NumAtCard\" as Ref, T1.\"DocCur\", T1.\"DocRate\", CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"DocTotal\" ELSE T1.\"DocTotalFC\" END AS DocTotal, " +
-             "CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"PaidToDate\" ELSE T1.\"PaidFC\" END AS PaidTotal, CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"DocTotal\" - T1.\"PaidToDate\" ELSE T1.\"DocTotalFC\" - T1.\"PaidFC\" END AS BalanceTotal, T2.\"SlpName\", T2.\"U_AF_SLPDIV\", T2.\"U_AF_BRANCH\" ,T1.\"ExtraDays\" FROM OCRD T0 " +
+             "CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"PaidToDate\" ELSE T1.\"PaidFC\" END AS PaidTotal, CASE WHEN T1.\"DocTotalFC\" = 0 THEN T1.\"DocTotal\" - T1.\"PaidToDate\" ELSE T1.\"DocTotalFC\" - T1.\"PaidFC\" END AS BalanceTotal, T2.\"SlpName\", T2.\"U_AF_SLPDIV\",T1.\"ExtraDays\" FROM OCRD T0 " +
              "LEFT OUTER JOIN OPCH T1 ON T0.\"CardCode\" = T1.\"CardCode\" LEFT OUTER JOIN OSLP T2 ON T1.\"SlpCode\" = T2.\"SlpCode\" INNER JOIN OCTG T3 ON T0.\"GroupNum\" = T3.\"GroupNum\" WHERE T0.\"CardType\" = 'S' AND T1.\"CANCELED\" = 'N' AND T1.\"DocStatus\" <> 'C' AND T0.\"CardCode\" BETWEEN '" + supplierCodeFrom + "' AND '" + supplierCodeTo + "' ";
                     ds = sop.GET_SAP_QueryData(1, query,
            "SupplierCode", "SupplierName", "TrnNo", "PostingDate", "DocumentDate", "DocumentDueDate", "RefNo", "CurrencyCode", "CurrencyRate",
-           "DocumentTotal", "PaidTotal", "BalanceTotal", "Buyer", "Division", "Branch", "CreditTerm", "Field17", "Field18", "Field19", "Field20",
+           "DocumentTotal", "PaidTotal", "BalanceTotal", "Buyer", "Division", "CreditTerm", "Field16", "Field17", "Field18", "Field19", "Field20",
            "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
 
                     //Insert Supplier Open Invoice data into GMS
@@ -2293,7 +2293,7 @@ namespace GMSConApp
                         GMSUtil.ToDouble(dr["BalanceTotal"].ToString()),
                         dr["Buyer"].ToString(),
                         dr["Division"].ToString(),
-                        dr["Branch"].ToString(),
+                       "",
                         GMSUtil.ToInt(dr["CreditTerm"].ToString())
                         );
                     }
