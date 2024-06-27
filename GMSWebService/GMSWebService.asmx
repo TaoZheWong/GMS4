@@ -1,1 +1,0 @@
-<%@ WebService Language="C#" CodeBehind="GMSWebService.asmx.cs" Class="GMSWebService.GMSWebService" %>
