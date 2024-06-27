@@ -30,7 +30,7 @@
         <ul>
             <li><a href="<%= Request.ApplicationPath %>/Documents/Staff.xls">Staff.xls</a></li>
             <li><a href="<%= Request.ApplicationPath %>/Documents/EducationQualification.xls">EducationQualification.xls</a></li>
-        <%--    <li><a href="<%= Request.ApplicationPath %>/Documents/EmploymentHistory.xls">EmploymentHistory.xls</a></li>--%>
+            <li><a href="<%= Request.ApplicationPath %>/Documents/EmploymentHistory.xls">EmploymentHistory.xls</a></li>
             <li><a href="<%= Request.ApplicationPath %>/Documents/CareerProgression.xls">CareerProgression.xls</a></li>
         </ul>
     </div>

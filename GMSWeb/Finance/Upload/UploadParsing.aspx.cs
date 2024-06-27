@@ -111,7 +111,7 @@ namespace GMSWeb.Organization.Upload
 
 
                 // item name
-                for (int i = 4; i < budgetExcel.Tables[0].Rows.Count; i++)
+                for (int i = 4; i < budgetExcel.Tables[0].Rows.Count-1; i++)
                 {
                     string itemName = budgetExcel.Tables[0].Rows[i][1].ToString();
                     IList<FinanceItem> lstItem = new SystemDataActivity().RetrieveFinanceItemByName(itemName);
@@ -251,6 +251,7 @@ namespace GMSWeb.Organization.Upload
                                 try
                                 {
                                     //insert
+                                    
                                     ResultType create = new BudgetActivity().CreateBudgetForFinance(ref budget, sess);
 
                                     if (create == ResultType.Ok)
@@ -262,7 +263,7 @@ namespace GMSWeb.Organization.Upload
                                     {
                                         //Response.Output.Write("<SPAN STYLE='color: red'>Processing error of type : " + result.ToString() + ".</SPAN><br>");
                                         Response.Flush();
-                                    }
+                                    }                                
                                 }
                                 catch (Exception ex)
                                 {
@@ -290,8 +291,8 @@ namespace GMSWeb.Organization.Upload
                 }
                 //Response.Output.Write("Updating YTD total for all items...<br>");
                 //Response.Flush();
-                new GMSGeneralDALC().procUpdateBudgetSummary(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
-                new GMSGeneralDALC().procUpdateBudgetPerformanceIndicators(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
+                //new GMSGeneralDALC().procUpdateBudgetSummary(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
+                //new GMSGeneralDALC().procUpdateBudgetPerformanceIndicators(sess.CompanyId, sess.FYE, this.ProjectID, this.DepartmentID, this.SectionID, this.UnitID, this.year);
             }
             catch (Exception ex)
             {

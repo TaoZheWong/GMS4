@@ -325,9 +325,9 @@ namespace GMSWeb.Admin.Accounts
         private void SendEmail(string loginId, string userEmail, string password, string userRealName)
         {
             LogSession session = base.GetSessionInfo();
-            System.Net.Mail.MailAddress adminEmailAddress = new System.Net.Mail.MailAddress("gmsadmin@leedenlimited.com", "GMS Administrator");
+            System.Net.Mail.MailAddress adminEmailAddress = new System.Net.Mail.MailAddress("gmsadmin@leedennox.com", "GMS Administrator");
             System.Net.Mail.MailAddress userEmailAddress = new System.Net.Mail.MailAddress(userEmail, userRealName);
-            string smtpServer = "smtp.leedenlimited.com";
+            string smtpServer = "smtp.leedennox.com";
 
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage(adminEmailAddress, userEmailAddress);
 
@@ -353,7 +353,7 @@ namespace GMSWeb.Admin.Accounts
                 mailClient.Host = smtpServer;
                 mailClient.Port = 25;
                 mailClient.UseDefaultCredentials = false;
-                System.Net.NetworkCredential authentication = new System.Net.NetworkCredential("gmsadmin@leedenlimited.com", "admin2008");
+                System.Net.NetworkCredential authentication = new System.Net.NetworkCredential("gmsadmin@leedennox.com", "A1b2c3d4*GMS");
                 mailClient.Credentials = authentication;
                 mailClient.Send(mail);
             }
@@ -368,9 +368,9 @@ namespace GMSWeb.Admin.Accounts
         private void SendResettedPassword(string loginId, string password, string userRealName, string userEmail)
         {
             LogSession session = base.GetSessionInfo();
-            System.Net.Mail.MailAddress adminEmailAddress = new System.Net.Mail.MailAddress("gmsadmin@leedenlimited.com", "GMS Administrator");
+            System.Net.Mail.MailAddress adminEmailAddress = new System.Net.Mail.MailAddress("gmsadmin@leedennox.com", "GMS Administrator");
             System.Net.Mail.MailAddress userEmailAddress = new System.Net.Mail.MailAddress(userEmail, userRealName);
-            string smtpServer = "smtp.leedenlimited.com";
+            string smtpServer = "smtp.leedennox.com";
 
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage(adminEmailAddress, userEmailAddress);
             //mail.ReplyTo = new System.Net.Mail.MailAddress("ray.tong@leedenlimited.com", "Tong Rui, Ray");
@@ -395,7 +395,7 @@ namespace GMSWeb.Admin.Accounts
                 mailClient.Host = smtpServer;
                 mailClient.Port = 25;
                 mailClient.UseDefaultCredentials = false;
-                System.Net.NetworkCredential authentication = new System.Net.NetworkCredential("gmsadmin@leedenlimited.com", "admin2008");
+                System.Net.NetworkCredential authentication = new System.Net.NetworkCredential("gmsadmin@leedennox.com", "A1b2c3d4*GMS");
                 mailClient.Credentials = authentication;
                 mailClient.Send(mail);
             }

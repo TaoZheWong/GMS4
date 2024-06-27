@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GMSWeb.Debtors.Commentary
-{
-
-
-    public partial class Commentary
-    {
-
+namespace GMSWeb.Debtors.Commentary {
+    
+    
+    public partial class Commentary {
+        
         /// <summary>
         /// MySiteHeader control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::GMSWeb.SiteHeader MySiteHeader;
-
+        
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-
+        
         /// <summary>
         /// txtAsOfDate control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAsOfDate;
-
+        
         /// <summary>
         /// hidAsOfDate control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidAsOfDate;
-
+        
         /// <summary>
         /// hidCoyID control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCoyID;
-
+        
         /// <summary>
         /// txtSalespersonID control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSalespersonID;
-
+        
         /// <summary>
         /// hidSalesperson control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidSalesperson;
-
+        
         /// <summary>
         /// txtSalesPersonName control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSalesPersonName;
-
+        
         /// <summary>
         /// Hidden1 control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden Hidden1;
-
+        
         /// <summary>
         /// ddlPeriod control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPeriod;
-
+        
         /// <summary>
         /// ddlSalesPersonType control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSalesPersonType;
-
+        
         /// <summary>
         /// txtAccountCode control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAccountCode;
-
+        
         /// <summary>
         /// txtAccountName control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAccountName;
-
+        
         /// <summary>
         /// btnSearch control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
-
+        
         /// <summary>
         /// MsgPanel2 control.
         /// </summary>
@@ -148,7 +146,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::GMSWeb.CustomCtrl.MessagePanelControl MsgPanel2;
-
+        
         /// <summary>
         /// lblSearchSummary control.
         /// </summary>
@@ -157,7 +155,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSearchSummary;
-
+        
         /// <summary>
         /// dgData control.
         /// </summary>
@@ -166,7 +164,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid dgData;
-
+        
         /// <summary>
         /// LINKBUTTON1 control.
         /// </summary>
@@ -175,7 +173,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LINKBUTTON1;
-
+        
         /// <summary>
         /// ddlReport control.
         /// </summary>
@@ -184,7 +182,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlReport;
-
+        
         /// <summary>
         /// PNL control.
         /// </summary>
@@ -193,7 +191,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PNL;
-
+        
         /// <summary>
         /// txtCounter control.
         /// </summary>
@@ -202,7 +200,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCounter;
-
+        
         /// <summary>
         /// txtComment control.
         /// </summary>
@@ -211,7 +209,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtComment;
-
+        
         /// <summary>
         /// hidAccountCode control.
         /// </summary>
@@ -220,7 +218,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidAccountCode;
-
+        
         /// <summary>
         /// hidCurrency control.
         /// </summary>
@@ -229,7 +227,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCurrency;
-
+        
         /// <summary>
         /// hidCommentDate control.
         /// </summary>
@@ -238,7 +236,16 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidCommentDate;
-
+        
+        /// <summary>
+        /// ButtonOk control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonOk;
+        
         /// <summary>
         /// ButtonCancel control.
         /// </summary>
@@ -247,7 +254,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonCancel;
-
+        
         /// <summary>
         /// udpMsgUpdater control.
         /// </summary>
@@ -256,7 +263,7 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel udpMsgUpdater;
-
+        
         /// <summary>
         /// PageMsgPanel control.
         /// </summary>
@@ -265,17 +272,15 @@ namespace GMSWeb.Debtors.Commentary
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::GMSWeb.CustomCtrl.MessagePanelControl PageMsgPanel;
-
+        
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new GMSWeb.Site Master
-        {
-            get
-            {
+        public new GMSWeb.Site Master {
+            get {
                 return ((GMSWeb.Site)(base.Master));
             }
         }

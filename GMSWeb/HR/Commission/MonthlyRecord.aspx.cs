@@ -74,15 +74,22 @@ namespace GMSWeb.HR.Commission
             IList<GMSCore.Entity.SalesPersonRecord> lstSalesPersonRecord = null;
             DataSet dsSalesRecord = new DataSet();
 
-            string IssuesDetected = IsVerifiedSalesAmount(year, month);
-            if (IssuesDetected != "")
+            // Only Allow SOX for SAP live run in 1 Apr 2024
+            if ((session.CompanyId.ToString() == "98" && 
+                    (Convert.ToInt32(year) > 2024 || (Convert.ToInt32(year) == 2024 && Convert.ToInt32(month) >= 4))
+                ) || session.CompanyId.ToString() != "98")
             {
-                this.PageMsgPanel.ShowMessage("Alert! " + IssuesDetected  + " for selected year and month does not tally.", MessagePanelControl.MessageEnumType.Alert);
-                this.lblSearchSummary.Visible = false;
-                this.dgData.DataSource =null;
-                this.dgData.DataBind();
-                return;
-            }
+                string IssuesDetected = IsVerifiedSalesAmount(year, month);
+                if (IssuesDetected != "")
+                {
+                    this.PageMsgPanel.ShowMessage("Alert! " + IssuesDetected + " for selected year and month does not tally.", MessagePanelControl.MessageEnumType.Alert);
+                    this.lblSearchSummary.Visible = false;
+                    this.dgData.DataSource = null;
+                    this.dgData.DataBind();
+                    return;
+                }
+            }          
+            
             try
             {
                 lstSalesPersonRecord = new SystemDataActivity().RetrieveAllSalesPersonRecordListByCompanyIDSortByYearMonthSalesPersonMasterID(session.CompanyId, year, month, GroupType);
