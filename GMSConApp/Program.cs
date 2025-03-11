@@ -7,8 +7,8 @@ namespace GMSConApp
 {
     class Program
     {
-        static string _DBConn = "server=LMS;database=GMS;user=lms_sa;password=Leeden628128!";
-        static string _LMSDBConn = "server=LMS;database=LNOX_Master;user=lms_sa;password=Leeden628128!";
+        static string _DBConn = "server=LEEDEN-LMS-02;database=GMS;user=lms_sa;password=2024$Drag0n$0229";
+        static string _LMSDBConn = "server=LEEDEN-LMS-02;database=LNOX_Master;user=lms_sa;password=2024$Drag0n$0229";
         //static string _LMSDBConn = "server=ldlnb17;database=LNOX_Master;user=sa;password=eason";
         //static string _DBConn = "server=192.168.1.236\\gms;database=gms;user=sa;password=gms$628128lnox";
         //static string _DBConn = "server=ldlnb17;database=GMS_20210503;user=sa;password=eason";
@@ -1258,17 +1258,54 @@ namespace GMSConApp
                 {
                     //Retrieve Sales Person
                     Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
-                    query = "SELECT * FROM OSLP";
-                    ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "field1", "SalespersonName", "SalespersonID", "field4", "field5", "field6", "field7", "field8", "field9", "Active", "field11", "field12", "Field13", "Field14", "Field15", "Division", "Field17", "ShortName", "Team", "Field20",
-                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    //query = "SELECT * FROM OSLP";
+                    //ds = sop.GET_SAP_QueryData(CoyID, query,
+                    //    "field1", "SalespersonName", "SalespersonID", "field4", "field5", "field6", "field7", "field8", "field9", "Active", "field11", "field12", "Field13", "Field14", "Field15", "Division", "Field17", "ShortName", "Team", "Field20",
+                    //    "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+
+                    query =
+                    "SELECT \"Memo\", \"SlpName\", \"U_AF_SLPTYPE\", \"Email\", \"Mobil\", \"Telephone\", \"Fax\", \"U_AF_SLPDIV\", \"Active\" FROM OSLP";
+                    ds = sop.GET_SAP_QueryData(
+                        CoyID,
+                        query,
+                        "SalesPersonID",
+                        "SalesPersonName",
+                        "SalesPersonType",
+                        "EmailAddress",
+                        "MobilePhone",
+                        "DID",
+                        "Fax",
+                        "Division",
+                        "Active",
+                        "Field10",
+                        "Field11",
+                        "Field12",
+                        "Field13",
+                        "Field14",
+                        "Field15",
+                        "Field16",
+                        "Field17",
+                        "Field18",
+                        "Field19",
+                        "Field20",
+                        "Field21",
+                        "Field22",
+                        "Field23",
+                        "Field24",
+                        "Field25",
+                        "Field26",
+                        "Field27",
+                        "Field28",
+                        "Field29",
+                        "Field30"
+                    );
 
                     //Insert Sales Person data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        if (dr["field15"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), dr["ShortName"].ToString(), dr["Team"].ToString(), dr["Active"].ToString());
+                        if (dr["SalesPersonType"].ToString() == "S")
+                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), "", "", dr["Active"].ToString());
                         else if (dr["field15"].ToString() == "B")
                             oDAL.GMS_Insert_Purchaser(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), "");
                     }
