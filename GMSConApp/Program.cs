@@ -1465,18 +1465,37 @@ namespace GMSConApp
                 if (execute)
                 {
                     //Retrieve Sales Person
-                    Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
-                    query = "SELECT \"Memo\", \"SlpName\", \"U_AF_SLPTYPE\", \"U_AF_SLPDIV\", \"U_AF_BRANCH\"  FROM OSLP T0";
-                    ds = sop.GET_SAP_QueryData(CoyID, query,
-                        "SalespersonID", "SalespersonName", "Type", "Division", "Team", "Active", "field7", "field8", "field9", "Field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
-                        "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    short[] excludeTeam = { 54, 7 }; // PTL, LDT
+                    if (Array.IndexOf(excludeTeam, CoyID) != -1)
+                    {
+                        // Team don't exists for entities
+                        Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
+                        query = "SELECT \"Memo\", \"SlpName\", \"U_AF_SLPTYPE\", \"U_AF_SLPDIV\", \"Active\" FROM OSLP T0";
+                        ds = sop.GET_SAP_QueryData(CoyID, query,
+                            "SalespersonID", "SalespersonName", "Type", "Division", "Active", "field6", "field7", "field8", "field9", "Field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                            "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    }
+                    else
+                    {
+                        Console.WriteLine(DateTime.Now.ToString() + " -- Retrieving Sales Person data...");
+                        query = "SELECT \"Memo\", \"SlpName\", \"U_AF_SLPTYPE\", \"U_AF_SLPDIV\", \"U_AF_BRANCH\", \"Active\"  FROM OSLP T0";
+                        ds = sop.GET_SAP_QueryData(CoyID, query,
+                            "SalespersonID", "SalespersonName", "Type", "Division", "Team", "Active", "field7", "field8", "field9", "Field10", "field11", "field12", "Field13", "Field14", "Field15", "Field16", "Field17", "Field18", "Field19", "Field20",
+                            "Field21", "Field22", "Field23", "Field24", "Field25", "Field26", "Field27", "Field28", "Field29", "Field30");
+                    }
 
                     //Insert Sales Person data into GMS
                     Console.WriteLine(DateTime.Now.ToString() + " -- Inserting Sales Person data into GMS...");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         if (dr["Type"].ToString() == "S")
-                            oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), "", dr["Team"].ToString(), dr["Active"].ToString());
+                        {
+                            if (Array.IndexOf(excludeTeam, CoyID) != -1)
+                            {
+                                oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), "","", dr["Active"].ToString());
+                            }
+                            else oDAL.GMS_Insert_SalesPerson(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), dr["Division"].ToString(), "", dr["Team"].ToString(), dr["Active"].ToString());
+                        }
                         else if (dr["Type"].ToString() == "B")
                             oDAL.GMS_Insert_Purchaser(CoyID, dr["SalespersonID"].ToString(), dr["SalespersonName"].ToString(), "");
                     }
